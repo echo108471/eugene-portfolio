@@ -1,12 +1,12 @@
 import React from "react";
-import { FaEnvelope, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 
 const ContactMe: React.FC = () => {
   return (
     <section className="mt-10 bg-white shadow-md rounded-lg p-6 border border-gray-200">
       <h2 className="text-2xl font-semibold text-gray-900">Contact Me</h2>
       <p className="mt-4 text-gray-700">
-        I'm always open to opportunities, collaborations, or feedback. Feel free to reach out to me through any of the platforms below.
+        I&apos;m always open to opportunities, collaborations, or feedback. Feel free to reach out to me through any of the platforms below.
       </p>
       <div className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-start gap-4">
         {/* Email */}

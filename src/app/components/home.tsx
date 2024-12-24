@@ -18,7 +18,7 @@ const Home: React.FC = () => {
         <section id="home" className="text-center scroll-mt-16">
           <h1 className="text-4xl font-bold">Eugene Cho</h1>
           <p className="mt-4 text-lg">
-            I'm a current junior at the University of California, Davis majoring in Computer Science and Managerial Economics.
+            I&apos;m a current junior at the University of California, Davis majoring in Computer Science and Managerial Economics.
           </p>
         </section>
 
