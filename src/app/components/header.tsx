@@ -5,6 +5,7 @@ import { JSX } from "react";
 import * as React from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import DarkModeToggle from "./dark-mode-toggle";
 import "../globals.css";
 
 interface NavItem {
@@ -44,7 +45,7 @@ const Header: React.FC = (): JSX.Element => {
   };
 
   return (
-    <header className="bg-gray-800 shadow sticky top-0 z-50">
+    <header className="bg-gray-800 shadow sticky top-0 z-50 dark:bg-header-dark">
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
@@ -63,6 +64,11 @@ const Header: React.FC = (): JSX.Element => {
               </button>
             ))}
           </div>
+        </div>
+        
+        {/* Dark Mode Toggle */}
+        <div className="flex items-center space-x-4">
+          <DarkModeToggle /> {/* Add the dark mode toggle button */}
         </div>
 
         {/* Mobile Menu Toggle */}

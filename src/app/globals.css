@@ -2,9 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Light mode */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background-light: #f9fafb;
+  --foreground-light: #111827;
+  --accent-light: #6366f1;
+  --innerbox-light: #1b1d1e;
+  --subtext-light: #6B7280;
+  --techstack-light: #6B7280;
+  --innertext-light: #6B7280;
+  --tinybox-light: #f3f4f6;
+  --header-light: #f9fafb;
+}
+
+/* Dark mode */
+:root.dark {
+  --background-dark: #1e2021;
+  --foreground-dark: #ebe8e2;
+  --accent-dark: #3b4143;
+  --innerbox-dark: #1b1d1e;
+  --subtext-dark: #aea497;
+  --techstack-dark: #c3bbb0;
+  --innertext-dark: #d0c9c1;
+  --tinybox-dark: #212325;
+  --header-dark: #1d2430;
 }
 
 body {

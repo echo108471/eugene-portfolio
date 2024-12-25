@@ -8,7 +8,7 @@ import ContactMe from "./contact_me";
 
 const Home: React.FC = () => {
   return (
-    <div className="bg-gray-50 text-gray-900">
+    <div className="bg-gray-100 text-gray-900 dark:bg-background-dark dark:text-foreground-dark">
       {/* Header */}
       <Header />
 
