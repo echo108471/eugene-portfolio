@@ -8,7 +8,8 @@ const AboutMe: React.FC = () => {
             <div className="space-y-8">
                 <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
                     <p className="mt-4 text-gray-700">
-                        I am a computer science enthusiast with a passion for bioinformatics and software development. My experience spans developing
+                        I&apos;m a current junior at the University of California, Davis majoring in Computer Science and Managerial Economics.
+                        My current interests include bioinformatics and full stack development. My experience spans developing
                         algorithms for CRISPR research, engineering database solutions for advanced drug screening, and full stack development. If you
                         would like to learn more about my work or have any feedback, please reach out to me at{" "}
                         <a href="mailto:eugene.a.cho@gmail.com" className="text-blue-600 hover:underline">

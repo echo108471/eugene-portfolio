@@ -1,5 +1,5 @@
 import React from "react";
-import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaLinkedin, FaFilePdf } from "react-icons/fa";
 
 const ContactMe: React.FC = () => {
   return (
@@ -38,6 +38,17 @@ const ContactMe: React.FC = () => {
         >
           <FaLinkedin className="mr-2 w-6 h-6" />
           LinkedIn
+        </a>
+
+        {/* Resume */} 
+        <a
+          href="EugeneChoResumeFinal.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center text-gray-700 hover:text-red-600 transition"
+        >
+          <FaFilePdf className="mr-2 w-6 h-6" />
+          Resume
         </a>
       </div>
     </section>
