@@ -68,7 +68,7 @@ const Header: React.FC = (): JSX.Element => {
         
         {/* Dark Mode Toggle */}
         <div className="flex items-center space-x-4">
-          <DarkModeToggle /> {/* Add the dark mode toggle button */}
+          <DarkModeToggle />
         </div>
 
         {/* Mobile Menu Toggle */}
