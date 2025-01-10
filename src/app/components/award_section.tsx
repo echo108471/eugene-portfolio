@@ -7,7 +7,7 @@ interface AwardCardProps {
 
 const AwardCard: React.FC<AwardCardProps> = ({ name, organization }) => {
   return (
-    <div className="block bg-white rounded-lg shadow-md p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark hover:bg-gray-100 dark:hover:bg-accent-dark">
+    <div className="block bg-white rounded-lg shadow-md p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark">
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-foreground-dark">
           {name}
