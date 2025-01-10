@@ -16,7 +16,7 @@ const education = [
     location: "Thousand Oaks, CA",
     date: "Aug. 2018 – May. 2022",
     description: [
-      "President of Code Nation and Recycling Club",
+      "President of Code Nation, President of Recycling Club",
     ],
   },
 ];

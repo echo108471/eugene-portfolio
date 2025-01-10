@@ -14,7 +14,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ date, name, description, tech
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="block bg-white rounded-lg shadow-md p-6 border border-gray-200 transition-transform transform hover:scale-105 hover:shadow-lg dark:bg-innerbox-dark dark:border-accent-dark"
+      className="block bg-white rounded-lg shadow-md p-6 border border-gray-200 transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-gray-100 dark:hover:bg-accent-dark dark:bg-innerbox-dark dark:border-accent-dark"
     >
       <div className="flex justify-between items-center">
         <span className="text-sm text-gray-500 dark:text-subtext-dark">{date}</span>
