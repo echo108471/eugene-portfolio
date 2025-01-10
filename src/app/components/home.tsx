@@ -5,6 +5,8 @@ import ExperienceSection from "./experience_section";
 import Projects from "./project_section";
 import AboutMe from "./about_me";
 import ContactMe from "./contact_me";
+import EducationSection from "./education_section";
+import AwardsSection from "./award_section";
 
 const Home: React.FC = () => {
   return (
@@ -29,9 +31,19 @@ const Home: React.FC = () => {
           <ExperienceSection />
         </section>
 
+        {/* Education Section */}
+        <section id="education" className="scroll-mt-16">
+          <EducationSection />
+        </section>
+
         {/* Projects Section */}
         <section id="projects" className="scroll-mt-16">
           <Projects />
+        </section>
+        
+        {/* Award Section */}
+        <section id="award" className="scroll-mt-16">
+          <AwardsSection />
         </section>
 
         {/* Contact Section */}
