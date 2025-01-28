@@ -4,6 +4,13 @@ import ProjectCard from "./project_card";
 const Projects: React.FC = () => {
   const projects = [
     {
+      date: "Oct. 2024 - Current",
+      name: "Cattlelog",
+      description: "Course Recommendation Tool built for UC Davis Students",
+      techStack: ["React","Typescript","TailwindCSS", "FastAPI", "PostgreSQL", "Docker", ],
+      link: "https://daviscattlelog.com"
+    },
+    {
       date: "Dec. 2024",
       name: "Resilient Files",
       description: "Decentralized file storage system using IPFS and ResilientDB, final project for ECS 189F.",
