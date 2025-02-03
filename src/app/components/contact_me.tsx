@@ -42,7 +42,7 @@ const ContactMe: React.FC = () => {
 
         {/* Resume */} 
         <a
-          href="EugeneChoResumeFinal.pdf"
+          href="EugeneChoResume.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center text-gray-700 hover:text-red-600 transition dark:text-innertext-dark dark:hover:text-red-600"
