@@ -3,11 +3,17 @@ import React from "react";
 interface AwardCardProps {
   name: string;
   organization: string;
+  link: string;
 }
 
-const AwardCard: React.FC<AwardCardProps> = ({ name, organization }) => {
+const AwardCard: React.FC<AwardCardProps> = ({ name, organization, link }) => {
   return (
-    <div className="block bg-white rounded-lg shadow-md p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark">
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block bg-white rounded-lg shadow-md p-6 border border-gray-200 transition-transform transform hover:shadow-lg hover:bg-gray-100 dark:hover:bg-accent-dark dark:bg-innerbox-dark dark:border-accent-dark"
+    >
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-foreground-dark">
           {name}
@@ -16,7 +22,7 @@ const AwardCard: React.FC<AwardCardProps> = ({ name, organization }) => {
       <p className="mt-2 text-gray-700 dark:text-innertext-dark">
         {organization}
       </p>
-    </div>
+    </a>
   );
 };
 
@@ -25,14 +31,17 @@ const Awards: React.FC = () => {
     {
       name: "Eagle Scout Award",
       organization: "Boy Scouts of America",
+      link: "https://www.scouting.org/",
     },
     {
       name: "ACSL Intermediate Division Finalist",
       organization: "American Computer Science League",
+      link: "https://www.acsl.org/",
     },
     {
       name: "Ventura County Fire Department Citizen Award",
       organization: "Ventura County Fire Department",
+      link: "https://vcfd.org/",
     },
   ];
 
@@ -46,6 +55,7 @@ const Awards: React.FC = () => {
               key={index}
               name={award.name}
               organization={award.organization}
+              link={award.link}
             />
           ))}
         </div>

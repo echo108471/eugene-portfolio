@@ -7,33 +7,40 @@ const experiences = [
     company: "AggieWorks",
     location: "Davis, CA",
     date: "Oct. 2024 – Current",
+    link: "https://aggieworks.org/",
     description: [
-      "Contributed to the development of a course recommendation tool by building the backend with FastAPI, utilizing BeautifulSoup4 for web scraping, and applying NLTK Vader for sentiment analysis.",
-      "Collaborated with product managers and designers to develop a full-stack application, iterating on existing features while contributing to both backend and frontend development.",
-      "Employed both Agile and Waterfall methodologies in a cross-functional team to effectively manage project timelines, adapt to changing requirements, and ensure cohesive communication across development, design, and product management teams.",
+      "Contributed to the development of a full stack course recommendation tool utilizing React and FastAPI.",
+      "Collaborated with a team of 8 with software engineers, product managers, and designers in a cross-functional team.",
+      "Employed both Agile and Waterfall methodologies in a cross-functional team to effectively manage project timelines, adapt to changing requirements, and ensure communication across development, design, and product management teams.",
+      "Deployed a REST API and PostgreSQL database on a VPS, utilizing Docker and GitHub Actions to establish a CI/CD pipeline.",
+      "Implemented advanced caching strategies reducing load times by 90% (from 20s to 2s) and decreasing API calls by 99.9%.",
+      "Integrated PostHog analytics to monitor user behavior, providing actionable insights that led to a 15% increase in feature engagement and improved user retention.",
     ],
-    techStack: ["FastAPI", "BeautifulSoup4", "React", "TailwindCSS"],
+    techStack: ["FastAPI", "React", "TailwindCSS", "PostgeSQL", "Docker", "PostHog"],
   },
   {
     title: "Bioinformatics Research Intern",
     company: "Seoul National University Medical School",
     location: "Seoul, Korea",
     date: "Jun. 2024 – Sep. 2024",
+    link: "https://snumrc.snu.ac.kr/gmi/en",
     description: [
-      "Researched cancer clonal model determination using monoallelic expression of inactivated genes at the Genomic Medicine Institute at SNU Medical School under Professor Kim Jong Il.",
-      "Focused on data analysis and representation of bulk DNA data, using data from MuTect2 and HaplotypeCaller.",
-      "Developed Python scripts utilizing Pandas, Seaborn, Sci-kit Learn and other libraries for advanced analyses and visualizations.",
+      "Conducted research on cancer clonal model determination using monoallelic expression of inactivated genes at the Genomic Medicine Institute, Seoul National University Medical School, under Professor Kim Jong Il.",
+      "Analyzed and visualized large-scale genomic data (>10 million entries) using outputs from MuTect2 and HaplotypeCaller, focusing on mutation detection and clonal evolution.",
+      "Utilized Python libraries such as Pandas, Seaborn, and scikit-learn to perform complex data analyses, statistical modeling, and advanced visualizations.",
+      "Developed robust Python scripts to automate genomic data processing, enabling efficient analysis and visualization of multi-million-line datasets."
     ],
-    techStack: ["Bash","Pandas", "NumPy", "Matplotlib", "MuTect2", "HaplotypeCaller", "Seaborn", "Sci-kit Learn", "Dash"],
+    techStack: ["Pandas", "NumPy", "Matplotlib", "MuTect2", "HaplotypeCaller", "Seaborn", "Scikit-learn", "Dash"],
   },
   {
-    title: "Bioinformatics Intern",
+    title: "Software Engineer Intern",
     company: "PNA Bio Inc.",
     location: "Thousand Oaks, CA",
     date: "Sep. 2023 – Jan. 2024",
+    link: "https://www.pnabio.com/",
     description: [
-      "Developed the PNA Designer Tool, a Python algorithm for selecting optimal sequences based on various parameters.",
-      "Designed the Donor Designer, an algorithm for generating DNA sequences with targeted mutations for CRISPR research.",
+      "Developed the PNA Designer Tool, a Python algorithm that selects optimal sequences based on parameters like length, melting temperature, purine content, and self-complementarity.",
+      "Designed the Donor Designer, an algorithm designed to generate customized DNA sequences with targeted mutations that create restriction enzyme sites, optimized specifically for donor design in CRISPR/Cas9 research applications.",
     ],
     techStack: ["Python", "JSON", "PHP", "HTML", "CSS"],
   },
@@ -54,7 +61,7 @@ const experiences = [
     location: "Seoul, Korea",
     date: "Jun. 2022 – Sep. 2022",
     description: [
-      "Engineered databases on a Linux server, employing MySQL to organize chemicals and enzymes for advanced drug screening.",
+      "Engineered databases on a Linux server with MySQL to categorize compounds crucial for advanced drug screening processes.",
       "Utilized Neo4j to generate visualizations of complex data structures, uncovering trends and connections.",
     ],
     techStack: ["Linux", "MySQL", "Neo4j"],
@@ -68,9 +75,12 @@ const ExperienceSection = () => {
         <h2 className="text-2xl font-semibold mb-6">Experiences</h2>
         <div className="space-y-8">
           {experiences.map((experience, index) => (
-            <div
+            <a
               key={index}
-              className="bg-white shadow-md rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark"
+              href={experience.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block bg-white rounded-lg shadow-md p-6 border border-gray-200 transition-transform transform hover:shadow-lg hover:bg-gray-100 dark:hover:bg-accent-dark dark:bg-innerbox-dark dark:border-accent-dark"
             >
               <h3 className="text-xl font-semibold text-gray-900 dark:text-foreground-dark">
                 {experience.company}
@@ -87,19 +97,19 @@ const ExperienceSection = () => {
                 ))}
               </ul>
               <div className="mt-4">
-        <h4 className="text-sm font-semibold text-gray-600 dark:text-techstack-dark">Tech Stack:</h4>
-        <ul className="flex flex-wrap gap-2 mt-2">
-          {experience.techStack.map((tech, index) => (
-            <li
-              key={index}
-              className="px-2 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded dark:bg-tinybox-dark dark:text-foreground-dark"
-            >
-              {tech}
-            </li>
-          ))}
-        </ul>
-      </div>
-            </div>
+                <h4 className="text-sm font-semibold text-gray-600 dark:text-techstack-dark">Tech Stack:</h4>
+                <ul className="flex flex-wrap gap-2 mt-2">
+                  {experience.techStack.map((tech, index) => (
+                    <li
+                      key={index}
+                      className="px-2 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded dark:bg-tinybox-dark dark:text-foreground-dark"
+                    >
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </a>
           ))}
         </div>
       </div>

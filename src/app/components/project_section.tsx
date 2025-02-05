@@ -27,22 +27,22 @@ const Projects: React.FC = () => {
     {
       date: "Sep. 2024",
       name: "Korean Quiz",
-      description: "Simple Korean quiz app built with React and Javascript, with a database and sqlite3 in the backend.",
-      techStack: ["React", "Javascript", "Express", "sqlite3"],
+      description: "Simple application to test Korean vocabulary and spelling, built with React, Express, and SQLite3.",
+      techStack: ["React", "Javascript", "Express", "SQLite3"],
       link: "https://github.com/Echo108471/KoreanQuiz",
     },
     {
       date: "Dec. 2023",
       name: "Donor Designer Tool",
       description: "Python algorithm for generating DNA sequences with targeted mutations for CRISPR research.",
-      techStack: ["PHP", "Python", "JSON"],
+      techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
       link: "https://github.com/Echo108471/Donor-Designer",
     },
     {
       date: "Sep. 2023",
       name: "PNA Designer Tool",
       description: "Python algorithm for selecting optimal sequences based on various parameters.",
-      techStack: ["PHP", "Python", "JSON"],
+      techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
       link: "https://github.com/Echo108471/PNA-Tool",
     },
   ];
