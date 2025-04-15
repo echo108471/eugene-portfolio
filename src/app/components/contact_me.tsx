@@ -31,7 +31,7 @@ const ContactMe: React.FC = () => {
 
         {/* LinkedIn */}
         <a
-          href="https://www.linkedin.com/in/eugene-c-8b4376218/"
+          href="https://www.linkedin.com/in/eachoo/"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center text-gray-700 hover:text-blue-700 transition dark:text-innertext-dark dark:hover:text-blue-700"
