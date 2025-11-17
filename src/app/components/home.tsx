@@ -10,15 +10,16 @@ import AwardsSection from "./award_section";
 
 const Home: React.FC = () => {
   return (
-    <div className="bg-gray-100 text-gray-900 dark:bg-background-dark dark:text-foreground-dark">
+    <div className="bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 text-gray-900 dark:bg-gradient-to-br dark:from-background-dark dark:via-gray-900 dark:to-background-dark dark:text-foreground-dark min-h-screen">
       {/* Header */}
       <Header />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Intro Section */}
-        <section id="home" className="text-center scroll-mt-16">
-          <h1 className="text-4xl font-bold">Eugene Cho</h1>
+        <section id="home" className="text-center scroll-mt-16 py-16">
+          <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight pb-2">Eugene Cho</h1>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 font-medium">Computer Science • Full Stack Developer • Bioinformatics</p>
         </section>
 
         {/* About Me Section */}

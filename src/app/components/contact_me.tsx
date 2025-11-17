@@ -3,7 +3,7 @@ import { FaEnvelope, FaGithub, FaLinkedin, FaFilePdf } from "react-icons/fa";
 
 const ContactMe: React.FC = () => {
   return (
-    <section className="mt-10 bg-white shadow-md rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark">
+    <section className="mt-10 bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark">
       <h2 className="text-2xl font-semibold text-gray-900 dark:text-foreground-dark">Contact Me</h2>
       <p className="mt-4 text-gray-700 dark:text-innertext-dark">
         I&apos;m always open to opportunities, collaborations, or feedback. Feel free to reach out to me through any of the platforms below.

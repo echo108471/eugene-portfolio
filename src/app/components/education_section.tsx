@@ -7,7 +7,7 @@ const education = [
     location: "Davis, CA",
     date: "Sep. 2022 – Jun. 2026 (Expected)",
     description: [
-      "Relevant coursework: ECS 36C Data Structures and Algorithms, ECS 122A Algorithm Design and Analysis, ECS 154A Computer Architecture, ECS 150 Operating Systems",
+      "Relevant coursework: ECS 36C Data Structures and Algorithms, ECS 122A Algorithm Design and Analysis, ECS 154A Computer Architecture, ECS 150 Operating Systems, ECS 140A Programming Languages, ECS189 Databases",
     ],
   },
   {
@@ -23,14 +23,14 @@ const education = [
 
 const EducationSection = () => {
   return (
-    <section className="bg-white-100 dark:bg-background-dark py-10">
+    <section className="py-10">
       <div className="container mx-auto dark:text-foreground-dark px-4">
         <h2 className="text-2xl font-semibold mb-6">Education</h2>
         <div className="space-y-8">
           {education.map((edu, index) => (
             <div
               key={index}
-              className="bg-white shadow-md rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark"
+              className="bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark"
             >
               <h3 className="text-xl font-semibold text-gray-900 dark:text-foreground-dark">
                 {edu.institution}

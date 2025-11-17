@@ -82,47 +82,62 @@ const experiences = [
 
 const ExperienceSection = () => {
   return (
-    <section className="bg-white-100 dark:bg-background-dark py-10">
+    <section className="py-10">
       <div className="container mx-auto dark:text-foreground-dark px-4">
         <h2 className="text-2xl font-semibold mb-6">Experiences</h2>
         <div className="space-y-8">
-          {experiences.map((experience, index) => (
-            <a
-              key={index}
-              href={experience.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block bg-white rounded-lg shadow-md p-6 border border-gray-200 transition-transform transform hover:shadow-lg hover:bg-gray-100 dark:hover:bg-accent-dark dark:bg-innerbox-dark dark:border-accent-dark"
-            >
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-foreground-dark">
-                {experience.company}
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-subtext-dark">
-                {experience.title} • {experience.location}
-              </p>
-              <p className="text-sm text-gray-500 italic mb-4 dark:text-subtext-dark">
-                {experience.date}
-              </p>
-              <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-innertext-dark">
-                {experience.description.map((item, idx) => (
-                  <li key={idx}>{item}</li>
-                ))}
-              </ul>
-              <div className="mt-4">
-                <h4 className="text-sm font-semibold text-gray-600 dark:text-techstack-dark">Tech Stack:</h4>
-                <ul className="flex flex-wrap gap-2 mt-2">
-                  {experience.techStack.map((tech, index) => (
-                    <li
-                      key={index}
-                      className="px-2 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded dark:bg-tinybox-dark dark:text-foreground-dark"
-                    >
-                      {tech}
-                    </li>
+          {experiences.map((experience, index) => {
+            const baseClasses = "block bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark";
+            const hoverClasses = experience.link ? "group transition-all duration-200 hover:shadow-2xl hover:border-gray-400 dark:hover:border-gray-500" : "";
+            
+            const content = (
+              <>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-foreground-dark">
+                  {experience.company}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-subtext-dark">
+                  {experience.title} • {experience.location}
+                </p>
+                <p className="text-sm text-gray-500 italic mb-4 dark:text-subtext-dark">
+                  {experience.date}
+                </p>
+                <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-innertext-dark">
+                  {experience.description.map((item, idx) => (
+                    <li key={idx}>{item}</li>
                   ))}
                 </ul>
+                <div className="mt-4">
+                  <h4 className="text-sm font-semibold text-gray-600 dark:text-techstack-dark">Tech Stack:</h4>
+                  <ul className="flex flex-wrap gap-2 mt-2">
+                    {experience.techStack.map((tech, index) => (
+                      <li
+                        key={index}
+                        className="px-2 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded dark:bg-tinybox-dark dark:text-foreground-dark"
+                      >
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            );
+
+            return experience.link ? (
+              <a
+                key={index}
+                href={experience.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${baseClasses} ${hoverClasses}`}
+              >
+                {content}
+              </a>
+            ) : (
+              <div key={index} className={baseClasses}>
+                {content}
               </div>
-            </a>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

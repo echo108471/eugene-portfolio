@@ -7,13 +7,11 @@ interface AwardCardProps {
 }
 
 const AwardCard: React.FC<AwardCardProps> = ({ name, organization, link }) => {
-  return (
-    <a
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block bg-white rounded-lg shadow-md p-6 border border-gray-200 transition-transform transform hover:shadow-lg hover:bg-gray-100 dark:hover:bg-accent-dark dark:bg-innerbox-dark dark:border-accent-dark"
-    >
+  const baseClasses = "block bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark";
+  const hoverClasses = link ? "group transition-all duration-200 hover:shadow-2xl hover:border-gray-400 dark:hover:border-gray-500" : "";
+  
+  const content = (
+    <>
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-foreground-dark">
           {name}
@@ -22,7 +20,22 @@ const AwardCard: React.FC<AwardCardProps> = ({ name, organization, link }) => {
       <p className="mt-2 text-gray-700 dark:text-innertext-dark">
         {organization}
       </p>
+    </>
+  );
+
+  return link ? (
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${baseClasses} ${hoverClasses}`}
+    >
+      {content}
     </a>
+  ) : (
+    <div className={baseClasses}>
+      {content}
+    </div>
   );
 };
 

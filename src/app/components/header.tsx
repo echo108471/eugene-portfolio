@@ -47,7 +47,7 @@ const Header: React.FC = (): JSX.Element => {
   };
 
   return (
-    <header className="bg-gray-800 shadow sticky top-0 z-50 dark:bg-header-dark">
+    <header className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg sticky top-0 z-50 dark:bg-gradient-to-r dark:from-header-dark dark:via-gray-900 dark:to-header-dark border-b border-gray-700 dark:border-gray-800 backdrop-blur-sm">
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
@@ -60,9 +60,10 @@ const Header: React.FC = (): JSX.Element => {
               <button
                 key={item.name}
                 onClick={() => handleScroll(item.href)}
-                className="text-sm font-semibold text-white hover:text-indigo-300"
+                className="text-sm font-semibold text-white hover:text-indigo-300 transition-colors duration-200 relative group"
               >
                 {item.name}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-400 to-purple-500 group-hover:w-full transition-all duration-200"></span>
               </button>
             ))}
           </div>
