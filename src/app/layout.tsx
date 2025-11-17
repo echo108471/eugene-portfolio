@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Eugene&apos;s Portfolio",
+  title: "Eugene's Portfolio",
   description: "Written by echo",
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Eugene&apos;s Portfolio</title>
+        <title>Eugene's Portfolio</title>
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body
