@@ -19,8 +19,38 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Eugene's Portfolio",
-  description: "Written by echo",
+  title: "Eugene Cho - Full Stack Software Engineer | UC Davis",
+  description: "Full Stack Software Engineer at UC Davis with experience in Python, React, TypeScript, and cloud technologies. Intern at Kaiser Permanente, building scalable backend services.",
+  keywords: ["Eugene Cho", "Software Engineer", "Full Stack Developer", "UC Davis", "Kaiser Permanente", "React", "Python", "TypeScript", "Web Development", "Computer Science"],
+  authors: [{ name: "Eugene Cho" }],
+  creator: "Eugene Cho",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://eugenecho.com",
+    title: "Eugene Cho - Full Stack Software Engineer",
+    description: "Full Stack Software Engineer at UC Davis with experience in Python, React, TypeScript, and cloud technologies.",
+    siteName: "Eugene Cho Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Eugene Cho - Full Stack Software Engineer",
+    description: "Full Stack Software Engineer at UC Davis with experience in Python, React, TypeScript, and cloud technologies.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "google-site-verification-code",
+  },
 };
 
 export default function RootLayout({
@@ -31,8 +61,31 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>Eugene&apos;s Portfolio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#111827" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://eugenecho.com" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Eugene Cho",
+              "jobTitle": "Full Stack Software Engineer",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "University of California, Davis"
+              },
+              "alumniOf": {
+                "@type": "CollegeOrUniversity",
+                "name": "University of California, Davis"
+              },
+              "knowsAbout": ["Software Engineering", "Web Development", "Python", "React", "TypeScript", "Cloud Computing"],
+              "url": "https://eugenecho.com"
+            }),
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
