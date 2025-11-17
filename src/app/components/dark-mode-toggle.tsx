@@ -48,23 +48,22 @@ const DarkModeToggle: React.FC = () => {
   return (
     <button
       onClick={toggleDarkMode}
-      className="relative inline-flex items-center h-6 w-12 rounded-full bg-gray-300 dark:bg-gray-600 transition-colors duration-300 focus:outline-none"
+      className="relative p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none active:outline-none"
+      aria-label="Toggle dark mode"
+      tabIndex={-1}
     >
-      <span
-        className={`absolute left-0 top-0.5 h-5 w-5 rounded-full bg-white dark:bg-gray-800 transform transition-transform duration-300 ${
-          isDarkMode ? "translate-x-6" : "translate-x-1"
-        }`}
-      />
-      <SunIcon
-        className={`absolute left-1.5 top-1/2 transform -translate-y-1/2 h-4 w-4 text-yellow-500 transition-opacity duration-300 ${
-          isDarkMode ? "opacity-0" : "opacity-100"
-        }`}
-      />
-      <MoonIcon
-        className={`absolute right-1.5 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-200 transition-opacity duration-300 ${
-          isDarkMode ? "opacity-100" : "opacity-0"
-        }`}
-      />
+      <div className="relative w-6 h-6">
+        <SunIcon
+          className={`absolute inset-0 h-6 w-6 text-yellow-500 transform transition-all duration-500 ${
+            isDarkMode ? "rotate-180 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
+          }`}
+        />
+        <MoonIcon
+          className={`absolute inset-0 h-6 w-6 text-blue-400 transform transition-all duration-500 ${
+            isDarkMode ? "rotate-0 scale-100 opacity-100" : "-rotate-180 scale-0 opacity-0"
+          }`}
+        />
+      </div>
     </button>
   );
 };

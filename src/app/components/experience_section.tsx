@@ -89,6 +89,7 @@ const ExperienceSection = () => {
           {experiences.map((experience, index) => {
             const baseClasses = "block bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark";
             const hoverClasses = experience.link ? "group transition-all duration-200 hover:shadow-2xl hover:border-gray-400 dark:hover:border-gray-500" : "";
+            const experienceId = `exp-${experience.company.toLowerCase().replace(/\s+/g, '-')}`;
             
             const content = (
               <>
@@ -125,6 +126,7 @@ const ExperienceSection = () => {
             return experience.link ? (
               <a
                 key={index}
+                id={experienceId}
                 href={experience.link}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -133,7 +135,7 @@ const ExperienceSection = () => {
                 {content}
               </a>
             ) : (
-              <div key={index} className={baseClasses}>
+              <div key={index} id={experienceId} className={baseClasses}>
                 {content}
               </div>
             );

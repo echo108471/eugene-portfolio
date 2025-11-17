@@ -13,7 +13,7 @@ const Projects: React.FC = () => {
     {
       date: "Dec. 2024",
       name: "Resilient Files",
-      description: "Decentralized file storage system using IPFS and ResilientDB, final project for ECS 189F.",
+      description: "Decentralized file storage system using IPFS and ResilientDB, final project for ECS 189F",
       techStack: ["React","Typescript", "IPFS", "ResilientDB", "Python", "FastAPI"],
       link: "https://github.com/ResilientApp/decentralized-sys",
     },
@@ -27,21 +27,21 @@ const Projects: React.FC = () => {
     {
       date: "Sep. 2024",
       name: "Korean Quiz",
-      description: "Simple application to test Korean vocabulary and spelling, built with React, Express, and SQLite3.",
+      description: "Simple application to test Korean vocabulary and spelling",
       techStack: ["React", "Javascript", "Express", "SQLite3"],
       link: "https://github.com/Echo108471/KoreanQuiz",
     },
     {
       date: "Dec. 2023",
       name: "Donor Designer Tool",
-      description: "Python algorithm for generating DNA sequences with targeted mutations for CRISPR research.",
+      description: "Python algorithm for generating DNA sequences with targeted mutations for CRISPR research",
       techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
       link: "https://github.com/Echo108471/Donor-Designer",
     },
     {
       date: "Sep. 2023",
       name: "PNA Designer Tool",
-      description: "Python algorithm for selecting optimal sequences based on various parameters.",
+      description: "Python algorithm for selecting optimal sequences based on various parameters",
       techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
       link: "https://github.com/Echo108471/PNA-Tool",
     },

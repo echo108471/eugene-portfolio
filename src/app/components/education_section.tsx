@@ -27,11 +27,14 @@ const EducationSection = () => {
       <div className="container mx-auto dark:text-foreground-dark px-4">
         <h2 className="text-2xl font-semibold mb-6">Education</h2>
         <div className="space-y-8">
-          {education.map((edu, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark"
-            >
+          {education.map((edu, index) => {
+            const educationId = `edu-${edu.institution.toLowerCase().replace(/\s+/g, '-')}`;
+            return (
+              <div
+                key={index}
+                id={educationId}
+                className="bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark"
+              >
               <h3 className="text-xl font-semibold text-gray-900 dark:text-foreground-dark">
                 {edu.institution}
               </h3>
@@ -47,7 +50,8 @@ const EducationSection = () => {
                 ))}
               </ul>
             </div>
-          ))}
+          );
+          })}
         </div>
       </div>
     </section>

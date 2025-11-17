@@ -8,14 +8,10 @@ const AboutMe: React.FC = () => {
             <div className="space-y-8">
                 <div className="bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark">
                     <p className="mt-4 text-gray-700 dark:text-innertext-dark leading-relaxed">
-                        Senior at the University of California, Davis majoring in Computer Science with interests in bioinformatics and full-stack development. 
-                        Experience spans building scalable web applications, implementing bioinformatics pipelines for genomic data analysis, and developing 
-                        algorithms for CRISPR research. Passionate about leveraging technology to solve complex problems in healthcare and education. 
-                        Currently seeking full-time opportunities in software engineering and bioinformatics. Reach out at{" "}
+                        Hi! I&apos;m a senior studying Computer Science at UC Davis, passionate about full-stack development. I enjoy building projects that have real world applications, especially where software and data intersect. A lot of my recent work has been in healthcare and education, and I&apos;m excited about roles where I can keep solving interesting, meaningful problems with code. I&apos;m currently looking for full-time opportunities in software engineering — feel free to reach out at{" "}
                         <a href="mailto:eugene.a.cho@gmail.com" className="text-blue-600 hover:underline dark:text-blue-400">
                         eugene.a.cho@gmail.com
                         </a>
-                        .
                     </p>
                 </div>
             </div>

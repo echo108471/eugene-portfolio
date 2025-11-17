@@ -7,6 +7,7 @@ import AboutMe from "./about_me";
 import ContactMe from "./contact_me";
 import EducationSection from "./education_section";
 import AwardsSection from "./award_section";
+import Timeline from "./timeline";
 
 const Home: React.FC = () => {
   return (
@@ -25,6 +26,11 @@ const Home: React.FC = () => {
         {/* About Me Section */}
         <section id="about" className="scroll-mt-16">
           <AboutMe />
+        </section>
+
+        {/* Timeline Section */}
+        <section id="timeline" className="scroll-mt-16">
+          <Timeline />
         </section>
 
         {/* Experience Section */}
