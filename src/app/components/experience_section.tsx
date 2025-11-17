@@ -3,20 +3,32 @@ import "../globals.css";
 
 const experiences = [
   {
+    title: "Software Engineer Intern",
+    company: "Kaiser Permanente",
+    location: "Remote",
+    date: "Jun. 2025 – Dec. 2025",
+    link: "https://www.kaiserpermanente.com/",
+    description: [
+      "Built and optimized backend services in Spring and Koa powering a NLP guided pre-visit survey system, scaling to over 500K monthly sessions.",
+      "Led implementation of a School Note decisioning feature, introducing SOAP-based scaffold integration and employing a config-driven release agent pattern for scalability and maintainability.",
+      "Diagnosed and resolved a redis cache miss pattern in evisit retrieval, reducing external API calls by 99%.",
+    ],
+    techStack: ["Spring", "Koa", "Node.js", "Java", "Kubernetes", "Redis", "XML", "SOAP", "Splunk", "Jenkins"],
+  },
+  {
     title: "Software Developer",
     company: "AggieWorks",
     location: "Davis, CA",
     date: "Oct. 2024 – Current",
     link: "https://aggieworks.org/",
     description: [
-      "Contributed to the development of a full stack course recommendation tool utilizing React and FastAPI.",
-      "Collaborated with a team of 8 with software engineers, product managers, and designers in a cross-functional team.",
+      "Built and launched Cattlelog, a full-stack course/professor insight tool for UC Davis, built with React, FastAPI, and PostgreSQL.",
+      "Collaborated with a team of 10 with engineers, product managers, marketers, and designers in a cross-functional team.",
       "Employed both Agile and Waterfall methodologies in a cross-functional team to effectively manage project timelines, adapt to changing requirements, and ensure communication across development, design, and product management teams.",
-      "Deployed a REST API and PostgreSQL database on a VPS, utilizing Docker and GitHub Actions to establish a CI/CD pipeline.",
       "Implemented advanced caching strategies reducing load times by 90% (from 20s to 2s) and decreasing API calls by 99.9%.",
       "Integrated PostHog analytics to monitor user behavior, providing actionable insights that led to a 15% increase in feature engagement and improved user retention.",
     ],
-    techStack: ["FastAPI", "React", "TailwindCSS", "PostgeSQL", "Docker", "PostHog"],
+    techStack: ["FastAPI", "React", "TailwindCSS", "PostgeSQL", "PostHog", "Redis", "Neptune"],
   },
   {
     title: "Bioinformatics Research Intern",
