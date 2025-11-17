@@ -19,7 +19,7 @@ const Home: React.FC = () => {
         {/* Intro Section */}
         <section id="home" className="text-center scroll-mt-16 py-16">
           <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight pb-2">Eugene Cho</h1>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 font-medium">Computer Science • Full Stack Developer • Bioinformatics</p>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 font-medium">Full Stack Engineer @ UC Davis</p>
         </section>
 
         {/* About Me Section */}

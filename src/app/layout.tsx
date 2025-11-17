@@ -19,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Eugene's Portfolio",
+  title: "Eugene&apos;s Portfolio",
   description: "Written by echo",
 };
 
@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Eugene's Portfolio</title>
+        <title>Eugene&apos;s Portfolio</title>
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body
