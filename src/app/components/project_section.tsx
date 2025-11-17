@@ -20,14 +20,14 @@ const Projects: React.FC = () => {
     {
       date: "Dec. 2024",
       name: "Resilient Files",
-      description: "Decentralized file storage system using IPFS and ResilientDB, final project for ECS 189F",
+      description: "Decentralized file storage system using IPFS and ResilientDB",
       techStack: ["React","Typescript", "IPFS", "ResilientDB", "Python", "FastAPI"],
       link: "https://github.com/ResilientApp/decentralized-sys",
     },
     {
       date: "Dec. 2024",
       name: "Monkey Trench Offense",
-      description: "Reverse tower defense game built in Godot Engine, final project for ECS 179.",
+      description: "Reverse tower defense game built in Godot Engine",
       techStack: ["Godot Engine", "GDScript"],
       link: "https://github.com/Echo108471/MonkeyTrenchOffense",
     },
