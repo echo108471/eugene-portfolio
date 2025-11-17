@@ -7,8 +7,15 @@ const Projects: React.FC = () => {
       date: "Oct. 2024 - Current",
       name: "Cattlelog",
       description: "Course Recommendation Tool built for UC Davis Students",
-      techStack: ["React","Typescript","TailwindCSS", "FastAPI", "PostgreSQL", "Docker", ],
+      techStack: ["React","Typescript","TailwindCSS", "FastAPI", "PostgreSQL", "Redis", "Neptune"],
       link: "https://daviscattlelog.com"
+    },
+    {
+      date: "Jan. 2025",
+      name: "Donor Designer Tool",
+      description: "Python algorithm for generating DNA sequences with targeted mutations for CRISPR research",
+      techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
+      link: "https://pnabio.com/pna-designer/",
     },
     {
       date: "Dec. 2024",
@@ -32,18 +39,11 @@ const Projects: React.FC = () => {
       link: "https://github.com/Echo108471/KoreanQuiz",
     },
     {
-      date: "Dec. 2023",
-      name: "Donor Designer Tool",
-      description: "Python algorithm for generating DNA sequences with targeted mutations for CRISPR research",
-      techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
-      link: "https://github.com/Echo108471/Donor-Designer",
-    },
-    {
-      date: "Sep. 2023",
+      date: "Sep. 2024",
       name: "PNA Designer Tool",
       description: "Python algorithm for selecting optimal sequences based on various parameters",
       techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
-      link: "https://github.com/Echo108471/PNA-Tool",
+      link: "https://pnabio.com/pna-tool/",
     },
   ];
 

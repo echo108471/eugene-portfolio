@@ -7,7 +7,7 @@ const education = [
     location: "Davis, CA",
     date: "Sep. 2022 – Jun. 2026 (Expected)",
     description: [
-      "Relevant coursework: ECS 36C Data Structures and Algorithms, ECS 122A Algorithm Design and Analysis, ECS 154A Computer Architecture, ECS 150 Operating Systems, ECS 140A Programming Languages, ECS189 Databases",
+      "Relevant coursework: ECS 36C Data Structures and Algorithms, ECS 122A Algorithm Design and Analysis, ECS 140A Programming Languages, ECS 150 Operating Systems, ECS 154A Computer Architecture, ECS 171 Machine Learning, ECS 189 Databases",
     ],
   },
   {

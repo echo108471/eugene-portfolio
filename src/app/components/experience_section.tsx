@@ -31,6 +31,18 @@ const experiences = [
     techStack: ["FastAPI", "React", "TailwindCSS", "PostgeSQL", "PostHog", "Redis", "Neptune"],
   },
   {
+    title: "Software Engineer Intern",
+    company: "PNA Bio Inc.",
+    location: "Thousand Oaks, CA",
+    date: "Sep. 2024 – Jan. 2025",
+    link: "https://www.pnabio.com/",
+    description: [
+      "Developed and launched web tool PNA Tool, a Python algorithm that selects optimal sequences based on parameters like length, melting temperature, purine content, and self-complementarity.",
+      "Developed and launched web tool PNA Designer, an algorithm designed to generate customized DNA sequences with targeted mutations that create restriction enzyme sites, optimized specifically for donor design in CRISPR/Cas9 research applications.",
+    ],
+    techStack: ["Python", "JSON", "PHP", "HTML", "CSS"],
+  },
+  {
     title: "Bioinformatics Research Intern",
     company: "Seoul National University Medical School",
     location: "Seoul, Korea",
@@ -43,18 +55,6 @@ const experiences = [
       "Developed robust Python scripts to automate genomic data processing, enabling efficient analysis and visualization of multi-million-line datasets."
     ],
     techStack: ["Pandas", "NumPy", "Matplotlib", "MuTect2", "HaplotypeCaller", "Seaborn", "Scikit-learn", "Dash"],
-  },
-  {
-    title: "Software Engineer Intern",
-    company: "PNA Bio Inc.",
-    location: "Thousand Oaks, CA",
-    date: "Sep. 2023 – Jan. 2024",
-    link: "https://www.pnabio.com/",
-    description: [
-      "Developed the PNA Designer Tool, a Python algorithm that selects optimal sequences based on parameters like length, melting temperature, purine content, and self-complementarity.",
-      "Designed the Donor Designer, an algorithm designed to generate customized DNA sequences with targeted mutations that create restriction enzyme sites, optimized specifically for donor design in CRISPR/Cas9 research applications.",
-    ],
-    techStack: ["Python", "JSON", "PHP", "HTML", "CSS"],
   },
   {
     title: "Software Engineer Intern",

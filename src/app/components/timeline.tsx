@@ -36,16 +36,27 @@ const timelineData: TimelineItem[] = [
     techStack: ["FastAPI", "React", "TailwindCSS", "PostgreSQL", "PostHog", "Redis"],
   },
   {
-    date: "Jun. 2024 – Sep. 2024",
-    title: "Bioinformatics Research Intern",
-    organization: "Seoul National University Medical School",
-    location: "Seoul, Korea",
+    date: "Sep. 2024 – Jan. 2025",
+    title: "Software Engineer Intern",
+    organization: "PNA Bio Inc.",
+    location: "Thousand Oaks, CA",
     type: "work",
     description: [
-      "Conducted research on cancer clonal model determination using genomic data analysis.",
+      "Built and deployed user facing web tools PNA Tool and PNA Designer for CRISPR/Cas9 research applications.",
     ],
-    techStack: ["Pandas", "NumPy", "Matplotlib", "MuTect2", "Seaborn"],
+    techStack: ["Python", "JSON", "PHP", "HTML", "CSS"],
   },
+  // {
+  //   date: "Jun. 2024 – Sep. 2024",
+  //   title: "Bioinformatics Research Intern",
+  //   organization: "Seoul National University Medical School",
+  //   location: "Seoul, Korea",
+  //   type: "work",
+  //   description: [
+  //     "Conducted research on cancer clonal model determination using genomic data analysis.",
+  //   ],
+  //   techStack: ["Pandas", "NumPy", "Matplotlib", "MuTect2", "Seaborn"],
+  // },
   {
     date: "Sep. 2022 – Jun. 2026",
     title: "B.S. Computer Science",
