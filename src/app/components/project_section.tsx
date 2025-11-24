@@ -35,8 +35,8 @@ const Projects: React.FC = () => {
       date: "Sep. 2024",
       name: "Korean Quiz",
       description: "Simple application to test Korean vocabulary and spelling",
-      techStack: ["React", "Javascript", "Express", "SQLite3"],
-      link: "https://github.com/Echo108471/KoreanQuiz",
+      techStack: ["React", "Javascript", "Tailwind", "Express", "SQLite3"],
+      link: "https://koreanquiz.onrender.com/",
     },
     {
       date: "Sep. 2024",
