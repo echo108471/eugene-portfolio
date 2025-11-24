@@ -12,8 +12,8 @@ const Projects: React.FC = () => {
     },
     {
       date: "Jan. 2025",
-      name: "Donor Designer Tool",
-      description: "Python algorithm for generating DNA sequences with targeted mutations for CRISPR research",
+      name: "PNA Designer Tool",
+      description: "Web tool for selecting optimal PNA oligos based on various parameters",
       techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
       link: "https://pnabio.com/pna-designer/",
     },
@@ -34,14 +34,14 @@ const Projects: React.FC = () => {
     {
       date: "Sep. 2024",
       name: "Korean Quiz",
-      description: "Simple application to test Korean vocabulary and spelling",
+      description: "Full-stack Korean vocabulary learning platform",
       techStack: ["React", "Javascript", "Tailwind", "Express", "SQLite3"],
       link: "https://koreanquiz.onrender.com/",
     },
     {
       date: "Sep. 2024",
-      name: "PNA Designer Tool",
-      description: "Python algorithm for selecting optimal sequences based on various parameters",
+      name: "PNA Tool",
+      description: "Web tool designed to give information about PNA oligos for optimal design",
       techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
       link: "https://pnabio.com/pna-tool/",
     },
