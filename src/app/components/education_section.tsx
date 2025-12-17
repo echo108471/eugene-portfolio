@@ -18,7 +18,8 @@ const education: EducationItem[] = [
     institution: "University of California, Davis",
     location: "Davis, CA",
     date: "Sep. 2022 – Jun. 2026 (Expected)",
-    logo: "/education/ucd.svg",
+    logoLight: "/education/ucd_logo_light.png",
+    logoDark: "/education/ucd_logo_dark.png",
     description: [
       "Relevant coursework: ECS 36C Data Structures and Algorithms, ECS 122A Algorithm Design and Analysis, ECS 124 Bioinformatics, ECS 140A Programming Languages, ECS 150 Operating Systems, ECS 154A Computer Architecture, ECS 171 Machine Learning, ECS 189 Databases",
     ],
