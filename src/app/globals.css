@@ -41,7 +41,12 @@ body {
   letter-spacing: -0.02em;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
   letter-spacing: -0.03em;
 }
@@ -51,6 +56,7 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     transform: translateY(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -61,3 +67,14 @@ h1, h2, h3, h4, h5, h6 {
   animation: fadeIn 0.3s ease-out forwards;
 }
 
+/* Theme based logo switching */
+.theme-logo {
+  background-image: var(--logo-light);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+html.dark .theme-logo {
+  background-image: var(--logo-dark) !important;
+}

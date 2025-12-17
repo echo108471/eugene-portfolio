@@ -142,35 +142,18 @@ const ExperienceSection = () => {
                 <div className="flex items-start gap-4 mb-4">
                   {(experience.logo || experience.logoLight || experience.logoDark) && (
                     <div className="flex-shrink-0 h-16 w-16 flex items-center justify-center bg-gray-50 dark:bg-tinybox-dark rounded-lg border border-gray-200 dark:border-accent-dark">
-                      {experience.logoLight && (
-                        <div className="block dark:hidden relative h-14 w-14">
-                          <Image
-                            src={experience.logoLight}
-                            alt={`${experience.company} logo`}
-                            width={56}
-                            height={56}
-                            priority
-                            className="object-contain w-full h-full"
-                            onError={(e) => {
-                              e.currentTarget.style.display = "none";
-                            }}
-                          />
-                        </div>
-                      )}
-                      {experience.logoDark && (
-                        <div className="hidden dark:block relative h-14 w-14">
-                          <Image
-                            src={experience.logoDark}
-                            alt={`${experience.company} logo`}
-                            width={56}
-                            height={56}
-                            priority
-                            className="object-contain w-full h-full"
-                            onError={(e) => {
-                              e.currentTarget.style.display = "none";
-                            }}
-                          />
-                        </div>
+                      {(experience.logoLight || experience.logoDark) && (
+                        <div
+                          className="theme-logo w-14 h-14"
+                          style={
+                            {
+                              "--logo-light": `url(${experience.logoLight})`,
+                              "--logo-dark": `url(${experience.logoDark})`,
+                            } as React.CSSProperties
+                          }
+                          role="img"
+                          aria-label={`${experience.company} logo`}
+                        />
                       )}
                       {experience.logo && !experience.logoLight && !experience.logoDark && (
                         <div className="relative h-14 w-14">
