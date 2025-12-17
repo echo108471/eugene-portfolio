@@ -13,6 +13,9 @@
   --innertext-light: #6B7280;
   --tinybox-light: #f3f4f6;
   --header-light: #f9fafb;
+
+  --background: var(--background-light);
+  --foreground: var(--foreground-light);
 }
 
 /* Dark mode */
@@ -26,6 +29,9 @@
   --innertext-dark: #d0c9c1;
   --tinybox-dark: #212325;
   --header-dark: #1d2430;
+
+  --background: var(--background-dark);
+  --foreground: var(--foreground-dark);
 }
 
 body {
@@ -55,9 +61,3 @@ h1, h2, h3, h4, h5, h6 {
   animation: fadeIn 0.3s ease-out forwards;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}

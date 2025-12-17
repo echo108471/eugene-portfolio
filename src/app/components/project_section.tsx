@@ -8,7 +8,8 @@ const Projects: React.FC = () => {
       name: "Cattlelog",
       description: "Course Recommendation Tool built for UC Davis Students",
       techStack: ["React","Typescript","TailwindCSS", "FastAPI", "PostgreSQL", "Redis", "Neptune"],
-      link: "https://daviscattlelog.com"
+      link: "https://daviscattlelog.com",
+      image: "/projects/cattlelog.png"
     },
     {
       date: "Jan. 2025",
@@ -16,6 +17,7 @@ const Projects: React.FC = () => {
       description: "Web tool for selecting optimal PNA oligos based on various parameters",
       techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
       link: "https://pnabio.com/pna-designer/",
+      image: "/projects/pna-designer.png"
     },
     {
       date: "Dec. 2024",
@@ -23,6 +25,7 @@ const Projects: React.FC = () => {
       description: "Decentralized file storage system using IPFS and ResilientDB",
       techStack: ["React","Typescript", "IPFS", "ResilientDB", "Python", "FastAPI"],
       link: "https://github.com/ResilientApp/decentralized-sys",
+      image: "/projects/resilient-files.png"
     },
     {
       date: "Dec. 2024",
@@ -30,6 +33,7 @@ const Projects: React.FC = () => {
       description: "Reverse tower defense game built in Godot Engine",
       techStack: ["Godot Engine", "GDScript"],
       link: "https://github.com/Echo108471/MonkeyTrenchOffense",
+      image: "/projects/monkey-trench.png"
     },
     {
       date: "Sep. 2024",
@@ -37,6 +41,7 @@ const Projects: React.FC = () => {
       description: "Full-stack Korean vocabulary learning platform",
       techStack: ["React", "Javascript", "Tailwind", "Express", "SQLite3"],
       link: "https://koreanquiz.onrender.com/",
+      image: "/projects/korean-quiz.png"
     },
     {
       date: "Sep. 2024",
@@ -44,6 +49,7 @@ const Projects: React.FC = () => {
       description: "Web tool designed to give information about PNA oligos for optimal design",
       techStack: ["PHP", "HTML", "CSS", "Python", "JSON"],
       link: "https://pnabio.com/pna-tool/",
+      image: "/projects/pna-tool.png"
     },
   ];
 
@@ -60,6 +66,7 @@ return (
             description={project.description}
             techStack={project.techStack}
             link={project.link}
+            image={project.image}
           />
         ))}
       </div>
