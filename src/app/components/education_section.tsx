@@ -2,7 +2,7 @@ import React from "react";
 
 const education = [
   {
-    degree: "B.S. Computer Science, B.S. Managerial Economics",
+    degree: "B.S. Computer Science",
     institution: "University of California, Davis",
     location: "Davis, CA",
     date: "Sep. 2022 – Jun. 2026 (Expected)",
