@@ -1,49 +1,24 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import React from "react";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 
+function withTransitionsDisabled(fn: () => void) {
+  document.documentElement.classList.add("disable-transitions");
+  fn();
+  window.setTimeout(() => {
+    document.documentElement.classList.remove("disable-transitions");
+  }, 0);
+}
+
 const DarkModeToggle: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false); 
-
-  useEffect(() => {
-    setHasMounted(true);
-
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "dark") {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    } else if (storedTheme === "light") {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
-    } else {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (prefersDark) {
-        setIsDarkMode(true);
-        document.documentElement.classList.add("dark");
-      } else {
-        setIsDarkMode(false);
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  }, []);
-
   const toggleDarkMode = () => {
-    setIsDarkMode((prev) => {
-      const newMode = !prev;
-      if (newMode) {
-        localStorage.setItem("theme", "dark");
-        document.documentElement.classList.add("dark");
-      } else {
-        localStorage.setItem("theme", "light");
-        document.documentElement.classList.remove("dark");
-      }
-      return newMode;
+    const nextIsDark = !document.documentElement.classList.contains("dark");
+    withTransitionsDisabled(() => {
+      localStorage.setItem("theme", nextIsDark ? "dark" : "light");
+      document.documentElement.classList.toggle("dark", nextIsDark);
     });
   };
-
-  if (!hasMounted) {
-    return null;
-  }
 
   return (
     <button
@@ -54,14 +29,10 @@ const DarkModeToggle: React.FC = () => {
     >
       <div className="relative w-6 h-6">
         <SunIcon
-          className={`absolute inset-0 h-6 w-6 text-yellow-500 transform transition-all duration-500 ${
-            isDarkMode ? "rotate-180 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
-          }`}
+          className="absolute inset-0 h-6 w-6 text-yellow-500 transform transition-all duration-500 rotate-0 scale-100 opacity-100 dark:rotate-180 dark:scale-0 dark:opacity-0"
         />
         <MoonIcon
-          className={`absolute inset-0 h-6 w-6 text-blue-400 transform transition-all duration-500 ${
-            isDarkMode ? "rotate-0 scale-100 opacity-100" : "-rotate-180 scale-0 opacity-0"
-          }`}
+          className="absolute inset-0 h-6 w-6 text-blue-400 transform transition-all duration-500 -rotate-180 scale-0 opacity-0 dark:rotate-0 dark:scale-100 dark:opacity-100"
         />
       </div>
     </button>

@@ -92,6 +92,7 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
+                  document.documentElement.classList.add('disable-transitions');
                   const theme = localStorage.getItem('theme');
                   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                   if (theme === 'dark' || (!theme && prefersDark)) {
@@ -99,6 +100,9 @@ export default function RootLayout({
                   } else {
                     document.documentElement.classList.remove('dark');
                   }
+                  window.setTimeout(function() {
+                    document.documentElement.classList.remove('disable-transitions');
+                  }, 0);
                 } catch (e) {}
               })();
             `,
