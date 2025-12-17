@@ -1,6 +1,6 @@
-<svg width="1440" height="852" viewBox="0 0 1440 852" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_6120_5782)">
-<rect width="1440" height="852" fill="url(#paint0_linear_6120_5782)"/>
+<rect width="1600" height="900" fill="url(#paint0_linear_6120_5782)"/>
 <g filter="url(#filter0_d_6120_5782)">
 <circle cx="378.339" cy="791.829" r="23.188" transform="rotate(-55.6198 378.339 791.829)" stroke="#5990B3" stroke-width="7.5" shape-rendering="crispEdges"/>
 </g>
@@ -883,7 +883,7 @@
 <stop offset="1" stop-color="#E6C36E"/>
 </linearGradient>
 <clipPath id="clip0_6120_5782">
-<rect width="1440" height="852" fill="white"/>
+<rect width="1600" height="900" fill="white"/>
 </clipPath>
 <clipPath id="clip1_6120_5782">
 <rect width="21" height="24" fill="white" transform="translate(469.5 541)"/>

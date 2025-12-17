@@ -33,7 +33,7 @@ const Projects: React.FC = () => {
       description: "Reverse tower defense game built in Godot Engine",
       techStack: ["Godot Engine", "GDScript"],
       link: "https://github.com/Echo108471/MonkeyTrenchOffense",
-      image: "/projects/monkey-trench.png"
+      image: "/projects/monkey-trench-offense.png"
     },
     {
       date: "Sep. 2024",
