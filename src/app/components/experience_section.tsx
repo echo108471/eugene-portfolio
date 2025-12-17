@@ -143,13 +143,14 @@ const ExperienceSection = () => {
                   {(experience.logo || experience.logoLight || experience.logoDark) && (
                     <div className="flex-shrink-0 h-16 w-16 flex items-center justify-center bg-gray-50 dark:bg-tinybox-dark rounded-lg border border-gray-200 dark:border-accent-dark">
                       {experience.logoLight && (
-                        <div className="block dark:hidden">
+                        <div className="block dark:hidden relative h-14 w-14">
                           <Image
                             src={experience.logoLight}
                             alt={`${experience.company} logo`}
                             width={56}
                             height={56}
-                            className="object-contain"
+                            priority
+                            className="object-contain w-full h-full"
                             onError={(e) => {
                               e.currentTarget.style.display = "none";
                             }}
@@ -157,13 +158,14 @@ const ExperienceSection = () => {
                         </div>
                       )}
                       {experience.logoDark && (
-                        <div className="hidden dark:block">
+                        <div className="hidden dark:block relative h-14 w-14">
                           <Image
                             src={experience.logoDark}
                             alt={`${experience.company} logo`}
                             width={56}
                             height={56}
-                            className="object-contain"
+                            priority
+                            className="object-contain w-full h-full"
                             onError={(e) => {
                               e.currentTarget.style.display = "none";
                             }}
@@ -171,16 +173,19 @@ const ExperienceSection = () => {
                         </div>
                       )}
                       {experience.logo && !experience.logoLight && !experience.logoDark && (
-                        <Image
-                          src={experience.logo}
-                          alt={`${experience.company} logo`}
-                          width={56}
-                          height={56}
-                          className="object-contain"
-                          onError={(e) => {
-                            e.currentTarget.style.display = "none";
-                          }}
-                        />
+                        <div className="relative h-14 w-14">
+                          <Image
+                            src={experience.logo}
+                            alt={`${experience.company} logo`}
+                            width={56}
+                            height={56}
+                            priority
+                            className="object-contain w-full h-full"
+                            onError={(e) => {
+                              e.currentTarget.style.display = "none";
+                            }}
+                          />
+                        </div>
                       )}
                     </div>
                   )}
