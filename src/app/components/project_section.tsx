@@ -9,7 +9,7 @@ const Projects: React.FC = () => {
       description: "Course Recommendation Tool built for UC Davis Students",
       techStack: ["React","Typescript","TailwindCSS", "FastAPI", "PostgreSQL", "Redis", "Neptune"],
       link: "https://daviscattlelog.com",
-      image: "/projects/cattlelog.png"
+      image: "/projects/cattlelog.svg"
     },
     {
       date: "Jan. 2025",
