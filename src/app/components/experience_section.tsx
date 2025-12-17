@@ -65,7 +65,7 @@ const experiences = [
       "Developed and launched web tool PNA Tool, a Python algorithm that selects optimal sequences based on parameters like length, melting temperature, purine content, and self-complementarity.",
       "Developed and launched web tool PNA Designer, an algorithm designed to generate customized DNA sequences with targeted mutations that create restriction enzyme sites, optimized specifically for donor design in CRISPR/Cas9 research applications.",
     ],
-    techStack: ["Python", "JSON", "PHP", "HTML", "CSS"],
+    techStack: ["Python", "JSON", "PHP", "HTML/CSS"],
   },
   {
     title: "Bioinformatics Research Intern",

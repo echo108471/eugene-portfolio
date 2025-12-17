@@ -14,7 +14,7 @@ interface TimelineItem {
 
 const timelineData: TimelineItem[] = [
   {
-    date: "Jun. 2025 – Dec. 2025",
+    date: "Jun. 2025 – Current",
     title: "Software Engineer Intern",
     organization: "Kaiser Permanente",
     location: "Remote",
@@ -44,7 +44,7 @@ const timelineData: TimelineItem[] = [
     description: [
       "Built and deployed user facing web tools PNA Tool and PNA Designer for CRISPR/Cas9 research applications.",
     ],
-    techStack: ["Python", "JSON", "PHP", "HTML", "CSS"],
+    techStack: ["Python", "JSON", "PHP", "HTML/CSS"],
   },
   // {
   //   date: "Jun. 2024 – Sep. 2024",
