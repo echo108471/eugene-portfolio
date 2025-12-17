@@ -34,8 +34,8 @@
   --tinybox-dark: #212325;
   --header-dark: #1d2430;
 
-  --background-gradient-dark: radial-gradient(1000px circle at 20% 10%, rgba(99, 102, 241, 0.2) 0%, transparent 60%),
-    radial-gradient(900px circle at 80% 20%, rgba(168, 85, 247, 0.10) 0%, transparent 60%),
+  --background-gradient-dark: radial-gradient(1000px circle at 20% 10%, rgba(99, 102, 241, 0.10) 0%, transparent 60%),
+    radial-gradient(900px circle at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 60%),
     linear-gradient(to bottom, #020617 0%, rgba(15, 23, 42, 0.60) 50%, rgba(30, 27, 75, 0.15) 100%);
   --background: var(--background-dark);
   --foreground: var(--foreground-dark);
