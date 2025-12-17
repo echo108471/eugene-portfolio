@@ -14,8 +14,29 @@
   --tinybox-light: #f3f4f6;
   --header-light: #f9fafb;
 
+  /* Light mode background gradients (Tailwind equivalents)
+     1) bg-gradient-to-br from-slate-50 via-pink-50/60 to-indigo-50/50
+     2) bg-gradient-to-b  from-white via-rose-50/50 to-slate-50
+     3) bg-gradient-to-tr from-zinc-50 via-fuchsia-50/50 to-sky-50/40
+     4) bg-gradient-to-r  from-white via-pink-50/50 to-purple-50/40
+  */
+  --background-gradient-light: linear-gradient(
+    to bottom right,
+    #f8fafc 0%,
+    rgba(253, 242, 248, 0.60) 50%,
+    rgba(238, 242, 255, 0.50) 100%
+  );
+
+  /* Option 2 */
+  /* --background-gradient-light: linear-gradient(to bottom, #ffffff 0%, rgba(255, 241, 242, 0.50) 50%, #f8fafc 100%); */
+  /* Option 3 */
+  /* --background-gradient-light: linear-gradient(to top right, #fafafa 0%, rgba(253, 244, 255, 0.50) 50%, rgba(240, 249, 255, 0.40) 100%); */
+  /* Option 4 */
+  /* --background-gradient-light: linear-gradient(to right, #ffffff 0%, rgba(253, 242, 248, 0.50) 50%, rgba(250, 245, 255, 0.40) 100%); */
+
   --background: var(--background-light);
   --foreground: var(--foreground-light);
+  --background-gradient: var(--background-gradient-light);
 }
 
 /* Dark mode */
@@ -30,13 +51,20 @@
   --tinybox-dark: #212325;
   --header-dark: #1d2430;
 
+  --background-gradient-dark: linear-gradient(to bottom, #020617 0%, rgba(15, 23, 42, 0.60) 50%, rgba(30, 27, 75, 0.15) 100%);
   --background: var(--background-dark);
   --foreground: var(--foreground-dark);
+  --background-gradient: var(--background-gradient-dark);
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background-color: var(--background);
+  background-image: var(--background-gradient);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-family: var(--font-jetbrains-mono), monospace;
   letter-spacing: -0.02em;
 }

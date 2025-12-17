@@ -11,7 +11,7 @@ import Timeline from "./timeline";
 
 const Home: React.FC = () => {
   return (
-    <div className="bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 text-gray-900 dark:bg-gradient-to-br dark:from-background-dark dark:via-gray-900 dark:to-background-dark dark:text-foreground-dark min-h-screen">
+    <div className="text-gray-900 dark:text-foreground-dark min-h-screen">
       {/* Header */}
       <Header />
 
