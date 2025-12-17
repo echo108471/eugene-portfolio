@@ -12,6 +12,14 @@ const Projects: React.FC = () => {
       image: "/projects/cattlelog.svg"
     },
     {
+      date: "Dec. 2025",
+      name: "CollabRoomAI",
+      description: "Real-time collaborative chat application with integrated AI agents",
+      techStack: ["SvelteKit","Typescript","TailwindCSS", "Go", "Fiber", "Websockets", "OpenAI API"],
+      link: "https://github.com/Echo108471/CollabRoomAI",
+      image: "/projects/collabroomai.png"
+    },
+    {
       date: "Jan. 2025",
       name: "PNA Designer Tool",
       description: "Web tool for selecting optimal PNA oligos based on various parameters",
