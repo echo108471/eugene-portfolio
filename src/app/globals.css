@@ -14,26 +14,9 @@
   --tinybox-light: #f3f4f6;
   --header-light: #f9fafb;
 
-  /* Light mode background gradients (Tailwind equivalents)
-     1) bg-gradient-to-br from-slate-50 via-pink-50/60 to-indigo-50/50
-     2) bg-gradient-to-b  from-white via-rose-50/50 to-slate-50
-     3) bg-gradient-to-tr from-zinc-50 via-fuchsia-50/50 to-sky-50/40
-     4) bg-gradient-to-r  from-white via-pink-50/50 to-purple-50/40
-  */
-  --background-gradient-light: linear-gradient(
-    to bottom right,
-    #f8fafc 0%,
-    rgba(253, 242, 248, 0.60) 50%,
-    rgba(238, 242, 255, 0.50) 100%
-  );
-
-  /* Option 2 */
-  /* --background-gradient-light: linear-gradient(to bottom, #ffffff 0%, rgba(255, 241, 242, 0.50) 50%, #f8fafc 100%); */
-  /* Option 3 */
-  /* --background-gradient-light: linear-gradient(to top right, #fafafa 0%, rgba(253, 244, 255, 0.50) 50%, rgba(240, 249, 255, 0.40) 100%); */
-  /* Option 4 */
-  /* --background-gradient-light: linear-gradient(to right, #ffffff 0%, rgba(253, 242, 248, 0.50) 50%, rgba(250, 245, 255, 0.40) 100%); */
-
+  --background-gradient-light: radial-gradient(900px circle at 20% 10%, rgba(236, 72, 153, 0.14) 0%, transparent 60%),
+    radial-gradient(900px circle at 80% 20%, rgba(99, 102, 241, 0.10) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
   --background: var(--background-light);
   --foreground: var(--foreground-light);
   --background-gradient: var(--background-gradient-light);
@@ -51,7 +34,9 @@
   --tinybox-dark: #212325;
   --header-dark: #1d2430;
 
-  --background-gradient-dark: linear-gradient(to bottom, #020617 0%, rgba(15, 23, 42, 0.60) 50%, rgba(30, 27, 75, 0.15) 100%);
+  --background-gradient-dark: radial-gradient(1000px circle at 20% 10%, rgba(99, 102, 241, 0.10) 0%, transparent 60%),
+    radial-gradient(900px circle at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 60%),
+    linear-gradient(to bottom, #020617 0%, rgba(15, 23, 42, 0.60) 50%, rgba(30, 27, 75, 0.15) 100%);
   --background: var(--background-dark);
   --foreground: var(--foreground-dark);
   --background-gradient: var(--background-gradient-dark);
@@ -63,10 +48,42 @@ body {
   background-image: var(--background-gradient);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover;
+  /* Layered motion for the background gradient (subtle parallax) */
+  background-size: 170% 170%, 160% 160%, 100% 100%;
+  background-position: 0% 0%, 100% 0%, 0% 0%;
+  animation: background-pan 26s ease-in-out infinite alternate,
+    background-breathe 14s ease-in-out infinite;
   transition: background-color 0.3s ease, color 0.3s ease;
   font-family: var(--font-jetbrains-mono), monospace;
   letter-spacing: -0.02em;
+}
+
+@keyframes background-pan {
+  0% {
+    background-position: 0% 0%, 100% 0%, 0% 0%;
+  }
+  50% {
+    background-position: 35% 18%, 70% 25%, 0% 0%;
+  }
+  100% {
+    background-position: 100% 55%, 20% 60%, 0% 0%;
+  }
+}
+
+@keyframes background-breathe {
+  0%,
+  100% {
+    background-size: 170% 170%, 160% 160%, 100% 100%;
+  }
+  50% {
+    background-size: 185% 185%, 170% 170%, 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
 }
 
 h1,
