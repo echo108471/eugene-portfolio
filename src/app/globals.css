@@ -14,8 +14,10 @@
   --tinybox-light: #f3f4f6;
   --header-light: #f9fafb;
 
+  /* Add a subtle, always-present glow layer so the gradient never fully disappears */
   --background-gradient-light: radial-gradient(900px circle at 20% 10%, rgba(236, 72, 153, 0.14) 0%, transparent 60%),
     radial-gradient(900px circle at 80% 20%, rgba(99, 102, 241, 0.10) 0%, transparent 60%),
+    radial-gradient(1400px circle at 50% 60%, rgba(99, 102, 241, 0.05) 0%, transparent 70%),
     linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
   --background: var(--background-light);
   --foreground: var(--foreground-light);
@@ -34,8 +36,10 @@
   --tinybox-dark: #212325;
   --header-dark: #1d2430;
 
+  /* Add a subtle, always-present glow layer so the gradient never fully disappears */
   --background-gradient-dark: radial-gradient(1000px circle at 20% 10%, rgba(99, 102, 241, 0.08) 0%, transparent 60%),
     radial-gradient(900px circle at 80% 20%, rgba(128, 85, 247, 0.06) 0%, transparent 60%),
+    radial-gradient(1600px circle at 50% 60%, rgba(99, 102, 241, 0.035) 0%, transparent 72%),
     linear-gradient(to bottom, #020617 0%, rgba(15, 23, 42, 0.60) 50%, rgba(30, 27, 75, 0.15) 100%);
   --background: var(--background-dark);
   --foreground: var(--foreground-dark);
@@ -49,8 +53,8 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   /* Layered motion for the background gradient (subtle parallax) */
-  background-size: 170% 170%, 160% 160%, 100% 100%;
-  background-position: 0% 0%, 100% 0%, 0% 0%;
+  background-size: 170% 170%, 160% 160%, 140% 140%, 100% 100%;
+  background-position: 0% 0%, 100% 0%, 50% 50%, 0% 0%;
   animation: background-pan 26s ease-in-out infinite alternate,
     background-breathe 14s ease-in-out infinite;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -60,23 +64,23 @@ body {
 
 @keyframes background-pan {
   0% {
-    background-position: 0% 0%, 100% 0%, 0% 0%;
+    background-position: 0% 0%, 100% 0%, 50% 50%, 0% 0%;
   }
   50% {
-    background-position: 35% 18%, 70% 25%, 0% 0%;
+    background-position: 35% 18%, 70% 25%, 52% 55%, 0% 0%;
   }
   100% {
-    background-position: 100% 55%, 20% 60%, 0% 0%;
+    background-position: 100% 55%, 20% 60%, 48% 45%, 0% 0%;
   }
 }
 
 @keyframes background-breathe {
   0%,
   100% {
-    background-size: 170% 170%, 160% 160%, 100% 100%;
+    background-size: 170% 170%, 160% 160%, 140% 140%, 100% 100%;
   }
   50% {
-    background-size: 185% 185%, 170% 170%, 100% 100%;
+    background-size: 185% 185%, 170% 170%, 150% 150%, 100% 100%;
   }
 }
 
