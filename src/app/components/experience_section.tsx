@@ -60,7 +60,7 @@ const experiences = [
     location: "Thousand Oaks, CA",
     date: "Sep. 2024 – Jan. 2025",
     link: "https://www.pnabio.com/",
-    logoLight: "/logos/pna_logo.svg",
+    logoLight: "/logos/pna_logo_light.svg",
     logoDark: "/logos/pna_logo_dark.svg",
     description: [
       "Developed and launched web tool PNA Tool, a Python algorithm that selects optimal sequences based on parameters like length, melting temperature, purine content, and self-complementarity.",
