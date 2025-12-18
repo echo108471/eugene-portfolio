@@ -60,7 +60,8 @@ const experiences = [
     location: "Thousand Oaks, CA",
     date: "Sep. 2024 – Jan. 2025",
     link: "https://www.pnabio.com/",
-    logo: "/logos/pna_logo.svg",
+    logoLight: "/logos/pna_logo.svg",
+    logoDark: "/logos/pna_logo_dark.svg",
     description: [
       "Developed and launched web tool PNA Tool, a Python algorithm that selects optimal sequences based on parameters like length, melting temperature, purine content, and self-complementarity.",
       "Developed and launched web tool PNA Designer, an algorithm designed to generate customized DNA sequences with targeted mutations that create restriction enzyme sites, optimized specifically for donor design in CRISPR/Cas9 research applications.",
