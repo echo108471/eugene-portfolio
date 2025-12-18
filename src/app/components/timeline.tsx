@@ -58,7 +58,7 @@ const timelineData: TimelineItem[] = [
   //   techStack: ["Pandas", "NumPy", "Matplotlib", "MuTect2", "Seaborn"],
   // },
   {
-    date: "Sep. 2022 – Jun. 2026",
+    date: "Sep. 2022 – Current",
     title: "B.S. Computer Science",
     organization: "University of California, Davis",
     location: "Davis, CA",
