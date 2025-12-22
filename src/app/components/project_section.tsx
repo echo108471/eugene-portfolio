@@ -45,7 +45,7 @@ const Projects: React.FC = () => {
     },
     {
       date: "Sep. 2024",
-      name: "Korean Quiz",
+      name: "HangulStudy",
       description: "Full-stack Korean vocabulary learning platform",
       techStack: ["React", "Javascript", "Tailwind", "Express.js", "SQLite3"],
       link: "https://koreanquiz.onrender.com/",
