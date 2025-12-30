@@ -20,7 +20,7 @@ const ContactMe: React.FC = () => {
 
         {/* GitHub */}
         <a
-          href="https://github.com/Echo108471"
+          href="https://github.com/echo108471"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center text-gray-700 hover:text-gray-900 transition dark:text-innertext-dark dark:hover:text-gray-900"

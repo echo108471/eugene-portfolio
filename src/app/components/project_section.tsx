@@ -16,7 +16,7 @@ const Projects: React.FC = () => {
       name: "CollabRoomAI",
       description: "Real-time collaborative chat application with integrated AI agents",
       techStack: ["SvelteKit","Typescript","TailwindCSS", "Go", "Fiber", "Websockets", "OpenAI API"],
-      link: "https://github.com/Echo108471/CollabRoomAI",
+      link: "https://github.com/echo108471/CollabRoomAI",
       image: "/projects/collabroomai.png"
     },
     {
@@ -40,7 +40,7 @@ const Projects: React.FC = () => {
       name: "Monkey Trench Offense",
       description: "Reverse tower defense game built in Godot Engine",
       techStack: ["Godot Engine", "GDScript"],
-      link: "https://github.com/Echo108471/MonkeyTrenchOffense",
+      link: "https://github.com/echo108471/MonkeyTrenchOffense",
       image: "/projects/monkey-trench-offense.png"
     },
     {
