@@ -11,11 +11,11 @@ const ContactMe: React.FC = () => {
       <div className="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-start gap-4">
         {/* Email */}
         <a
-          href="mailto:eugene.a.cho@gmail.com"
+          href="mailto:eacho@ucdavis.edu"
           className="flex items-center text-gray-700 hover:text-blue-600 transition dark:text-innertext-dark dark:hover:text-blue-600"
         >
           <FaEnvelope className="mr-2 w-6 h-6" />
-          eugene.a.cho@gmail.com
+          eacho@ucdavis.edu
         </a>
 
         {/* GitHub */}
