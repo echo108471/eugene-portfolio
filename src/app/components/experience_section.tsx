@@ -9,7 +9,7 @@ const experiences = [
     title: "Software Engineer Intern",
     company: "Kaiser Permanente",
     location: "Remote",
-    date: "Jun. 2025 – Current",
+    date: "Jun. 2025 – Dec. 2025",
     link: "https://www.kaiserpermanente.com/",
     logo: "/logos/kp_logo.svg",
     description: [

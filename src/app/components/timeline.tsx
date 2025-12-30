@@ -14,7 +14,7 @@ interface TimelineItem {
 
 const timelineData: TimelineItem[] = [
   {
-    date: "Jun. 2025 – Current",
+    date: "Jun. 2025 – Dec. 2025",
     title: "Software Engineer Intern",
     organization: "Kaiser Permanente",
     location: "Remote",
