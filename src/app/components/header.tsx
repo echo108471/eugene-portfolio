@@ -32,40 +32,33 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const updateScrolled = () => setIsScrolled(window.scrollY > 8);
-    updateScrolled();
+    const handleScrollEvent = () => {
+      setIsScrolled(window.scrollY > 8);
 
-    window.addEventListener("scroll", updateScrolled, { passive: true });
-    return () => window.removeEventListener("scroll", updateScrolled);
-  }, []);
+      const sections = navItems
+        .map((item) => document.getElementById(item.href))
+        .filter((section): section is HTMLElement => Boolean(section));
 
-  useEffect(() => {
-    const sections = navItems
-      .map((item) => document.getElementById(item.href))
-      .filter((section): section is HTMLElement => Boolean(section));
+      let currentActive = "home";
+      const scrollPosition = window.scrollY + 120; // Offset for header + padding
 
-    if (sections.length === 0) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visibleEntry?.target.id) {
-          setActiveSection(visibleEntry.target.id);
+      sections.forEach((section) => {
+        if (section.offsetTop <= scrollPosition) {
+          currentActive = section.id;
         }
-      },
-      {
-        rootMargin: "-35% 0px -45% 0px",
-        threshold: [0.1, 0.25, 0.5, 0.75],
-      }
-    );
+      });
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+      // Highlight the last section if scrolled to the absolute bottom
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10) {
+        currentActive = navItems[navItems.length - 1].href;
+      }
+
+      setActiveSection(currentActive);
+    };
+
+    handleScrollEvent();
+    window.addEventListener("scroll", handleScrollEvent, { passive: true });
+    return () => window.removeEventListener("scroll", handleScrollEvent);
   }, []);
 
   const handleScroll = (id: string) => {
@@ -149,7 +142,7 @@ const Header: React.FC = () => {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/70 p-2 text-slate-800 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-700 active:translate-y-0 lg:hidden dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-indigo-400/40 dark:hover:text-indigo-200"
+            className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/70 p-2 text-slate-800 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-indigo-200 hover:text-indigo-700 active:scale-[0.98] lg:hidden dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-indigo-400/40 dark:hover:text-indigo-200"
           >
             <span className="sr-only">Open main menu</span>
             <Bars3Icon className="h-5 w-5" aria-hidden="true" />

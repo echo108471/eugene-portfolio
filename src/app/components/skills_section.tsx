@@ -102,7 +102,7 @@ const SkillsSection: React.FC = () => {
         {skillGroups.map((group) => (
           <div
             key={group.label}
-            className="rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm shadow-slate-900/5 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-950/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40"
+            className="rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200 hover:shadow-md active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40"
           >
             <h3 className="text-base font-semibold text-slate-950 dark:text-white">
               {group.label}
