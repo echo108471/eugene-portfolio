@@ -91,7 +91,7 @@ const Projects: React.FC = () => {
               Projects
             </p>
             <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
-              Project work, shipped tools, and experiments.
+              Selected Projects.
             </h2>
             <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
               Selected builds across education, collaboration, bioinformatics, storage, and games.

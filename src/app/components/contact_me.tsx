@@ -54,7 +54,7 @@ const ContactMe: React.FC = () => {
                 Contact
               </p>
               <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">
-                Let&apos;s build something useful.
+                Get in touch.
               </h2>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300">
                 Reach me through email, LinkedIn, GitHub, or the portfolio links from my resume.
@@ -71,7 +71,7 @@ const ContactMe: React.FC = () => {
                     href={method.href}
                     target={method.href.startsWith("http") || method.href.endsWith(".pdf") ? "_blank" : undefined}
                     rel={method.href.startsWith("http") || method.href.endsWith(".pdf") ? "noopener noreferrer" : undefined}
-                    className={`group flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-white/10 p-4 text-sm text-slate-200 transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/20 active:translate-y-0 ${method.color}`}
+                    className={`group flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-white/10 p-4 text-sm text-slate-200 transition-all duration-300 hover:scale-[1.02] hover:bg-white/20 active:scale-[0.98] ${method.color}`}
                   >
                     <span className="flex min-w-0 items-center gap-3">
                       <Icon className="h-5 w-5 flex-none transition-transform duration-200 group-hover:-translate-y-0.5" aria-hidden="true" />

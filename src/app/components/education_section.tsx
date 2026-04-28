@@ -92,7 +92,7 @@ const EducationSection = () => {
             Education
           </p>
           <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
-            Academic foundation.
+            Education & background.
           </h2>
         </div>
       </Reveal>
@@ -105,7 +105,7 @@ const EducationSection = () => {
             <div
               key={edu.institution}
               id={educationId}
-              className="group rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm shadow-slate-900/5 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-950/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40"
+              className="group rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200 hover:shadow-md active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40"
             >
               <div className="flex gap-4">
                 <EducationLogo edu={edu} />

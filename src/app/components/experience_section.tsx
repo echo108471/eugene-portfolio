@@ -226,7 +226,7 @@ const ExperienceSection = () => {
               Experience
             </p>
             <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
-              Proof through shipped work.
+              Where I&apos;ve worked.
             </h2>
             <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
               Backend systems, product surfaces, and data-heavy tools across healthcare, education, and research.
@@ -241,7 +241,7 @@ const ExperienceSection = () => {
 
           const content = (
             <>
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+              <div className="absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
               <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
                 <ExperienceLogo experience={experience} priority={index < 2} />
@@ -300,7 +300,7 @@ const ExperienceSection = () => {
           );
 
           const cardClasses =
-            "group relative block overflow-hidden rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm shadow-slate-900/5 transition-colors duration-200 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-950/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40";
+            "group relative block overflow-hidden rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200 hover:shadow-md hover:shadow-indigo-950/5 active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40";
 
           return experience.link ? (
             <motion.a

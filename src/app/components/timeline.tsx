@@ -146,7 +146,7 @@ const Timeline: React.FC = () => {
             Timeline
           </p>
           <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
-            A quick map of recent work.
+            Recent milestones.
           </h2>
           <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
             Click an item to jump to its detailed section.
@@ -187,7 +187,7 @@ const Timeline: React.FC = () => {
                       onClick={() => scrollToSection(getTargetId(item))}
                       whileHover={shouldReduceMotion ? undefined : cardHover}
                       whileTap={shouldReduceMotion ? undefined : cardTap}
-                      className="group block w-full rounded-lg border border-slate-200 bg-white/75 p-5 text-left shadow-sm shadow-slate-900/5 transition-colors duration-200 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-950/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40"
+                      className="group block w-full rounded-lg border border-slate-200 bg-white/75 p-5 text-left shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200 hover:shadow-md active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40"
                     >
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600 dark:bg-white/10 dark:text-slate-300">
