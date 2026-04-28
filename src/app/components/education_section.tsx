@@ -1,5 +1,7 @@
 import React from "react";
 import Image from "next/image";
+import { CalendarDaysIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { Reveal } from "./motion";
 
 interface EducationItem {
   degree: string;
@@ -17,12 +19,10 @@ const education: EducationItem[] = [
     degree: "B.S. Computer Science",
     institution: "University of California, Davis",
     location: "Davis, CA",
-    date: "Sep. 2022 – Jun. 2026 (Expected)",
+    date: "Expected Jun. 2026",
     logoLight: "/education/ucd_logo_light.png",
     logoDark: "/education/ucd_logo_dark.png",
-    description: [
-      "Relevant coursework: ECS 36C Data Structures and Algorithms, ECS 122A Algorithm Design and Analysis, ECS 124 Bioinformatics, ECS 140A Programming Languages, ECS 150 Operating Systems, ECS 154A Computer Architecture, ECS 171 Machine Learning, ECS 189 Databases",
-    ],
+    description: ["B.S. in Computer Science"],
   },
   {
     degree: "High School Diploma",
@@ -35,74 +35,115 @@ const education: EducationItem[] = [
   },
 ];
 
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+function EducationLogo({ edu }: { edu: EducationItem }) {
+  if (!edu.logo && !edu.logoLight && !edu.logoDark) {
+    return (
+      <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+        {edu.institution
+          .split(" ")
+          .slice(0, 2)
+          .map((word) => word[0])
+          .join("")}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 transition-colors duration-200 group-hover:border-indigo-200 group-hover:bg-white dark:border-white/10 dark:bg-white/5 dark:group-hover:border-indigo-400/40">
+      {(edu.logoLight || edu.logoDark) && (
+        <div
+          className="theme-logo h-11 w-11"
+          style={
+            {
+              "--logo-light": `url(${edu.logoLight})`,
+              "--logo-dark": `url(${edu.logoDark})`,
+            } as React.CSSProperties
+          }
+          role="img"
+          aria-label={`${edu.institution} logo`}
+        />
+      )}
+
+      {edu.logo && !edu.logoLight && !edu.logoDark && (
+        <Image
+          src={edu.logo}
+          alt={`${edu.institution} logo`}
+          width={44}
+          height={44}
+          className="h-11 w-11 object-contain"
+        />
+      )}
+    </div>
+  );
+}
+
 const EducationSection = () => {
   return (
-    <section className="py-10">
-      <div className="container mx-auto dark:text-foreground-dark px-4">
-        <h2 className="text-2xl font-semibold mb-6">Education</h2>
-        <div className="space-y-8">
-          {education.map((edu, index) => {
-            const educationId = `edu-${edu.institution.toLowerCase().replace(/\s+/g, '-')}`;
-            return (
-              <div
-                key={index}
-                id={educationId}
-                className="bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  {(edu.logo || edu.logoLight || edu.logoDark) && (
-                    <div className="flex-shrink-0 h-16 w-16 flex items-center justify-center bg-gray-50 dark:bg-tinybox-dark rounded-lg border border-gray-200 dark:border-accent-dark">
-                      {(edu.logoLight || edu.logoDark) && (
-                        <div
-                          className="theme-logo w-14 h-14"
-                          style={
-                            {
-                              "--logo-light": `url(${edu.logoLight})`,
-                              "--logo-dark": `url(${edu.logoDark})`,
-                            } as React.CSSProperties
-                          }
-                          role="img"
-                          aria-label={`${edu.institution} logo`}
-                        />
-                      )}
+    <section className="py-12 sm:py-14">
+      <Reveal>
+        <div className="mb-8 max-w-2xl">
+          <p className="text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-300">
+            Education
+          </p>
+          <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
+            Academic foundation.
+          </h2>
+        </div>
+      </Reveal>
 
-                      {edu.logo && !edu.logoLight && !edu.logoDark && (
-                        <div className="relative h-14 w-14">
-                          <Image
-                            src={edu.logo}
-                            alt={`${edu.institution} logo`}
-                            width={56}
-                            height={56}
-                            priority
-                            className="object-contain w-full h-full"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  )}
+      <div className="grid gap-5 lg:grid-cols-2">
+        {education.map((edu) => {
+          const educationId = `edu-${slugify(edu.institution)}`;
 
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-foreground-dark">
-                      {edu.institution}
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-subtext-dark">
-                      {edu.degree} • {edu.location}
-                    </p>
-                    <p className="text-sm text-gray-500 italic dark:text-subtext-dark">
+          return (
+            <div
+              key={edu.institution}
+              id={educationId}
+              className="group rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm shadow-slate-900/5 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-950/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40"
+            >
+              <div className="flex gap-4">
+                <EducationLogo edu={edu} />
+
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-lg font-semibold text-slate-950 dark:text-white">
+                    {edu.institution}
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">
+                    {edu.degree}
+                  </p>
+
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 dark:bg-white/10">
+                      <MapPinIcon className="h-4 w-4" aria-hidden="true" />
+                      {edu.location}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 dark:bg-white/10">
+                      <CalendarDaysIcon className="h-4 w-4" aria-hidden="true" />
                       {edu.date}
-                    </p>
+                    </span>
                   </div>
                 </div>
-
-                <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-innertext-dark">
-                  {edu.description.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
               </div>
-            );
-          })}
-        </div>
+
+              <div className="mt-5 border-t border-slate-100 pt-5 dark:border-white/10">
+                {edu.description.map((item) => (
+                  <p
+                    key={item}
+                    className="text-sm leading-6 text-slate-700 dark:text-innertext-dark"
+                  >
+                    {item}
+                  </p>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

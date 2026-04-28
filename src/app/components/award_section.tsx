@@ -1,4 +1,6 @@
 import React from "react";
+import { ArrowTopRightOnSquareIcon, TrophyIcon } from "@heroicons/react/24/outline";
+import { Reveal } from "./motion";
 
 interface AwardCardProps {
   name: string;
@@ -7,35 +9,33 @@ interface AwardCardProps {
 }
 
 const AwardCard: React.FC<AwardCardProps> = ({ name, organization, link }) => {
-  const baseClasses = "block bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark";
-  const hoverClasses = link ? "group transition-all duration-200 hover:shadow-2xl hover:border-gray-400 dark:hover:border-gray-500" : "";
-  
   const content = (
     <>
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-foreground-dark">
-          {name}
-        </h3>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-indigo-50 text-indigo-700 transition-colors duration-200 group-hover:bg-indigo-100 dark:bg-indigo-400/10 dark:text-indigo-200 dark:group-hover:bg-indigo-400/20">
+          <TrophyIcon className="h-5 w-5" aria-hidden="true" />
+        </div>
+        <ArrowTopRightOnSquareIcon className="h-4 w-4 flex-none text-slate-400 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-300" aria-hidden="true" />
       </div>
-      <p className="mt-2 text-gray-700 dark:text-innertext-dark">
+
+      <h3 className="mt-5 text-base font-semibold leading-6 text-slate-950 dark:text-white">
+        {name}
+      </h3>
+      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
         {organization}
       </p>
     </>
   );
 
-  return link ? (
+  return (
     <a
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${baseClasses} ${hoverClasses}`}
+      className="group block h-full rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm shadow-slate-900/5 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-950/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40"
     >
       {content}
     </a>
-  ) : (
-    <div className={baseClasses}>
-      {content}
-    </div>
   );
 };
 
@@ -59,19 +59,27 @@ const Awards: React.FC = () => {
   ];
 
   return (
-    <section className="bg-white-100 py-10">
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-semibold mb-6">Awards</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {awards.map((award, index) => (
-            <AwardCard
-              key={index}
-              name={award.name}
-              organization={award.organization}
-              link={award.link}
-            />
-          ))}
+    <section className="py-12 sm:py-14">
+      <Reveal>
+        <div className="mb-8 max-w-2xl">
+          <p className="text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-300">
+            Awards
+          </p>
+          <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
+            Supporting credibility.
+          </h2>
         </div>
+      </Reveal>
+
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {awards.map((award) => (
+          <AwardCard
+            key={award.name}
+            name={award.name}
+            organization={award.organization}
+            link={award.link}
+          />
+        ))}
       </div>
     </section>
   );
