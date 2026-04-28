@@ -60,7 +60,15 @@ body {
     background-breathe 14s ease-in-out infinite;
   transition: background-color 0.3s ease, color 0.3s ease;
   font-family: var(--font-jetbrains-mono), monospace;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.22);
 }
 
 @keyframes background-pan {
@@ -86,8 +94,21 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   body {
     animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
@@ -98,7 +119,23 @@ h4,
 h5,
 h6 {
   font-weight: 600;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
+}
+
+:where(a, button, [role="button"], input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 3px;
+  border-radius: 0.75rem;
+}
+
+html.dark :where(a, button, [role="button"], input, textarea, select, summary):focus-visible {
+  outline-color: #818cf8;
+}
+
+.disable-transitions *,
+.disable-transitions *::before,
+.disable-transitions *::after {
+  transition: none !important;
 }
 
 @keyframes fadeIn {

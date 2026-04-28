@@ -2,9 +2,50 @@
 
 import React from "react";
 import Image from "next/image";
+import {
+  ArrowTopRightOnSquareIcon,
+  CalendarDaysIcon,
+  MapPinIcon,
+} from "@heroicons/react/24/outline";
+import { motion, useReducedMotion } from "framer-motion";
+import { cardHover, cardTap, Reveal } from "./motion";
 import "../globals.css";
 
-const experiences = [
+interface ExperienceItem {
+  title: string;
+  company: string;
+  location: string;
+  date: string;
+  link?: string;
+  logo?: string;
+  logoLight?: string;
+  logoDark?: string;
+  description: string[];
+  techStack: string[];
+}
+
+const experiences: ExperienceItem[] = [
+  {
+    title: "Software Engineer Intern",
+    company: "Persist AI (YC W23)",
+    location: "Sacramento, CA",
+    date: "Feb. 2026 – Present",
+    description: [
+      "Building a multi-agent platform for pharmaceutical formulation workflows, integrating 22 specialized backend agents into a unified product surface.",
+      "Implemented core APIs, real-time flows, background jobs, and automated coverage across UI, API, and end-to-end workflows.",
+    ],
+    techStack: [
+      "FastAPI",
+      "React",
+      "Vite",
+      "Python",
+      "JavaScript",
+      "WebSockets",
+      "SSE",
+      "Playwright",
+      "pytest",
+    ],
+  },
   {
     title: "Software Engineer Intern",
     company: "Kaiser Permanente",
@@ -13,41 +54,39 @@ const experiences = [
     link: "https://www.kaiserpermanente.com/",
     logo: "/logos/kp_logo.svg",
     description: [
-      "Built and optimized backend services in Spring and Koa powering a NLP guided pre-visit survey system, scaling to over 500K monthly sessions.",
-      "Led end-to-end implementation of a School Note decisioning feature, introducing SOAP-based scaffold integration and employing a config-driven release agent pattern to improve scalability, observability, and long-term maintainability.",
-      "Diagnosed and resolved a redis cache miss pattern in evisit retrieval, reducing external API calls by over 99%.",
+      "Built event-driven backend services for an NLP-guided pre-appointment survey and triage system processing 500K+ monthly sessions.",
+      "Improved patient evisit lookup performance with Redis caching changes, reducing external API calls by over 99% and median latency by 95%.",
     ],
     techStack: [
       "Spring",
       "Koa",
+      "Kafka",
       "Node.js",
       "Java",
-      "JavaScript",
-      "React",
-      "Apache Airflow",
+      "Redis",
+      "SOAP/XML",
     ],
   },
   {
-    title: "Software Developer",
+    title: "Software Engineer",
     company: "AggieWorks",
     location: "Davis, CA",
-    date: "Oct. 2024 – Current",
+    date: "Oct. 2024 – Present",
     link: "https://aggieworks.org/",
     logo: "/logos/aw_logo.svg",
     description: [
-      "Built and launched Cattlelog, a full-stack course/professor insight tool for UC Davis, built with React, FastAPI, and PostgreSQL.",
-      "Collaborated with a team of 10 with engineers, product managers, marketers, and designers in a cross-functional team.",
-      "Employed both Agile and Waterfall methodologies in a cross-functional team to effectively manage project timelines, adapt to changing requirements, and ensure communication across development, design, and product management teams.",
-      "Implemented advanced caching strategies reducing load times by 90% (from 20s to 2s) and decreasing API calls by 99.9%.",
-      "Integrated PostHog analytics to monitor user behavior, providing actionable insights that led to a 15% increase in feature engagement and improved user retention.",
+      "Built daviscattlelog.com, a course and professor insights platform for UC Davis students that reached 40K+ unique users.",
+      "Improved search, rendering, and caching paths to cut latency and redundant traffic while supporting higher uptime.",
     ],
     techStack: [
       "FastAPI",
       "React",
       "TailwindCSS",
-      "PostgeSQL",
+      "PostgreSQL",
+      "Vector Embeddings",
+      "Fuzzy Matching",
       "Redis",
-      "Apache Airflow",
+      "PostHog",
     ],
   },
   {
@@ -59,10 +98,10 @@ const experiences = [
     logoLight: "/logos/pna_logo_light.svg",
     logoDark: "/logos/pna_logo_dark.svg",
     description: [
-      "Developed and launched web tool PNA Tool, a Python algorithm that selects optimal sequences based on parameters like length, melting temperature, purine content, and self-complementarity.",
-      "Developed and launched web tool PNA Designer, an algorithm designed to generate customized DNA sequences with targeted mutations that create restriction enzyme sites, optimized specifically for donor design in CRISPR/Cas9 research applications.",
+      "Designed and deployed PNA Tool and PNA Designer, customer-facing bioinformatics tools used for molecular sequence analysis and donor design.",
+      "Built backend processing and validation flows that automated internal scientific design work and reduced manual processing time.",
     ],
-    techStack: ["Python", "JSON", "PHP", "HTML/CSS"],
+    techStack: ["PHP", "Python", "CGI Scripts", "HTML/CSS", "Input Validation"],
   },
   {
     title: "Bioinformatics Research Intern",
@@ -73,10 +112,8 @@ const experiences = [
     logoLight: "/logos/snu_logo_light.svg",
     logoDark: "/logos/snu_logo_dark.svg",
     description: [
-      "Conducted research on cancer clonal model determination using monoallelic expression of inactivated genes at the Genomic Medicine Institute, Seoul National University Medical School, under Professor Kim Jong Il.",
-      "Analyzed and visualized large-scale genomic data (>10 million entries) using outputs from MuTect2 and HaplotypeCaller, focusing on mutation detection and clonal evolution.",
-      "Utilized Python libraries such as Pandas, Seaborn, and scikit-learn to perform complex data analyses, statistical modeling, and advanced visualizations.",
-      "Developed robust Python scripts to automate genomic data processing, enabling efficient analysis and visualization of multi-million-line datasets.",
+      "Researched cancer clonal model determination using genomic datasets at the Genomic Medicine Institute.",
+      "Automated analysis and visualization workflows for multi-million-line genomic data using Python.",
     ],
     techStack: [
       "Pandas",
@@ -89,7 +126,17 @@ const experiences = [
       "Dash",
     ],
   },
-
+  {
+    title: "Software Engineer Intern",
+    company: "ASTRO Tech",
+    location: "Remote",
+    date: "Jun. 2023 – Sep. 2023",
+    logo: "/logos/astro-tech.svg",
+    description: [
+      "Developed a Kotlin Android application for timed control of LED light switches and dynamic scene management.",
+    ],
+    techStack: ["Kotlin", "Android Studio"],
+  },
   {
     title: "Chemoinformatics Intern",
     company: "CIMPLRX",
@@ -99,129 +146,187 @@ const experiences = [
     logoLight: "/logos/cimplrx_logo_light.webp",
     logoDark: "/logos/cimplrx_logo_dark.png",
     description: [
-      "Engineered databases on a Linux server with MySQL to categorize compounds crucial for advanced drug screening processes.",
-      "Utilized Neo4j to generate visualizations of complex data structures, uncovering trends and connections.",
+      "Built Linux/MySQL data workflows and Neo4j visualizations to support compound screening analysis.",
     ],
     techStack: ["Linux", "MySQL", "Neo4j"],
   },
-  {
-    title: "Software Engineer Intern",
-    company: "ASTRO Tech",
-    location: "Remote",
-    date: "Jun. 2023 – Sep. 2023",
-    logo: "/logos/astro-tech.svg",
-    description: [
-      "Spearheaded the development of an Android application enabling seamless control of LED light switches through timed operations.",
-      "Leveraged techniques in Android Studio to craft a solution utilizing Kotlin and implementing dynamic scene management.",
-    ],
-    techStack: ["Kotlin", "Android Studio"],
-  },
 ];
 
-const ExperienceSection = () => {
-  return (
-    <section className="py-10">
-      <div className="container mx-auto dark:text-foreground-dark px-4">
-        <h2 className="text-2xl font-semibold mb-6">Experiences</h2>
-        <div className="space-y-8">
-          {experiences.map((experience, index) => {
-            const baseClasses =
-              "block bg-white rounded-lg p-6 border border-gray-200 dark:bg-innerbox-dark dark:border-accent-dark";
-            const hoverClasses = experience.link
-              ? "group transition-all duration-200 hover:shadow-2xl hover:border-gray-400 dark:hover:border-gray-500"
-              : "";
-            const experienceId = `exp-${experience.company
-              .toLowerCase()
-              .replace(/\s+/g, "-")}`;
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
-            const content = (
-              <>
-                <div className="flex items-start gap-4 mb-4">
-                  {(experience.logo || experience.logoLight || experience.logoDark) && (
-                    <div className="flex-shrink-0 h-16 w-16 flex items-center justify-center bg-gray-50 dark:bg-tinybox-dark rounded-lg border border-gray-200 dark:border-accent-dark">
-                      {(experience.logoLight || experience.logoDark) && (
-                        <div
-                          className="theme-logo w-14 h-14"
-                          style={
-                            {
-                              "--logo-light": `url(${experience.logoLight})`,
-                              "--logo-dark": `url(${experience.logoDark})`,
-                            } as React.CSSProperties
-                          }
-                          role="img"
-                          aria-label={`${experience.company} logo`}
-                        />
-                      )}
-                      {experience.logo && !experience.logoLight && !experience.logoDark && (
-                        <div className="relative h-14 w-14">
-                          <Image
-                            src={experience.logo}
-                            alt={`${experience.company} logo`}
-                            width={56}
-                            height={56}
-                            priority
-                            className="object-contain w-full h-full"
-                            onError={(e) => {
-                              e.currentTarget.style.display = "none";
-                            }}
-                          />
-                        </div>
+function ExperienceLogo({
+  experience,
+  priority,
+}: {
+  experience: ExperienceItem;
+  priority: boolean;
+}) {
+  if (!experience.logo && !experience.logoLight && !experience.logoDark) {
+    const initials = experience.company
+      .replace(/\([^)]*\)/g, "")
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((word) => word[0])
+      .join("");
+
+    return (
+      <div className="flex h-16 w-16 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-600 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:border-indigo-200 group-hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:group-hover:border-indigo-400/40">
+        {initials}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex h-16 w-16 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:border-indigo-200 group-hover:bg-white dark:border-white/10 dark:bg-white/5 dark:group-hover:border-indigo-400/40">
+      {(experience.logoLight || experience.logoDark) && (
+        <div
+          className="theme-logo h-12 w-12"
+          style={
+            {
+              "--logo-light": `url(${experience.logoLight})`,
+              "--logo-dark": `url(${experience.logoDark})`,
+            } as React.CSSProperties
+          }
+          role="img"
+          aria-label={`${experience.company} logo`}
+        />
+      )}
+
+      {experience.logo && !experience.logoLight && !experience.logoDark && (
+        <Image
+          src={experience.logo}
+          alt={`${experience.company} logo`}
+          width={52}
+          height={52}
+          priority={priority}
+          className="h-12 w-12 object-contain"
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
+const ExperienceSection = () => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <section className="py-12 sm:py-14">
+      <Reveal>
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-300">
+              Experience
+            </p>
+            <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
+              Proof through shipped work.
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
+              Backend systems, product surfaces, and data-heavy tools across healthcare, education, and research.
+            </p>
+          </div>
+        </div>
+      </Reveal>
+
+      <div className="grid gap-5">
+        {experiences.map((experience, index) => {
+          const experienceId = `exp-${slugify(experience.company)}`;
+
+          const content = (
+            <>
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+                <ExperienceLogo experience={experience} priority={index < 2} />
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                    <div>
+                      <h3 className="text-xl font-semibold text-slate-950 dark:text-white">
+                        {experience.company}
+                      </h3>
+                      <p className="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">
+                        {experience.title}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 lg:justify-end">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 dark:bg-white/10">
+                        <MapPinIcon className="h-4 w-4" aria-hidden="true" />
+                        {experience.location}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 dark:bg-white/10">
+                        <CalendarDaysIcon className="h-4 w-4" aria-hidden="true" />
+                        {experience.date}
+                      </span>
+                      {experience.link && (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-indigo-700 dark:bg-indigo-400/10 dark:text-indigo-200">
+                          Visit
+                          <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                        </span>
                       )}
                     </div>
-                  )}
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-foreground-dark">
-                      {experience.company}
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-subtext-dark">
-                      {experience.title} • {experience.location}
-                    </p>
-                    <p className="text-sm text-gray-500 italic dark:text-subtext-dark">
-                      {experience.date}
-                    </p>
                   </div>
-                </div>
-                <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-innertext-dark">
-                  {experience.description.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
-                <div className="mt-4">
-                  <h4 className="text-sm font-semibold text-gray-600 dark:text-techstack-dark">
-                    Tech Stack:
-                  </h4>
-                  <ul className="flex flex-wrap gap-2 mt-2">
-                    {experience.techStack.map((tech, index) => (
-                      <li
-                        key={index}
-                        className="px-2 py-1 text-xs font-medium text-gray-800 bg-gray-100 rounded dark:bg-tinybox-dark dark:text-foreground-dark"
-                      >
-                        {tech}
+
+                  <ul className="mt-5 space-y-3 text-sm leading-6 text-slate-700 dark:text-innertext-dark">
+                    {experience.description.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-indigo-500" />
+                        <span>{item}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
-              </>
-            );
 
-            return experience.link ? (
-              <a
-                key={index}
-                id={experienceId}
-                href={experience.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${baseClasses} ${hoverClasses}`}
-              >
-                {content}
-              </a>
-            ) : (
-              <div key={index} id={experienceId} className={baseClasses}>
-                {content}
+                  <div className="mt-5 flex flex-wrap gap-2 border-t border-slate-100 pt-5 dark:border-white/10">
+                    {experience.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors duration-200 group-hover:border-indigo-200 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:group-hover:border-indigo-400/40"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            );
-          })}
-        </div>
+            </>
+          );
+
+          const cardClasses =
+            "group relative block overflow-hidden rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm shadow-slate-900/5 transition-colors duration-200 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-950/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40";
+
+          return experience.link ? (
+            <motion.a
+              key={experience.company}
+              id={experienceId}
+              href={experience.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={shouldReduceMotion ? undefined : cardHover}
+              whileTap={shouldReduceMotion ? undefined : cardTap}
+              className={cardClasses}
+            >
+              {content}
+            </motion.a>
+          ) : (
+            <motion.div
+              key={experience.company}
+              id={experienceId}
+              whileHover={shouldReduceMotion ? undefined : cardHover}
+              whileTap={shouldReduceMotion ? undefined : cardTap}
+              className={cardClasses}
+            >
+              {content}
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

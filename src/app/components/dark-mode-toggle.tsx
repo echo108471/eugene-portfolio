@@ -22,10 +22,10 @@ const DarkModeToggle: React.FC = () => {
 
   return (
     <button
+      type="button"
       onClick={toggleDarkMode}
-      className="relative p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 outline-none focus:outline-none focus-visible:outline-none active:outline-none"
+      className="relative rounded-lg border border-slate-200 bg-white/70 p-2 text-slate-800 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-700 active:translate-y-0 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-indigo-400/40 dark:hover:text-indigo-200"
       aria-label="Toggle dark mode"
-      tabIndex={-1}
     >
       <div className="relative w-6 h-6">
         <SunIcon

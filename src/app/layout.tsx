@@ -3,23 +3,23 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Eugene Cho - Full Stack Software Engineer | UC Davis",
-  description: "Full Stack Software Engineer at UC Davis with experience in Python, React, TypeScript, and cloud technologies. Intern at Kaiser Permanente, building scalable backend services.",
-  keywords: ["Eugene Cho", "Software Engineer", "Full Stack Developer", "UC Davis", "Kaiser Permanente", "React", "Python", "TypeScript", "Web Development", "Computer Science"],
+  title: "Eugene Cho - Software Engineer | UC Davis",
+  description: "Software Engineer and UC Davis Computer Science student building multi-agent platforms, event-driven backend services, and full-stack products across healthcare, education, and pharmaceutical workflows.",
+  keywords: ["Eugene Cho", "Software Engineer", "Full Stack Developer", "UC Davis", "Persist AI", "Kaiser Permanente", "AggieWorks", "React", "FastAPI", "TypeScript", "Python", "Go", "Computer Science"],
   authors: [{ name: "Eugene Cho" }],
   creator: "Eugene Cho",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://eugenecho.com",
-    title: "Eugene Cho - Full Stack Software Engineer",
-    description: "Full Stack Software Engineer at UC Davis with experience in Python, React, TypeScript, and cloud technologies.",
+    url: "https://eacho.me",
+    title: "Eugene Cho - Software Engineer",
+    description: "Software Engineer and UC Davis Computer Science student building multi-agent platforms, event-driven backend services, and full-stack products.",
     siteName: "Eugene Cho Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Eugene Cho - Full Stack Software Engineer",
-    description: "Full Stack Software Engineer at UC Davis with experience in Python, React, TypeScript, and cloud technologies.",
+    title: "Eugene Cho - Software Engineer",
+    description: "Software Engineer and UC Davis Computer Science student building multi-agent platforms, event-driven backend services, and full-stack products.",
   },
   robots: {
     index: true,
@@ -48,7 +48,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#111827" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://eugenecho.com" />
+        <link rel="canonical" href="https://eacho.me" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -56,17 +56,17 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Eugene Cho",
-              "jobTitle": "Full Stack Software Engineer",
+              "jobTitle": "Software Engineer",
               "worksFor": {
                 "@type": "Organization",
-                "name": "University of California, Davis"
+                "name": "Persist AI"
               },
               "alumniOf": {
                 "@type": "CollegeOrUniversity",
                 "name": "University of California, Davis"
               },
-              "knowsAbout": ["Software Engineering", "Web Development", "Python", "React", "TypeScript", "Cloud Computing"],
-              "url": "https://eugenecho.com"
+              "knowsAbout": ["Software Engineering", "Web Development", "Python", "React", "TypeScript", "FastAPI", "Go", "Kafka"],
+              "url": "https://eacho.me"
             }),
           }}
         />
