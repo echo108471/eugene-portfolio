@@ -4,6 +4,7 @@
 
 /* Light mode */
 :root {
+  --font-jetbrains-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   --background-light: #f9fafb;
   --foreground-light: #111827;
   --accent-light: #6366f1;
