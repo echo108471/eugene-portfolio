@@ -7,8 +7,7 @@ import {
   CalendarDaysIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
-import { motion, useReducedMotion } from "framer-motion";
-import { cardHover, cardTap, Reveal } from "./motion";
+import { Reveal } from "./motion";
 import "../globals.css";
 
 interface ExperienceItem {
@@ -165,6 +164,9 @@ function ExperienceLogo({
   experience: ExperienceItem;
   priority: boolean;
 }) {
+  const baseClasses =
+    "relative z-10 flex h-16 w-16 flex-none items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#0B1120] transition-colors duration-200 group-hover/item:border-slate-300 dark:group-hover/item:border-white/20";
+
   if (!experience.logo && !experience.logoLight && !experience.logoDark) {
     const initials = experience.company
       .replace(/\([^)]*\)/g, "")
@@ -175,14 +177,14 @@ function ExperienceLogo({
       .join("");
 
     return (
-      <div className="flex h-16 w-16 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-600 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:border-indigo-200 group-hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:group-hover:border-indigo-400/40">
+      <div className={`${baseClasses} text-sm font-semibold text-slate-600 dark:text-slate-300`}>
         {initials}
       </div>
     );
   }
 
   return (
-    <div className="flex h-16 w-16 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:border-indigo-200 group-hover:bg-white dark:border-white/10 dark:bg-white/5 dark:group-hover:border-indigo-400/40">
+    <div className={baseClasses}>
       {(experience.logoLight || experience.logoDark) && (
         <div
           className="theme-logo h-12 w-12"
@@ -215,12 +217,10 @@ function ExperienceLogo({
 }
 
 const ExperienceSection = () => {
-  const shouldReduceMotion = useReducedMotion();
-
   return (
     <section className="py-12 sm:py-14">
       <Reveal>
-        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
             <p className="text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-300">
               Experience
@@ -235,96 +235,91 @@ const ExperienceSection = () => {
         </div>
       </Reveal>
 
-      <div className="grid gap-5">
+      <div className="relative space-y-4">
+        {/* Timeline Line */}
+        <div 
+          className="absolute left-[2.85rem] top-8 bottom-8 w-px bg-slate-200 dark:bg-white/10 hidden sm:block" 
+          aria-hidden="true" 
+        />
+
         {experiences.map((experience, index) => {
           const experienceId = `exp-${slugify(experience.company)}`;
 
           const content = (
-            <>
-              <div className="absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-start group/item relative rounded-2xl sm:p-4 transition-colors duration-300 hover:bg-slate-50 dark:hover:bg-white/[0.02]">
+              <ExperienceLogo experience={experience} priority={index < 2} />
 
-              <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
-                <ExperienceLogo experience={experience} priority={index < 2} />
-
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
-                    <div>
-                      <h3 className="text-xl font-semibold text-slate-950 dark:text-white">
-                        {experience.company}
-                      </h3>
-                      <p className="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">
-                        {experience.title}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 lg:justify-end">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 dark:bg-white/10">
-                        <MapPinIcon className="h-4 w-4" aria-hidden="true" />
-                        {experience.location}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 dark:bg-white/10">
-                        <CalendarDaysIcon className="h-4 w-4" aria-hidden="true" />
-                        {experience.date}
-                      </span>
-                      {experience.link && (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-indigo-700 dark:bg-indigo-400/10 dark:text-indigo-200">
-                          Visit
-                          <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-                        </span>
-                      )}
-                    </div>
+              <div className="min-w-0 flex-1 sm:pt-1">
+                <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
+                  <div>
+                    <h3 className="text-xl font-semibold text-slate-950 dark:text-white group-hover/item:text-indigo-600 dark:group-hover/item:text-indigo-400 transition-colors">
+                      {experience.company}
+                    </h3>
+                    <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
+                      {experience.title}
+                    </p>
                   </div>
 
-                  <ul className="mt-5 space-y-3 text-sm leading-6 text-slate-700 dark:text-innertext-dark">
-                    {experience.description.map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-indigo-500" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-5 flex flex-wrap gap-2 border-t border-slate-100 pt-5 dark:border-white/10">
-                    {experience.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors duration-200 group-hover:border-indigo-200 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:group-hover:border-indigo-400/40"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500 dark:text-slate-400">
+                    <span className="flex items-center gap-1.5">
+                      <MapPinIcon className="h-4 w-4" aria-hidden="true" />
+                      {experience.location}
+                    </span>
+                    <span className="hidden sm:block text-slate-300 dark:text-slate-600">&bull;</span>
+                    <span className="flex items-center gap-1.5">
+                      <CalendarDaysIcon className="h-4 w-4" aria-hidden="true" />
+                      {experience.date}
+                    </span>
+                    {experience.link && (
+                      <>
+                        <span className="hidden sm:block text-slate-300 dark:text-slate-600">&bull;</span>
+                        <span className="flex items-center gap-1 text-slate-600 dark:text-slate-300 group-hover/item:text-indigo-600 dark:group-hover/item:text-indigo-400 transition-colors">
+                          Visit
+                          <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                        </span>
+                      </>
+                    )}
                   </div>
                 </div>
+
+                <ul className="mt-4 space-y-2.5 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                  {experience.description.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-2.5 h-1 w-1 flex-none rounded-full bg-slate-300 dark:bg-slate-600" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {experience.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-md border border-slate-200 bg-white/50 px-2.5 py-1 text-xs font-medium text-slate-600 transition-colors duration-200 group-hover/item:border-slate-300 dark:border-white/10 dark:bg-transparent dark:text-slate-400 dark:group-hover/item:border-white/20"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </>
+            </div>
           );
 
-          const cardClasses =
-            "group relative block overflow-hidden rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200 hover:shadow-md hover:shadow-indigo-950/5 active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40";
-
           return experience.link ? (
-            <motion.a
+            <a
               key={experience.company}
               id={experienceId}
               href={experience.link}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={shouldReduceMotion ? undefined : cardHover}
-              whileTap={shouldReduceMotion ? undefined : cardTap}
-              className={cardClasses}
+              className="block outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-2xl"
             >
               {content}
-            </motion.a>
+            </a>
           ) : (
-            <motion.div
-              key={experience.company}
-              id={experienceId}
-              whileHover={shouldReduceMotion ? undefined : cardHover}
-              whileTap={shouldReduceMotion ? undefined : cardTap}
-              className={cardClasses}
-            >
+            <div key={experience.company} id={experienceId}>
               {content}
-            </motion.div>
+            </div>
           );
         })}
       </div>

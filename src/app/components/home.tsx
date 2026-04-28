@@ -15,7 +15,6 @@ import AboutMe from "./about_me";
 import ContactMe from "./contact_me";
 import EducationSection from "./education_section";
 import AwardsSection from "./award_section";
-import Timeline from "./timeline";
 import SkillsSection from "./skills_section";
 import { MotionChild, Stagger } from "./motion";
 
@@ -92,10 +91,6 @@ const Home: React.FC = () => {
 
         <section id="about" className="scroll-mt-16">
           <AboutMe />
-        </section>
-
-        <section id="timeline" className="scroll-mt-16">
-          <Timeline />
         </section>
 
         <section id="experience" className="scroll-mt-16">
