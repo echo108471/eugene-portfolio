@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# agents
+.codex
+
 # production
 /build
 
