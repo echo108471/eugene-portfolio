@@ -15,11 +15,12 @@
   --tinybox-light: #f3f4f6;
   --header-light: #f9fafb;
 
-  /* Add a subtle, always-present glow layer so the gradient never fully disappears */
-  --background-gradient-light: radial-gradient(900px circle at 20% 10%, rgba(236, 72, 153, 0.14) 0%, transparent 60%),
-    radial-gradient(900px circle at 80% 20%, rgba(99, 102, 241, 0.10) 0%, transparent 60%),
-    radial-gradient(1400px circle at 50% 60%, rgba(99, 102, 241, 0.05) 0%, transparent 70%),
-    linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
+  /* Refined static mesh gradient - increased opacity for better visibility */
+  --background-gradient-light: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.10) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(236, 72, 153, 0.08) 0px, transparent 50%),
+    linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
   --background: var(--background-light);
   --foreground: var(--foreground-light);
   --background-gradient: var(--background-gradient-light);
@@ -27,21 +28,22 @@
 
 /* Dark mode */
 :root.dark {
-  --background-dark: #1e2021;
+  --background-dark: #020617;
   --foreground-dark: #ebe8e2;
   --accent-dark: #3b4143;
   --innerbox-dark: #1b1d1e;
   --subtext-dark: #aea497;
   --techstack-dark: #c3bbb0;
   --innertext-dark: #d0c9c1;
-  --tinybox-dark: #212325;
-  --header-dark: #1d2430;
+  --tinybox-dark: #1e293b;
+  --header-dark: #020617;
 
-  /* Add a subtle, always-present glow layer so the gradient never fully disappears */
-  --background-gradient-dark: radial-gradient(1000px circle at 20% 10%, rgba(99, 102, 241, 0.08) 0%, transparent 60%),
-    radial-gradient(900px circle at 80% 20%, rgba(128, 85, 247, 0.06) 0%, transparent 60%),
-    radial-gradient(1600px circle at 50% 60%, rgba(99, 102, 241, 0.035) 0%, transparent 72%),
-    linear-gradient(to bottom, #020617 0%, rgba(15, 23, 42, 0.60) 50%, rgba(30, 27, 75, 0.15) 100%);
+  /* Deep, static midnight mesh - increased opacity */
+  --background-gradient-dark: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.10) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.10) 0px, transparent 50%),
+    linear-gradient(to bottom, #020617 0%, #0f172a 100%);
   --background: var(--background-dark);
   --foreground: var(--foreground-dark);
   --background-gradient: var(--background-gradient-dark);
@@ -52,15 +54,18 @@ body {
   background-color: var(--background);
   background-image: var(--background-gradient);
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  /* Layered motion for the background gradient (subtle parallax) */
-  background-size: 170% 170%, 160% 160%, 140% 140%, 100% 100%;
-  background-position: 0% 0%, 100% 0%, 50% 50%, 0% 0%;
-  animation: background-pan 26s ease-in-out infinite alternate,
-    background-breathe 14s ease-in-out infinite;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
   transition: background-color 0.3s ease, color 0.3s ease;
   font-family: var(--font-jetbrains-mono), monospace;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 1024px) {
+  body {
+    background-attachment: fixed;
+  }
 }
 
 html {
@@ -71,35 +76,9 @@ html {
   background: rgba(99, 102, 241, 0.22);
 }
 
-@keyframes background-pan {
-  0% {
-    background-position: 0% 0%, 100% 0%, 50% 50%, 0% 0%;
-  }
-  50% {
-    background-position: 35% 18%, 70% 25%, 52% 55%, 0% 0%;
-  }
-  100% {
-    background-position: 100% 55%, 20% 60%, 48% 45%, 0% 0%;
-  }
-}
-
-@keyframes background-breathe {
-  0%,
-  100% {
-    background-size: 170% 170%, 160% 160%, 140% 140%, 100% 100%;
-  }
-  50% {
-    background-size: 185% 185%, 170% 170%, 150% 150%, 100% 100%;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  body {
-    animation: none;
   }
 
   *,

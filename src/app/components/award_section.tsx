@@ -32,7 +32,7 @@ const AwardCard: React.FC<AwardCardProps> = ({ name, organization, link }) => {
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block h-full rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-indigo-200 hover:shadow-md active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40"
+      className="group block h-full rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-indigo-200 hover:shadow-md active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/60 dark:hover:bg-white/[0.08]"
     >
       {content}
     </a>

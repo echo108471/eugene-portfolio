@@ -11,6 +11,7 @@ Working direction: **Quiet Personal Systems**
 - **Person first:** lead with Eugene's name, current role, school, and a short human introduction.
 - **Evidence in context:** keep metrics and impact numbers, but place them inside the relevant experience or project instead of presenting them as hero proof points.
 - **Calm polish:** use good spacing, typography, and restrained interaction instead of heavy gradients, animated pills, and marketing-style CTAs.
+- **Love for microinteractions:** prioritize high-signal, subtle interactive details (like icon nudges and smooth scaling) that make the system feel "alive" and responsive without being loud.
 - **Recruiter-readable:** make resume, GitHub, LinkedIn, email, experience, and projects easy to scan quickly.
 - **Personal specificity:** copy should sound like Eugene describing his work, not a company positioning statement.
 
@@ -53,163 +54,62 @@ Section copy should be short and concrete. Prefer "What I worked on" over abstra
 
 ### Color
 
-Use the existing light/dark CSS variable setup as the base.
+The system uses a custom light/dark theme driven by CSS variables in `src/app/globals.css` and mapped in `tailwind.config.ts`.
 
-- Background: mostly quiet and neutral. Subtle gradients are acceptable, but they should not be the main visual identity.
-- Primary accent: indigo/blue for links, focus states, and small active states.
-- Secondary accents: cyan, green, rose, or amber only when they help distinguish content types.
-- Gradients: use sparingly. Keep them to small details, not large hero typography or repeated card edges.
-- Borders: low-contrast at rest, slightly stronger on hover/focus.
-
-Avoid a one-note purple/blue gradient look.
+- **Background (Light):** `#f9fafb` with a subtle pink/indigo glow.
+- **Background (Dark):** `#1e2021` (rich charcoal) with a deep indigo/violet glow.
+- **Foreground:** High-contrast slate/gray (`#111827` light, `#ebe8e2` dark).
+- **Primary Accent:** Indigo (`#6366f1` light, `#818cf8` dark for focus).
+- **Subtext/Innertext:** Softened grays and neutrals for readable hierarchy.
 
 ### Typography
 
-- Hero name should be the main display moment.
-- The role should be secondary, not a giant product tagline.
-- Body text should feel conversational and readable.
-- Section headings should be compact and literal: `About`, `Experience`, `Projects`, `Education`, `Contact`.
-- Metadata like dates, locations, and tech labels should stay small and consistent.
+- **Primary Font:** `JetBrains Mono`. This monospace choice reinforces the "engineering-first" identity while maintaining high readability.
+- **Headings:** Semi-bold (`font-weight: 600`), compact, and literal.
+- **Body:** Conversational and spacious with `leading-8` in prose sections.
+
+### Background System
+
+The site uses a refined, static mesh gradient:
+- **Mesh Layers:** Four corner radial gradients with very low opacity (indigo and pink/violet) overlaid on a primary linear gradient.
+- **Static Grounding:** No background animations are used, ensuring a fast, stable, and focused environment.
+- **Transition:** Smooth 0.3s transition between light and dark modes.
 
 ### Surfaces
 
-Use cards only where they organize repeated content or framed actions.
-
-- Rest: subtle border, minimal shadow.
-- Hover: color or border change is usually enough.
-- Active/tap: small press feedback is acceptable for clearly interactive elements.
-- Focus: visible keyboard focus ring using the primary accent.
-
-Do not put cards inside cards. Avoid making every section a framed module.
+- **Cards:** White/80 (light) or White/5 (dark) with thin borders.
+- **Project Cards:** Feature a subtle top-border gradient (indigo-cyan-emerald) that reveals on hover.
+- **Hover States:** Scale `1.01` or `1.02` with slight shadow/border intensification.
+- **Focus States:** 2px indigo outline with an offset, ensuring accessibility.
 
 ## Layout System
 
 ### Page Rhythm
 
-Recommended order:
-
-1. Hero: name, short intro, location/status line, and plain links.
-2. About: a concise personal paragraph and a few grounded facts.
-3. Experience: primary credibility, with impact numbers inside each role.
-4. Projects: image-forward work samples with concise explanations.
-5. Skills: compact supporting section, not a large badge wall.
-6. Education and awards: supporting credibility.
-7. Contact: simple link group.
-
-Timeline can stay if it adds clarity, but it should not duplicate too much of the experience section.
+1. **Hero:** Name, short intro, location/status, and plain social links.
+2. **About:** Personal narrative paired with a grid of quick facts.
+3. **Experience:** Detailed timeline with logos and tech tags.
+4. **Projects:** Visual-forward grid with live links and highlights.
+5. **Skills:** Categorized technical expertise.
+6. **Education & Awards:** Supporting academic and professional honors.
+7. **Contact:** Simple email link and footer.
 
 ### Spacing
 
-- Main container: keep the current `max-w-7xl` scale unless the page feels too wide.
-- Hero: give it enough air, but avoid full marketing-hero treatment.
-- Section vertical padding: `py-10` to `py-14` for most sections.
-- Card padding: `p-4` to `p-6` depending on content density.
-- Grid gaps: `gap-4` to `gap-7`.
-
-## Component Rules
-
-### Header
-
-- Keep the header sticky, light, and useful.
-- Consider reducing desktop nav items if it feels crowded.
-- Active states should be subtle.
-- The name/logo area should feel personal and simple.
-- Theme toggle should remain accessible and easy to find.
-
-### Hero
-
-- Lead with `Hi, I'm Eugene Cho.` or `Eugene Cho`.
-- Use a short first-person paragraph instead of a marketing tagline.
-- Use plain text links or restrained buttons for `Resume`, `GitHub`, `LinkedIn`, and `Email`.
-- Remove the right-side metric/status card from the hero.
-- Avoid feature-chip rows in the hero. If focus areas are needed, mention them in the paragraph.
-- Do not use large gradient role text as the main visual hook.
-
-### About
-
-- Make this the most personal section.
-- Keep facts grounded: school, current internship, domains, and what kinds of systems Eugene enjoys building.
-- Avoid turning facts into achievement cards unless the layout needs structure.
-
-### Experience
-
-- This is where impact metrics belong.
-- Keep company, role, dates, location, and bullets easy to scan.
-- Use logos if they help recognition, but avoid making company cards feel like product case studies.
-- Tech tags should support the story, not dominate the card.
-
-### Projects
-
-- Keep screenshots prominent because projects are the most visual proof.
-- Describe what the project is, who it was for, and what Eugene built.
-- Use impact numbers only when they are tied directly to that project.
-- Link affordances should be clear but restrained.
-
-### Skills
-
-- Keep skills compact and practical.
-- Avoid large badge walls or animated chip fields.
-- Group by category only if it improves scan speed.
-
-### Timeline
-
-- Timeline should act as a quick orientation, not another marketing section.
-- Keep animation minimal.
-- Avoid duplicating every experience bullet.
-- If the page feels too long, remove or compress the timeline before removing detailed experience.
-
-### Contact
-
-- Keep contact direct: email, GitHub, LinkedIn, resume, website.
-- The section can be visually distinct, but it should not read like a sales CTA.
-- Prefer "Get in touch" or "Contact" over "Let's build something useful."
+- **Section Padding:** `py-12` to `py-14` for consistent vertical rhythm.
+- **Container:** `max-w-7xl` or similar for desktop, with `px-4/6` for mobile breathing room.
+- **Grid Gaps:** `gap-4` to `gap-8` depending on content density.
 
 ## Interaction System
 
-Use interaction as usability feedback, not decoration.
+### Motion (Framer Motion)
 
-### Timing
+- **Reveal:** Staggered fade-in and slide-up animations for section entrance.
+- **Card Hover/Tap:** Centralized constants (`cardHover`, `cardTap`) for consistent interactive feedback.
+- **Reduced Motion:** Fully respected via `prefers-reduced-motion`. Background animations and entrance transforms are disabled.
 
-- Fast feedback: 120ms to 180ms.
-- Standard hover/reveal: 180ms to 250ms.
-- Section entrance: 300ms to 450ms if used.
-- Avoid ambient background motion unless it is extremely subtle.
+### Feedback Patterns
 
-### Patterns
-
-- **Text link underline:** inline links and header links.
-- **Small icon nudge:** external links can move 2px on hover.
-- **Subtle card hover:** border color or slight shadow change.
-- **Image settle:** project images can scale from `1` to `1.02` on hover.
-- **Focus-visible:** every interactive element needs a clear keyboard state.
-
-Avoid shimmer, pulsing dots, repeated gradient edge glints, and large hover lift across the whole page.
-
-### Reduced Motion
-
-Respect `prefers-reduced-motion`.
-
-- Disable section entrance transforms.
-- Disable ambient background animation.
-- Keep instant color and focus changes.
-- Avoid continuous pulsing or shimmer in all modes.
-
-## Implementation Notes
-
-- Prefer Tailwind utility classes for simple layout and state changes.
-- Use Framer Motion only where it adds meaningful clarity.
-- Keep animation constants centralized if repeated.
-- Avoid new design abstractions unless multiple components need the same behavior.
-- Preserve the current light/dark theme model.
-- Keep edits localized and avoid changing portfolio content unless the design requires copy cleanup.
-
-## Next Redesign Pass
-
-Recommended implementation pass:
-
-1. Rewrite the hero around a personal introduction and simple links.
-2. Move hero metrics into the matching experience/project entries.
-3. Remove or reduce hero focus chips and SaaS-style status cards.
-4. Simplify section headings to be more literal and less campaign-like.
-5. Tone down repeated gradients, hover lift, and card shadows.
-6. Check desktop/mobile, light/dark modes, keyboard focus, and image rendering.
+- **Icon Nudge:** External link icons (ArrowTopRight) shift 2px on hover.
+- **Theme Logo:** Custom `theme-logo` utility for automatic SVG switching based on the `dark` class.
+- **Image Scale:** Project thumbnails scale slightly within their containers on card hover.
