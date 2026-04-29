@@ -12,7 +12,7 @@ Use npm for all project commands:
 
 ```bash
 npm run dev       # Start the local Next.js development server
-npm run build     # Create a production build with webpack
+npm run build     # Create a production build
 npm run start     # Serve the production build
 npm run lint      # Run ESLint
 npm run lint:fix  # Apply safe ESLint fixes
@@ -22,26 +22,32 @@ There is no dedicated test suite yet. Before handing off changes, run `npm run l
 
 ## Coding Style & Naming Conventions
 
-Use TypeScript, React functional components, and Next.js App Router conventions. Match the existing style: two-space indentation, double quotes, semicolons, concise component-local data arrays, and Tailwind utilities for styling.
-
-Component filenames in `src/app/components/` use lowercase snake case, for example `project_section.tsx` and `award_section.tsx`. Keep edits localized and avoid new dependencies unless the existing stack cannot reasonably solve the task.
+- **Tech Stack:** TypeScript, React (App Router), TailwindCSS, Framer Motion, Heroicons.
+- **Indentation:** 2-space indentation.
+- **Naming:** Component filenames in `src/app/components/` use lowercase snake case (e.g., `project_section.tsx`).
+- **Styles:** Use Tailwind utility classes. For complex background effects or theme switching, use CSS variables defined in `globals.css`.
+- **Motion:** Use `Reveal`, `Stagger`, and `MotionChild` from `src/app/components/motion.tsx` for consistent entrance animations. Use centralized constants like `cardHover` and `cardTap` for interactions.
 
 ## Portfolio Design Direction
 
-Design changes should keep the site feeling like a personal engineering portfolio, not a SaaS landing page. Lead with Eugene as a person, use direct first-person copy in prominent areas, keep recruiter-readable links easy to find, and place impact metrics inside the relevant experience or project instead of the hero.
+Working direction: **Quiet Personal Systems**. The portfolio should read as a personal engineering portfolio, not a SaaS landing page.
 
-Avoid marketing-style hero proof cards, large conversion CTAs, excessive feature chips, repeated gradient text, shimmer effects, and section headlines that sound like product positioning. Use polished but quiet interactions: subtle link states, restrained card hover, visible keyboard focus, and minimal motion that respects `prefers-reduced-motion`.
+- **Person first:** Lead with Eugene as a person. Use direct first-person copy ("Hi, I'm Eugene...").
+- **Evidence in context:** Place impact metrics inside relevant experience or project entries rather than hero cards.
+- **Typography:** Use `JetBrains Mono` as the primary font to reinforce the engineering identity.
+- **Visuals:** Use polished but quiet interactions. Prioritize microinteractions (subtle icon shifts, scale changes) that provide feedback without distraction. Use a static mesh gradient background to keep the UI grounded and professional. Avoid excessive gradients, shimmer effects, and marketing-style CTAs.
+- **Accessibility:** Ensure visible keyboard focus states (indigo outline) and respect `prefers-reduced-motion`.
 
 ## Testing Guidelines
 
-No testing framework or coverage target is currently configured. For UI changes, validate responsive behavior, light and dark modes, keyboard focus states, and image/link rendering manually. If tests are added later, colocate them near the component or feature they cover and document the command in `package.json`.
+No testing framework is currently configured. For UI changes, manually validate:
+- **Responsive behavior:** Mobile, tablet, and desktop layouts.
+- **Theme support:** Light and dark modes.
+- **Accessibility:** Keyboard navigation and focus visibility.
+- **Motion:** Ensure animations are subtle and respect system settings.
 
 ## Commit & Pull Request Guidelines
 
-Recent history uses short messages such as `update` and `gitignore`; prefer clearer imperative commits going forward, such as `Improve project card responsiveness` or `Update portfolio experience copy`.
+Use clear imperative commit messages, such as `Improve project card responsiveness` or `Update experience section copy`.
 
-Pull requests should include a brief summary, validation commands run, screenshots for visual changes, asset or content notes, and linked issues when applicable. Keep PRs focused and avoid unrelated refactors.
-
-## Security & Configuration Tips
-
-Do not hardcode secrets, API keys, analytics, or tracking scripts. For external links opened in a new tab, include `rel="noopener noreferrer"`. Preserve working links, existing portfolio entries, and `public/EugeneChoResume.pdf` unless explicitly asked to change them.
+Pull requests should include a brief summary, validation steps taken, and screenshots for visual changes. Keep changes focused and avoid unrelated refactors.

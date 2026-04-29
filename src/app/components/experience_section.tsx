@@ -165,7 +165,7 @@ function ExperienceLogo({
   priority: boolean;
 }) {
   const baseClasses =
-    "relative z-10 flex h-16 w-16 flex-none items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#0B1120] transition-colors duration-200 group-hover/item:border-slate-300 dark:group-hover/item:border-white/20";
+    "relative z-10 flex h-14 w-14 sm:h-16 sm:w-16 flex-none items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#0B1120] transition-colors duration-200 group-hover/item:border-slate-300 dark:group-hover/item:border-white/20";
 
   if (!experience.logo && !experience.logoLight && !experience.logoDark) {
     const initials = experience.company
@@ -187,7 +187,7 @@ function ExperienceLogo({
     <div className={baseClasses}>
       {(experience.logoLight || experience.logoDark) && (
         <div
-          className="theme-logo h-12 w-12"
+          className="theme-logo h-10 w-10 sm:h-12 sm:w-12"
           style={
             {
               "--logo-light": `url(${experience.logoLight})`,
@@ -203,10 +203,10 @@ function ExperienceLogo({
         <Image
           src={experience.logo}
           alt={`${experience.company} logo`}
-          width={52}
-          height={52}
+          width={48}
+          height={48}
           priority={priority}
-          className="h-12 w-12 object-contain"
+          className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
           onError={(e) => {
             e.currentTarget.style.display = "none";
           }}
@@ -246,7 +246,7 @@ const ExperienceSection = () => {
           const experienceId = `exp-${slugify(experience.company)}`;
 
           const content = (
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-start group/item relative rounded-2xl sm:p-4 transition-colors duration-300 hover:bg-slate-50 dark:hover:bg-white/[0.02]">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start group/item relative rounded-2xl sm:p-4 transition-colors duration-300 hover:bg-slate-50 dark:hover:bg-white/[0.08]">
               <ExperienceLogo experience={experience} priority={index < 2} />
 
               <div className="min-w-0 flex-1 sm:pt-1">

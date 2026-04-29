@@ -92,17 +92,17 @@ const Header: React.FC = () => {
     >
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-3 sm:px-8 lg:px-12"
       >
         <button
           type="button"
           onClick={() => handleScroll("home")}
-          className="group flex min-w-0 items-center gap-2 rounded-full px-2 py-1.5 text-left text-sm font-semibold text-slate-900 transition-colors hover:text-indigo-700 dark:text-white dark:hover:text-indigo-200"
+          className="group flex min-w-0 items-center gap-2.5 rounded-full px-2 py-1.5 text-left text-sm font-semibold text-slate-900 transition-colors hover:text-indigo-700 dark:text-white dark:hover:text-indigo-200"
           aria-label="Scroll to home"
         >
-          <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-400 shadow-sm shadow-indigo-500/40 transition-transform duration-200 group-hover:scale-125" />
-          <span className="hidden sm:inline">Eugene Cho</span>
-          <span className="sm:hidden">EC</span>
+          <span className="h-3.5 w-3.5 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-400 shadow-md shadow-indigo-500/20 transition-transform duration-200 group-hover:scale-125" />
+          <span className="hidden xs:inline sm:inline">Eugene Cho</span>
+          <span className="xs:hidden">EC</span>
         </button>
 
         <div className="hidden flex-1 items-center justify-center lg:flex">
@@ -144,7 +144,7 @@ const Header: React.FC = () => {
             className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/70 p-2 text-slate-800 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-indigo-200 hover:text-indigo-700 active:scale-[0.98] lg:hidden dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-indigo-400/40 dark:hover:text-indigo-200"
           >
             <span className="sr-only">Open main menu</span>
-            <Bars3Icon className="h-5 w-5" aria-hidden="true" />
+            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
       </nav>
@@ -195,7 +195,7 @@ const Header: React.FC = () => {
                     className="rounded-lg border border-slate-200 p-2 text-slate-700 transition-all duration-200 hover:border-indigo-200 hover:text-indigo-700 active:scale-95 dark:border-white/10 dark:text-slate-200 dark:hover:border-indigo-400/40 dark:hover:text-indigo-200"
                   >
                     <span className="sr-only">Close menu</span>
-                    <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
 
@@ -209,7 +209,7 @@ const Header: React.FC = () => {
                           setMobileMenuOpen(false);
                         }}
                         style={{ animationDelay: `${index * 35}ms` }}
-                        className={`animate-fadeIn w-full rounded-xl px-3 py-3 text-left text-sm font-medium opacity-0 transition-all duration-200 hover:translate-x-1 active:scale-[0.99] ${
+                        className={`animate-fadeIn w-full rounded-xl px-3 py-3 text-left text-base font-medium opacity-0 transition-all duration-200 hover:translate-x-1 active:scale-[0.99] ${
                           activeSection === item.href
                             ? "bg-indigo-50 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200"
                             : "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10"

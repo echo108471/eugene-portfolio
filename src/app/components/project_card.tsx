@@ -33,14 +33,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const shouldReduceMotion = useReducedMotion();
   const isSvg = image?.endsWith(".svg");
 
-  const cardClasses = `group relative flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white/80 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200 hover:shadow-md hover:shadow-indigo-950/5 active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/40 ${className}`;
+  const cardClasses = `group relative flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white/80 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200 hover:shadow-md hover:shadow-indigo-950/5 active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/60 dark:hover:bg-white/[0.08] ${className}`;
 
   const content = (
     <>
       <div className="absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
       {image && !imageError && (
-        <div className="relative h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-950/40">
+        <div className="relative h-48 xs:h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-950/40">
           <Image
             src={image}
             alt={`${name} preview`}

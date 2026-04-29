@@ -24,24 +24,24 @@ const Home: React.FC = () => {
     <div className="min-h-screen text-slate-950 dark:text-foreground-dark">
       <Header />
 
-      <main className="mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-7xl px-6 pb-14 sm:px-8 lg:px-12">
         <section
           id="home"
-          className="flex flex-col justify-center scroll-mt-24 py-16 sm:py-20 lg:min-h-[calc(100vh-76px)] lg:py-24"
+          className="flex flex-col justify-center scroll-mt-24 py-16 xs:py-20 sm:py-24 lg:min-h-[calc(100vh-76px)] lg:py-24"
         >
           <div className="flex flex-col gap-10 max-w-4xl">
             <Stagger>
               <MotionChild>
-                <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-3 py-1.5 text-sm font-medium text-indigo-700 shadow-sm shadow-indigo-900/5 dark:border-indigo-400/20 dark:bg-indigo-400/10 dark:text-indigo-200">
+                <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-indigo-700 shadow-sm shadow-indigo-900/5 xs:text-sm dark:border-indigo-400/20 dark:bg-indigo-400/10 dark:text-indigo-200">
                   <SparklesIcon className="h-4 w-4" aria-hidden="true" />
                   Persist AI intern, UC Davis CS senior, full-stack systems builder
                 </div>
               </MotionChild>
 
               <MotionChild>
-                <h1 className="mt-6 text-5xl font-bold leading-[1.05] text-slate-950 sm:text-6xl lg:text-7xl dark:text-white">
+                <h1 className="mt-6 text-4xl font-bold leading-[1.1] text-slate-950 xs:text-5xl sm:text-6xl lg:text-7xl dark:text-white">
                   Hi, I&apos;m Eugene Cho.
-                  <span className="block bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 bg-clip-text mt-2 text-transparent text-4xl sm:text-5xl lg:text-6xl">
+                  <span className="block bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 bg-clip-text mt-2 text-transparent text-3xl xs:text-4xl sm:text-5xl lg:text-6xl">
                     Software Engineer
                   </span>
                 </h1>
