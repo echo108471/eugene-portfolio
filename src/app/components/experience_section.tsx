@@ -1,7 +1,4 @@
-"use client";
-
 import React from "react";
-import Image from "next/image";
 import {
   ArrowTopRightOnSquareIcon,
   CalendarDaysIcon,
@@ -200,14 +197,13 @@ function ExperienceLogo({
       )}
 
       {experience.logo && !experience.logoLight && !experience.logoDark && (
-        <Image
+        <img
           src={experience.logo}
           alt={`${experience.company} logo`}
           width={48}
           height={48}
-          priority={priority}
           className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
-          onError={(e) => {
+          onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
             e.currentTarget.style.display = "none";
           }}
         />

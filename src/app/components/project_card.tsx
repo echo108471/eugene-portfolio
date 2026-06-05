@@ -1,7 +1,4 @@
-"use client";
-
 import React from "react";
-import Image from "next/image";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { motion, useReducedMotion } from "framer-motion";
 import { cardHover, cardTap } from "./motion";
@@ -41,13 +38,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
       {image && !imageError && (
         <div className="relative h-48 xs:h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-950/40">
-          <Image
+          <img
             src={image}
             alt={`${name} preview`}
-            fill
-            priority={priority}
-            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-            className={`transition-transform duration-500 ease-out group-hover:scale-[1.04] ${
+            className={`absolute inset-0 h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.04] ${
               isSvg ? "object-contain p-6" : "object-cover"
             }`}
             onError={() => setImageError(true)}

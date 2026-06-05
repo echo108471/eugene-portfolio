@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { CalendarDaysIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { Reveal } from "./motion";
 
@@ -71,7 +70,7 @@ function EducationLogo({ edu }: { edu: EducationItem }) {
       )}
 
       {edu.logo && !edu.logoLight && !edu.logoDark && (
-        <Image
+        <img
           src={edu.logo}
           alt={`${edu.institution} logo`}
           width={44}
