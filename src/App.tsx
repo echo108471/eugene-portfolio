@@ -6,19 +6,19 @@ import {
   DocumentTextIcon,
   EnvelopeIcon,
 } from "@heroicons/react/24/outline";
-import Header from "./header";
-import "../globals.css";
-import ExperienceSection from "./experience_section";
-import Projects from "./project_section";
-import AboutMe from "./about_me";
-import ContactMe from "./contact_me";
-import EducationSection from "./education_section";
-import AwardsSection from "./award_section";
-import SkillsSection from "./skills_section";
-import ReleaseHistory from "./release_history";
-import { MotionChild, Stagger } from "./motion";
+import "@/globals.css";
+import Header from "@/components/header";
+import ExperienceSection from "@/components/experience_section";
+import Projects from "@/components/project_section";
+import AboutMe from "@/components/about_me";
+import ContactMe from "@/components/contact_me";
+import EducationSection from "@/components/education_section";
+import AwardsSection from "@/components/award_section";
+import SkillsSection from "@/components/skills_section";
+import ReleaseHistory from "@/components/release_history";
+import { MotionChild, Stagger } from "@/components/motion";
 
-const Home: React.FC = () => {
+const App: React.FC = () => {
 
   return (
     <div className="site-shell">
@@ -131,4 +131,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default App;
