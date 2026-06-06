@@ -43,7 +43,7 @@ const slugify = (value: string) =>
 function EducationLogo({ edu }: { edu: EducationItem }) {
   if (!edu.logo && !edu.logoLight && !edu.logoDark) {
     return (
-      <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+      <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] text-sm font-semibold text-[var(--ink-soft)]">
         {edu.institution
           .split(" ")
           .slice(0, 2)
@@ -54,7 +54,7 @@ function EducationLogo({ edu }: { edu: EducationItem }) {
   }
 
   return (
-    <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 transition-colors duration-200 group-hover:border-amber-200 group-hover:bg-white dark:border-white/10 dark:bg-white/5 dark:group-hover:border-amber-400/40">
+    <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] transition-colors duration-200 group-hover:border-[var(--add-edge)]">
       {(edu.logoLight || edu.logoDark) && (
         <div
           className="theme-logo h-11 w-11"
@@ -84,65 +84,71 @@ function EducationLogo({ edu }: { edu: EducationItem }) {
 
 const EducationSection = () => {
   return (
-    <section className="py-10 sm:py-12">
+    <section className="page-section">
       <Reveal>
-        <div className="mb-8 max-w-2xl">
-          <p className="text-sm font-semibold uppercase text-amber-600 dark:text-amber-300">
-            Education
-          </p>
-          <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
-            Education & background.
-          </h2>
+        <div className="section-head">
+          <span className="section-num">06</span>
+          <h2 className="section-title">Education & background</h2>
+          <span className="section-note">history.md</span>
         </div>
       </Reveal>
 
-      <div className="grid gap-5 lg:grid-cols-2">
-        {education.map((edu) => {
-          const educationId = `edu-${slugify(edu.institution)}`;
+      <div className="diff-block">
+        <div className="diff-gutter">
+          <span className="tilde">~</span>
+          <span className="plus">+</span>
+        </div>
+        <div className="diff-body">
+          <div className="grid gap-5 lg:grid-cols-2">
+            {education.map((edu) => {
+              const educationId = `edu-${slugify(edu.institution)}`;
 
-          return (
-            <div
-              key={edu.institution}
-              id={educationId}
-              className="group rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-amber-200 hover:shadow-md active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-amber-400/60 dark:hover:bg-white/[0.08]"
-            >
-              <div className="flex gap-4">
-                <EducationLogo edu={edu} />
+              return (
+                <div
+                  key={edu.institution}
+                  id={educationId}
+                  className="surface-card group p-5"
+                >
+                  <div className="flex gap-4">
+                    <EducationLogo edu={edu} />
 
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-lg font-semibold text-slate-950 dark:text-white">
-                    {edu.institution}
-                  </h3>
-                  <p className="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">
-                    {edu.degree}
-                  </p>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-display text-lg font-medium text-[var(--ink)]">
+                        {edu.institution}
+                      </h3>
+                      <p className="mt-1 text-sm font-medium text-[var(--ink-soft)]">
+                        {edu.degree}
+                      </p>
 
-                  <div className="mt-3 flex flex-wrap gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 dark:bg-white/10">
-                      <MapPinIcon className="h-4 w-4" aria-hidden="true" />
-                      {edu.location}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 dark:bg-white/10">
-                      <CalendarDaysIcon className="h-4 w-4" aria-hidden="true" />
-                      {edu.date}
-                    </span>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <span className="tag-pill">
+                          <MapPinIcon className="h-4 w-4" aria-hidden="true" />
+                          {edu.location}
+                        </span>
+                        <span className="tag-pill">
+                          <CalendarDaysIcon className="h-4 w-4" aria-hidden="true" />
+                          {edu.date}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 border-t border-[var(--line)] pt-5">
+                    {edu.description.map((item) => (
+                      <p
+                        key={item}
+                        className="body-copy flex gap-3 text-sm"
+                      >
+                        <span className="flex-none font-mono text-[var(--add)]">+</span>
+                        <span>{item}</span>
+                      </p>
+                    ))}
                   </div>
                 </div>
-              </div>
-
-              <div className="mt-5 border-t border-slate-100 pt-5 dark:border-white/10">
-                {edu.description.map((item) => (
-                  <p
-                    key={item}
-                    className="text-sm leading-6 text-slate-700 dark:text-innertext-dark font-sans"
-                  >
-                    {item}
-                  </p>
-                ))}
-              </div>
-            </div>
-          );
-        })}
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );
