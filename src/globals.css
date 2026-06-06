@@ -329,39 +329,35 @@ html.dark .theme-logo {
 
   .stage-mark {
     position: absolute;
-    top: 18px;
-    left: 11px;
+    top: 6px;
+    left: 12px;
     z-index: 20;
-    color: var(--ink-faint);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--add);
     font-family: var(--font-jetbrains-mono);
-    font-size: 0;
-    opacity: 0.45;
-    transition: color 0.22s ease, opacity 0.22s ease;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(-3px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
   }
 
   .stage-mark::before {
     font-size: 12px;
-    content: "·";
-  }
-
-  .stage-mark::after {
-    font-size: 12px;
-    content: " staged";
-    opacity: 0;
-    transition: opacity 0.22s ease;
-  }
-
-  .stage-card:hover .stage-mark {
-    color: var(--add);
-    opacity: 1;
-  }
-
-  .stage-card:hover .stage-mark::before {
     content: "+";
   }
 
-  .stage-card:hover .stage-mark::after {
+  .stage-mark::after {
+    content: "staged";
+  }
+
+  .stage-card:hover .stage-mark {
     opacity: 1;
+    transform: translateY(0);
   }
 
   .quiet-list {
