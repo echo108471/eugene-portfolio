@@ -5,7 +5,7 @@ import { Reveal } from "./motion";
 const AboutMe: React.FC = () => {
   const facts = [
     "B.S. Computer Science at UC Davis, Jun. 2026",
-    "Software Engineer Intern at Sealing Technologies (a Parsons Company)",
+    "Software Engineer Intern at Sealing Technologies, a Parsons Company",
     "Built systems used by 500K+ monthly healthcare sessions",
     "Shipped course tooling reaching 40K+ UC Davis students",
   ];

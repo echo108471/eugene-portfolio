@@ -17,8 +17,10 @@ import AwardsSection from "@/components/award_section";
 import SkillsSection from "@/components/skills_section";
 import ReleaseHistory from "@/components/release_history";
 import { MotionChild, Stagger } from "@/components/motion";
+import { useLastCommitLabel } from "@/use-last-commit";
 
 const App: React.FC = () => {
+  const lastCommit = useLastCommitLabel();
 
   return (
     <div className="site-shell">
@@ -38,7 +40,7 @@ const App: React.FC = () => {
             <div className="diff-body">
               <Stagger>
                 <MotionChild>
-                  <p className="eyebrow">// portfolio - branch: main / UC Davis CS</p>
+                  <p className="eyebrow">// portfolio · branch: main · last commit {lastCommit}</p>
                 </MotionChild>
 
                 <MotionChild>

@@ -23,9 +23,10 @@ interface ExperienceItem {
 const experiences: ExperienceItem[] = [
   {
     title: "Software Engineer Intern",
-    company: "Sealing Technologies (a Parsons Company)",
+    company: "Sealing Technologies, a Parsons Company",
     location: "Columbia, MD",
     date: "May 2026 – Present",
+    link: "https://www.sealingtech.com/",
     description: [
       "Contributing to Zepharis AI, a fully air-gapped, full-stack local LLM platform that delivers context-aware reasoning as a portable AI subject-matter expert for defensive cyber operators at the edge.",
       "Building features that fuse LLMs with operational tooling — natural language querying, RAG over mission documentation, and unified command across Elastic, Vectra, and Security Onion.",
@@ -44,6 +45,7 @@ const experiences: ExperienceItem[] = [
     company: "Persist AI (YC W23)",
     location: "Sacramento, CA",
     date: "Feb. 2026 – May 2026",
+    link: "https://www.persist.ai/",
     description: [
       "Engineered a multi-agent platform for pharmaceutical formulation workflows, integrating 22 specialized backend agents into a unified system for project execution, collaboration, and research automation.",
       "Built 37 backend API endpoints and real-time/async patterns (WebSockets, SSE, background jobs) across 85+ microservices, with automated coverage spanning 190+ Playwright and pytest test files.",
