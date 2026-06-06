@@ -4,8 +4,8 @@ import { Reveal } from "./motion";
 
 const AboutMe: React.FC = () => {
   const facts = [
-    "B.S. Computer Science at UC Davis, expected Jun. 2026",
-    "Software Engineer Intern at Persist AI (YC W23)",
+    "B.S. Computer Science at UC Davis, Jun. 2026",
+    "Software Engineer Intern at Sealing Technologies (a Parsons Company)",
     "Built systems used by 500K+ monthly healthcare sessions",
     "Shipped course tooling reaching 40K+ UC Davis students",
   ];
@@ -40,7 +40,7 @@ const AboutMe: React.FC = () => {
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">I&apos;m a UC Davis CS senior and Software Engineer Intern at Persist AI.</span>
+                  <span className="content">I&apos;m a UC Davis CS new grad and Software Engineer Intern at Sealing Technologies.</span>
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
@@ -48,7 +48,7 @@ const AboutMe: React.FC = () => {
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">Recent work spans agents, patient intake, course tooling, and bioinformatics.</span>
+                  <span className="content">Recent work spans air-gapped LLM platforms, multi-agent systems, patient intake, and course tooling.</span>
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
@@ -57,10 +57,10 @@ const AboutMe: React.FC = () => {
               </div>
 
               <a
-                href="mailto:eacho@ucdavis.edu"
+                href="mailto:eugene.a.cho@gmail.com"
                 className="link-arrow mt-6"
               >
-                eacho@ucdavis.edu
+                eugene.a.cho@gmail.com
                 <ArrowTopRightOnSquareIcon className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>

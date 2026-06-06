@@ -19,8 +19,8 @@ const releases: Release[] = [
     version: "v3.0",
     when: "2026 — now",
     changes: [
-      { type: "add", text: "Building a multi-agent platform at Persist AI (YC W23)" },
-      { type: "add", text: "Owning APIs, real-time flows, and end-to-end test coverage" },
+      { type: "add", text: "Building Zepharis AI at Sealing Technologies — an air-gapped local LLM platform for defensive cyber operators" },
+      { type: "add", text: "Shipped a 22-agent platform at Persist AI (YC W23) — APIs, real-time flows, and end-to-end coverage" },
       { type: "add", text: "Graduating UC Davis CS — turning the degree into shipped systems" },
       { type: "rem", text: "deprecated: waiting to feel “senior enough” before owning a system" },
     ],

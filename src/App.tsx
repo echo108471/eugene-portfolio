@@ -54,9 +54,9 @@ const App: React.FC = () => {
 
                 <MotionChild>
                   <p className="lede">
-                    I&apos;m a UC Davis CS senior and software engineering intern at Persist AI. I build
-                    backend-heavy full-stack systems across healthcare, education, and bioinformatics,
-                    with recent work in agents, real-time collaboration, and production APIs.
+                    I&apos;m a UC Davis CS new grad and software engineering intern at Sealing Technologies. I build
+                    backend-heavy full-stack systems across defense, healthcare, and education,
+                    with recent work in air-gapped LLM platforms, multi-agent systems, and production APIs.
                   </p>
                 </MotionChild>
 
@@ -71,7 +71,7 @@ const App: React.FC = () => {
                       <ArrowDownIcon className="h-4 w-4" aria-hidden="true" />
                     </a>
                     <a
-                      href="mailto:eacho@ucdavis.edu"
+                      href="mailto:eugene.a.cho@gmail.com"
                       className="btn btn-secondary"
                     >
                       <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />

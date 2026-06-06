@@ -12,8 +12,8 @@ const contactMethods = [
   },
   {
     label: "Email",
-    value: "eacho@ucdavis.edu",
-    href: "mailto:eacho@ucdavis.edu",
+    value: "eugene.a.cho@gmail.com",
+    href: "mailto:eugene.a.cho@gmail.com",
     icon: FaEnvelope,
   },
   {

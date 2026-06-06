@@ -23,12 +23,30 @@ interface ExperienceItem {
 const experiences: ExperienceItem[] = [
   {
     title: "Software Engineer Intern",
+    company: "Sealing Technologies (a Parsons Company)",
+    location: "Columbia, MD",
+    date: "May 2026 – Present",
+    description: [
+      "Contributing to Zepharis AI, a fully air-gapped, full-stack local LLM platform that delivers context-aware reasoning as a portable AI subject-matter expert for defensive cyber operators at the edge.",
+      "Building features that fuse LLMs with operational tooling — natural language querying, RAG over mission documentation, and unified command across Elastic, Vectra, and Security Onion.",
+    ],
+    techStack: [
+      "React",
+      "FastAPI",
+      "vLLM",
+      "Celery",
+      "Python",
+      "RAG",
+    ],
+  },
+  {
+    title: "Software Engineer Intern",
     company: "Persist AI (YC W23)",
     location: "Sacramento, CA",
-    date: "Feb. 2026 – Present",
+    date: "Feb. 2026 – May 2026",
     description: [
-      "Building a multi-agent platform for pharmaceutical formulation workflows, integrating 22 specialized backend agents into a unified product surface.",
-      "Implemented core APIs, real-time flows, background jobs, and automated coverage across UI, API, and end-to-end workflows.",
+      "Engineered a multi-agent platform for pharmaceutical formulation workflows, integrating 22 specialized backend agents into a unified system for project execution, collaboration, and research automation.",
+      "Built 37 backend API endpoints and real-time/async patterns (WebSockets, SSE, background jobs) across 85+ microservices, with automated coverage spanning 190+ Playwright and pytest test files.",
     ],
     techStack: [
       "FastAPI",
@@ -67,12 +85,12 @@ const experiences: ExperienceItem[] = [
     title: "Software Engineer",
     company: "AggieWorks",
     location: "Davis, CA",
-    date: "Oct. 2024 – Present",
+    date: "Oct. 2024 – Jun. 2026",
     link: "https://aggieworks.org/",
     logo: "/logos/aw_logo.svg",
     description: [
-      "Built daviscattlelog.com, a course and professor insights platform for UC Davis students that reached 40K+ unique users.",
-      "Improved search, rendering, and caching paths to cut latency and redundant traffic while supporting higher uptime.",
+      "Built daviscattlelog.com, a course and professor insights platform with React, FastAPI, and PostgreSQL, reaching 40K+ unique and 6.3K+ monthly active UC Davis users.",
+      "Refactored search with vector embeddings and fuzzy matching for 4× faster retrieval, and cut API latency ~90% with Redis caching and virtualization — lifting uptime from 88% to 99.9%.",
     ],
     techStack: [
       "FastAPI",

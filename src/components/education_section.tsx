@@ -18,7 +18,7 @@ const education: EducationItem[] = [
     degree: "B.S. Computer Science",
     institution: "University of California, Davis",
     location: "Davis, CA",
-    date: "Expected Jun. 2026",
+    date: "Jun. 2026",
     logoLight: "/education/ucd_logo_light.png",
     logoDark: "/education/ucd_logo_dark.png",
     description: ["B.S. in Computer Science"],
