@@ -30,11 +30,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const shouldReduceMotion = useReducedMotion();
   const isSvg = image?.endsWith(".svg");
 
-  const cardClasses = `group relative flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white/80 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200 hover:shadow-md hover:shadow-indigo-950/5 active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/60 dark:hover:bg-white/[0.08] ${className}`;
+  const cardClasses = `group relative flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white/80 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-amber-200 hover:shadow-md hover:shadow-amber-950/5 active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-amber-400/60 dark:hover:bg-white/[0.08] ${className}`;
 
   const content = (
     <>
-      <div className="absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+      <div className="absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-amber-500 via-rose-400 to-violet-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
       {image && !imageError && (
         <div className="relative h-48 xs:h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-950/40">
@@ -65,7 +65,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600 dark:bg-white/10 dark:text-slate-300">
             {date}
           </span>
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-700 opacity-80 transition-opacity duration-200 group-hover:opacity-100 dark:text-indigo-300">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-700 opacity-80 transition-opacity duration-200 group-hover:opacity-100 dark:text-amber-300">
             Open
             <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
           </span>
@@ -82,7 +82,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-700 dark:text-innertext-dark">
             {highlights.map((highlight) => (
               <li key={highlight} className="flex gap-2 font-sans">
-                <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-indigo-500" />
+                <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-amber-500" />
                 <span>{highlight}</span>
               </li>
             ))}
@@ -93,7 +93,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           {techStack.map((tech) => (
             <span
               key={tech}
-              className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors duration-200 group-hover:border-indigo-200 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:group-hover:border-indigo-400/40"
+              className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors duration-200 group-hover:border-amber-200 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:group-hover:border-amber-400/40"
             >
               {tech}
             </span>

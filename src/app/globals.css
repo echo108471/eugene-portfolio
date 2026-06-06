@@ -5,22 +5,21 @@
 /* Light mode */
 :root {
   --font-jetbrains-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  --background-light: #f9fafb;
-  --foreground-light: #111827;
-  --accent-light: #6366f1;
-  --innerbox-light: #1b1d1e;
-  --subtext-light: #6B7280;
-  --techstack-light: #6B7280;
-  --innertext-light: #6B7280;
-  --tinybox-light: #f3f4f6;
-  --header-light: #f9fafb;
 
-  /* Refined static mesh gradient - increased opacity for better visibility */
-  --background-gradient-light: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.10) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(236, 72, 153, 0.08) 0px, transparent 50%),
-    linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  --background-light: #FEFCF5;
+  --foreground-light: #1C1917;
+  --accent-light: #D97706;
+  --innerbox-light: #292524;
+  --subtext-light: #78716C;
+  --techstack-light: #78716C;
+  --innertext-light: #78716C;
+  --tinybox-light: #F5F2ED;
+  --header-light: #FEFCF5;
+
+  /* Dot-grid background — schematic paper feel */
+  --background-gradient-light:
+    radial-gradient(circle at 50% 50%, rgba(215, 166, 115, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
   --background: var(--background-light);
   --foreground: var(--foreground-light);
   --background-gradient: var(--background-gradient-light);
@@ -28,22 +27,20 @@
 
 /* Dark mode */
 :root.dark {
-  --background-dark: #020617;
-  --foreground-dark: #ebe8e2;
-  --accent-dark: #3b4143;
-  --innerbox-dark: #1b1d1e;
-  --subtext-dark: #aea497;
-  --techstack-dark: #c3bbb0;
-  --innertext-dark: #d0c9c1;
-  --tinybox-dark: #1e293b;
-  --header-dark: #020617;
+  --background-dark: #17120E;
+  --foreground-dark: #E7E2DC;
+  --accent-dark: #78716C;
+  --innerbox-dark: #292524;
+  --subtext-dark: #A8A29E;
+  --techstack-dark: #C4BFB9;
+  --innertext-dark: #D6D1CA;
+  --tinybox-dark: #292524;
+  --header-dark: #17120E;
 
-  /* Deep, static midnight mesh - increased opacity */
-  --background-gradient-dark: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.10) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.10) 0px, transparent 50%),
-    linear-gradient(to bottom, #020617 0%, #0f172a 100%);
+  /* Dot-grid dark */
+  --background-gradient-dark:
+    radial-gradient(circle at 50% 50%, rgba(215, 166, 115, 0.10) 1px, transparent 1px);
+  background-size: 24px 24px;
   --background: var(--background-dark);
   --foreground: var(--foreground-dark);
   --background-gradient: var(--background-gradient-dark);
@@ -53,10 +50,10 @@ body {
   color: var(--foreground);
   background-color: var(--background);
   background-image: var(--background-gradient);
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-attachment: scroll;
   background-position: center;
-  background-size: cover;
+  background-size: 24px 24px;
   transition: background-color 0.3s ease, color 0.3s ease;
   font-family: var(--font-jetbrains-mono), monospace;
   letter-spacing: -0.01em;
@@ -73,7 +70,7 @@ html {
 }
 
 ::selection {
-  background: rgba(99, 102, 241, 0.22);
+  background: rgba(217, 119, 6, 0.18);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -108,7 +105,7 @@ h6 {
 }
 
 html.dark :where(a, button, [role="button"], input, textarea, select, summary):focus-visible {
-  outline-color: #818cf8;
+  outline-color: #D97706;
 }
 
 .disable-transitions *,

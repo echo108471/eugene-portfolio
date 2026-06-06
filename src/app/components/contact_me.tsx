@@ -9,7 +9,7 @@ const contactMethods = [
     value: "eacho.me",
     href: "https://eacho.me",
     icon: FaGlobe,
-    color: "hover:border-emerald-200 hover:text-emerald-700 dark:hover:border-emerald-400/40 dark:hover:text-emerald-200",
+    color: "hover:border-amber-200 hover:text-amber-700 dark:hover:border-amber-400/40 dark:hover:text-amber-200",
   },
   {
     label: "Email",
@@ -46,11 +46,11 @@ const ContactMe: React.FC = () => {
     <section className="py-12 sm:py-16">
       <Reveal>
         <div className="relative overflow-hidden rounded-lg border border-slate-200 bg-slate-950 p-6 text-white shadow-2xl shadow-slate-950/20 dark:border-white/10 dark:bg-white/5 dark:shadow-black/25 sm:p-8">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-amber-500 via-rose-400 to-violet-400" />
 
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(320px,0.75fr)] lg:items-end">
             <div>
-              <p className="text-sm font-semibold uppercase text-indigo-200">
+              <p className="text-sm font-semibold uppercase text-amber-200">
                 Contact
               </p>
               <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">

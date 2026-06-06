@@ -95,10 +95,10 @@ const Header: React.FC = () => {
         <button
           type="button"
           onClick={() => handleScroll("home")}
-          className="group flex min-w-0 items-center gap-2.5 rounded-full px-2 py-1.5 text-left text-sm font-semibold text-slate-900 transition-colors hover:text-indigo-700 dark:text-white dark:hover:text-indigo-200"
+          className="group flex min-w-0 items-center gap-2.5 rounded-full px-2 py-1.5 text-left text-sm font-semibold text-slate-900 transition-colors hover:text-amber-700 dark:text-white dark:hover:text-amber-200"
           aria-label="Scroll to home"
         >
-          <span className="h-3.5 w-3.5 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-400 shadow-md shadow-indigo-500/20 transition-transform duration-200 group-hover:scale-125" />
+          <span className="h-3.5 w-3.5 rounded-full bg-gradient-to-br from-amber-500 to-rose-400 shadow-md shadow-amber-500/20 transition-transform duration-200 group-hover:scale-125" />
           <span className="hidden xs:inline sm:inline">Eugene Cho</span>
           <span className="xs:hidden">EC</span>
         </button>
@@ -113,19 +113,19 @@ const Header: React.FC = () => {
                 aria-current={activeSection === item.href ? "page" : undefined}
                 className={`group relative rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                   activeSection === item.href
-                    ? "text-indigo-700 dark:text-white"
+                    ? "text-amber-700 dark:text-white"
                     : "text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white"
                 }`}
               >
                 {activeSection === item.href && (
                   <motion.span
                     layoutId="active-nav"
-                    className="absolute inset-0 rounded-full bg-indigo-50 shadow-sm shadow-indigo-900/5 dark:bg-indigo-500/20"
+                    className="absolute inset-0 rounded-full bg-amber-50 shadow-sm shadow-amber-900/5 dark:bg-amber-500/20"
                     transition={{ type: "spring", stiffness: 420, damping: 34 }}
                   />
                 )}
                 <span className="relative z-10">{item.name}</span>
-                <span className="absolute inset-x-3 bottom-1 h-px scale-x-0 bg-gradient-to-r from-indigo-500 to-cyan-400 transition-transform duration-200 group-hover:scale-x-100" />
+                <span className="absolute inset-x-3 bottom-1 h-px scale-x-0 bg-gradient-to-r from-amber-500 to-rose-400 transition-transform duration-200 group-hover:scale-x-100" />
               </button>
           ))}
           </div>
@@ -139,7 +139,7 @@ const Header: React.FC = () => {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/70 p-2 text-slate-800 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-indigo-200 hover:text-indigo-700 active:scale-[0.98] lg:hidden dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-indigo-400/40 dark:hover:text-indigo-200"
+            className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/70 p-2 text-slate-800 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-amber-200 hover:text-amber-700 active:scale-[0.98] lg:hidden dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-amber-400/40 dark:hover:text-amber-200"
           >
             <span className="sr-only">Open main menu</span>
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -190,7 +190,7 @@ const Header: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="rounded-lg border border-slate-200 p-2 text-slate-700 transition-all duration-200 hover:border-indigo-200 hover:text-indigo-700 active:scale-95 dark:border-white/10 dark:text-slate-200 dark:hover:border-indigo-400/40 dark:hover:text-indigo-200"
+                    className="rounded-lg border border-slate-200 p-2 text-slate-700 transition-all duration-200 hover:border-amber-200 hover:text-amber-700 active:scale-95 dark:border-white/10 dark:text-slate-200 dark:hover:border-amber-400/40 dark:hover:text-amber-200"
                   >
                     <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -209,7 +209,7 @@ const Header: React.FC = () => {
                         style={{ animationDelay: `${index * 35}ms` }}
                         className={`animate-fadeIn w-full rounded-xl px-3 py-3 text-left text-base font-medium opacity-0 transition-all duration-200 hover:translate-x-1 active:scale-[0.99] ${
                           activeSection === item.href
-                            ? "bg-indigo-50 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-200"
+                            ? "bg-amber-50 text-amber-700 dark:bg-amber-500/20 dark:text-amber-200"
                             : "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10"
                         }`}
                       >

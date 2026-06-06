@@ -54,7 +54,7 @@ function EducationLogo({ edu }: { edu: EducationItem }) {
   }
 
   return (
-    <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 transition-colors duration-200 group-hover:border-indigo-200 group-hover:bg-white dark:border-white/10 dark:bg-white/5 dark:group-hover:border-indigo-400/40">
+    <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 transition-colors duration-200 group-hover:border-amber-200 group-hover:bg-white dark:border-white/10 dark:bg-white/5 dark:group-hover:border-amber-400/40">
       {(edu.logoLight || edu.logoDark) && (
         <div
           className="theme-logo h-11 w-11"
@@ -87,7 +87,7 @@ const EducationSection = () => {
     <section className="py-10 sm:py-12">
       <Reveal>
         <div className="mb-8 max-w-2xl">
-          <p className="text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-300">
+          <p className="text-sm font-semibold uppercase text-amber-600 dark:text-amber-300">
             Education
           </p>
           <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
@@ -104,7 +104,7 @@ const EducationSection = () => {
             <div
               key={edu.institution}
               id={educationId}
-              className="group rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-indigo-200 hover:shadow-md active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/60 dark:hover:bg-white/[0.08]"
+              className="group rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-amber-200 hover:shadow-md active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-amber-400/60 dark:hover:bg-white/[0.08]"
             >
               <div className="flex gap-4">
                 <EducationLogo edu={edu} />

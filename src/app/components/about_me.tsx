@@ -15,7 +15,7 @@ const AboutMe: React.FC = () => {
       <Reveal>
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(300px,0.55fr)] lg:items-start">
           <div>
-            <p className="text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-300">
+            <p className="text-sm font-semibold uppercase text-amber-600 dark:text-amber-300">
               About
             </p>
             <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
@@ -33,7 +33,7 @@ const AboutMe: React.FC = () => {
             </p>
             <a
               href="mailto:eacho@ucdavis.edu"
-              className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-indigo-700 transition-colors duration-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:text-indigo-100"
+              className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-amber-700 transition-colors duration-200 hover:text-amber-900 dark:text-amber-300 dark:hover:text-amber-100"
             >
               eacho@ucdavis.edu
               <ArrowTopRightOnSquareIcon className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
@@ -44,7 +44,7 @@ const AboutMe: React.FC = () => {
             {facts.map((fact) => (
               <div
                 key={fact}
-                className="flex gap-3 rounded-lg border border-slate-200 bg-white/70 p-4 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-indigo-200 hover:shadow-md active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/60 dark:hover:bg-white/[0.08]"
+                className="flex gap-3 rounded-lg border border-slate-200 bg-white/70 p-4 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-amber-200 hover:shadow-md active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:hover:border-amber-400/60 dark:hover:bg-white/[0.08]"
               >
                 <CheckCircleIcon className="mt-0.5 h-5 w-5 flex-none text-emerald-500" aria-hidden="true" />
                 <p className="text-sm leading-6 text-slate-700 dark:text-slate-300 font-sans">

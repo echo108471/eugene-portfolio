@@ -32,8 +32,8 @@ const Home: React.FC = () => {
           <div className="flex flex-col gap-10 max-w-4xl">
             <Stagger>
               <MotionChild>
-                <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-indigo-700 shadow-sm shadow-indigo-900/5 xs:text-sm dark:border-indigo-400/20 dark:bg-indigo-400/10 dark:text-indigo-200">
-                  <SparklesIcon className="h-4 w-4" aria-hidden="true" />
+                <div className="inline-flex items-center gap-2 rounded-full border border-amber-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-amber-700 shadow-sm shadow-amber-900/5 xs:text-sm dark:border-amber-400/20 dark:bg-amber-400/10 dark:text-amber-200">
+                  <span className="relative flex h-2 w-2" aria-hidden="true"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-500/75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" /></span>
                   Persist AI intern, UC Davis CS senior, full-stack systems builder
                 </div>
               </MotionChild>
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
               <MotionChild>
                 <h1 className="mt-6 text-4xl font-bold leading-[1.1] text-slate-950 xs:text-5xl sm:text-6xl lg:text-7xl dark:text-white">
                   Hi, I&apos;m Eugene Cho.
-                  <span className="block mt-2 text-3xl font-semibold text-indigo-600 xs:text-4xl sm:text-5xl lg:text-6xl dark:text-indigo-400">
+                  <span className="block mt-2 text-3xl font-semibold text-amber-600 xs:text-4xl sm:text-5xl lg:text-6xl dark:text-amber-400">
                     Software Engineer
                   </span>
                 </h1>
@@ -67,7 +67,7 @@ const Home: React.FC = () => {
                   </a>
                   <a
                     href="mailto:eacho@ucdavis.edu"
-                    className="group inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-indigo-200 hover:text-indigo-700 active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-indigo-400/40 dark:hover:text-indigo-200"
+                    className="group inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-amber-200 hover:text-amber-700 active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-amber-400/40 dark:hover:text-amber-200"
                   >
                     <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />
                     Contact
@@ -77,7 +77,7 @@ const Home: React.FC = () => {
                     href="/EugeneChoResume.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-cyan-200 hover:text-cyan-700 active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-cyan-400/40 dark:hover:text-cyan-200"
+                    className="group inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-amber-300 hover:text-amber-700 active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-amber-400/40 dark:hover:text-amber-200"
                   >
                     <DocumentTextIcon className="h-5 w-5" aria-hidden="true" />
                     Resume

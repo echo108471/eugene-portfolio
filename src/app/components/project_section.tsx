@@ -87,7 +87,7 @@ const Projects: React.FC = () => {
       <Reveal>
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-300">
+            <p className="text-sm font-semibold uppercase text-amber-600 dark:text-amber-300">
               Projects
             </p>
             <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
