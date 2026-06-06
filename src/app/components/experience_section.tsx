@@ -156,13 +156,11 @@ const slugify = (value: string) =>
 
 function ExperienceLogo({
   experience,
-  priority,
 }: {
   experience: ExperienceItem;
-  priority: boolean;
 }) {
   const baseClasses =
-    "relative z-10 flex h-14 w-14 sm:h-16 sm:w-16 flex-none items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-[#0B1120] transition-colors duration-200 group-hover/item:border-slate-300 dark:group-hover/item:border-white/20";
+    "relative z-10 flex h-14 w-14 sm:h-16 sm:w-16 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] transition-colors duration-200 group-hover/item:border-[var(--add-edge)]";
 
   if (!experience.logo && !experience.logoLight && !experience.logoDark) {
     const initials = experience.company
@@ -174,7 +172,7 @@ function ExperienceLogo({
       .join("");
 
     return (
-      <div className={`${baseClasses} text-sm font-semibold text-slate-600 dark:text-slate-300`}>
+      <div className={`${baseClasses} text-sm font-semibold text-[var(--ink-soft)]`}>
         {initials}
       </div>
     );
@@ -214,88 +212,88 @@ function ExperienceLogo({
 
 const ExperienceSection = () => {
   return (
-    <section className="py-16 sm:py-20">
+    <section className="page-section">
       <Reveal>
-        <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase text-amber-600 dark:text-amber-300">
-              Experience
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
-              Where I&apos;ve worked.
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400 font-sans">
-              Backend systems, product surfaces, and data-heavy tools across healthcare, education, and research.
-            </p>
-          </div>
+        <div className="section-head">
+          <span className="section-num">02</span>
+          <h2 className="section-title">Where I&apos;ve worked</h2>
+          <span className="section-note">worktree · active history</span>
         </div>
+        <p className="body-copy mb-8 max-w-2xl">
+          Backend systems, product surfaces, and data-heavy tools across healthcare, education, and research.
+        </p>
       </Reveal>
 
-      <div className="relative space-y-4">
-        {/* Timeline Line */}
-        <div 
-          className="absolute left-[2.85rem] top-8 bottom-8 w-px bg-slate-200 dark:bg-white/10 hidden sm:block" 
-          aria-hidden="true" 
-        />
-
-        {experiences.map((experience, index) => {
+      <div className="quiet-list">
+        {experiences.map((experience) => {
           const experienceId = `exp-${slugify(experience.company)}`;
 
           const content = (
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start group/item relative rounded-2xl sm:p-4 transition-colors duration-300 hover:bg-slate-50 dark:hover:bg-white/[0.08]">
-              <ExperienceLogo experience={experience} priority={index < 2} />
+            <div className="diff-block">
+              <div className="diff-gutter">
+                <span className="plus">+</span>
+                <span className="tilde">~</span>
+              </div>
+              <div className="diff-body">
+                <div className="group/item surface-card interactive-surface p-5">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                    <ExperienceLogo experience={experience} />
 
-              <div className="min-w-0 flex-1 sm:pt-1">
-                <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
-                  <div>
-                    <h3 className="text-xl font-semibold text-slate-950 dark:text-white group-hover/item:text-amber-600 dark:group-hover/item:text-amber-400 transition-colors">
-                      {experience.company}
-                    </h3>
-                    <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
-                      {experience.title}
-                    </p>
+                    <div className="min-w-0 flex-1 sm:pt-1">
+                      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                        <div>
+                          <p className="meta-text mb-1">worktree · {experience.date}</p>
+                          <h3 className="font-display text-xl font-medium text-[var(--ink)]">
+                            {experience.company}
+                          </h3>
+                          <p className="mt-1 text-sm font-medium text-[var(--ink-soft)]">
+                            {experience.title}
+                          </p>
+                        </div>
+
+                        <div className="meta-text flex flex-wrap items-center gap-x-3 gap-y-1">
+                          <span className="flex items-center gap-1.5">
+                            <MapPinIcon className="h-4 w-4" aria-hidden="true" />
+                            {experience.location}
+                          </span>
+                          <span className="hidden sm:block text-[var(--line-strong)]">&bull;</span>
+                          <span className="flex items-center gap-1.5">
+                            <CalendarDaysIcon className="h-4 w-4" aria-hidden="true" />
+                            {experience.date}
+                          </span>
+                          {experience.link && (
+                            <>
+                              <span className="hidden sm:block text-[var(--line-strong)]">&bull;</span>
+                              <span className="flex items-center gap-1 text-[var(--ink-soft)] transition-colors group-hover/item:text-[var(--add)]">
+                                Visit
+                                <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                              </span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+
+                      <ul className="mt-4 space-y-2.5 text-sm leading-6 text-[var(--ink-soft)]">
+                        {experience.description.map((item) => (
+                          <li key={item} className="flex gap-3">
+                            <span className="mt-0.5 flex-none font-mono text-[var(--add)]">+</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {experience.techStack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="tag-pill"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500 dark:text-slate-400">
-                    <span className="flex items-center gap-1.5">
-                      <MapPinIcon className="h-4 w-4" aria-hidden="true" />
-                      {experience.location}
-                    </span>
-                    <span className="hidden sm:block text-slate-300 dark:text-slate-600">&bull;</span>
-                    <span className="flex items-center gap-1.5">
-                      <CalendarDaysIcon className="h-4 w-4" aria-hidden="true" />
-                      {experience.date}
-                    </span>
-                    {experience.link && (
-                      <>
-                        <span className="hidden sm:block text-slate-300 dark:text-slate-600">&bull;</span>
-                        <span className="flex items-center gap-1 text-slate-600 dark:text-slate-300 group-hover/item:text-amber-600 dark:group-hover/item:text-amber-400 transition-colors">
-                          Visit
-                          <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" aria-hidden="true" />
-                        </span>
-                      </>
-                    )}
-                  </div>
-                </div>
-
-                <ul className="mt-4 space-y-2.5 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                  {experience.description.map((item) => (
-                    <li key={item} className="flex gap-3">
-                      <span className="mt-2.5 h-1 w-1 flex-none rounded-full bg-slate-300 dark:bg-slate-600" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {experience.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-md border border-slate-200 bg-white/50 px-2.5 py-1 text-xs font-medium text-slate-600 transition-colors duration-200 group-hover/item:border-slate-300 dark:border-white/10 dark:bg-transparent dark:text-slate-400 dark:group-hover/item:border-white/20"
-                    >
-                      {tech}
-                    </span>
-                  ))}
                 </div>
               </div>
             </div>
@@ -308,7 +306,7 @@ const ExperienceSection = () => {
               href={experience.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-2xl"
+              className="block rounded-[14px] outline-none"
             >
               {content}
             </a>
