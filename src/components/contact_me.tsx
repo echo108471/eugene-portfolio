@@ -1,6 +1,5 @@
 import React from "react";
 import { FaEnvelope, FaFilePdf, FaGithub, FaGlobe, FaLinkedin } from "react-icons/fa";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Reveal } from "./motion";
 
 // Injected at build time by Vite (see vite.config.ts): the most recent commits
@@ -93,7 +92,7 @@ const ContactMe: React.FC = () => {
                           </span>
                         </span>
                       </span>
-                      <ArrowTopRightOnSquareIcon className="h-4 w-4 flex-none" aria-hidden="true" />
+                      <span className="flex-none font-mono" aria-hidden="true">↗</span>
                     </a>
                   );
                 })}

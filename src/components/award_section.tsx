@@ -1,5 +1,4 @@
 import React from "react";
-import { ArrowTopRightOnSquareIcon, TrophyIcon } from "@heroicons/react/24/outline";
 import { Reveal } from "./motion";
 
 interface AwardCardProps {
@@ -14,10 +13,10 @@ const AwardCard: React.FC<AwardCardProps> = ({ name, organization, date, descrip
   const content = (
     <>
       <div className="flex items-start justify-between gap-4">
-        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-[var(--add-edge)] bg-[var(--add-wash)] text-[var(--add)] transition-colors duration-200">
-          <TrophyIcon className="h-5 w-5" aria-hidden="true" />
+        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-[var(--add-edge)] bg-[var(--add-wash)] font-mono text-lg leading-none text-[var(--add)] transition-colors duration-200">
+          <span aria-hidden="true">★</span>
         </div>
-        <ArrowTopRightOnSquareIcon className="h-4 w-4 flex-none text-[var(--ink-faint)] transition-colors duration-200 group-hover:text-[var(--add)]" aria-hidden="true" />
+        <span className="flex-none font-mono text-[var(--ink-faint)] transition-colors duration-200 group-hover:text-[var(--add)]" aria-hidden="true">↗</span>
       </div>
 
       <h3 className="mt-5 font-display text-base font-medium leading-6 text-[var(--ink)]">

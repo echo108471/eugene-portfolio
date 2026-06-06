@@ -1,5 +1,4 @@
 import React from "react";
-import { CalendarDaysIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { Reveal } from "./motion";
 
 interface EducationItem {
@@ -121,14 +120,8 @@ const EducationSection = () => {
                       </p>
 
                       <div className="mt-3 flex flex-wrap gap-2">
-                        <span className="tag-pill">
-                          <MapPinIcon className="h-4 w-4" aria-hidden="true" />
-                          {edu.location}
-                        </span>
-                        <span className="tag-pill">
-                          <CalendarDaysIcon className="h-4 w-4" aria-hidden="true" />
-                          {edu.date}
-                        </span>
+                        <span className="tag-pill">@ {edu.location}</span>
+                        <span className="tag-pill">{edu.date}</span>
                       </div>
                     </div>
                   </div>

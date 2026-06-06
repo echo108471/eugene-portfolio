@@ -1,9 +1,4 @@
 import React from "react";
-import {
-  ArrowTopRightOnSquareIcon,
-  CalendarDaysIcon,
-  MapPinIcon,
-} from "@heroicons/react/24/outline";
 import { Reveal } from "./motion";
 import "../globals.css";
 
@@ -272,21 +267,12 @@ const ExperienceSection = () => {
                         </div>
 
                         <div className="meta-text flex flex-wrap items-center gap-x-3 gap-y-1">
-                          <span className="flex items-center gap-1.5">
-                            <MapPinIcon className="h-4 w-4" aria-hidden="true" />
-                            {experience.location}
-                          </span>
-                          <span className="hidden sm:block text-[var(--line-strong)]">&bull;</span>
-                          <span className="flex items-center gap-1.5">
-                            <CalendarDaysIcon className="h-4 w-4" aria-hidden="true" />
-                            {experience.date}
-                          </span>
+                          <span>@ {experience.location}</span>
                           {experience.link && (
                             <>
                               <span className="hidden sm:block text-[var(--line-strong)]">&bull;</span>
-                              <span className="flex items-center gap-1 text-[var(--ink-soft)] transition-colors group-hover/item:text-[var(--add)]">
-                                Visit
-                                <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                              <span className="inline-flex items-center gap-1 text-[var(--ink-soft)] transition-colors group-hover/item:text-[var(--add)]">
+                                Visit <span aria-hidden="true">↗</span>
                               </span>
                             </>
                           )}

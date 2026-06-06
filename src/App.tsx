@@ -1,11 +1,4 @@
 import React from "react";
-import {
-  ArrowDownIcon,
-  ArrowTopRightOnSquareIcon,
-  CodeBracketIcon,
-  DocumentTextIcon,
-  EnvelopeIcon,
-} from "@heroicons/react/24/outline";
 import "@/globals.css";
 import Header from "@/components/header";
 import ExperienceSection from "@/components/experience_section";
@@ -68,17 +61,15 @@ const App: React.FC = () => {
                       href="#projects"
                       className="btn btn-primary"
                     >
-                      <CodeBracketIcon className="h-5 w-5" aria-hidden="true" />
                       Projects
-                      <ArrowDownIcon className="h-4 w-4" aria-hidden="true" />
+                      <span aria-hidden="true">↓</span>
                     </a>
                     <a
                       href="mailto:eugene.a.cho@gmail.com"
                       className="btn btn-secondary"
                     >
-                      <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />
                       Email
-                      <ArrowTopRightOnSquareIcon className="h-4 w-4" aria-hidden="true" />
+                      <span aria-hidden="true">↗</span>
                     </a>
                     <a
                       href="/EugeneChoResume.pdf"
@@ -86,9 +77,8 @@ const App: React.FC = () => {
                       rel="noopener noreferrer"
                       className="btn btn-ghost"
                     >
-                      <DocumentTextIcon className="h-5 w-5" aria-hidden="true" />
                       Resume
-                      <ArrowTopRightOnSquareIcon className="h-4 w-4" aria-hidden="true" />
+                      <span aria-hidden="true">↗</span>
                     </a>
                   </div>
                 </MotionChild>

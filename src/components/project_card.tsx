@@ -1,5 +1,4 @@
 import React from "react";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 interface SpecimenRow {
   sign: "+" | "~" | "-";
@@ -42,7 +41,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <span className="meta-text">commit log · {date}</span>
           <span className="meta-text inline-flex items-center gap-1.5 transition-colors duration-200 group-hover:text-[var(--add)]">
             Open
-            <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" aria-hidden="true" />
+            <span aria-hidden="true">↗</span>
           </span>
         </div>
 

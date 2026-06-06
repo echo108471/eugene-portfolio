@@ -1,5 +1,4 @@
 import React from "react";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Reveal } from "./motion";
 
 const AboutMe: React.FC = () => {
@@ -61,7 +60,7 @@ const AboutMe: React.FC = () => {
                 className="link-arrow mt-6"
               >
                 eugene.a.cho@gmail.com
-                <ArrowTopRightOnSquareIcon className="h-4 w-4" aria-hidden="true" />
+                <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
