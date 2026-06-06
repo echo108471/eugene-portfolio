@@ -86,39 +86,45 @@ const skillGroups = [
 
 const SkillsSection: React.FC = () => {
   return (
-    <section className="py-10 sm:py-12">
+    <section className="page-section">
       <Reveal>
-        <div className="mb-8 max-w-2xl">
-          <p className="text-sm font-semibold uppercase text-amber-600 dark:text-amber-300">
-            Technical Skills
-          </p>
-          <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
-            Tools and systems I work with.
-          </h2>
+        <div className="section-head">
+          <span className="section-num">05</span>
+          <h2 className="section-title">Tools and systems</h2>
+          <span className="section-note">skills.lock</span>
         </div>
       </Reveal>
 
-      <div className="grid gap-5 lg:grid-cols-2">
-        {skillGroups.map((group) => (
-          <div
-            key={group.label}
-            className="rounded-lg border border-slate-200 bg-white/75 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:border-amber-200 hover:shadow-md active:scale-[0.99] dark:border-white/10 dark:bg-white/5 dark:hover:border-amber-400/60 dark:hover:bg-white/[0.08]"
-          >
-            <h3 className="text-base font-semibold text-slate-950 dark:text-white">
-              {group.label}
-            </h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {group.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors duration-200 hover:border-amber-200 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-amber-400/40"
-                >
-                  {skill}
-                </span>
-              ))}
+      <div className="diff-block">
+        <div className="diff-gutter">
+          <span className="tilde">~</span>
+          <span className="plus">+</span>
+        </div>
+        <div className="diff-body">
+          <div className="grid gap-5 lg:grid-cols-2">
+            {skillGroups.map((group) => (
+              <div
+                key={group.label}
+                className="surface-card p-5"
+              >
+                <p className="meta-text mb-2">package · {group.label.toLowerCase()}</p>
+                <h3 className="font-display text-lg font-medium text-[var(--ink)]">
+                  {group.label}
+                </h3>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {group.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="tag-pill"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
             </div>
-          </div>
-        ))}
+        </div>
       </div>
     </section>
   );

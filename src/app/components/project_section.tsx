@@ -83,41 +83,46 @@ const Projects: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-20">
+    <section className="page-section">
       <Reveal>
+        <div className="section-head">
+          <span className="section-num">04</span>
+          <h2 className="section-title">Selected projects</h2>
+          <span className="section-note">hover to stage</span>
+        </div>
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase text-amber-600 dark:text-amber-300">
-              Projects
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
-              Selected Projects.
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400 font-sans">
-              Selected builds across education, collaboration, bioinformatics, storage, and games.
-            </p>
-          </div>
-          <div className="rounded-full border border-slate-200 bg-white/70 px-4 py-2 text-sm font-semibold text-slate-600 shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+          <p className="body-copy max-w-2xl">
+            Selected builds across education, collaboration, bioinformatics, storage, and games.
+          </p>
+          <div className="tag-pill add">
             {projects.length} featured builds
           </div>
         </div>
       </Reveal>
 
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project, index) => (
-          <ProjectCard
-            key={project.name}
-            date={project.date}
-            name={project.name}
-            description={project.description}
-            highlights={project.highlights}
-            techStack={project.techStack}
-            link={project.link}
-            image={project.image}
-            priority={index < 2}
-            className={index === 0 ? "md:col-span-2 lg:col-span-2" : ""}
-          />
-        ))}
+      <div className="diff-block">
+        <div className="diff-gutter">
+          <span className="plus">+</span>
+          <span className="plus">+</span>
+          <span className="tilde">~</span>
+        </div>
+        <div className="diff-body">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={project.name}
+                date={project.date}
+                name={project.name}
+                description={project.description}
+                highlights={project.highlights}
+                techStack={project.techStack}
+                link={project.link}
+                image={project.image}
+                priority={index < 2}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
