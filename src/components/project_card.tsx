@@ -42,7 +42,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <span className="meta-text">commit log · {date}</span>
           <span className="meta-text inline-flex items-center gap-1.5 transition-colors duration-200 group-hover:text-[var(--add)]">
             Open
-            <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+            <ArrowTopRightOnSquareIcon className="h-3.5 w-3.5" aria-hidden="true" />
           </span>
         </div>
 

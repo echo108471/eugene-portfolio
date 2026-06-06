@@ -304,7 +304,7 @@ html.dark .theme-logo {
     border-radius: 14px;
     color: inherit;
     text-decoration: none;
-    transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+    transition: border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
   }
 
   .stage-card::before {
@@ -320,7 +320,6 @@ html.dark .theme-logo {
     border-color: var(--add-edge);
     background: linear-gradient(var(--add-wash), var(--add-wash)), var(--paper-raised);
     box-shadow: var(--shadow);
-    transform: translateY(-3px);
   }
 
   .stage-card:hover::before {
@@ -342,8 +341,7 @@ html.dark .theme-logo {
     line-height: 1;
     text-transform: uppercase;
     opacity: 0;
-    transform: translateY(-3px);
-    transition: opacity 0.22s ease, transform 0.22s ease;
+    transition: opacity 0.22s ease;
   }
 
   .stage-mark::before {
@@ -357,7 +355,6 @@ html.dark .theme-logo {
 
   .stage-card:hover .stage-mark {
     opacity: 1;
-    transform: translateY(0);
   }
 
   .quiet-list {
