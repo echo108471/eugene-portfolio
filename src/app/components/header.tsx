@@ -4,7 +4,6 @@ import React from "react";
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
 import { Fragment } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { motion } from "framer-motion";
 import DarkModeToggle from "./dark-mode-toggle";
 import "../globals.css";
 
@@ -14,30 +13,27 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: "Home", href: "home" },
-  { name: "About", href: "about" },
-  { name: "Experience", href: "experience" },
-  { name: "Projects", href: "projects" },
-  { name: "Skills", href: "skills" },
-  { name: "Education & Awards", href: "education" },
-  { name: "Contact", href: "contact" },
+  { name: "home", href: "home" },
+  { name: "about", href: "about" },
+  { name: "work", href: "experience" },
+  { name: "history", href: "history" },
+  { name: "projects", href: "projects" },
+  { name: "stack", href: "skills" },
+  { name: "contact", href: "contact" },
 ];
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScrollEvent = () => {
-      setIsScrolled(window.scrollY > 8);
-
       const sections = navItems
         .map((item) => document.getElementById(item.href))
         .filter((section): section is HTMLElement => Boolean(section));
 
       let currentActive = "home";
-      const scrollPosition = window.scrollY + 120; // Offset for header + padding
+      const scrollPosition = window.scrollY + 120;
 
       sections.forEach((section) => {
         if (section.offsetTop <= scrollPosition) {
@@ -45,7 +41,6 @@ const Header: React.FC = () => {
         }
       });
 
-      // Highlight the last section if scrolled to the absolute bottom
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10) {
         currentActive = navItems[navItems.length - 1].href;
       }
@@ -82,53 +77,57 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b backdrop-blur-xl transition-all duration-300 ${
-        isScrolled
-          ? "border-slate-200/80 bg-white/80 shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-slate-950/80 dark:shadow-black/25"
-          : "border-slate-200/60 bg-white/70 dark:border-white/10 dark:bg-slate-950/60"
-      }`}
+      className="sticky top-0 z-50 border-b border-[var(--line)] backdrop-blur-xl"
+      style={{ background: "color-mix(in srgb, var(--paper) 88%, transparent)" }}
     >
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-3 sm:px-8 lg:px-12"
+        className="site-container flex h-[62px] items-center justify-between gap-4"
       >
         <button
           type="button"
           onClick={() => handleScroll("home")}
-          className="group flex min-w-0 items-center gap-2.5 rounded-full px-2 py-1.5 text-left text-sm font-semibold text-slate-900 transition-colors hover:text-amber-700 dark:text-white dark:hover:text-amber-200"
+          className="group flex min-w-0 items-center gap-2.5 rounded-md px-1 py-1.5 text-left text-sm font-semibold text-[var(--ink)] transition-colors hover:text-[var(--add)]"
           aria-label="Scroll to home"
         >
-          <span className="h-3.5 w-3.5 rounded-full bg-gradient-to-br from-amber-500 to-rose-400 shadow-md shadow-amber-500/20 transition-transform duration-200 group-hover:scale-125" />
-          <span className="hidden xs:inline sm:inline">Eugene Cho</span>
+          <svg
+            className="h-4 w-4 text-[var(--add)]"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            aria-hidden="true"
+          >
+            <circle cx="6" cy="6" r="2.4" />
+            <circle cx="6" cy="18" r="2.4" />
+            <circle cx="18" cy="9" r="2.4" />
+            <path d="M6 8.4v7.2M8.2 6.6c6 0 7.6 1 7.6 4.4" />
+          </svg>
+          <span className="hidden xs:inline sm:inline">Eugene</span>
           <span className="xs:hidden">EC</span>
+          <span className="branch-pill hidden sm:inline-flex">
+            <span className="branch-dot" />
+            main
+          </span>
         </button>
 
-        <div className="hidden flex-1 items-center justify-center lg:flex">
-          <div className="flex items-center gap-1 rounded-full border border-slate-200/70 bg-white/50 p-1 shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-white/5">
+        <div className="hidden items-center gap-6 lg:flex">
           {navItems.map((item) => (
-              <button
-                key={item.name}
-                type="button"
-                onClick={() => handleScroll(item.href)}
-                aria-current={activeSection === item.href ? "page" : undefined}
-                className={`group relative rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                  activeSection === item.href
-                    ? "text-amber-700 dark:text-white"
-                    : "text-slate-600 hover:text-slate-950 dark:text-slate-300 dark:hover:text-white"
-                }`}
-              >
-                {activeSection === item.href && (
-                  <motion.span
-                    layoutId="active-nav"
-                    className="absolute inset-0 rounded-full bg-amber-50 shadow-sm shadow-amber-900/5 dark:bg-amber-500/20"
-                    transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                  />
-                )}
-                <span className="relative z-10">{item.name}</span>
-                <span className="absolute inset-x-3 bottom-1 h-px scale-x-0 bg-gradient-to-r from-amber-500 to-rose-400 transition-transform duration-200 group-hover:scale-x-100" />
-              </button>
+            <button
+              key={item.name}
+              type="button"
+              onClick={() => handleScroll(item.href)}
+              aria-current={activeSection === item.href ? "page" : undefined}
+              className={`font-mono text-[13px] transition-colors duration-200 ${
+                activeSection === item.href
+                  ? "text-[var(--ink)]"
+                  : "text-[var(--ink-soft)] hover:text-[var(--ink)]"
+              }`}
+            >
+              {item.name}
+            </button>
           ))}
-          </div>
         </div>
 
         <div className="flex-1 lg:hidden" />
@@ -139,22 +138,20 @@ const Header: React.FC = () => {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/70 p-2 text-slate-800 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-amber-200 hover:text-amber-700 active:scale-[0.98] lg:hidden dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-amber-400/40 dark:hover:text-amber-200"
+            className="icon-button lg:hidden"
           >
             <span className="sr-only">Open main menu</span>
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+            <Bars3Icon className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
       </nav>
 
-      {/* Mobile Navigation */}
       <Transition show={mobileMenuOpen} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-50 lg:hidden"
           onClose={setMobileMenuOpen}
         >
-          {/* Backdrop */}
           <TransitionChild
             as={Fragment}
             enter="ease-out duration-200"
@@ -164,7 +161,7 @@ const Header: React.FC = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm" aria-hidden="true" />
+            <div className="fixed inset-0 bg-black/35 backdrop-blur-sm" aria-hidden="true" />
           </TransitionChild>
 
           <TransitionChild
@@ -176,43 +173,43 @@ const Header: React.FC = () => {
             leaveFrom="translate-x-0 opacity-100"
             leaveTo="translate-x-full opacity-0"
           >
-            <DialogPanel className="fixed inset-y-0 right-0 w-full max-w-sm border-l border-slate-200 bg-white/95 shadow-2xl shadow-slate-950/20 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95">
+            <DialogPanel className="fixed inset-y-0 right-0 w-full max-w-sm border-l border-[var(--line)] bg-[var(--paper)] shadow-[var(--shadow)] backdrop-blur-xl">
               <div className="flex h-full flex-col p-5">
                 <div className="mb-6 flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-semibold text-slate-950 dark:text-white">
+                    <p className="text-sm font-semibold text-[var(--ink)]">
                       Eugene Cho
                     </p>
-                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                      Portfolio navigation
+                    <p className="meta-text mt-1">
+                      branch: main
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="rounded-lg border border-slate-200 p-2 text-slate-700 transition-all duration-200 hover:border-amber-200 hover:text-amber-700 active:scale-95 dark:border-white/10 dark:text-slate-200 dark:hover:border-amber-400/40 dark:hover:text-amber-200"
+                    className="icon-button"
                   >
                     <span className="sr-only">Close menu</span>
-                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                    <XMarkIcon className="h-5 w-5" aria-hidden="true" />
                   </button>
                 </div>
 
                 <nav className="flex-1">
                   <div className="space-y-1">
-                    {navItems.map((item, index) => (
+                    {navItems.map((item) => (
                       <button
                         key={item.name}
                         onClick={() => {
                           handleScroll(item.href);
                           setMobileMenuOpen(false);
                         }}
-                        style={{ animationDelay: `${index * 35}ms` }}
-                        className={`animate-fadeIn w-full rounded-xl px-3 py-3 text-left text-base font-medium opacity-0 transition-all duration-200 hover:translate-x-1 active:scale-[0.99] ${
+                        className={`w-full rounded-lg border border-transparent px-3 py-3 text-left font-mono text-sm font-medium transition-colors duration-200 ${
                           activeSection === item.href
-                            ? "bg-amber-50 text-amber-700 dark:bg-amber-500/20 dark:text-amber-200"
-                            : "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10"
+                            ? "border-[var(--add-edge)] bg-[var(--add-wash)] text-[var(--add)]"
+                            : "text-[var(--ink-soft)] hover:bg-[var(--add-wash)] hover:text-[var(--ink)]"
                         }`}
                       >
+                        <span className="mr-2 text-[var(--add)]">+</span>
                         {item.name}
                       </button>
                     ))}
