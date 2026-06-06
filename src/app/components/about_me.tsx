@@ -27,7 +27,7 @@ const AboutMe: React.FC = () => {
               software where backend systems, product detail, and real workflows
               meet.
             </p>
-            <p className="mt-4 max-w-3xl text-base leading-8 text-slate-700 dark:text-innertext-dark">
+            <p className="mt-4 max-w-3xl text-base leading-8 text-slate-700 dark:text-innertext-dark font-sans">
               Recent work spans multi-agent platforms, patient intake systems,
               course planning tools, and bioinformatics software.
             </p>
@@ -47,7 +47,7 @@ const AboutMe: React.FC = () => {
                 className="flex gap-3 rounded-lg border border-slate-200 bg-white/70 p-4 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-indigo-200 hover:shadow-md active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/60 dark:hover:bg-white/[0.08]"
               >
                 <CheckCircleIcon className="mt-0.5 h-5 w-5 flex-none text-emerald-500" aria-hidden="true" />
-                <p className="text-sm leading-6 text-slate-700 dark:text-slate-300">
+                <p className="text-sm leading-6 text-slate-700 dark:text-slate-300 font-sans">
                   {fact}
                 </p>
               </div>

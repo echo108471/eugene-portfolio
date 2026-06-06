@@ -214,7 +214,7 @@ function ExperienceLogo({
 
 const ExperienceSection = () => {
   return (
-    <section className="py-12 sm:py-14">
+    <section className="py-16 sm:py-20">
       <Reveal>
         <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
@@ -224,7 +224,7 @@ const ExperienceSection = () => {
             <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
               Where I&apos;ve worked.
             </h2>
-            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
+            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400 font-sans">
               Backend systems, product surfaces, and data-heavy tools across healthcare, education, and research.
             </p>
           </div>

@@ -86,7 +86,7 @@ const skillGroups = [
 
 const SkillsSection: React.FC = () => {
   return (
-    <section className="py-12 sm:py-14">
+    <section className="py-10 sm:py-12">
       <Reveal>
         <div className="mb-8 max-w-2xl">
           <p className="text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-300">

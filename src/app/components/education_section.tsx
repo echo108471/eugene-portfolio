@@ -84,7 +84,7 @@ function EducationLogo({ edu }: { edu: EducationItem }) {
 
 const EducationSection = () => {
   return (
-    <section className="py-12 sm:py-14">
+    <section className="py-10 sm:py-12">
       <Reveal>
         <div className="mb-8 max-w-2xl">
           <p className="text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-300">
@@ -134,7 +134,7 @@ const EducationSection = () => {
                 {edu.description.map((item) => (
                   <p
                     key={item}
-                    className="text-sm leading-6 text-slate-700 dark:text-innertext-dark"
+                    className="text-sm leading-6 text-slate-700 dark:text-innertext-dark font-sans"
                   >
                     {item}
                   </p>

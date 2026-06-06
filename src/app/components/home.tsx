@@ -41,14 +41,14 @@ const Home: React.FC = () => {
               <MotionChild>
                 <h1 className="mt-6 text-4xl font-bold leading-[1.1] text-slate-950 xs:text-5xl sm:text-6xl lg:text-7xl dark:text-white">
                   Hi, I&apos;m Eugene Cho.
-                  <span className="block bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 bg-clip-text mt-2 text-transparent text-3xl xs:text-4xl sm:text-5xl lg:text-6xl">
+                  <span className="block mt-2 text-3xl font-semibold text-indigo-600 xs:text-4xl sm:text-5xl lg:text-6xl dark:text-indigo-400">
                     Software Engineer
                   </span>
                 </h1>
               </MotionChild>
 
               <MotionChild>
-                <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg dark:text-innertext-dark">
+                <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg dark:text-innertext-dark font-sans">
                   I&apos;m a UC Davis CS senior and software engineering intern at Persist AI. I build
                   backend-heavy full-stack systems across healthcare, education, and bioinformatics,
                   with recent work in agents, real-time collaboration, and production APIs.

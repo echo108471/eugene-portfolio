@@ -83,7 +83,7 @@ const Projects: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-14">
+    <section className="py-16 sm:py-20">
       <Reveal>
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
@@ -93,7 +93,7 @@ const Projects: React.FC = () => {
             <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
               Selected Projects.
             </h2>
-            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
+            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400 font-sans">
               Selected builds across education, collaboration, bioinformatics, storage, and games.
             </p>
           </div>

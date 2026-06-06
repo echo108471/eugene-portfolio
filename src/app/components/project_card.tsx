@@ -49,6 +49,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-slate-950/0 to-white/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         </div>
       )}
+      {image && imageError && (
+        <div className="flex h-48 xs:h-52 w-full items-center justify-center bg-slate-100 dark:bg-slate-950/40">
+          <div className="flex flex-col items-center gap-2 text-slate-400 dark:text-slate-600">
+            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+            </svg>
+            <span className="text-xs font-medium">{name}</span>
+          </div>
+        </div>
+      )}
 
       <div className="flex flex-1 flex-col p-5">
         <div className="mb-4 flex items-center justify-between gap-3">
@@ -71,7 +81,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         {highlights.length > 0 && (
           <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-700 dark:text-innertext-dark">
             {highlights.map((highlight) => (
-              <li key={highlight} className="flex gap-2">
+              <li key={highlight} className="flex gap-2 font-sans">
                 <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-indigo-500" />
                 <span>{highlight}</span>
               </li>

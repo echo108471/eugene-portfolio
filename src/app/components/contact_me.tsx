@@ -56,7 +56,7 @@ const ContactMe: React.FC = () => {
               <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">
                 Get in touch.
               </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300">
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 font-sans">
                 Reach me through email, LinkedIn, GitHub, or the portfolio links from my resume.
               </p>
             </div>
@@ -77,7 +77,7 @@ const ContactMe: React.FC = () => {
                       <Icon className="h-5 w-5 flex-none transition-transform duration-200 group-hover:-translate-y-0.5" aria-hidden="true" />
                       <span className="min-w-0">
                         <span className="block font-semibold">{method.label}</span>
-                        <span className="block truncate text-xs text-slate-400">
+                        <span className="block truncate text-xs text-slate-500">
                           {method.value}
                         </span>
                       </span>

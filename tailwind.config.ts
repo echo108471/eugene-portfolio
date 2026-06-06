@@ -15,6 +15,10 @@ export default {
       "2xl": "1536px",
     },
     extend: {
+      fontFamily: {
+        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        mono: ['"JetBrains Mono"', "SFMono-Regular", "Consolas", '"Liberation Mono"', "Menlo", "monospace"],
+      },
       colors: {
         background: {
           light: "var(--background-light)",

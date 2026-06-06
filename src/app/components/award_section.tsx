@@ -5,10 +5,12 @@ import { Reveal } from "./motion";
 interface AwardCardProps {
   name: string;
   organization: string;
+  date: string;
+  description: string;
   link: string;
 }
 
-const AwardCard: React.FC<AwardCardProps> = ({ name, organization, link }) => {
+const AwardCard: React.FC<AwardCardProps> = ({ name, organization, date, description, link }) => {
   const content = (
     <>
       <div className="flex items-start justify-between gap-4">
@@ -21,8 +23,14 @@ const AwardCard: React.FC<AwardCardProps> = ({ name, organization, link }) => {
       <h3 className="mt-5 text-base font-semibold leading-6 text-slate-950 dark:text-white">
         {name}
       </h3>
-      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
+      <p className="mt-1 text-sm font-medium text-slate-600 dark:text-slate-400">
         {organization}
+      </p>
+      <p className="mt-3 text-xs text-slate-500 dark:text-slate-500 font-sans">
+        {date}
+      </p>
+      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400 font-sans">
+        {description}
       </p>
     </>
   );
@@ -44,22 +52,28 @@ const Awards: React.FC = () => {
     {
       name: "Eagle Scout Award",
       organization: "Boy Scouts of America",
+      date: "2022",
+      description: "Led a community watershed restoration project, demonstrating leadership, project management, and sustained commitment over several years.",
       link: "https://www.scouting.org/",
     },
     {
       name: "ACSL Intermediate Division Finalist",
       organization: "American Computer Science League",
+      date: "2022",
+      description: "Advanced to intermediate division finals in national computer science competition covering algorithmic problem-solving and programming.",
       link: "https://www.acsl.org/",
     },
     {
       name: "Ventura County Fire Department Citizen Award",
       organization: "Ventura County Fire Department",
+      date: "2018",
+      description: "Recognized for contributions during the Woolsey Fire recovery efforts in Ventura County.",
       link: "https://vcfd.org/",
     },
   ];
 
   return (
-    <section className="py-12 sm:py-14">
+    <section className="py-8 sm:py-10">
       <Reveal>
         <div className="mb-8 max-w-2xl">
           <p className="text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-300">
@@ -77,6 +91,8 @@ const Awards: React.FC = () => {
             key={award.name}
             name={award.name}
             organization={award.organization}
+            date={award.date}
+            description={award.description}
             link={award.link}
           />
         ))}
