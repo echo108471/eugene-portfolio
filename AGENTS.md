@@ -2,18 +2,18 @@
 
 ## Project Structure & Module Organization
 
-This is a Next.js App Router portfolio app. The main route entry is `src/app/page.tsx`, with shared layout, metadata, theme setup, and structured data in `src/app/layout.tsx`. Global Tailwind styles, CSS variables, focus states, and motion preferences live in `src/app/globals.css`.
+This is a Vite + React + TypeScript single-page portfolio app. The entry point is `src/main.tsx`, which mounts `src/App.tsx` (the section composition). The HTML shell and `theme-color` meta live in `index.html`. Global Tailwind styles, CSS variables (design tokens), focus states, and motion preferences live in `src/globals.css`.
 
-Portfolio sections and reusable UI are in `src/app/components/`, using files such as `home.tsx`, `project_card.tsx`, `experience_section.tsx`, and `dark-mode-toggle.tsx`. Static assets live in `public/`: project screenshots in `public/projects/`, organization logos in `public/logos/`, education assets in `public/education/`, and the public resume at `public/EugeneChoResume.pdf`.
+Portfolio sections and reusable UI are in `src/components/`, using files such as `about_me.tsx`, `project_card.tsx`, `experience_section.tsx`, `header.tsx`, and `dark-mode-toggle.tsx`. Static assets live in `public/`: organization logos in `public/logos/`, education assets in `public/education/`, and the public resume at `public/EugeneChoResume.pdf`. Project cards render a `git diff` specimen rather than screenshots, so there is no `public/projects/`.
 
 ## Build, Test, and Development Commands
 
 Use npm for all project commands:
 
 ```bash
-npm run dev       # Start the local Next.js development server
-npm run build     # Create a production build
-npm run start     # Serve the production build
+npm run dev       # Start the local Vite dev server
+npm run build     # Type-check (tsc -b) and create a production build
+npm run preview   # Serve the production build locally
 npm run lint      # Run ESLint
 npm run lint:fix  # Apply safe ESLint fixes
 ```
@@ -22,21 +22,22 @@ There is no dedicated test suite yet. Before handing off changes, run `npm run l
 
 ## Coding Style & Naming Conventions
 
-- **Tech Stack:** TypeScript, React (App Router), TailwindCSS, Framer Motion, Heroicons.
+- **Tech Stack:** TypeScript, React (Vite SPA), Tailwind CSS, Headless UI, Heroicons. Entrance animations use custom utilities in `src/components/motion.tsx` (no Framer Motion dependency).
 - **Indentation:** 2-space indentation.
-- **Naming:** Component filenames in `src/app/components/` use lowercase snake case (e.g., `project_section.tsx`).
-- **Styles:** Use Tailwind utility classes. For complex background effects or theme switching, use CSS variables defined in `globals.css`.
-- **Motion:** Use `Reveal`, `Stagger`, and `MotionChild` from `src/app/components/motion.tsx` for consistent entrance animations. Use centralized constants like `cardHover` and `cardTap` for interactions.
+- **Naming:** Component filenames in `src/components/` use lowercase snake case (e.g., `project_section.tsx`).
+- **Styles:** Use Tailwind utility classes. For theme switching and diff-system surfaces, use the CSS variables (design tokens) defined in `src/globals.css`. Reference tokens by role (`--add`, `--del`, `--paper`, `--ink`); never hardcode hexes.
+- **Motion:** Use the helpers from `src/components/motion.tsx` (e.g. `Reveal`) for consistent entrance animations. Keep interactions quiet — the project-card hover "stage" is the one signature animated moment.
 
 ## Portfolio Design Direction
 
-Working direction: **Quiet Personal Systems**. The portfolio should read as a personal engineering portfolio, not a SaaS landing page.
+Working direction: **Quiet Diff System** (see [DESIGN.MD](./DESIGN.MD) for the full spec). The portfolio reads as a version-control–native personal engineering portfolio, not a SaaS landing page. The metaphor lives in structure and interaction, not loud surface decoration.
 
-- **Person first:** Lead with Eugene as a person. Use direct first-person copy ("Hi, I'm Eugene...").
-- **Evidence in context:** Place impact metrics inside relevant experience or project entries rather than hero cards.
-- **Typography:** Use `JetBrains Mono` as the primary font to reinforce the engineering identity.
-- **Visuals:** Use polished but quiet interactions. Prioritize microinteractions (subtle icon shifts, scale changes) that provide feedback without distraction. Use a static mesh gradient background to keep the UI grounded and professional. Avoid excessive gradients, shimmer effects, and marketing-style CTAs.
-- **Accessibility:** Ensure visible keyboard focus states (indigo outline) and respect `prefers-reduced-motion`.
+- **Structure over surface:** a `git diff` visual language — a left gutter of line-markers, `+`/`−` diff rows, staged project cards, and a commit-log footer.
+- **Palette:** near-neutral paper surfaces with warm ink; a single sage-green accent (`--add`) for additive/primary actions and a true diff-red (`--del`) reserved for genuine removals. Keep paper near-neutral and `--del` a real red, not clay/terracotta — see DESIGN.MD §3.1.
+- **Typography:** Fraunces (serif display), Hanken Grotesk (UI/body), JetBrains Mono (meta/gutter/commit log). The serif + mono pairing is what keeps it from feeling like a terminal.
+- **Restraint:** one animated moment (the project-card "stage" on hover). Green dominant, red rare. No second clever interaction; no marketing CTAs, mesh gradients, or shimmer.
+- **Honest content:** the diffed copy (especially the bio diff) must be true — a real prior self removed, the current self added. Filler collapses the concept.
+- **Accessibility:** visible keyboard focus states (green `--add` outline) and respect `prefers-reduced-motion`.
 
 ## Testing Guidelines
 

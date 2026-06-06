@@ -3,7 +3,7 @@ Personal portfolio for Eugene Cho, built with Vite, React, TypeScript, and Tailw
 
 ## Design Direction
 
-The site should feel like a personal engineering portfolio, not a SaaS landing page. The current design target is **Quiet Diff System**: warm paper surfaces, version-control gutters, staged project cards, and commit-log details.
+The site should feel like a personal engineering portfolio, not a SaaS landing page. The current design target is **Quiet Diff System**: muted near-neutral paper surfaces, version-control gutters, staged project cards, and commit-log details.
 
 See [DESIGN.MD](./DESIGN.MD) for the full design direction.
 

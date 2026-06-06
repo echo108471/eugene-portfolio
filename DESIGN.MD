@@ -21,10 +21,10 @@ Green is the **primary** color on purpose: growth and action are additive. Red i
 
 ## 2. Principles
 
-1. **Quiet metaphor.** The diff is felt, not shouted. Most of the page is warm, editorial, monochrome. Color appears only where there's a real add/remove.
+1. **Quiet metaphor.** The diff is felt, not shouted. Most of the page is muted, editorial, monochrome. Color appears only where there's a real add/remove.
 2. **One animated moment.** Only the project card "stages" on hover. Everything else is static or has minimal state transitions. Restraint reads as confidence.
 3. **Honest content.** The concept is load-bearing only if the diffed copy is *true* (e.g. a real trait you've deprecated). Generic filler collapses the whole conceit.
-4. **Warm, not terminal.** Paper background, a serif display face, desaturated diff tints — deliberately *not* the black-background, neon-green, monospace terminal cliché.
+4. **Paper, not terminal.** Near-neutral paper background, a serif display face, desaturated diff tints — deliberately *not* the black-background, neon-green, monospace terminal cliché.
 5. **No dependencies.** Single HTML file, system-native fonts via Google Fonts, CSS custom properties. Nothing to build.
 
 ---
@@ -39,9 +39,9 @@ Semantic, not literal. Reference tokens by role, never hardcode hexes.
 
 | Token | Role | Light | Dark |
 |---|---|---|---|
-| `--paper` | Page background | `#f6f3ec` | `#15130e` |
-| `--paper-raised` | Cards, raised surfaces | `#fbf9f4` | `#1d1a14` |
-| `--ink` | Primary text | `#1b1814` | `#ece6da` |
+| `--paper` | Page background | `#f4f4f1` | `#141412` |
+| `--paper-raised` | Cards, raised surfaces | `#fafaf7` | `#1b1b18` |
+| `--ink` | Primary text | `#1a1917` | `#e9e7e1` |
 | `--ink-soft` | Body / secondary text | `#5a534a` | `#a7a092` |
 | `--ink-faint` | Metadata, captions | `#8a8377` | `#6f6859` |
 | `--line` | Hairline borders | `#e4ded2` | `#2a2620` |
@@ -49,15 +49,16 @@ Semantic, not literal. Reference tokens by role, never hardcode hexes.
 | `--add` | **Primary / addition** | `#5a7c57` | `#8fb088` |
 | `--add-wash` | Add background tint | `rgba(90,124,87,.07)` | `rgba(143,176,136,.08)` |
 | `--add-edge` | Add border / focus | `rgba(90,124,87,.55)` | `rgba(143,176,136,.45)` |
-| `--del` | Removal / deprecated | `#a86a5c` | `#cf9183` |
-| `--del-wash` | Remove background tint | `rgba(168,106,92,.07)` | `rgba(207,145,131,.08)` |
-| `--del-edge` | Remove border | `rgba(168,106,92,.45)` | `rgba(207,145,131,.4)` |
+| `--del` | Removal / deprecated | `#b34a42` | `#d4685d` |
+| `--del-wash` | Remove background tint | `rgba(179,74,66,.07)` | `rgba(212,104,93,.08)` |
+| `--del-edge` | Remove border | `rgba(179,74,66,.45)` | `rgba(212,104,93,.4)` |
 | `--shadow` | Elevation (hover only) | `0 1px 2px rgba(27,24,20,.04), 0 8px 24px -12px rgba(27,24,20,.12)` | `0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6)` |
 
 **Usage rules**
 - `--add` is the single accent: primary buttons, links/hover, focus edges, the `+` marker. Action = adding a change.
 - `--del` only marks genuine removals (struck bio lines, the `−` marker). Never decorative.
 - Washes (`*-wash`) are for backgrounds of diff rows and hover states. Keep them barely-there.
+- **Keep paper near-neutral and `--del` a true diff red, not clay/terracotta.** An earlier palette (warm cream `#f6f3ec` + clay `#a86a5c`) read too close to a certain AI product's warm-cream + clay branding. The current paper carries only a hair of warmth, and removals are a real red — this keeps the system from drifting back into that generic look.
 
 ### 3.2 Typography
 
