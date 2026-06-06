@@ -5,7 +5,6 @@ import {
   CodeBracketIcon,
   DocumentTextIcon,
   EnvelopeIcon,
-  SparklesIcon,
 } from "@heroicons/react/24/outline";
 import Header from "./header";
 import "../globals.css";
@@ -16,76 +15,83 @@ import ContactMe from "./contact_me";
 import EducationSection from "./education_section";
 import AwardsSection from "./award_section";
 import SkillsSection from "./skills_section";
+import ReleaseHistory from "./release_history";
 import { MotionChild, Stagger } from "./motion";
 
 const Home: React.FC = () => {
 
   return (
-    <div className="min-h-screen text-slate-950 dark:text-foreground-dark">
+    <div className="site-shell">
       <Header />
 
-      <main className="mx-auto max-w-7xl px-6 pb-14 sm:px-8 lg:px-12">
+      <main className="site-container pb-14">
         <section
           id="home"
-          className="flex flex-col justify-center scroll-mt-24 py-16 xs:py-20 sm:py-24 lg:min-h-[calc(100vh-76px)] lg:py-24"
+          className="scroll-mt-24 py-20 xs:py-24 sm:py-28"
         >
-          <div className="flex flex-col gap-10 max-w-4xl">
-            <Stagger>
-              <MotionChild>
-                <div className="inline-flex items-center gap-2 rounded-full border border-amber-200/70 bg-white/70 px-3 py-1.5 text-xs font-medium text-amber-700 shadow-sm shadow-amber-900/5 xs:text-sm dark:border-amber-400/20 dark:bg-amber-400/10 dark:text-amber-200">
-                  <span className="relative flex h-2 w-2" aria-hidden="true"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-500/75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" /></span>
-                  Persist AI intern, UC Davis CS senior, full-stack systems builder
-                </div>
-              </MotionChild>
+          <div className="diff-block">
+            <div className="diff-gutter">
+              <span className="minus">-</span>
+              <span className="plus">+</span>
+              <span className="plus">+</span>
+            </div>
+            <div className="diff-body">
+              <Stagger>
+                <MotionChild>
+                  <p className="eyebrow">// portfolio - branch: main / UC Davis CS</p>
+                </MotionChild>
 
-              <MotionChild>
-                <h1 className="mt-6 text-4xl font-bold leading-[1.1] text-slate-950 xs:text-5xl sm:text-6xl lg:text-7xl dark:text-white">
-                  Hi, I&apos;m Eugene Cho.
-                  <span className="block mt-2 text-3xl font-semibold text-amber-600 xs:text-4xl sm:text-5xl lg:text-6xl dark:text-amber-400">
-                    Software Engineer
-                  </span>
-                </h1>
-              </MotionChild>
+                <MotionChild>
+                  <h1 className="mt-7 display-title">
+                    <span className="del-text">Aspiring web developer.</span>
+                    <span className="diff-line add-text">
+                      Hi, I&apos;m Eugene Cho.
+                      <br />
+                      I build <em>practical systems</em> end to end.
+                    </span>
+                  </h1>
+                </MotionChild>
 
-              <MotionChild>
-                <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg dark:text-innertext-dark font-sans">
-                  I&apos;m a UC Davis CS senior and software engineering intern at Persist AI. I build
-                  backend-heavy full-stack systems across healthcare, education, and bioinformatics,
-                  with recent work in agents, real-time collaboration, and production APIs.
-                </p>
-              </MotionChild>
+                <MotionChild>
+                  <p className="lede">
+                    I&apos;m a UC Davis CS senior and software engineering intern at Persist AI. I build
+                    backend-heavy full-stack systems across healthcare, education, and bioinformatics,
+                    with recent work in agents, real-time collaboration, and production APIs.
+                  </p>
+                </MotionChild>
 
-              <MotionChild>
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a
-                    href="#projects"
-                    className="group inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-slate-950"
-                  >
-                    <CodeBracketIcon className="h-5 w-5" aria-hidden="true" />
-                    View projects
-                    <ArrowDownIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-y-0.5" aria-hidden="true" />
-                  </a>
-                  <a
-                    href="mailto:eacho@ucdavis.edu"
-                    className="group inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-amber-200 hover:text-amber-700 active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-amber-400/40 dark:hover:text-amber-200"
-                  >
-                    <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />
-                    Contact
-                    <ArrowTopRightOnSquareIcon className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-                  </a>
-                  <a
-                    href="/EugeneChoResume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-amber-300 hover:text-amber-700 active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-amber-400/40 dark:hover:text-amber-200"
-                  >
-                    <DocumentTextIcon className="h-5 w-5" aria-hidden="true" />
-                    Resume
-                    <ArrowTopRightOnSquareIcon className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-                  </a>
-                </div>
-              </MotionChild>
-            </Stagger>
+                <MotionChild>
+                  <div className="button-row mt-8">
+                    <a
+                      href="#projects"
+                      className="btn btn-primary"
+                    >
+                      <CodeBracketIcon className="h-5 w-5" aria-hidden="true" />
+                      Projects
+                      <ArrowDownIcon className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                    <a
+                      href="mailto:eacho@ucdavis.edu"
+                      className="btn btn-secondary"
+                    >
+                      <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />
+                      Email
+                      <ArrowTopRightOnSquareIcon className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                    <a
+                      href="/EugeneChoResume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-ghost"
+                    >
+                      <DocumentTextIcon className="h-5 w-5" aria-hidden="true" />
+                      Resume
+                      <ArrowTopRightOnSquareIcon className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  </div>
+                </MotionChild>
+              </Stagger>
+            </div>
           </div>
         </section>
 
@@ -95,6 +101,10 @@ const Home: React.FC = () => {
 
         <section id="experience" className="scroll-mt-16">
           <ExperienceSection />
+        </section>
+
+        <section id="history" className="scroll-mt-16">
+          <ReleaseHistory />
         </section>
 
         <section id="projects" className="scroll-mt-16">
