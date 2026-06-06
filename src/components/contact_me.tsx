@@ -3,6 +3,12 @@ import { FaEnvelope, FaFilePdf, FaGithub, FaGlobe, FaLinkedin } from "react-icon
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Reveal } from "./motion";
 
+// Injected at build time by Vite (see vite.config.ts): the most recent commits
+// from git history, powering the footer commit log.
+declare const __RECENT_COMMITS__: { hash: string; author: string; subject: string; url: string }[];
+
+const recentCommits = __RECENT_COMMITS__;
+
 const contactMethods = [
   {
     label: "Website",
@@ -94,11 +100,28 @@ const ContactMe: React.FC = () => {
               </div>
             </div>
 
-            <div className="commit-log mt-6">
-              <span className="hash">a4f9c2</span> <b>Eugene</b> - refactor: keep the portfolio quiet and version-control-native<br />
-              <span className="hash">1b7e08</span> <b>Eugene</b> - feat: stage cards for selected project work<br />
-              <span className="hash">9c0e44</span> <b>Eugene</b> - init: warm paper base, diff palette, recruiter-readable structure
-            </div>
+            {recentCommits.length > 0 && (
+              <div className="commit-log mt-6">
+                {recentCommits.map((commit) => (
+                  <React.Fragment key={commit.hash}>
+                    {commit.url ? (
+                      <a
+                        href={commit.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hash transition-colors hover:underline"
+                      >
+                        {commit.hash}
+                      </a>
+                    ) : (
+                      <span className="hash">{commit.hash}</span>
+                    )}{" "}
+                    <b>{commit.author.split(" ")[0]}</b> - {commit.subject}
+                    <br />
+                  </React.Fragment>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </Reveal>
