@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowTopRightOnSquareIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Reveal } from "./motion";
 
 const AboutMe: React.FC = () => {
@@ -11,47 +11,76 @@ const AboutMe: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 sm:py-14">
+    <section className="page-section">
       <Reveal>
+        <div className="section-head">
+          <span className="section-num">01</span>
+          <h2 className="section-title">About, as a diff</h2>
+          <span className="section-note">bio.md · revised</span>
+        </div>
+
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(300px,0.55fr)] lg:items-start">
-          <div>
-            <p className="text-sm font-semibold uppercase text-amber-600 dark:text-amber-300">
-              About
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold text-slate-950 sm:text-3xl dark:text-white">
-              A bit about me.
-            </h2>
-            <p className="mt-5 max-w-3xl text-base leading-8 text-slate-700 dark:text-innertext-dark">
-              Hi, I&apos;m a senior studying Computer Science at UC Davis and a
-              Software Engineer Intern at Persist AI. I like building practical
-              software where backend systems, product detail, and real workflows
-              meet.
-            </p>
-            <p className="mt-4 max-w-3xl text-base leading-8 text-slate-700 dark:text-innertext-dark font-sans">
-              Recent work spans multi-agent platforms, patient intake systems,
-              course planning tools, and bioinformatics software.
-            </p>
-            <a
-              href="mailto:eacho@ucdavis.edu"
-              className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-amber-700 transition-colors duration-200 hover:text-amber-900 dark:text-amber-300 dark:hover:text-amber-100"
-            >
-              eacho@ucdavis.edu
-              <ArrowTopRightOnSquareIcon className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-            </a>
+          <div className="diff-block">
+            <div className="diff-gutter">
+              <span className="tilde">~</span>
+            </div>
+            <div className="diff-body">
+              <div className="diffbox">
+                <div className="diff-head">
+                  <span>bio.md</span>
+                  <span>@@ -1,2 +1,4 @@</span>
+                </div>
+                <div className="diff-row rem">
+                  <span className="sign">-</span>
+                  <span className="content">I&apos;m learning to code and looking for my first opportunity.</span>
+                </div>
+                <div className="diff-row rem">
+                  <span className="sign">-</span>
+                  <span className="content">I make websites and small apps.</span>
+                </div>
+                <div className="diff-row add">
+                  <span className="sign">+</span>
+                  <span className="content">I&apos;m a UC Davis CS senior and Software Engineer Intern at Persist AI.</span>
+                </div>
+                <div className="diff-row add">
+                  <span className="sign">+</span>
+                  <span className="content">I build backend-heavy full-stack systems for real workflows.</span>
+                </div>
+                <div className="diff-row add">
+                  <span className="sign">+</span>
+                  <span className="content">Recent work spans agents, patient intake, course tooling, and bioinformatics.</span>
+                </div>
+                <div className="diff-row add">
+                  <span className="sign">+</span>
+                  <span className="content">I care about clear APIs, reliable data flows, and product details that hold up.</span>
+                </div>
+              </div>
+
+              <a
+                href="mailto:eacho@ucdavis.edu"
+                className="link-arrow mt-6"
+              >
+                eacho@ucdavis.edu
+                <ArrowTopRightOnSquareIcon className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+          <div className="surface-card p-5">
+            <p className="meta-text mb-4">current facts · kept close to the work</p>
+            <div className="grid gap-3">
             {facts.map((fact) => (
               <div
                 key={fact}
-                className="flex gap-3 rounded-lg border border-slate-200 bg-white/70 p-4 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:border-amber-200 hover:shadow-md active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:hover:border-amber-400/60 dark:hover:bg-white/[0.08]"
+                className="flex gap-3 border-t border-[var(--line)] pt-3 first:border-t-0 first:pt-0"
               >
-                <CheckCircleIcon className="mt-0.5 h-5 w-5 flex-none text-emerald-500" aria-hidden="true" />
-                <p className="text-sm leading-6 text-slate-700 dark:text-slate-300 font-sans">
+                <span className="mt-0.5 font-mono text-sm text-[var(--add)]">+</span>
+                <p className="body-copy text-sm">
                   {fact}
                 </p>
               </div>
             ))}
+            </div>
           </div>
         </div>
       </Reveal>
