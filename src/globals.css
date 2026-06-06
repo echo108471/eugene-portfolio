@@ -3,24 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --font-fraunces: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-hanken: "Hanken Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-jetbrains-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 
-  --paper: #f4f4f1;
-  --paper-raised: #fafaf7;
-  --ink: #1a1917;
-  --ink-soft: #5a534a;
-  --ink-faint: #8a8377;
-  --line: #e4ded2;
-  --line-strong: #d4cdbe;
-  --add: #5a7c57;
-  --add-wash: rgba(90, 124, 87, 0.07);
-  --add-edge: rgba(90, 124, 87, 0.55);
-  --del: #b34a42;
-  --del-wash: rgba(179, 74, 66, 0.07);
-  --del-edge: rgba(179, 74, 66, 0.45);
-  --shadow: 0 1px 2px rgba(27, 24, 20, 0.04), 0 8px 24px -12px rgba(27, 24, 20, 0.12);
+  --paper: #f6f8fa;
+  --paper-raised: #ffffff;
+  --ink: #151b23;
+  --ink-soft: #46525f;
+  --ink-faint: #6f7b87;
+  --line: #dce3ea;
+  --line-strong: #c3cbd4;
+  --add: #1f883d;
+  --add-wash: rgba(31, 136, 61, 0.08);
+  --add-edge: rgba(31, 136, 61, 0.55);
+  --del: #cf222e;
+  --del-wash: rgba(207, 34, 46, 0.08);
+  --del-edge: rgba(207, 34, 46, 0.45);
+  --shadow: 0 1px 2px rgba(21, 27, 35, 0.05), 0 8px 24px -12px rgba(21, 27, 35, 0.16);
 
   --background-light: var(--paper);
   --foreground-light: var(--ink);
@@ -36,19 +36,19 @@
 }
 
 :root.dark {
-  --paper: #141412;
-  --paper-raised: #1b1b18;
-  --ink: #e9e7e1;
-  --ink-soft: #a7a092;
-  --ink-faint: #6f6859;
-  --line: #2a2620;
-  --line-strong: #39342b;
-  --add: #8fb088;
-  --add-wash: rgba(143, 176, 136, 0.08);
-  --add-edge: rgba(143, 176, 136, 0.45);
-  --del: #d4685d;
-  --del-wash: rgba(212, 104, 93, 0.08);
-  --del-edge: rgba(212, 104, 93, 0.4);
+  --paper: #0d1117;
+  --paper-raised: #161b22;
+  --ink: #e6edf3;
+  --ink-soft: #a9b4bf;
+  --ink-faint: #7d8590;
+  --line: #30363d;
+  --line-strong: #3d444d;
+  --add: #3fb950;
+  --add-wash: rgba(63, 185, 80, 0.1);
+  --add-edge: rgba(63, 185, 80, 0.48);
+  --del: #ff7b72;
+  --del-wash: rgba(255, 123, 114, 0.1);
+  --del-edge: rgba(255, 123, 114, 0.42);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -16px rgba(0, 0, 0, 0.6);
 
   --background-dark: var(--paper);
@@ -76,7 +76,7 @@ body {
   min-width: 320px;
   color: var(--ink);
   background: var(--paper);
-  font-family: var(--font-hanken);
+  font-family: var(--font-sans);
   line-height: 1.55;
   letter-spacing: 0;
   -webkit-font-smoothing: antialiased;
@@ -95,7 +95,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-fraunces);
+  font-family: var(--font-display);
   font-weight: 500;
   letter-spacing: 0;
 }
@@ -222,7 +222,7 @@ html.dark .theme-logo {
 
   .section-title {
     color: var(--ink);
-    font-family: var(--font-fraunces);
+    font-family: var(--font-display);
     font-size: 26px;
     font-weight: 500;
     line-height: 1.15;
@@ -242,7 +242,7 @@ html.dark .theme-logo {
 
   .display-title {
     color: var(--ink);
-    font-family: var(--font-fraunces);
+    font-family: var(--font-display);
     font-size: clamp(38px, 6vw, 68px);
     font-weight: 400;
     line-height: 1.04;
@@ -256,7 +256,7 @@ html.dark .theme-logo {
     display: inline-block;
     margin-bottom: 2px;
     color: var(--del);
-    font-family: var(--font-fraunces);
+    font-family: var(--font-display);
     font-size: clamp(22px, 3.4vw, 34px);
     opacity: 0.75;
     text-decoration: line-through;

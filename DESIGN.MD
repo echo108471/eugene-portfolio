@@ -24,7 +24,7 @@ Green is the **primary** color on purpose: growth and action are additive. Red i
 1. **Quiet metaphor.** The diff is felt, not shouted. Most of the page is muted, editorial, monochrome. Color appears only where there's a real add/remove.
 2. **One animated moment.** Only the project card "stages" on hover. Everything else is static or has minimal state transitions. Restraint reads as confidence.
 3. **Honest content.** The concept is load-bearing only if the diffed copy is *true* (e.g. a real trait you've deprecated). Generic filler collapses the whole conceit.
-4. **Paper, not terminal.** Near-neutral paper background, a serif display face, desaturated diff tints — deliberately *not* the black-background, neon-green, monospace terminal cliché.
+4. **Source view, not terminal.** Cool paper background, IBM Plex typography, and real diff tints — deliberately *not* the black-background, neon-green, monospace terminal cliché.
 5. **No dependencies.** Single HTML file, system-native fonts via Google Fonts, CSS custom properties. Nothing to build.
 
 ---
@@ -39,26 +39,26 @@ Semantic, not literal. Reference tokens by role, never hardcode hexes.
 
 | Token | Role | Light | Dark |
 |---|---|---|---|
-| `--paper` | Page background | `#f4f4f1` | `#141412` |
-| `--paper-raised` | Cards, raised surfaces | `#fafaf7` | `#1b1b18` |
-| `--ink` | Primary text | `#1a1917` | `#e9e7e1` |
-| `--ink-soft` | Body / secondary text | `#5a534a` | `#a7a092` |
-| `--ink-faint` | Metadata, captions | `#8a8377` | `#6f6859` |
-| `--line` | Hairline borders | `#e4ded2` | `#2a2620` |
-| `--line-strong` | Stronger borders | `#d4cdbe` | `#39342b` |
-| `--add` | **Primary / addition** | `#5a7c57` | `#8fb088` |
-| `--add-wash` | Add background tint | `rgba(90,124,87,.07)` | `rgba(143,176,136,.08)` |
-| `--add-edge` | Add border / focus | `rgba(90,124,87,.55)` | `rgba(143,176,136,.45)` |
-| `--del` | Removal / deprecated | `#b34a42` | `#d4685d` |
-| `--del-wash` | Remove background tint | `rgba(179,74,66,.07)` | `rgba(212,104,93,.08)` |
-| `--del-edge` | Remove border | `rgba(179,74,66,.45)` | `rgba(212,104,93,.4)` |
-| `--shadow` | Elevation (hover only) | `0 1px 2px rgba(27,24,20,.04), 0 8px 24px -12px rgba(27,24,20,.12)` | `0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6)` |
+| `--paper` | Page background | `#f6f8fa` | `#0d1117` |
+| `--paper-raised` | Cards, raised surfaces | `#ffffff` | `#161b22` |
+| `--ink` | Primary text | `#151b23` | `#e6edf3` |
+| `--ink-soft` | Body / secondary text | `#46525f` | `#a9b4bf` |
+| `--ink-faint` | Metadata, captions | `#6f7b87` | `#7d8590` |
+| `--line` | Hairline borders | `#dce3ea` | `#30363d` |
+| `--line-strong` | Stronger borders | `#c3cbd4` | `#3d444d` |
+| `--add` | **Primary / addition** | `#1f883d` | `#3fb950` |
+| `--add-wash` | Add background tint | `rgba(31,136,61,.08)` | `rgba(63,185,80,.1)` |
+| `--add-edge` | Add border / focus | `rgba(31,136,61,.55)` | `rgba(63,185,80,.48)` |
+| `--del` | Removal / deprecated | `#cf222e` | `#ff7b72` |
+| `--del-wash` | Remove background tint | `rgba(207,34,46,.08)` | `rgba(255,123,114,.1)` |
+| `--del-edge` | Remove border | `rgba(207,34,46,.45)` | `rgba(255,123,114,.42)` |
+| `--shadow` | Elevation (hover only) | `0 1px 2px rgba(21,27,35,.05), 0 8px 24px -12px rgba(21,27,35,.16)` | `0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6)` |
 
 **Usage rules**
 - `--add` is the single accent: primary buttons, links/hover, focus edges, the `+` marker. Action = adding a change.
 - `--del` only marks genuine removals (struck bio lines, the `−` marker). Never decorative.
 - Washes (`*-wash`) are for backgrounds of diff rows and hover states. Keep them barely-there.
-- **Keep paper near-neutral and `--del` a true diff red, not clay/terracotta.** An earlier palette (warm cream `#f6f3ec` + clay `#a86a5c`) read too close to a certain AI product's warm-cream + clay branding. The current paper carries only a hair of warmth, and removals are a real red — this keeps the system from drifting back into that generic look.
+- **Keep paper cool and `--del` a true diff red, not clay/terracotta.** The old warm paper + sage accent direction read too close to AI-lab editorial branding. The current palette borrows more from source-control surfaces: cool neutrals, sharper green, and a real removal red.
 
 ### 3.2 Typography
 
@@ -66,18 +66,18 @@ Three families, three jobs. The serif/mono pairing is what keeps it from feeling
 
 | Family | Role | Weights | Used for |
 |---|---|---|---|
-| **Fraunces** (serif) | Display | 300–600 | Headlines, card titles, section titles |
-| **Hanken Grotesk** (sans) | UI / body | 400/500/600 | Body copy, buttons, paragraphs |
+| **IBM Plex Serif** (serif) | Display | 400–600 | Headlines, card titles, section titles |
+| **IBM Plex Sans** (sans) | UI / body | 400/500/600 | Body copy, buttons, paragraphs |
 | **JetBrains Mono** | Meta | 400/500 | Captions, metadata, the gutter, commit log, tags |
 
 **Type scale** — ~1.25 ratio. Reference sizes:
 
 | Step | Size | Notes |
 |---|---|---|
-| Display | `clamp(38px, 6vw, 68px)` | Fraunces 400, `line-height: 1.04`, `letter-spacing: -.02em` |
-| H2 | `34px` | Fraunces |
-| H3 / section title | `26px` | Fraunces 500, `letter-spacing: -.01em` |
-| Body | `17px` | Hanken, `line-height: 1.55–1.65` |
+| Display | `clamp(38px, 6vw, 68px)` | IBM Plex Serif 400, `line-height: 1.04`, `letter-spacing: 0` |
+| H2 | `34px` | IBM Plex Serif |
+| H3 / section title | `26px` | IBM Plex Serif 500, `letter-spacing: 0` |
+| Body | `17px` | IBM Plex Sans, `line-height: 1.55–1.65` |
 | Small | `13–14px` | UI text, card descriptions |
 | Meta | `11–12px` | JetBrains Mono, captions & labels |
 
@@ -168,13 +168,13 @@ Sticky, blurred backdrop (`backdrop-filter: blur(10px)`), `1px` bottom border, `
 Mono, `999px` radius, `--line-strong` outline, `--ink-soft`. Variant `.tag-pill.add` (green outline + wash) marks something new. Use for stack chips and version numbers (`v2.1.0`).
 
 ### Project card (`.card`)
-Raised surface, `14px` radius, left accent bar, extra left padding (`30px`) for the stage marker. Anatomy: `.stage-mark` · `.ctitle` (Fraunces) · `.cmeta` (`commit a4f9c2 · active`) · `.cdesc` · `.cstack`. Grid: `1fr 1fr`, collapses to single column < 680px. See §4.3 for hover.
+Raised surface, `14px` radius, left accent bar, extra left padding (`30px`) for the stage marker. Anatomy: `.stage-mark` · `.ctitle` (IBM Plex Serif) · `.cmeta` (`commit a4f9c2 · active`) · `.cdesc` · `.cstack`. Grid: `1fr 1fr`, collapses to single column < 680px. See §4.3 for hover.
 
 ### Diff box (`.diffbox`)
 See §4.2.
 
 ### Section header (`.sec-head`)
-`.sec-num` (mono, green, `01`) + `.sec-title` (Fraunces) + `.sec-note` (mono, faint, right-aligned aside). Treat sections like numbered commits.
+`.sec-num` (mono, green, `01`) + `.sec-title` (IBM Plex Serif) + `.sec-note` (mono, faint, right-aligned aside). Treat sections like numbered commits.
 
 ### Footer — commit log (`.commit`)
 Mono lines styled as `git log`: green `.hash` + bold `b` (author) + message in conventional-commit voice (`feat:`, `refactor:`, `init:`). A quiet, on-theme way to close the page.
@@ -209,7 +209,7 @@ Honest list of what to fix before this is production:
 - **Microcopy uses git vocabulary** — but lightly. `main`, `commit`, `staged`, `view diff`, conventional-commit footer. One or two touches per region; if every label is a git pun it tips from clever into try-hard.
 - **Section names** read like commits/areas: `Tokens`, `Components`, `About, as a diff`.
 - **The bio diff is the soul.** Removed = a real prior self; added = who you are now. Specific and a little vulnerable beats impressive.
-- **Tone:** confident, plain, technical-but-warm. Let the serif and the paper do the softening.
+- **Tone:** confident, plain, technical but human. Let the content and spacing do the softening.
 
 ---
 
@@ -241,4 +241,4 @@ This file is a prototype/specimen. To grow it into a full site:
 
 ---
 
-*Fonts: Fraunces · Hanken Grotesk · JetBrains Mono (Google Fonts). No build step, no runtime dependencies.*
+*Fonts: IBM Plex Serif · IBM Plex Sans · JetBrains Mono (Google Fonts).*
