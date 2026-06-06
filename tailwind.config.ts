@@ -16,7 +16,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        display: ['"Fraunces"', "Georgia", '"Times New Roman"', "serif"],
+        sans: ['"Hanken Grotesk"', "system-ui", "-apple-system", "sans-serif"],
         mono: ['"JetBrains Mono"', "SFMono-Regular", "Consolas", '"Liberation Mono"', "Menlo", "monospace"],
       },
       colors: {
