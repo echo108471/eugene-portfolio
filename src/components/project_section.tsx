@@ -2,14 +2,24 @@ import React from "react";
 import ProjectCard from "./project_card";
 import { Reveal } from "./motion";
 
+interface SpecimenRow {
+  sign: "+" | "~" | "-";
+  text: string;
+}
+
+interface Specimen {
+  file: string;
+  range?: string;
+  rows: SpecimenRow[];
+}
+
 interface Project {
   date: string;
   name: string;
   description: string;
-  highlights?: string[];
   techStack: string[];
   link: string;
-  image: string;
+  specimen?: Specimen;
 }
 
 const Projects: React.FC = () => {
@@ -18,24 +28,31 @@ const Projects: React.FC = () => {
       date: "Oct. 2024 – Present",
       name: "Cattlelog",
       description: "Full-stack course and professor insights platform for UC Davis students.",
-      highlights: [
-        "Reached 40K+ unique users with faster search, caching, and rendering paths.",
-      ],
       techStack: ["React", "TypeScript", "TailwindCSS", "FastAPI", "PostgreSQL", "Redis", "PostHog"],
       link: "https://daviscattlelog.com",
-      image: "/projects/cattlelog.svg"
+      specimen: {
+        file: "daviscattlelog.com",
+        range: "prod",
+        rows: [
+          { sign: "+", text: "40K+ unique users" },
+          { sign: "+", text: "faster search · caching · rendering" },
+        ],
+      },
     },
     {
       date: "Nov. 2025",
       name: "CollabRoomAI",
       description: "Real-time collaborative chat application with integrated AI agents.",
-      highlights: [
-        "Built a Go/Fiber and SvelteKit app with WebSocket messaging and AI agents for live analysis and summarization.",
-        "Designed reusable chat and agent flows with Svelte 5, TypeScript, and Tailwind.",
-      ],
       techStack: ["SvelteKit", "TypeScript", "TailwindCSS", "Go", "Fiber", "WebSockets", "OpenAI API"],
       link: "https://github.com/echo108471/CollabRoomAI",
-      image: "/projects/collabroomai.png"
+      specimen: {
+        file: "CollabRoomAI",
+        range: "main",
+        rows: [
+          { sign: "+", text: "real-time WebSocket messaging" },
+          { sign: "+", text: "AI agents for live analysis + summaries" },
+        ],
+      },
     },
     {
       date: "Jan. 2025",
@@ -43,7 +60,14 @@ const Projects: React.FC = () => {
       description: "Bioinformatics web tool for CRISPR/Cas9 donor design workflows.",
       techStack: ["PHP", "HTML/CSS", "Python", "CGI Scripts", "Input Validation"],
       link: "https://pnabio.com/pna-designer/",
-      image: "/projects/pna-designer.png"
+      specimen: {
+        file: "pnabio.com/pna-designer",
+        range: "prod",
+        rows: [
+          { sign: "+", text: "CRISPR/Cas9 donor design workflows" },
+          { sign: "+", text: "validated sequence input · CGI pipeline" },
+        ],
+      },
     },
     {
       date: "Dec. 2024",
@@ -51,7 +75,14 @@ const Projects: React.FC = () => {
       description: "Decentralized file storage system using IPFS and ResilientDB.",
       techStack: ["React", "TypeScript", "IPFS", "ResilientDB", "Python", "FastAPI"],
       link: "https://github.com/ResilientApp/decentralized-sys",
-      image: "/projects/resilient-files.png"
+      specimen: {
+        file: "decentralized-sys",
+        range: "main",
+        rows: [
+          { sign: "+", text: "decentralized file storage on IPFS" },
+          { sign: "+", text: "file ledger backed by ResilientDB" },
+        ],
+      },
     },
     {
       date: "Dec. 2024",
@@ -59,18 +90,29 @@ const Projects: React.FC = () => {
       description: "Reverse tower defense game built in Godot Engine.",
       techStack: ["Godot Engine", "GDScript"],
       link: "https://github.com/echo108471/MonkeyTrenchOffense",
-      image: "/projects/monkey-trench-offense.png"
+      specimen: {
+        file: "MonkeyTrenchOffense",
+        range: "main",
+        rows: [
+          { sign: "+", text: "reverse tower-defense mechanics" },
+          { sign: "+", text: "custom power abilities · 2+ levels" },
+        ],
+      },
     },
     {
       date: "Sep. 2024",
       name: "HangulStudy",
       description: "Interactive Korean language learning platform for level-based vocabulary practice.",
-      highlights: [
-        "Built practice sets, a virtual Hangul keyboard, scoring, and RESTful difficulty-tier APIs.",
-      ],
       techStack: ["React", "TailwindCSS", "Hangul", "SQLite3", "Express.js"],
       link: "https://koreanquiz.onrender.com/",
-      image: "/projects/korean-quiz.png"
+      specimen: {
+        file: "koreanquiz.onrender.com",
+        range: "prod",
+        rows: [
+          { sign: "+", text: "virtual Hangul keyboard · scoring" },
+          { sign: "+", text: "level-based sets · tiered REST APIs" },
+        ],
+      },
     },
     {
       date: "Sep. 2024",
@@ -78,7 +120,14 @@ const Projects: React.FC = () => {
       description: "Bioinformatics web tool for PNA oligo sequence analysis and design workflows.",
       techStack: ["PHP", "HTML/CSS", "Python", "CGI Scripts", "Input Validation"],
       link: "https://pnabio.com/pna-tool/",
-      image: "/projects/pna-tool.png"
+      specimen: {
+        file: "pnabio.com/pna-tool",
+        range: "prod",
+        rows: [
+          { sign: "+", text: "PNA oligo sequence analysis" },
+          { sign: "+", text: "design workflows · input validation" },
+        ],
+      },
     },
   ];
 
@@ -107,18 +156,16 @@ const Projects: React.FC = () => {
           <span className="tilde">~</span>
         </div>
         <div className="diff-body">
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {projects.map((project, index) => (
+          <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2">
+            {projects.map((project) => (
               <ProjectCard
                 key={project.name}
                 date={project.date}
                 name={project.name}
                 description={project.description}
-                highlights={project.highlights}
                 techStack={project.techStack}
                 link={project.link}
-                image={project.image}
-                priority={index < 2}
+                specimen={project.specimen}
               />
             ))}
           </div>

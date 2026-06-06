@@ -563,6 +563,47 @@ html.dark .theme-logo {
     color: var(--ink);
   }
 
+  /* project specimen — a diff hunk in place of a screenshot */
+  .spec-panel {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--paper);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 12.5px;
+    transition: border-color 0.22s ease;
+  }
+
+  .stage-card:hover .spec-panel {
+    border-color: var(--add-edge);
+  }
+
+  .spec-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-faint);
+    font-size: 11px;
+  }
+
+  .spec-head .spec-range {
+    color: var(--add);
+  }
+
+  .spec-panel .diff-row {
+    line-height: 1.78;
+  }
+
+  .spec-panel .diff-row .sign {
+    width: 30px;
+  }
+
+  .spec-panel .diff-row .content {
+    padding-right: 14px;
+  }
+
   /* release history — the changelog of a person */
   .changelog {
     font-family: var(--font-jetbrains-mono);
