@@ -43,15 +43,15 @@ const AboutMe: React.FC = () => {
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">I build backend-heavy full-stack systems for real workflows.</span>
+                  <span className="content">I like full-stack work because it gives me context across data, APIs, and the interface.</span>
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">Recent work spans air-gapped LLM platforms, multi-agent systems, patient intake, and course tooling.</span>
+                  <span className="content">Recent work includes air-gapped LLM tooling, multi-agent backend services, patient intake, and course search.</span>
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">I care about clear APIs, reliable data flows, and product details that hold up.</span>
+                  <span className="content">I build with the user in mind: what they are trying to do, where they get stuck, and how the system should respond.</span>
                 </div>
               </div>
 

@@ -67,7 +67,7 @@ const ContactMe: React.FC = () => {
                   Get in touch.
                 </h3>
                 <p className="body-copy mt-4 max-w-2xl text-sm">
-                  Reach me through email, LinkedIn, GitHub, or the portfolio links from my resume.
+                  Email is the best way to reach me. GitHub, LinkedIn, and my resume are here too.
                 </p>
               </div>
 
@@ -81,10 +81,10 @@ const ContactMe: React.FC = () => {
                       href={method.href}
                       target={method.href.startsWith("http") || method.href.endsWith(".pdf") ? "_blank" : undefined}
                       rel={method.href.startsWith("http") || method.href.endsWith(".pdf") ? "noopener noreferrer" : undefined}
-                      className="group flex items-center justify-between gap-3 rounded-lg border border-[var(--line)] bg-[var(--paper-raised)] p-4 text-sm text-[var(--ink-soft)] transition-colors duration-200 hover:border-[var(--add-edge)] hover:bg-[var(--add-wash)] hover:text-[var(--ink)]"
+                      className="group flex items-center justify-between gap-3 rounded-lg border border-[var(--line)] bg-[var(--paper-raised)] p-4 text-sm text-[var(--ink-soft)] transition-colors duration-200 hover:border-[var(--accent-edge)] hover:bg-[var(--accent-wash)] hover:text-[var(--ink)]"
                     >
                       <span className="flex min-w-0 items-center gap-3">
-                        <Icon className="h-5 w-5 flex-none text-[var(--add)]" aria-hidden="true" />
+                        <Icon className="h-5 w-5 flex-none text-[var(--accent)]" aria-hidden="true" />
                         <span className="min-w-0">
                           <span className="block font-semibold">{method.label}</span>
                           <span className="meta-text block truncate">

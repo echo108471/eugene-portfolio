@@ -14,6 +14,7 @@
     --line:#dce3ea; --line-2:#c3cbd4;
     --add:#1f883d; --add-wash:rgba(31,136,61,.08); --add-edge:rgba(31,136,61,.55);
     --del:#cf222e; --del-wash:rgba(207,34,46,.08); --del-edge:rgba(207,34,46,.45);
+    --accent:#0969da; --accent-wash:rgba(9,105,218,.08); --accent-edge:rgba(9,105,218,.45);
     --shadow:0 1px 2px rgba(21,27,35,.05),0 10px 30px -14px rgba(21,27,35,.18);
   }
   :root[data-theme="dark"]{
@@ -22,13 +23,14 @@
     --line:#30363d; --line-2:#3d444d;
     --add:#3fb950; --add-wash:rgba(63,185,80,.1); --add-edge:rgba(63,185,80,.48);
     --del:#ff7b72; --del-wash:rgba(255,123,114,.1); --del-edge:rgba(255,123,114,.42);
+    --accent:#58a6ff; --accent-wash:rgba(88,166,255,.12); --accent-edge:rgba(88,166,255,.5);
     --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 34px -18px rgba(0,0,0,.7);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",sans-serif;
     font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
-  ::selection{background:var(--add-wash);color:var(--ink)}
+  ::selection{background:var(--accent-wash);color:var(--ink)}
   .mono{font-family:"JetBrains Mono",monospace}
   a{color:inherit}
   .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
@@ -47,10 +49,10 @@
     backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:62px}
   .brand{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:0;font-size:17px}
-  .brand .glyph{width:16px;height:16px;color:var(--add)}
+  .brand .glyph{width:16px;height:16px;color:var(--accent)}
   .branch{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-2);
     border:1px solid var(--line-2);padding:3px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
-  .branch .dot{width:6px;height:6px;border-radius:50%;background:var(--add)}
+  .branch .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
   .nav-r{display:flex;gap:24px;align-items:center}
   .nav-r a{color:var(--ink-2);text-decoration:none;font-size:13.5px;font-family:"JetBrains Mono",monospace;transition:color .2s}
   .nav-r a:hover{color:var(--ink)}
@@ -66,14 +68,14 @@
     opacity:.7;font-size:clamp(20px,3vw,28px);margin-bottom:10px;display:inline-block}
   h1{font-family:"IBM Plex Serif",serif;font-weight:400;font-size:clamp(40px,6.2vw,72px);line-height:1.04;
     letter-spacing:0;color:var(--ink)}
-  h1 em{font-style:italic;color:var(--add)}
+  h1 em{font-style:italic;color:var(--accent)}
   h1 .muted{color:var(--ink-3)}
   .lede{max-width:56ch;color:var(--ink-2);font-size:17px;margin-top:26px;line-height:1.65}
 
   /* sections */
   section{padding:56px 0;border-top:1px solid var(--line)}
   .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:34px}
-  .sec-num{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--add)}
+  .sec-num{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--accent)}
   .sec-title{font-family:"IBM Plex Serif",serif;font-weight:500;font-size:26px;letter-spacing:0}
   .sec-note{margin-left:auto;font-size:12.5px;color:var(--ink-3);font-family:"JetBrains Mono",monospace}
 
@@ -101,7 +103,7 @@
   .changelog{font-family:"JetBrains Mono",monospace}
   .rel{margin-bottom:30px}
   .rel-h{display:flex;align-items:baseline;gap:12px;margin-bottom:10px}
-  .rel-h .v{font-size:13px;color:var(--add);font-weight:500}
+  .rel-h .v{font-size:13px;color:var(--accent);font-weight:500}
   .rel-h .d{font-size:11px;color:var(--ink-3)}
   .rel-h .ln{flex:1;height:1px;background:var(--line)}
   .dl{display:flex;gap:12px;font-size:13.5px;line-height:1.95;padding-left:4px}
@@ -118,12 +120,12 @@
   .crow:hover{padding-left:14px}
   .crow .k{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-3);width:90px;flex-shrink:0}
   .crow .val{font-family:"IBM Plex Serif",serif;font-size:22px;color:var(--ink);transition:color .25s}
-  .crow:hover .val{color:var(--add)}
+  .crow:hover .val{color:var(--accent)}
 
   /* footer — commit log */
   footer{padding:46px 0 62px;border-top:1px solid var(--line)}
   .commit{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-3);line-height:1.95}
-  .commit .h{color:var(--add)} .commit b{color:var(--ink-2);font-weight:500}
+  .commit .h{color:var(--accent)} .commit b{color:var(--ink-2);font-weight:500}
 
   @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
   .rise{opacity:0;animation:rise .8s cubic-bezier(.2,.8,.2,1) forwards}

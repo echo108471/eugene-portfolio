@@ -18,10 +18,10 @@ const DarkModeToggle: React.FC = () => {
     >
       <div className="relative h-4 w-4">
         <SunIcon
-          className="absolute inset-0 h-4 w-4 text-[var(--add)] transform transition-all duration-500 rotate-0 scale-100 opacity-100 dark:rotate-180 dark:scale-0 dark:opacity-0"
+          className="absolute inset-0 h-4 w-4 text-[var(--accent)] transform transition-all duration-500 rotate-0 scale-100 opacity-100 dark:rotate-180 dark:scale-0 dark:opacity-0"
         />
         <MoonIcon
-          className="absolute inset-0 h-4 w-4 text-[var(--add)] transform transition-all duration-500 -rotate-180 scale-0 opacity-0 dark:rotate-0 dark:scale-100 dark:opacity-100"
+          className="absolute inset-0 h-4 w-4 text-[var(--accent)] transform transition-all duration-500 -rotate-180 scale-0 opacity-0 dark:rotate-0 dark:scale-100 dark:opacity-100"
         />
       </div>
     </button>

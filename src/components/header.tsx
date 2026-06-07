@@ -87,11 +87,11 @@ const Header: React.FC = () => {
         <button
           type="button"
           onClick={() => handleScroll("home")}
-          className="group flex min-w-0 items-center gap-2.5 rounded-md px-1 py-1.5 text-left text-sm font-semibold text-[var(--ink)] transition-colors hover:text-[var(--add)]"
+          className="group flex min-w-0 items-center gap-2.5 rounded-md px-1 py-1.5 text-left text-sm font-semibold text-[var(--ink)] transition-colors hover:text-[var(--accent)]"
           aria-label="Scroll to home"
         >
           <svg
-            className="h-4 w-4 text-[var(--add)]"
+            className="h-4 w-4 text-[var(--accent)]"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -205,11 +205,11 @@ const Header: React.FC = () => {
                         }}
                         className={`w-full rounded-lg border border-transparent px-3 py-3 text-left font-mono text-sm font-medium transition-colors duration-200 ${
                           activeSection === item.href
-                            ? "border-[var(--add-edge)] bg-[var(--add-wash)] text-[var(--add)]"
-                            : "text-[var(--ink-soft)] hover:bg-[var(--add-wash)] hover:text-[var(--ink)]"
+                            ? "border-[var(--accent-edge)] bg-[var(--accent-wash)] text-[var(--accent)]"
+                            : "text-[var(--ink-soft)] hover:bg-[var(--accent-wash)] hover:text-[var(--ink)]"
                         }`}
                       >
-                        <span className="mr-2 text-[var(--add)]">+</span>
+                        <span className="mr-2 text-[var(--accent)]">+</span>
                         {item.name}
                       </button>
                     ))}

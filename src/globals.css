@@ -20,11 +20,14 @@
   --del: #cf222e;
   --del-wash: rgba(207, 34, 46, 0.08);
   --del-edge: rgba(207, 34, 46, 0.45);
+  --accent: #0969da;
+  --accent-wash: rgba(9, 105, 218, 0.08);
+  --accent-edge: rgba(9, 105, 218, 0.45);
   --shadow: 0 1px 2px rgba(21, 27, 35, 0.05), 0 8px 24px -12px rgba(21, 27, 35, 0.16);
 
   --background-light: var(--paper);
   --foreground-light: var(--ink);
-  --accent-light: var(--add);
+  --accent-light: var(--accent);
   --innerbox-light: var(--paper-raised);
   --subtext-light: var(--ink-soft);
   --techstack-light: var(--ink-faint);
@@ -49,11 +52,14 @@
   --del: #ff7b72;
   --del-wash: rgba(255, 123, 114, 0.1);
   --del-edge: rgba(255, 123, 114, 0.42);
+  --accent: #58a6ff;
+  --accent-wash: rgba(88, 166, 255, 0.12);
+  --accent-edge: rgba(88, 166, 255, 0.5);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -16px rgba(0, 0, 0, 0.6);
 
   --background-dark: var(--paper);
   --foreground-dark: var(--ink);
-  --accent-dark: var(--add);
+  --accent-dark: var(--accent);
   --innerbox-dark: var(--paper-raised);
   --subtext-dark: var(--ink-soft);
   --techstack-dark: var(--ink-faint);
@@ -86,7 +92,7 @@ body {
 
 ::selection {
   color: var(--ink);
-  background: var(--add-wash);
+  background: var(--accent-wash);
 }
 
 h1,
@@ -108,7 +114,7 @@ select {
 }
 
 :where(a, button, [role="button"], input, textarea, select, summary):focus-visible {
-  outline: 2px solid var(--add);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 0.6rem;
 }
@@ -216,7 +222,7 @@ html.dark .theme-logo {
   }
 
   .section-num {
-    color: var(--add);
+    color: var(--accent);
     font-size: 12px;
   }
 
@@ -268,7 +274,7 @@ html.dark .theme-logo {
   }
 
   .add-text em {
-    color: var(--add);
+    color: var(--accent);
     font-style: italic;
   }
 
@@ -294,8 +300,8 @@ html.dark .theme-logo {
   }
 
   .interactive-surface:hover {
-    border-color: var(--add-edge);
-    background: linear-gradient(var(--add-wash), var(--add-wash)), var(--paper-raised);
+    border-color: var(--accent-edge);
+    background: linear-gradient(var(--accent-wash), var(--accent-wash)), var(--paper-raised);
   }
 
   .stage-card {
@@ -377,9 +383,9 @@ html.dark .theme-logo {
 
   .tag-pill:hover,
   .tag-pill.add {
-    border-color: var(--add-edge);
-    color: var(--add);
-    background: var(--add-wash);
+    border-color: var(--accent-edge);
+    color: var(--accent);
+    background: var(--accent-wash);
   }
 
   .button-row {
@@ -406,7 +412,7 @@ html.dark .theme-logo {
 
   .btn-primary {
     color: var(--paper);
-    background: var(--add);
+    background: var(--accent);
   }
 
   .btn-primary:hover {
@@ -422,7 +428,7 @@ html.dark .theme-logo {
 
   .btn-secondary:hover {
     border-color: var(--ink-faint);
-    background: var(--add-wash);
+    background: var(--accent-wash);
   }
 
   .btn-ghost {
@@ -432,7 +438,7 @@ html.dark .theme-logo {
 
   .btn-ghost:hover {
     color: var(--ink);
-    background: var(--add-wash);
+    background: var(--accent-wash);
   }
 
   .icon-button {
@@ -450,7 +456,7 @@ html.dark .theme-logo {
   .icon-button:hover {
     border-color: var(--ink-faint);
     color: var(--ink);
-    background: var(--add-wash);
+    background: var(--accent-wash);
   }
 
   .branch-pill {
@@ -470,7 +476,7 @@ html.dark .theme-logo {
     width: 6px;
     height: 6px;
     border-radius: 999px;
-    background: var(--add);
+    background: var(--accent);
   }
 
   .body-copy {
@@ -489,7 +495,7 @@ html.dark .theme-logo {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: var(--add);
+    color: var(--accent);
     font-size: 14px;
     font-weight: 600;
     transition: color 0.18s ease;
@@ -586,7 +592,7 @@ html.dark .theme-logo {
   }
 
   .spec-head .spec-range {
-    color: var(--add);
+    color: var(--accent);
   }
 
   .spec-panel .diff-row {
@@ -618,7 +624,7 @@ html.dark .theme-logo {
   }
 
   .release-head .ver {
-    color: var(--add);
+    color: var(--accent);
     font-size: 13px;
     font-weight: 500;
   }
@@ -675,7 +681,7 @@ html.dark .theme-logo {
   }
 
   .commit-log .hash {
-    color: var(--add);
+    color: var(--accent);
   }
 
   .commit-log b {

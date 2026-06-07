@@ -23,8 +23,8 @@ const experiences: ExperienceItem[] = [
     date: "May 2026 – Present",
     link: "https://www.sealingtech.com/",
     description: [
-      "Contributing to Zepharis AI, a fully air-gapped, full-stack local LLM platform that delivers context-aware reasoning as a portable AI subject-matter expert for defensive cyber operators at the edge.",
-      "Building features that fuse LLMs with operational tooling — natural language querying, RAG over mission documentation, and unified command across Elastic, Vectra, and Security Onion.",
+      "Contributing to Zepharis AI, an air-gapped local LLM platform for defensive cyber operators at the edge.",
+      "Working on natural-language querying, RAG over mission documentation, and command workflows across Elastic, Vectra, and Security Onion.",
     ],
     techStack: [
       "React",
@@ -42,8 +42,8 @@ const experiences: ExperienceItem[] = [
     date: "Feb. 2026 – May 2026",
     link: "https://www.persist.ai/",
     description: [
-      "Engineered a multi-agent platform for pharmaceutical formulation workflows, integrating 22 specialized backend agents into a unified system for project execution, collaboration, and research automation.",
-      "Built 37 backend API endpoints and real-time/async patterns (WebSockets, SSE, background jobs) across 85+ microservices, with automated coverage spanning 190+ Playwright and pytest test files.",
+      "Built backend pieces for a 22-agent pharmaceutical formulation system: APIs, collaboration flows, and research task execution.",
+      "Added 37 API endpoints plus WebSocket, SSE, and background-job paths across an 85+ service codebase, with Playwright and pytest coverage.",
     ],
     techStack: [
       "FastAPI",
@@ -86,7 +86,7 @@ const experiences: ExperienceItem[] = [
     link: "https://aggieworks.org/",
     logo: "/logos/aw_logo.svg",
     description: [
-      "Built daviscattlelog.com, a course and professor insights platform with React, FastAPI, and PostgreSQL, reaching 40K+ unique and 6.3K+ monthly active UC Davis users.",
+      "Built daviscattlelog.com, a course search and professor data site with React, FastAPI, and PostgreSQL, reaching 40K+ unique and 6.3K+ monthly active UC Davis users.",
       "Refactored search with vector embeddings and fuzzy matching for 4× faster retrieval, and cut API latency ~90% with Redis caching and virtualization — lifting uptime from 88% to 99.9%.",
     ],
     techStack: [
@@ -109,8 +109,8 @@ const experiences: ExperienceItem[] = [
     logoLight: "/logos/pna_logo_light.svg",
     logoDark: "/logos/pna_logo_dark.svg",
     description: [
-      "Designed and deployed PNA Tool and PNA Designer, customer-facing bioinformatics tools used for molecular sequence analysis and donor design.",
-      "Built backend processing and validation flows that automated internal scientific design work and reduced manual processing time.",
+      "Designed and deployed PNA Tool and PNA Designer, customer-facing tools for sequence analysis and donor design.",
+      "Built backend processing and validation flows that reduced manual sequence-design work.",
     ],
     techStack: ["PHP", "Python", "CGI Scripts", "HTML/CSS", "Input Validation"],
   },
@@ -124,7 +124,7 @@ const experiences: ExperienceItem[] = [
     logoDark: "/logos/snu_logo_dark.svg",
     description: [
       "Researched cancer clonal model determination using genomic datasets at the Genomic Medicine Institute.",
-      "Automated analysis and visualization workflows for multi-million-line genomic data using Python.",
+      "Automated Python analysis and visualization for multi-million-line genomic datasets.",
     ],
     techStack: [
       "Pandas",
@@ -157,7 +157,7 @@ const experiences: ExperienceItem[] = [
     logoLight: "/logos/cimplrx_logo_light.webp",
     logoDark: "/logos/cimplrx_logo_dark.png",
     description: [
-      "Built Linux/MySQL data workflows and Neo4j visualizations to support compound screening analysis.",
+      "Built Linux/MySQL data pipelines and Neo4j visualizations to support compound screening analysis.",
     ],
     techStack: ["Linux", "MySQL", "Neo4j"],
   },
@@ -175,7 +175,7 @@ function ExperienceLogo({
   experience: ExperienceItem;
 }) {
   const baseClasses =
-    "relative z-10 flex h-14 w-14 sm:h-16 sm:w-16 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] transition-colors duration-200 group-hover/item:border-[var(--add-edge)]";
+    "relative z-10 flex h-14 w-14 sm:h-16 sm:w-16 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] transition-colors duration-200 group-hover/item:border-[var(--accent-edge)]";
 
   if (!experience.logo && !experience.logoLight && !experience.logoDark) {
     const initials = experience.company
@@ -235,7 +235,7 @@ const ExperienceSection = () => {
           <span className="section-note">worktree · active history</span>
         </div>
         <p className="body-copy mb-8 max-w-2xl">
-          Backend systems, product surfaces, and data-heavy tools across healthcare, education, and research.
+          The through-line: backend work tied to users, data, and operational constraints.
         </p>
       </Reveal>
 
@@ -271,7 +271,7 @@ const ExperienceSection = () => {
                           {experience.link && (
                             <>
                               <span className="hidden sm:block text-[var(--line-strong)]">&bull;</span>
-                              <span className="inline-flex items-center gap-1 text-[var(--ink-soft)] transition-colors group-hover/item:text-[var(--add)]">
+                              <span className="inline-flex items-center gap-1 text-[var(--ink-soft)] transition-colors group-hover/item:text-[var(--accent)]">
                                 Visit <span aria-hidden="true">↗</span>
                               </span>
                             </>

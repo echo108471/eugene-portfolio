@@ -21,7 +21,7 @@ const releases: Release[] = [
     changes: [
       { type: "add", text: "Building Zepharis AI at Sealing Technologies — an air-gapped local LLM platform for defensive cyber operators" },
       { type: "add", text: "Shipped a 22-agent platform at Persist AI (YC W23) — APIs, real-time flows, and end-to-end coverage" },
-      { type: "add", text: "Graduating UC Davis CS — turning the degree into shipped systems" },
+      { type: "add", text: "Graduating UC Davis CS — more time in production code than classroom examples" },
       { type: "rem", text: "deprecated: waiting to feel “senior enough” before owning a system" },
     ],
   },
@@ -31,7 +31,7 @@ const releases: Release[] = [
     changes: [
       { type: "add", text: "Shipped event-driven backend services at Kaiser Permanente (500K+ monthly sessions)" },
       { type: "add", text: "Cut evisit latency ~95% with the right caching change, not more code" },
-      { type: "add", text: "Learned that reliability and scale are a feature, not an afterthought" },
+      { type: "add", text: "Learned to check latency charts before adding code" },
       { type: "rem", text: "deprecated: measuring progress in features built instead of impact shipped" },
     ],
   },
@@ -40,7 +40,7 @@ const releases: Release[] = [
     when: "2024",
     changes: [
       { type: "add", text: "Joined AggieWorks; built daviscattlelog.com to 40K+ users" },
-      { type: "add", text: "Shipped my own products start to finish (Cattlelog, HangulStudy)" },
+      { type: "add", text: "Shipped Cattlelog and HangulStudy outside class deadlines" },
       { type: "add", text: "Genomics research at Seoul National University + first bioinformatics tools at PNA Bio" },
       { type: "rem", text: "deprecated: treating side projects as throwaway practice" },
     ],
@@ -50,7 +50,7 @@ const releases: Release[] = [
     when: "2022 — 2023",
     changes: [
       { type: "add", text: "First internships: chemoinformatics at CIMPLRX, Android at ASTRO Tech" },
-      { type: "add", text: "Eagle Scout — led a watershed restoration project to completion" },
+      { type: "add", text: "Eagle Scout — led a staircase restoration project to completion" },
       { type: "add", text: "init — found the thing I wanted to get good at" },
     ],
   },

@@ -42,7 +42,7 @@ const slugify = (value: string) =>
 function EducationLogo({ edu }: { edu: EducationItem }) {
   if (!edu.logo && !edu.logoLight && !edu.logoDark) {
     return (
-      <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] text-sm font-semibold text-[var(--ink-soft)]">
+      <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] text-sm font-semibold text-[var(--ink-soft)] transition-colors duration-200 group-hover:border-[var(--accent-edge)]">
         {edu.institution
           .split(" ")
           .slice(0, 2)
@@ -53,7 +53,7 @@ function EducationLogo({ edu }: { edu: EducationItem }) {
   }
 
   return (
-    <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] transition-colors duration-200 group-hover:border-[var(--add-edge)]">
+    <div className="flex h-14 w-14 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] transition-colors duration-200 group-hover:border-[var(--accent-edge)]">
       {(edu.logoLight || edu.logoDark) && (
         <div
           className="theme-logo h-11 w-11"

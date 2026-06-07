@@ -27,7 +27,7 @@ const Projects: React.FC = () => {
     {
       date: "Oct. 2024 – Present",
       name: "Cattlelog",
-      description: "Full-stack course and professor insights platform for UC Davis students.",
+      description: "Course search and professor insights for UC Davis students.",
       techStack: ["React", "TypeScript", "TailwindCSS", "FastAPI", "PostgreSQL", "Redis", "PostHog"],
       link: "https://daviscattlelog.com",
       specimen: {
@@ -42,7 +42,7 @@ const Projects: React.FC = () => {
     {
       date: "Nov. 2025",
       name: "CollabRoomAI",
-      description: "Real-time collaborative chat application with integrated AI agents.",
+      description: "Collaborative chat room where AI agents summarize and analyze live messages.",
       techStack: ["SvelteKit", "TypeScript", "TailwindCSS", "Go", "Fiber", "WebSockets", "OpenAI API"],
       link: "https://github.com/echo108471/CollabRoomAI",
       specimen: {
@@ -57,14 +57,14 @@ const Projects: React.FC = () => {
     {
       date: "Jan. 2025",
       name: "PNA Designer Tool",
-      description: "Bioinformatics web tool for CRISPR/Cas9 donor design workflows.",
+      description: "CRISPR/Cas9 donor-design tool with sequence validation and CGI processing.",
       techStack: ["PHP", "HTML/CSS", "Python", "CGI Scripts", "Input Validation"],
       link: "https://pnabio.com/pna-designer/",
       specimen: {
         file: "pnabio.com/pna-designer",
         range: "prod",
         rows: [
-          { sign: "+", text: "CRISPR/Cas9 donor design workflows" },
+          { sign: "+", text: "CRISPR/Cas9 donor design" },
           { sign: "+", text: "validated sequence input · CGI pipeline" },
         ],
       },
@@ -72,7 +72,7 @@ const Projects: React.FC = () => {
     {
       date: "Dec. 2024",
       name: "Resilient Files",
-      description: "Decentralized file storage system using IPFS and ResilientDB.",
+      description: "File ledger and storage prototype using IPFS with ResilientDB.",
       techStack: ["React", "TypeScript", "IPFS", "ResilientDB", "Python", "FastAPI"],
       link: "https://github.com/ResilientApp/decentralized-sys",
       specimen: {
@@ -87,7 +87,7 @@ const Projects: React.FC = () => {
     {
       date: "Dec. 2024",
       name: "Monkey Trench Offense",
-      description: "Reverse tower defense game built in Godot Engine.",
+      description: "Reverse tower defense game with custom abilities and two playable levels.",
       techStack: ["Godot Engine", "GDScript"],
       link: "https://github.com/echo108471/MonkeyTrenchOffense",
       specimen: {
@@ -102,7 +102,7 @@ const Projects: React.FC = () => {
     {
       date: "Sep. 2024",
       name: "HangulStudy",
-      description: "Interactive Korean language learning platform for level-based vocabulary practice.",
+      description: "Korean vocabulary practice with a virtual Hangul keyboard and level-based quizzes.",
       techStack: ["React", "TailwindCSS", "Hangul", "SQLite3", "Express.js"],
       link: "https://koreanquiz.onrender.com/",
       specimen: {
@@ -117,7 +117,7 @@ const Projects: React.FC = () => {
     {
       date: "Sep. 2024",
       name: "PNA Tool",
-      description: "Bioinformatics web tool for PNA oligo sequence analysis and design workflows.",
+      description: "PNA sequence analysis tool with validation for oligo design.",
       techStack: ["PHP", "HTML/CSS", "Python", "CGI Scripts", "Input Validation"],
       link: "https://pnabio.com/pna-tool/",
       specimen: {
@@ -125,7 +125,7 @@ const Projects: React.FC = () => {
         range: "prod",
         rows: [
           { sign: "+", text: "PNA oligo sequence analysis" },
-          { sign: "+", text: "design workflows · input validation" },
+          { sign: "+", text: "oligo design · input validation" },
         ],
       },
     },
@@ -141,10 +141,10 @@ const Projects: React.FC = () => {
         </div>
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <p className="body-copy max-w-2xl">
-            Selected builds across education, collaboration, bioinformatics, storage, and games.
+            A few shipped things: campus search, AI collaboration, bioinformatics tools, decentralized storage, and a game.
           </p>
           <div className="tag-pill add">
-            {projects.length} featured builds
+            {projects.length} linked projects
           </div>
         </div>
       </Reveal>

@@ -42,16 +42,18 @@ const App: React.FC = () => {
                     <span className="diff-line add-text">
                       Hi, I&apos;m Eugene Cho.
                       <br />
-                      I build <em>practical systems</em> end to end.
+                      I build <em>full-stack systems</em> with the user in mind.
                     </span>
                   </h1>
                 </MotionChild>
 
                 <MotionChild>
                   <p className="lede">
-                    I&apos;m a UC Davis CS new grad and software engineering intern at Sealing Technologies. I build
-                    backend-heavy full-stack systems across defense, healthcare, and education,
-                    with recent work in air-gapped LLM platforms, multi-agent systems, and production APIs.
+                    I&apos;m a UC Davis CS new grad and software engineering intern at Sealing Technologies.
+                    I like full-stack work because it gives me the context to understand the whole system:
+                    data, APIs, interface, and what the user is actually trying to do.
+                    Recent work includes air-gapped LLM tooling, multi-agent backend services,
+                    patient intake systems, and course tools used by UC Davis students.
                   </p>
                 </MotionChild>
 

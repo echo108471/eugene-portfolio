@@ -21,7 +21,7 @@ Green is the **primary** color on purpose: growth and action are additive. Red i
 
 ## 2. Principles
 
-1. **Quiet metaphor.** The diff is felt, not shouted. Most of the page is muted, editorial, monochrome. Color appears only where there's a real add/remove.
+1. **Quiet metaphor.** The diff is felt, not shouted. Most of the page is muted, editorial, monochrome. Green and red appear only where there's a real add/remove.
 2. **One animated moment.** Only the project card "stages" on hover. Everything else is static or has minimal state transitions. Restraint reads as confidence.
 3. **Honest content.** The concept is load-bearing only if the diffed copy is *true* (e.g. a real trait you've deprecated). Generic filler collapses the whole conceit.
 4. **Source view, not terminal.** Cool paper background, IBM Plex typography, and real diff tints — deliberately *not* the black-background, neon-green, monospace terminal cliché.
@@ -46,19 +46,23 @@ Semantic, not literal. Reference tokens by role, never hardcode hexes.
 | `--ink-faint` | Metadata, captions | `#6f7b87` | `#7d8590` |
 | `--line` | Hairline borders | `#dce3ea` | `#30363d` |
 | `--line-strong` | Stronger borders | `#c3cbd4` | `#3d444d` |
-| `--add` | **Primary / addition** | `#1f883d` | `#3fb950` |
+| `--add` | Addition | `#1f883d` | `#3fb950` |
 | `--add-wash` | Add background tint | `rgba(31,136,61,.08)` | `rgba(63,185,80,.1)` |
-| `--add-edge` | Add border / focus | `rgba(31,136,61,.55)` | `rgba(63,185,80,.48)` |
+| `--add-edge` | Add border / staged edge | `rgba(31,136,61,.55)` | `rgba(63,185,80,.48)` |
 | `--del` | Removal / deprecated | `#cf222e` | `#ff7b72` |
 | `--del-wash` | Remove background tint | `rgba(207,34,46,.08)` | `rgba(255,123,114,.1)` |
 | `--del-edge` | Remove border | `rgba(207,34,46,.45)` | `rgba(255,123,114,.42)` |
+| `--accent` | General UI accent | `#0969da` | `#58a6ff` |
+| `--accent-wash` | UI hover / focus tint | `rgba(9,105,218,.08)` | `rgba(88,166,255,.12)` |
+| `--accent-edge` | UI border / focus edge | `rgba(9,105,218,.45)` | `rgba(88,166,255,.5)` |
 | `--shadow` | Elevation (hover only) | `0 1px 2px rgba(21,27,35,.05), 0 8px 24px -12px rgba(21,27,35,.16)` | `0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6)` |
 
 **Usage rules**
-- `--add` is the single accent: primary buttons, links/hover, focus edges, the `+` marker. Action = adding a change.
-- `--del` only marks genuine removals (struck bio lines, the `−` marker). Never decorative.
+- `--add` is semantic, not a general brand color: `+` markers, add rows, staged-card behavior, and additive changelog signs.
+- `--del` only marks genuine removals: struck bio lines, remove rows, and the `−` marker. Never decorative.
+- `--accent` is the normal interface accent: links, buttons, icons, focus rings, active nav states, section numbers, and other non-diff affordances.
 - Washes (`*-wash`) are for backgrounds of diff rows and hover states. Keep them barely-there.
-- **Keep paper cool and `--del` a true diff red, not clay/terracotta.** The old warm paper + sage accent direction read too close to AI-lab editorial branding. The current palette borrows more from source-control surfaces: cool neutrals, sharper green, and a real removal red.
+- **Keep paper cool and `--del` a true diff red, not clay/terracotta.** The old warm paper + sage accent direction read too close to AI-lab editorial branding. The current palette borrows more from source-control surfaces: cool neutrals, sharper diff colors, and blue for non-diff UI.
 
 ### 3.2 Typography
 
@@ -151,16 +155,16 @@ Do not replicate this animation elsewhere — its scarcity is the point.
 
 ### Navigation (`nav`)
 Sticky, blurred backdrop (`backdrop-filter: blur(10px)`), `1px` bottom border, `62px` tall.
-- **Brand** = branch-glyph SVG (`--add`) + name + **branch pill** (`.branch`: dot + `main`).
+- **Brand** = branch-glyph SVG (`--accent`) + name + **branch pill** (`.branch`: dot + `main`).
 - **Links** = mono, lowercase, `--ink-soft` → `--ink` on hover.
 - **Theme toggle** = `.toggle`, swaps sun/moon SVG (see §6).
 
 ### Buttons (`.btn`)
 | Variant | Look | Meaning |
 |---|---|---|
-| `.btn-primary` | Solid `--add`, paper text | "Stage changes" — the additive action |
-| `.btn-secondary` | Outline, `--add-wash` on hover | "View diff" — neutral |
-| `.btn-ghost` | Text only, `--add-wash` on hover | "Discard" — low emphasis |
+| `.btn-primary` | Solid `--accent`, paper text | Primary navigation/action |
+| `.btn-secondary` | Outline, `--accent-wash` on hover | Secondary action |
+| `.btn-ghost` | Text only, `--accent-wash` on hover | Low-emphasis action |
 
 `9px` radius, `10px 18px` padding. Primary lifts `1px` on hover.
 
@@ -174,7 +178,7 @@ Raised surface, `14px` radius, left accent bar, extra left padding (`30px`) for 
 See §4.2.
 
 ### Section header (`.sec-head`)
-`.sec-num` (mono, green, `01`) + `.sec-title` (IBM Plex Serif) + `.sec-note` (mono, faint, right-aligned aside). Treat sections like numbered commits.
+`.sec-num` (mono, blue, `01`) + `.sec-title` (IBM Plex Serif) + `.sec-note` (mono, faint, right-aligned aside). Treat sections like numbered commits.
 
 ### Footer — commit log (`.commit`)
 Mono lines styled as `git log`: green `.hash` + bold `b` (author) + message in conventional-commit voice (`feat:`, `refactor:`, `init:`). A quiet, on-theme way to close the page.
@@ -196,7 +200,7 @@ Honest list of what to fix before this is production:
 
 - **Color is never the *only* signal.** Add/remove are also distinguished by `+`/`−` glyphs and strikethrough, which is the right call — but green/red is the classic color-vision-deficient pairing, so keep the glyph/strikethrough redundancy everywhere. Never rely on hue alone.
 - **Faint text contrast.** `--ink-faint` on `--paper` for small mono text is borderline against WCAG AA. Verify with a contrast checker; darken if it fails.
-- **No focus-visible styles.** Links, buttons, and the toggle need visible keyboard focus rings (suggest `--add-edge`). Currently hover-only.
+- **Focus-visible styles.** Links, buttons, and form controls use a visible `--accent` focus ring. Keep focus blue so it stays an interface state, not an add/diff state.
 - **Cards are `<div>`s with `cursor:pointer`.** Make them real `<a>`/`<button>` elements so they're keyboard- and screen-reader-navigable.
 - **`::after` content injection** (`" staged"`) is decorative and invisible to most ATs — fine, since it carries no essential info.
 - **Reduced motion.** Add `@media (prefers-reduced-motion: reduce)` to disable the card lift and theme transition.

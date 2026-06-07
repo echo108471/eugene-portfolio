@@ -33,9 +33,9 @@ There is no dedicated test suite yet. Before handing off changes, run `npm run l
 Working direction: **Quiet Diff System** (see [DESIGN.MD](./DESIGN.MD) for the full spec). The portfolio reads as a version-control–native personal engineering portfolio, not a SaaS landing page. The metaphor lives in structure and interaction, not loud surface decoration.
 
 - **Structure over surface:** a `git diff` visual language — a left gutter of line-markers, `+`/`−` diff rows, staged project cards, and a commit-log footer.
-- **Palette:** cool source-control neutrals; a sharper diff-green accent (`--add`) for additive/primary actions and a true diff-red (`--del`) reserved for genuine removals. Keep paper cool and neutral so the site reads like a source view, not warm AI-lab editorial branding — see DESIGN.MD §3.1.
+- **Palette:** cool source-control neutrals; sharper diff green (`--add`) and red (`--del`) reserved for true add/remove semantics, plus a separate source-control blue (`--accent`) for normal links, buttons, icons, focus, and navigation. Keep paper cool and neutral so the site reads like a source view, not warm AI-lab editorial branding — see DESIGN.MD §3.1.
 - **Typography:** IBM Plex Serif (display), IBM Plex Sans (UI/body), JetBrains Mono (meta/gutter/commit log). The Plex + mono pairing keeps the page technical and authored without drifting into terminal cosplay.
-- **Restraint:** one animated moment (the project-card "stage" on hover). Green dominant, red rare. No second clever interaction; no marketing CTAs, mesh gradients, or shimmer.
+- **Restraint:** one animated moment (the project-card "stage" on hover). Green/red stay semantic, blue stays restrained for normal UI. No second clever interaction; no marketing CTAs, mesh gradients, or shimmer.
 - **Honest content:** the diffed copy (especially the bio diff) must be true — a real prior self removed, the current self added. Filler collapses the concept.
 - **Accessibility:** visible keyboard focus states (green `--add` outline) and respect `prefers-reduced-motion`.
 

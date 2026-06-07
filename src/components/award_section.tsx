@@ -12,10 +12,10 @@ const AwardCard: React.FC<AwardCardProps> = ({ name, organization, date, link })
   const content = (
     <>
       <div className="flex items-start justify-between gap-4">
-        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-[var(--add-edge)] bg-[var(--add-wash)] font-mono text-lg leading-none text-[var(--add)] transition-colors duration-200">
+        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-[var(--accent-edge)] bg-[var(--accent-wash)] font-mono text-lg leading-none text-[var(--accent)] transition-colors duration-200">
           <span aria-hidden="true">★</span>
         </div>
-        <span className="flex-none font-mono text-[var(--ink-faint)] transition-colors duration-200 group-hover:text-[var(--add)]" aria-hidden="true">↗</span>
+        <span className="flex-none font-mono text-[var(--ink-faint)] transition-colors duration-200 group-hover:text-[var(--accent)]" aria-hidden="true">↗</span>
       </div>
 
       <h3 className="mt-5 font-display text-base font-medium leading-6 text-[var(--ink)]">
@@ -70,7 +70,7 @@ const Awards: React.FC = () => {
         <div className="section-head">
           <span className="section-num">07</span>
           <h2 className="section-title">Awards & honors</h2>
-          <span className="section-note">notable tags</span>
+          <span className="section-note">recognition</span>
         </div>
       </Reveal>
 

@@ -39,7 +39,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <div className="flex flex-1 flex-col p-5 pl-8">
         <div className="flex items-center justify-between gap-3">
           <span className="meta-text">commit log · {date}</span>
-          <span className="meta-text inline-flex items-center gap-1.5 transition-colors duration-200 group-hover:text-[var(--add)]">
+          <span className="meta-text inline-flex items-center gap-1.5 transition-colors duration-200 group-hover:text-[var(--accent)]">
             Open
             <span aria-hidden="true">↗</span>
           </span>
