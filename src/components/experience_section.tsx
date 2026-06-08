@@ -169,6 +169,22 @@ const slugify = (value: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
+const companyCodeForBadge = (company: string) => {
+  const companyName = company
+    .replace(/\([^)]*\)/g, "")
+    .replace(/,.*/, "")
+    .trim();
+
+  const words = companyName
+    .split(" ")
+    .filter(Boolean);
+
+  return (words.length > 1
+    ? words.slice(0, 2).map((word) => word[0]).join("")
+    : companyName.slice(0, 2)
+  ).toLowerCase();
+};
+
 function ExperienceLogo({
   experience,
 }: {
@@ -178,17 +194,31 @@ function ExperienceLogo({
     "relative z-10 flex h-14 w-14 sm:h-16 sm:w-16 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] transition-colors duration-200 group-hover/item:border-[var(--accent-edge)]";
 
   if (!experience.logo && !experience.logoLight && !experience.logoDark) {
-    const initials = experience.company
-      .replace(/\([^)]*\)/g, "")
-      .split(" ")
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((word) => word[0])
-      .join("");
+    const companyCode = companyCodeForBadge(experience.company);
 
     return (
-      <div className={`${baseClasses} text-sm font-semibold text-[var(--ink-soft)]`}>
-        {initials}
+      <div
+        className={`${baseClasses} flex-col gap-1.5 font-mono leading-none`}
+        role="img"
+        aria-label={`${experience.company} badge`}
+      >
+        <svg
+          className="h-4 w-4 text-[var(--accent)]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
+          <circle cx="6" cy="6" r="2.4" />
+          <circle cx="6" cy="18" r="2.4" />
+          <circle cx="18" cy="9" r="2.4" />
+          <path d="M6 8.4v7.2M8.2 6.6c6 0 7.6 1 7.6 4.4" />
+        </svg>
+        <span className="text-sm font-semibold tracking-normal text-[var(--ink-soft)]">
+          {companyCode}
+        </span>
       </div>
     );
   }
