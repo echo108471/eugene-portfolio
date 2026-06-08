@@ -8,18 +8,19 @@ declare const __RECENT_COMMITS__: { hash: string; author: string; subject: strin
 
 const recentCommits = __RECENT_COMMITS__;
 
+const primaryMethod = {
+  label: "Email",
+  value: "eugene.a.cho@gmail.com",
+  href: "mailto:eugene.a.cho@gmail.com",
+  icon: FaEnvelope,
+};
+
 const contactMethods = [
   {
     label: "Website",
     value: "eacho.me",
     href: "https://eacho.me",
     icon: FaGlobe,
-  },
-  {
-    label: "Email",
-    value: "eugene.a.cho@gmail.com",
-    href: "mailto:eugene.a.cho@gmail.com",
-    icon: FaEnvelope,
   },
   {
     label: "GitHub",
@@ -41,6 +42,16 @@ const contactMethods = [
   },
 ];
 
+// Links that leave the page (other tabs/sites) open in a new tab; in-page
+// schemes like mailto: stay in place.
+const isExternalLink = (href: string) =>
+  /^https?:/i.test(href) || /\.pdf(\?|#|$)/i.test(href);
+
+const externalProps = (href: string) =>
+  isExternalLink(href)
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
 const ContactMe: React.FC = () => {
   return (
     <section className="page-section pb-16">
@@ -58,7 +69,7 @@ const ContactMe: React.FC = () => {
             <span className="tilde">~</span>
           </div>
           <div className="diff-body">
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(320px,0.75fr)] lg:items-end">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(320px,0.75fr)]">
               <div>
                 <p className="eyebrow">
                   // open channels
@@ -71,31 +82,55 @@ const ContactMe: React.FC = () => {
                 </p>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-2">
-                {contactMethods.map((method) => {
-                  const Icon = method.icon;
+              <div className="grid gap-3">
+                {(() => {
+                  const Icon = primaryMethod.icon;
 
                   return (
                     <a
-                      key={method.label}
-                      href={method.href}
-                      target={method.href.startsWith("http") || method.href.endsWith(".pdf") ? "_blank" : undefined}
-                      rel={method.href.startsWith("http") || method.href.endsWith(".pdf") ? "noopener noreferrer" : undefined}
+                      href={primaryMethod.href}
+                      {...externalProps(primaryMethod.href)}
                       className="group flex items-center justify-between gap-3 rounded-lg border border-[var(--line)] bg-[var(--paper-raised)] p-4 text-sm text-[var(--ink-soft)] transition-colors duration-200 hover:border-[var(--accent-edge)] hover:bg-[var(--accent-wash)] hover:text-[var(--ink)]"
                     >
                       <span className="flex min-w-0 items-center gap-3">
                         <Icon className="h-5 w-5 flex-none text-[var(--accent)]" aria-hidden="true" />
                         <span className="min-w-0">
-                          <span className="block font-semibold">{method.label}</span>
+                          <span className="block font-semibold">{primaryMethod.label}</span>
                           <span className="meta-text block truncate">
-                            {method.value}
+                            {primaryMethod.value}
                           </span>
                         </span>
                       </span>
                       <span className="flex-none font-mono" aria-hidden="true">↗</span>
                     </a>
                   );
-                })}
+                })()}
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {contactMethods.map((method) => {
+                    const Icon = method.icon;
+
+                    return (
+                      <a
+                        key={method.label}
+                        href={method.href}
+                        {...externalProps(method.href)}
+                        className="group flex items-center justify-between gap-3 rounded-lg border border-[var(--line)] bg-[var(--paper-raised)] p-4 text-sm text-[var(--ink-soft)] transition-colors duration-200 hover:border-[var(--accent-edge)] hover:bg-[var(--accent-wash)] hover:text-[var(--ink)]"
+                      >
+                        <span className="flex min-w-0 items-center gap-3">
+                          <Icon className="h-5 w-5 flex-none text-[var(--accent)]" aria-hidden="true" />
+                          <span className="min-w-0">
+                            <span className="block font-semibold">{method.label}</span>
+                            <span className="meta-text block truncate">
+                              {method.value}
+                            </span>
+                          </span>
+                        </span>
+                        <span className="flex-none font-mono" aria-hidden="true">↗</span>
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
