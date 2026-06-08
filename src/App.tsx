@@ -63,14 +63,14 @@ const App: React.FC = () => {
                       href="#projects"
                       className="btn btn-primary"
                     >
-                      Projects
-                      <span aria-hidden="true">↓</span>
+                      projects
+                      <span aria-hidden="true">↘</span>
                     </a>
                     <a
                       href="mailto:eugene.a.cho@gmail.com"
                       className="btn btn-secondary"
                     >
-                      Email
+                      email
                       <span aria-hidden="true">↗</span>
                     </a>
                     <a
@@ -79,7 +79,7 @@ const App: React.FC = () => {
                       rel="noopener noreferrer"
                       className="btn btn-ghost"
                     >
-                      Resume
+                      resume.pdf
                       <span aria-hidden="true">↗</span>
                     </a>
                   </div>

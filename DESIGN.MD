@@ -162,11 +162,11 @@ Sticky, blurred backdrop (`backdrop-filter: blur(10px)`), `1px` bottom border, `
 ### Buttons (`.btn`)
 | Variant | Look | Meaning |
 |---|---|---|
-| `.btn-primary` | Solid `--accent`, paper text | Primary navigation/action |
+| `.btn-primary` | Outlined `--accent`, subtle accent wash on hover | Primary navigation/action |
 | `.btn-secondary` | Outline, `--accent-wash` on hover | Secondary action |
 | `.btn-ghost` | Text only, `--accent-wash` on hover | Low-emphasis action |
 
-`9px` radius, `10px 18px` padding. Primary lifts `1px` on hover.
+`8px` radius, compact padding. Buttons stay flat; color and border carry state.
 
 ### Tags / pills (`.tag-pill`)
 Mono, `999px` radius, `--line-strong` outline, `--ink-soft`. Variant `.tag-pill.add` (green outline + wash) marks something new. Use for stack chips and version numbers (`v2.1.0`).

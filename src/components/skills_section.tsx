@@ -89,17 +89,19 @@ const SkillsSection: React.FC = () => {
           <span className="plus">+</span>
         </div>
         <div className="diff-body">
-          <div className="grid gap-5 lg:grid-cols-2">
+          <div className="surface-card overflow-hidden">
             {skillGroups.map((group) => (
               <div
                 key={group.label}
-                className="surface-card p-5"
+                className="grid gap-3 border-t border-[var(--line)] px-5 py-4 first:border-t-0 sm:grid-cols-[180px_minmax(0,1fr)]"
               >
-                <p className="meta-text mb-2">package · {group.label.toLowerCase()}</p>
-                <h3 className="font-display text-lg font-medium text-[var(--ink)]">
-                  {group.label}
-                </h3>
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div>
+                  <p className="meta-text mb-1">package</p>
+                  <h3 className="font-display text-base font-medium text-[var(--ink)]">
+                    {group.label}
+                  </h3>
+                </div>
+                <div className="flex min-w-0 flex-wrap gap-2">
                   {group.skills.map((skill) => (
                     <span
                       key={skill}
