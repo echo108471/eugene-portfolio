@@ -37,7 +37,7 @@ const App: React.FC = () => {
                 </MotionChild>
 
                 <MotionChild>
-                  <h1 className="mt-7 display-title">
+                  <h1 className="display-title">
                     <span className="del-text">Aspiring web developer.</span>
                     <span className="diff-line add-text">
                       Hi, I&apos;m Eugene Cho.
