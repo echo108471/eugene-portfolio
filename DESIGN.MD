@@ -25,13 +25,13 @@ Green is the **primary** color on purpose: growth and action are additive. Red i
 2. **One animated moment.** Only the project card "stages" on hover. Everything else is static or has minimal state transitions. Restraint reads as confidence.
 3. **Honest content.** The concept is load-bearing only if the diffed copy is *true* (e.g. a real trait you've deprecated). Generic filler collapses the whole conceit.
 4. **Source view, not terminal.** Cool paper background, IBM Plex typography, and real diff tints — deliberately *not* the black-background, neon-green, monospace terminal cliché.
-5. **No dependencies.** Single HTML file, system-native fonts via Google Fonts, CSS custom properties. Nothing to build.
+5. **Lean stack.** Vite + React + TypeScript + Tailwind, fonts via Google Fonts, design system as CSS custom properties. No animation library; motion is CSS-only.
 
 ---
 
 ## 3. Foundations — Tokens
 
-All tokens are CSS custom properties on `:root`, themed via `[data-theme="light|dark"]`.
+All tokens are CSS custom properties on `:root`, with dark values under `:root.dark` (a `.dark` class on `<html>` — see §6).
 
 ### 3.1 Color
 
@@ -118,33 +118,33 @@ The thing that makes this system *this* system. Three mechanisms, used sparingly
 Every content block is a 2-column grid: a narrow marker column + content.
 
 ```html
-<div class="block">
-  <div class="gutter"><span class="plus">+</span><span class="minus">−</span><span class="tilde">~</span></div>
-  <div class="body"> … content … </div>
+<div class="diff-block">
+  <div class="diff-gutter"><span class="plus">+</span><span class="minus">−</span><span class="tilde">~</span></div>
+  <div class="diff-body"> … content … </div>
 </div>
 ```
 
-- `.block` → `grid-template-columns: 30px 1fr` (22px on mobile).
-- `.gutter` → mono, right border, centered marks. `.plus` green, `.minus` red, `.tilde` faint (for "context/unchanged" sections).
-- `.body` → `padding-left: 22px`.
+- `.diff-block` → 2-column grid (narrow marker column + content).
+- `.diff-gutter` → mono, right border, centered marks. `.plus` green, `.minus` red, `.tilde` faint (for "context/unchanged" sections).
+- `.diff-body` → the content column.
 
 Choose markers by meaning: `+` for sections about what you've added/built, `~` for neutral/context sections (tokens, about), `−` rarely.
 
-### 4.2 Diff rows (`.diffbox`)
+### 4.2 Diff rows (the hero diff + `.spec-panel`)
 
-Used for the bio. A literal diff hunk with a filename header and `−`/`+` rows.
+A literal diff hunk: a filename/`@@ … @@` header with `−`/`+` rows. The hero renders this inline with `.del-text` (struck prior self) and `.add-text` (current self) lines; project cards render a `.spec-panel` specimen with a `.spec-head` header (`@@ file @@` + `.spec-range`) and signed rows.
 
-- `.diff-head` → filename + `@@ … @@` range, mono, faint.
-- `.diff-row.rem` → `--del-wash` background, struck red content.
-- `.diff-row.add` → `--add-wash` background, ink content.
+- header → filename + `@@ … @@` range, mono, faint.
+- removal row → `--del-wash` background, struck red content.
+- addition row → `--add-wash` background, ink content.
 
 **Content rule:** removed lines must be a real prior self; added lines the current one. This is the most "you" element — write it bravely or cut it.
 
 ### 4.3 Staging interaction
 
-The only animated expression of the metaphor. On `.card:hover`:
-- left accent bar (`::before`) turns `--add`,
-- `.stage-mark` flips from `·` to `+` and appends `" staged"`,
+The only animated expression of the metaphor. On `.stage-card:hover`:
+- left accent bar turns `--add`,
+- the `.stage-mark` shifts from a resting dot to a staged `+`,
 - card lifts (`translateY(-3px)`) with `--shadow` and an `--add-edge` border.
 
 Do not replicate this animation elsewhere — its scarcity is the point.
@@ -153,11 +153,11 @@ Do not replicate this animation elsewhere — its scarcity is the point.
 
 ## 5. Components
 
-### Navigation (`nav`)
-Sticky, blurred backdrop (`backdrop-filter: blur(10px)`), `1px` bottom border, `62px` tall.
-- **Brand** = branch-glyph SVG (`--accent`) + name + **branch pill** (`.branch`: dot + `main`).
-- **Links** = mono, lowercase, `--ink-soft` → `--ink` on hover.
-- **Theme toggle** = `.toggle`, swaps sun/moon SVG (see §6).
+### Navigation (`header`)
+Sticky, blurred backdrop, `1px` bottom border, `62px` tall. Nav buttons are scroll-spy links that track the active section (`aria-current="page"`); below `lg` they collapse into a Headless UI slide-over menu.
+- **Brand** = branch-glyph SVG (`--accent`) + name + **branch pill** (`.branch-pill`: `.branch-dot` + `main`).
+- **Links** = mono, lowercase, `--ink-soft` → `--ink`, active link in `--ink`.
+- **Theme toggle** = `.flag-pill`, a `--theme=light|dark` flag chip (see §6).
 
 ### Buttons (`.btn`)
 | Variant | Look | Meaning |
@@ -171,40 +171,40 @@ Sticky, blurred backdrop (`backdrop-filter: blur(10px)`), `1px` bottom border, `
 ### Tags / pills (`.tag-pill`)
 Mono, `999px` radius, `--line-strong` outline, `--ink-soft`. Variant `.tag-pill.add` (green outline + wash) marks something new. Use for stack chips and version numbers (`v2.1.0`).
 
-### Project card (`.card`)
-Raised surface, `14px` radius, left accent bar, extra left padding (`30px`) for the stage marker. Anatomy: `.stage-mark` · `.ctitle` (IBM Plex Serif) · `.cmeta` (`commit a4f9c2 · active`) · `.cdesc` · `.cstack`. Grid: `1fr 1fr`, collapses to single column < 680px. See §4.3 for hover.
+### Project card (`.stage-card`)
+Raised surface, left accent bar, extra left padding for the stage marker. Anatomy: `.stage-mark` · `commit log · {date}` meta + `Open ↗` · IBM Plex Serif title · optional `.spec-panel` diff specimen · stack `.tag-pill`s. Cards collapse to a single column on narrow viewports. When a `link` is provided the card renders as a real `<a>` (keyboard- and screen-reader-navigable); otherwise it is a `<div>`. See §4.3 for hover.
 
-### Diff box (`.diffbox`)
+### Diff specimen (`.spec-panel`)
 See §4.2.
 
-### Section header (`.sec-head`)
-`.sec-num` (mono, blue, `01`) + `.sec-title` (IBM Plex Serif) + `.sec-note` (mono, faint, right-aligned aside). Treat sections like numbered commits.
+### Section header (`.section-head`)
+`.section-num` (mono, blue, `01`) + `.section-title` (IBM Plex Serif) + `.section-note` (mono, faint, right-aligned aside). Treat sections like numbered commits.
 
-### Footer — commit log (`.commit`)
-Mono lines styled as `git log`: green `.hash` + bold `b` (author) + message in conventional-commit voice (`feat:`, `refactor:`, `init:`). A quiet, on-theme way to close the page.
+### Footer — commit log (`.commit-log`)
+Mono lines styled as `git log`, rendered from real recent commits injected at build time (`__RECENT_COMMITS__`): green `.hash` + bold author + commit subject, each linking to GitHub when an origin remote exists. A quiet, on-theme way to close the page. Lives in `contact-me.tsx`.
 
 ---
 
 ## 6. Layout & theming
 
-- **Container:** `.wrap` → `max-width: 980px`, `padding: 0 28px`.
-- **Block grid:** `30px` gutter + content; `22px` gutter on mobile.
-- **Breakpoint:** single `@media (max-width: 680px)` — cards stack, gutter narrows, some nav links hide.
-- **Theming:** `data-theme` on `<html>`; all colors are tokens, so the theme switch is automatic. `toggleTheme()` flips the attribute and swaps the icon path. *(Note: no persistence — see §7. Add `localStorage` or `prefers-color-scheme` when moving off the single-file prototype.)*
+- **Container:** `.site-container` — centered, max-width with responsive horizontal padding.
+- **Block grid:** narrow diff gutter + content; gutter narrows on mobile.
+- **Breakpoints:** Tailwind responsive utilities — cards stack, the gutter narrows, and the desktop nav collapses into a slide-over menu below `lg`.
+- **Theming:** a `.dark` class on `<html>`; all colors are tokens, so the switch is automatic. `dark-mode-toggle.tsx` toggles the class and writes the choice to `localStorage`. Theme **is** persisted: an inline script in `index.html` applies the saved theme (falling back to `prefers-color-scheme`) before first paint, so there's no flash, and transitions are suppressed during that initial application.
 
 ---
 
 ## 7. Accessibility & known gaps
 
-Honest list of what to fix before this is production:
+Standing accessibility rules, plus what's already handled:
 
 - **Color is never the *only* signal.** Add/remove are also distinguished by `+`/`−` glyphs and strikethrough, which is the right call — but green/red is the classic color-vision-deficient pairing, so keep the glyph/strikethrough redundancy everywhere. Never rely on hue alone.
 - **Faint text contrast.** `--ink-faint` on `--paper` for small mono text is borderline against WCAG AA. Verify with a contrast checker; darken if it fails.
 - **Focus-visible styles.** Links, buttons, and form controls use a visible `--accent` focus ring. Keep focus blue so it stays an interface state, not an add/diff state.
-- **Cards are `<div>`s with `cursor:pointer`.** Make them real `<a>`/`<button>` elements so they're keyboard- and screen-reader-navigable.
-- **`::after` content injection** (`" staged"`) is decorative and invisible to most ATs — fine, since it carries no essential info.
-- **Reduced motion.** Add `@media (prefers-reduced-motion: reduce)` to disable the card lift and theme transition.
-- **Theme not persisted** across reloads (see §6).
+- **Cards are real links.** *(Resolved.)* A linked project card renders as an `<a>`, so it's keyboard- and screen-reader-navigable; unlinked cards stay `<div>`s.
+- **Decorative-only flourishes** (e.g. the staged-card marker) carry no essential info, so they stay invisible to assistive tech by design.
+- **Reduced motion.** *(Resolved.)* `@media (prefers-reduced-motion: reduce)` neutralizes animations, the card lift, and smooth scrolling.
+- **Theme persistence.** *(Resolved.)* Saved to `localStorage` with a `prefers-color-scheme` fallback, applied pre-paint (see §6).
 
 ---
 
@@ -235,13 +235,9 @@ Honest list of what to fix before this is production:
 
 ## 10. Extending the system
 
-This file is a prototype/specimen. To grow it into a full site:
+This system started as a single-file specimen and now ships as a Vite + React + TypeScript + Tailwind site. The core moves are in place — tokens live in `src/globals.css`, the patterns (`.diff-block`, `.stage-card`, `.btn`, `.spec-panel`) are component classes, theming is persisted, and the accessibility items in §7 are largely resolved. The **release-history / changelog-of-a-person** section (`release-history.tsx`) — the strongest extension of the concept, versions of you over time, `+ added` / `− deprecated` — is built and lives in the `history` section.
 
-1. Lift the `:root` token blocks into a shared stylesheet.
-2. Promote repeated patterns (`.block`, `.card`, `.btn`, `.diffbox`) into components in your framework of choice.
-3. Add a **release-history / changelog-of-a-person** section (the strongest extension of the concept — versions of you over time, `+ added` / `− deprecated`).
-4. Fix the §7 accessibility gaps.
-5. Add focus states and `prefers-reduced-motion` / `prefers-color-scheme` support.
+When extending further, keep the same discipline: new patterns become component classes referencing tokens by role, motion stays CSS-only and reduced-motion-aware, and any new diff content must be true.
 
 ---
 

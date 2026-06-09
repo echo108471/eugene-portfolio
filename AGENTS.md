@@ -2,9 +2,9 @@
 
 ## Project Structure & Module Organization
 
-This is a Vite + React + TypeScript single-page portfolio app. The entry point is `src/main.tsx`, which mounts `src/App.tsx` (the section composition). The HTML shell and `theme-color` meta live in `index.html`. Global Tailwind styles, CSS variables (design tokens), focus states, and motion preferences live in `src/globals.css`.
+This is a Vite + React + TypeScript single-page portfolio app. The entry point is `src/main.tsx`, which mounts `src/App.tsx` (the section composition). The HTML shell, `theme-color` meta, SEO/Open Graph + JSON-LD metadata, and an inline pre-hydration theme script live in `index.html`. Global Tailwind layers, CSS variables (design tokens), focus states, and motion preferences live in `src/globals.css`. `vite.config.ts` injects the latest commit date and recent commits from git at build time (`__LAST_COMMIT_DATE__`, `__RECENT_COMMITS__`) and aliases `@` to `src/`; `src/use-last-commit.ts` turns the injected date into a live "last commit N ago" label.
 
-Portfolio sections and reusable UI are in `src/components/`, using files such as `about_me.tsx`, `project_card.tsx`, `experience_section.tsx`, `header.tsx`, and `dark-mode-toggle.tsx`. Static assets live in `public/`: organization logos in `public/logos/`, education assets in `public/education/`, and the public resume at `public/EugeneChoResume.pdf`. Project cards render a `git diff` specimen rather than screenshots, so there is no `public/projects/`.
+Portfolio sections and reusable UI are in `src/components/`, using files such as `about-me.tsx`, `project-card.tsx`, `project-section.tsx`, `experience-section.tsx`, `release-history.tsx`, `skills-section.tsx`, `education-section.tsx`, `award-section.tsx`, `contact-me.tsx`, `header.tsx`, and `dark-mode-toggle.tsx`. Static assets live in `public/`: organization logos in `public/logos/`, education assets in `public/education/`, the favicon at `public/favicon.svg`, and the public resume at `public/EugeneChoResume.pdf`. Project cards render a `git diff` specimen rather than screenshots, so there is no `public/projects/`.
 
 ## Build, Test, and Development Commands
 
@@ -22,11 +22,11 @@ There is no dedicated test suite yet. Before handing off changes, run `npm run l
 
 ## Coding Style & Naming Conventions
 
-- **Tech Stack:** TypeScript, React (Vite SPA), Tailwind CSS, Headless UI, Heroicons. Entrance animations use custom utilities in `src/components/motion.tsx` (no Framer Motion dependency).
+- **Tech Stack:** TypeScript, React 19 (Vite SPA), Tailwind CSS, Headless UI, Heroicons, react-icons. There is no animation library — motion is CSS-only (transitions and `prefers-reduced-motion` handling in `src/globals.css`).
 - **Indentation:** 2-space indentation.
-- **Naming:** Component filenames in `src/components/` use lowercase snake case (e.g., `project_section.tsx`).
-- **Styles:** Use Tailwind utility classes. For theme switching and diff-system surfaces, use the CSS variables (design tokens) defined in `src/globals.css`. Reference tokens by role (`--add`, `--del`, `--paper`, `--ink`); never hardcode hexes.
-- **Motion:** Use the helpers from `src/components/motion.tsx` (e.g. `Reveal`) for consistent entrance animations. Keep interactions quiet — the project-card hover "stage" is the one signature animated moment.
+- **Naming:** Component filenames in `src/components/` use lowercase kebab-case (e.g., `project-section.tsx`).
+- **Styles:** Use Tailwind utility classes plus the component classes in `src/globals.css` (`.diff-block`, `.spec-panel`, `.stage-card`, `.section-head`, `.btn`, `.tag-pill`, `.commit-log`). For theme switching and diff-system surfaces, use the CSS variables (design tokens) defined in `src/globals.css`. Reference tokens by role (`--add`, `--del`, `--paper`, `--ink`, `--accent`); never hardcode hexes.
+- **Motion:** Keep interactions quiet — the project-card hover "stage" is the one signature animated moment. Everything else is static or a minimal state transition, and all motion respects `prefers-reduced-motion`.
 
 ## Portfolio Design Direction
 
