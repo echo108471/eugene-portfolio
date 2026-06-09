@@ -142,7 +142,6 @@ const experiences: ExperienceItem[] = [
     company: "ASTRO Tech",
     location: "Remote",
     date: "Jun. 2023 – Sep. 2023",
-    logo: "/logos/astro-tech.svg",
     description: [
       "Developed a Kotlin Android application for timed control of LED light switches and dynamic scene management.",
     ],
