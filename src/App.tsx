@@ -8,6 +8,8 @@ import EducationSection from "@/components/education-section";
 import AwardsSection from "@/components/award-section";
 import SkillsSection from "@/components/skills-section";
 import ReleaseHistory from "@/components/release-history";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { useLastCommitLabel } from "@/use-last-commit";
 
 const App: React.FC = () => {
@@ -119,6 +121,9 @@ const App: React.FC = () => {
           <ContactMe />
         </section>
       </main>
+
+      <Analytics />
+      <SpeedInsights />
     </div>
   );
 };

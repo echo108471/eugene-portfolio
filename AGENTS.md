@@ -4,7 +4,7 @@
 
 This is a Vite + React + TypeScript single-page portfolio app. The entry point is `src/main.tsx`, which mounts `src/App.tsx` (the section composition). The HTML shell, `theme-color` meta, SEO/Open Graph + JSON-LD metadata, and an inline pre-hydration theme script live in `index.html`. Global Tailwind layers, CSS variables (design tokens), focus states, and motion preferences live in `src/globals.css`. `vite.config.ts` injects the latest commit date and recent commits from git at build time (`__LAST_COMMIT_DATE__`, `__RECENT_COMMITS__`) and aliases `@` to `src/`; `src/use-last-commit.ts` turns the injected date into a live "last commit N ago" label.
 
-Portfolio sections and reusable UI are in `src/components/`, using files such as `about-me.tsx`, `project-card.tsx`, `project-section.tsx`, `experience-section.tsx`, `release-history.tsx`, `skills-section.tsx`, `education-section.tsx`, `award-section.tsx`, `contact-me.tsx`, `header.tsx`, and `dark-mode-toggle.tsx`. Static assets live in `public/`: organization logos in `public/logos/`, education assets in `public/education/`, the favicon at `public/favicon.svg`, and the public resume at `public/EugeneChoResume.pdf`. Project cards render a `git diff` specimen rather than screenshots, so there is no `public/projects/`.
+Portfolio sections and reusable UI are in `src/components/`, using files such as `about-me.tsx`, `project-card.tsx`, `project-section.tsx`, `experience-section.tsx`, `release-history.tsx`, `skills-section.tsx`, `education-section.tsx`, `award-section.tsx`, `contact-me.tsx`, `header.tsx`, and `dark-mode-toggle.tsx`. Vercel Web Analytics and Speed Insights (Core Web Vitals) are mounted once at the end of `src/App.tsx` via `<Analytics />` and `<SpeedInsights />`; both no-op in local dev and only report from the Vercel deployment. Static assets live in `public/`: organization logos in `public/logos/`, education assets in `public/education/`, the favicon at `public/favicon.svg`, the public resume at `public/EugeneChoResume.pdf`, the social share card at `public/og.png`, and crawler files `public/robots.txt` and `public/sitemap.xml`. The OG card is generated from the "Quiet Diff System" tokens by `scripts/generate-og.mjs` (run `npm run og`; uses `sharp`) — edit the script, not the PNG. Project cards render a `git diff` specimen rather than screenshots, so there is no `public/projects/`.
 
 ## Build, Test, and Development Commands
 
@@ -16,6 +16,7 @@ npm run build     # Type-check (tsc -b) and create a production build
 npm run preview   # Serve the production build locally
 npm run lint      # Run ESLint
 npm run lint:fix  # Apply safe ESLint fixes
+npm run og        # Regenerate public/og.png (social share card) from scripts/generate-og.mjs
 ```
 
 There is no dedicated test suite yet. Before handing off changes, run `npm run lint` and `npm run build`.
