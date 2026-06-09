@@ -1,17 +1,5 @@
 import React from "react";
-import ProjectCard from "./project_card";
-import { Reveal } from "./motion";
-
-interface SpecimenRow {
-  sign: "+" | "~" | "-";
-  text: string;
-}
-
-interface Specimen {
-  file: string;
-  range?: string;
-  rows: SpecimenRow[];
-}
+import ProjectCard, { type Specimen } from "./project_card";
 
 interface Project {
   date: string;
@@ -133,7 +121,7 @@ const Projects: React.FC = () => {
 
   return (
     <section className="page-section">
-      <Reveal>
+      <div>
         <div className="section-head">
           <span className="section-num">04</span>
           <h2 className="section-title">Selected projects</h2>
@@ -147,7 +135,7 @@ const Projects: React.FC = () => {
             {projects.length} linked projects
           </div>
         </div>
-      </Reveal>
+      </div>
 
       <div className="diff-block">
         <div className="diff-gutter">

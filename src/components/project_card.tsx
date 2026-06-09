@@ -1,11 +1,11 @@
 import React from "react";
 
-interface SpecimenRow {
+export interface SpecimenRow {
   sign: "+" | "~" | "-";
   text: string;
 }
 
-interface Specimen {
+export interface Specimen {
   file: string;
   range?: string;
   rows: SpecimenRow[];
