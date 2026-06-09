@@ -65,7 +65,7 @@ const AboutMe: React.FC = () => {
           </div>
 
           <div className="surface-card p-5">
-            <p className="meta-text mb-4">current facts · kept close to the work</p>
+            <p className="meta-text mb-4">git blame · committed to main</p>
             <div className="grid gap-3">
             {facts.map((fact) => (
               <div
