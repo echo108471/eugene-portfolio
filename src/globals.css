@@ -486,6 +486,31 @@ html.dark .theme-logo {
     background: var(--accent);
   }
 
+  .branch-pill--toggle {
+    cursor: pointer;
+    background: transparent;
+    transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+  }
+
+  .branch-pill--toggle:hover {
+    border-color: var(--accent-edge);
+    color: var(--ink);
+    background: var(--accent-wash);
+  }
+
+  .branch-pill__label {
+    letter-spacing: 0.01em;
+  }
+
+  .branch-pill__hint {
+    color: var(--ink-faint);
+    transition: color 0.18s ease;
+  }
+
+  .branch-pill--toggle:hover .branch-pill__hint {
+    color: var(--accent);
+  }
+
   .body-copy {
     color: var(--ink-soft);
     font-size: 15px;
