@@ -77,7 +77,7 @@ const ContactMe: React.FC = () => {
                   Get in touch.
                 </h3>
                 <p className="body-copy mt-4 max-w-2xl text-sm">
-                  Email is the best way to reach me. GitHub, LinkedIn, and my resume are here too.
+                  Email is the best way to reach me. My GitHub, LinkedIn, and resume are here too.
                 </p>
               </div>
 

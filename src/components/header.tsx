@@ -15,9 +15,11 @@ const navItems: NavItem[] = [
   { name: "home", href: "home" },
   { name: "about", href: "about" },
   { name: "work", href: "experience" },
-  { name: "history", href: "history" },
+  { name: "log", href: "history" },
   { name: "projects", href: "projects" },
   { name: "stack", href: "skills" },
+  { name: "edu", href: "education" },
+  { name: "awards", href: "awards" },
   { name: "contact", href: "contact" },
 ];
 
@@ -33,18 +35,35 @@ const Header: React.FC = () => {
       const sections = navItems
         .map((item) => document.getElementById(item.href))
         .filter((section): section is HTMLElement => Boolean(section));
+      if (!sections.length) return;
 
-      let currentActive = "home";
-      const scrollPosition = window.scrollY + 120;
+      const scrollY = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      // The activation line sits ~30% down the viewport; a section becomes
+      // active once its top scrolls up past it.
+      const line = window.innerHeight * 0.3;
+      const activateAt = sections.map(
+        (section) => section.getBoundingClientRect().top + scrollY - line
+      );
 
-      sections.forEach((section) => {
-        if (section.offsetTop <= scrollPosition) {
-          currentActive = section.id;
-        }
+      let currentActive = sections[0].id;
+      let lastReachable = 0;
+      activateAt.forEach((at, i) => {
+        if (at <= scrollY) currentActive = sections[i].id;
+        if (at <= maxScroll) lastReachable = i;
       });
 
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10) {
-        currentActive = navItems[navItems.length - 1].href;
+      // Trailing sections too close to the page bottom can never scroll up to
+      // the line. Spread them across the final stretch of scroll so each still
+      // lights up on the way down, instead of the bar jumping to the last item.
+      if (lastReachable < sections.length - 1) {
+        const tailStart = activateAt[lastReachable];
+        const tail = sections.slice(lastReachable);
+        if (scrollY >= tailStart && maxScroll > tailStart) {
+          const progress = (scrollY - tailStart) / (maxScroll - tailStart);
+          const idx = Math.min(tail.length - 1, Math.floor(progress * tail.length));
+          currentActive = tail[idx].id;
+        }
       }
 
       setActiveSection(currentActive);

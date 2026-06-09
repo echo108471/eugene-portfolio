@@ -126,8 +126,6 @@ const Projects: React.FC = () => {
           <span className="section-num">04</span>
           <h2 className="section-title">Selected projects</h2>
           <span className="section-note">hover to stage</span>
-        </div>
-        <div className="mb-8 flex justify-end">
           <div className="tag-pill add">
             {projects.length} linked projects
           </div>
