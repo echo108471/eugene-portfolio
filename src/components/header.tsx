@@ -1,8 +1,6 @@
 
-import { useEffect, useState } from "react";
-import React from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
-import { Fragment } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import DarkModeToggle from "./dark-mode-toggle";
 
@@ -23,9 +21,17 @@ const navItems: NavItem[] = [
   { name: "contact", href: "contact" },
 ];
 
+// Gap left below the sticky header when a nav click scrolls a section into view.
+const HEADER_GAP = 12;
+// Extra slack above the scroll-spy line so a just-clicked section — which parks
+// HEADER_GAP below the header — still reads as active. Keep these two in sync:
+// the spy must forgive at least the gap the click handler leaves behind.
+const SPY_SLACK = 12;
+
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     let frame = 0;
@@ -39,10 +45,10 @@ const Header: React.FC = () => {
 
       const scrollY = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const header = document.querySelector("header");
-      // The activation line sits just below the sticky header, matching where a
-      // clicked nav target comes to rest, so the highlight tracks that section.
-      const line = scrollY + (header ? header.offsetHeight : 0) + 24;
+      const headerHeight = headerRef.current?.offsetHeight ?? 0;
+      // A section is active once its top clears the sticky header (plus the gap
+      // a click leaves) — so the highlight tracks the section under the header.
+      const line = scrollY + headerHeight + HEADER_GAP + SPY_SLACK;
 
       let currentActive = sections[0].id;
       sections.forEach((section) => {
@@ -83,21 +89,20 @@ const Header: React.FC = () => {
       return;
     }
     const element = document.getElementById(id);
-    const header = document.querySelector("header");
-    const headerHeight = header ? header.offsetHeight : 0;
+    if (!element) return;
 
-    if (element) {
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const headerHeight = headerRef.current?.offsetHeight ?? 0;
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY;
 
-      window.scrollTo({
-        top: elementPosition - headerHeight - 12,
-        behavior: "smooth",
-      });
-    }
+    window.scrollTo({
+      top: elementPosition - headerHeight - HEADER_GAP,
+      behavior: "smooth",
+    });
   };
 
   return (
     <header
+      ref={headerRef}
       className="sticky top-0 z-50 border-b border-[var(--line)] backdrop-blur-xl"
       style={{ background: "color-mix(in srgb, var(--paper) 88%, transparent)" }}
     >
