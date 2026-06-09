@@ -21,15 +21,15 @@ const DarkModeToggle: React.FC = () => {
     <button
       type="button"
       onClick={toggleDarkMode}
-      className="branch-pill branch-pill--toggle"
+      className="flag-pill"
       aria-label={`Theme: ${current}. Switch to ${isDark ? "light" : "dark"} mode`}
       aria-pressed={isDark}
-      title="git checkout theme"
+      title="flip --theme"
     >
-      <span className="branch-dot" />
-      <span className="branch-pill__label">theme/{current}</span>
-      <span className="branch-pill__hint" aria-hidden="true">
-        ⇄
+      <span className="flag-pill__flag">--theme=</span>
+      <span className="flag-pill__value">{current}</span>
+      <span className="flag-pill__caret" aria-hidden="true">
+        ▸
       </span>
     </button>
   );
