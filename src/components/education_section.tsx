@@ -1,5 +1,4 @@
 import React from "react";
-import { Reveal } from "./motion";
 
 interface EducationItem {
   degree: string;
@@ -32,12 +31,6 @@ const education: EducationItem[] = [
     ],
   },
 ];
-
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
 
 function EducationLogo({ edu }: { edu: EducationItem }) {
   if (!edu.logo && !edu.logoLight && !edu.logoDark) {
@@ -84,13 +77,13 @@ function EducationLogo({ edu }: { edu: EducationItem }) {
 const EducationSection = () => {
   return (
     <section className="page-section">
-      <Reveal>
+      <div>
         <div className="section-head">
           <span className="section-num">06</span>
           <h2 className="section-title">Education & background</h2>
           <span className="section-note">history.md</span>
         </div>
-      </Reveal>
+      </div>
 
       <div className="diff-block">
         <div className="diff-gutter">
@@ -99,13 +92,9 @@ const EducationSection = () => {
         </div>
         <div className="diff-body">
           <div className="grid gap-5 lg:grid-cols-2">
-            {education.map((edu) => {
-              const educationId = `edu-${slugify(edu.institution)}`;
-
-              return (
+            {education.map((edu) => (
                 <div
                   key={edu.institution}
-                  id={educationId}
                   className="surface-card group p-5"
                 >
                   <div className="flex gap-4">
@@ -138,8 +127,7 @@ const EducationSection = () => {
                     ))}
                   </div>
                 </div>
-              );
-            })}
+            ))}
           </div>
         </div>
       </div>

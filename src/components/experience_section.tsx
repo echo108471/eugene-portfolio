@@ -1,6 +1,4 @@
 import React from "react";
-import { Reveal } from "./motion";
-import "../globals.css";
 
 interface ExperienceItem {
   title: string;
@@ -162,12 +160,6 @@ const experiences: ExperienceItem[] = [
   },
 ];
 
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
 const companyCodeForBadge = (company: string) => {
   const companyName = company
     .replace(/\([^)]*\)/g, "")
@@ -245,9 +237,6 @@ function ExperienceLogo({
           width={48}
           height={48}
           className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
-          onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-            e.currentTarget.style.display = "none";
-          }}
         />
       )}
     </div>
@@ -257,7 +246,7 @@ function ExperienceLogo({
 const ExperienceSection = () => {
   return (
     <section className="page-section">
-      <Reveal>
+      <div>
         <div className="section-head">
           <span className="section-num">02</span>
           <h2 className="section-title">Where I&apos;ve worked</h2>
@@ -266,12 +255,10 @@ const ExperienceSection = () => {
         <p className="body-copy mb-8 max-w-2xl">
           The through-line: backend work tied to users, data, and operational constraints.
         </p>
-      </Reveal>
+      </div>
 
       <div className="quiet-list">
         {experiences.map((experience) => {
-          const experienceId = `exp-${slugify(experience.company)}`;
-
           const content = (
             <div className="diff-block">
               <div className="diff-gutter">
@@ -337,7 +324,6 @@ const ExperienceSection = () => {
           return experience.link ? (
             <a
               key={experience.company}
-              id={experienceId}
               href={experience.link}
               target="_blank"
               rel="noopener noreferrer"
@@ -346,7 +332,7 @@ const ExperienceSection = () => {
               {content}
             </a>
           ) : (
-            <div key={experience.company} id={experienceId}>
+            <div key={experience.company}>
               {content}
             </div>
           );
