@@ -1,5 +1,4 @@
 import React from "react";
-import { Reveal } from "./motion";
 
 interface Change {
   type: "add" | "rem";
@@ -59,13 +58,13 @@ const releases: Release[] = [
 const ReleaseHistory: React.FC = () => {
   return (
     <section className="page-section">
-      <Reveal>
+      <div>
         <div className="section-head">
           <span className="section-num">03</span>
           <h2 className="section-title">Release history</h2>
           <span className="section-note">git log --me</span>
         </div>
-      </Reveal>
+      </div>
 
       <div className="diff-block">
         <div className="diff-gutter">

@@ -1,6 +1,5 @@
 import React from "react";
 import { FaEnvelope, FaFilePdf, FaGithub, FaGlobe, FaLinkedin } from "react-icons/fa";
-import { Reveal } from "./motion";
 
 // Injected at build time by Vite (see vite.config.ts): the most recent commits
 // from git history, powering the footer commit log.
@@ -55,7 +54,7 @@ const externalProps = (href: string) =>
 const ContactMe: React.FC = () => {
   return (
     <section className="page-section pb-16">
-      <Reveal>
+      <div>
         <div className="section-head">
           <span className="section-num">08</span>
           <h2 className="section-title">Contact</h2>
@@ -158,7 +157,7 @@ const ContactMe: React.FC = () => {
             )}
           </div>
         </div>
-      </Reveal>
+      </div>
     </section>
   );
 };

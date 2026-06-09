@@ -1,5 +1,4 @@
 import React from "react";
-import { Reveal } from "./motion";
 
 const AboutMe: React.FC = () => {
   const facts = [
@@ -11,7 +10,7 @@ const AboutMe: React.FC = () => {
 
   return (
     <section className="page-section">
-      <Reveal>
+      <div>
         <div className="section-head">
           <span className="section-num">01</span>
           <h2 className="section-title">About, as a diff</h2>
@@ -82,7 +81,7 @@ const AboutMe: React.FC = () => {
             </div>
           </div>
         </div>
-      </Reveal>
+      </div>
     </section>
   );
 };

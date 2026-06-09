@@ -1,5 +1,4 @@
 import React from "react";
-import { Reveal } from "./motion";
 
 interface AwardCardProps {
   name: string;
@@ -61,13 +60,13 @@ const Awards: React.FC = () => {
 
   return (
     <section className="page-section">
-      <Reveal>
+      <div>
         <div className="section-head">
           <span className="section-num">07</span>
           <h2 className="section-title">Awards & honors</h2>
           <span className="section-note">recognition</span>
         </div>
-      </Reveal>
+      </div>
 
       <div className="diff-block">
         <div className="diff-gutter">

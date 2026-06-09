@@ -1,5 +1,4 @@
 import React from "react";
-import "@/globals.css";
 import Header from "@/components/header";
 import ExperienceSection from "@/components/experience_section";
 import Projects from "@/components/project_section";
@@ -9,7 +8,6 @@ import EducationSection from "@/components/education_section";
 import AwardsSection from "@/components/award_section";
 import SkillsSection from "@/components/skills_section";
 import ReleaseHistory from "@/components/release_history";
-import { MotionChild, Stagger } from "@/components/motion";
 import { useLastCommitLabel } from "@/use-last-commit";
 
 const App: React.FC = () => {
@@ -31,12 +29,12 @@ const App: React.FC = () => {
               <span className="plus">+</span>
             </div>
             <div className="diff-body">
-              <Stagger>
-                <MotionChild>
+              <div>
+                <div>
                   <p className="eyebrow">// portfolio · branch: main · last commit {lastCommit}</p>
-                </MotionChild>
+                </div>
 
-                <MotionChild>
+                <div>
                   <h1 className="display-title">
                     <span className="del-text">Aspiring web developer.</span>
                     <span className="diff-line add-text">
@@ -45,9 +43,9 @@ const App: React.FC = () => {
                       I build <em>full-stack systems</em> with the user in mind.
                     </span>
                   </h1>
-                </MotionChild>
+                </div>
 
-                <MotionChild>
+                <div>
                   <p className="lede">
                     I&apos;m a UC Davis CS new grad and software engineering intern at Sealing Technologies.
                     I like full-stack work because it gives me the context to understand the whole system:
@@ -55,9 +53,9 @@ const App: React.FC = () => {
                     Recent work includes air-gapped LLM tooling, multi-agent backend services,
                     patient intake systems, and course tools used by UC Davis students.
                   </p>
-                </MotionChild>
+                </div>
 
-                <MotionChild>
+                <div>
                   <div className="button-row mt-8">
                     <a
                       href="#projects"
@@ -83,8 +81,8 @@ const App: React.FC = () => {
                       <span aria-hidden="true">↗</span>
                     </a>
                   </div>
-                </MotionChild>
-              </Stagger>
+                </div>
+              </div>
             </div>
           </div>
         </section>

@@ -1,5 +1,4 @@
 import React from "react";
-import { Reveal } from "./motion";
 
 const skillGroups = [
   {
@@ -75,13 +74,13 @@ const skillGroups = [
 const SkillsSection: React.FC = () => {
   return (
     <section className="page-section">
-      <Reveal>
+      <div>
         <div className="section-head">
           <span className="section-num">05</span>
           <h2 className="section-title">Tools and systems</h2>
           <span className="section-note">skills.lock</span>
         </div>
-      </Reveal>
+      </div>
 
       <div className="diff-block">
         <div className="diff-gutter">
