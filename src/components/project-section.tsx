@@ -1,5 +1,5 @@
 import React from "react";
-import ProjectCard, { type Specimen } from "./project_card";
+import ProjectCard, { type Specimen } from "./project-card";
 
 interface Project {
   date: string;

@@ -1,13 +1,13 @@
 import React from "react";
 import Header from "@/components/header";
-import ExperienceSection from "@/components/experience_section";
-import Projects from "@/components/project_section";
-import AboutMe from "@/components/about_me";
-import ContactMe from "@/components/contact_me";
-import EducationSection from "@/components/education_section";
-import AwardsSection from "@/components/award_section";
-import SkillsSection from "@/components/skills_section";
-import ReleaseHistory from "@/components/release_history";
+import ExperienceSection from "@/components/experience-section";
+import Projects from "@/components/project-section";
+import AboutMe from "@/components/about-me";
+import ContactMe from "@/components/contact-me";
+import EducationSection from "@/components/education-section";
+import AwardsSection from "@/components/award-section";
+import SkillsSection from "@/components/skills-section";
+import ReleaseHistory from "@/components/release-history";
 import { useLastCommitLabel } from "@/use-last-commit";
 
 const App: React.FC = () => {
