@@ -5,7 +5,6 @@ import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/re
 import { Fragment } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import DarkModeToggle from "./dark-mode-toggle";
-import "../globals.css";
 
 interface NavItem {
   name: string;
@@ -27,7 +26,10 @@ const Header: React.FC = () => {
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const handleScrollEvent = () => {
+    let frame = 0;
+
+    const updateActiveSection = () => {
+      frame = 0;
       const sections = navItems
         .map((item) => document.getElementById(item.href))
         .filter((section): section is HTMLElement => Boolean(section));
@@ -48,9 +50,18 @@ const Header: React.FC = () => {
       setActiveSection(currentActive);
     };
 
-    handleScrollEvent();
+    // Coalesce bursts of scroll events into one layout-reading pass per frame.
+    const handleScrollEvent = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateActiveSection);
+    };
+
+    updateActiveSection();
     window.addEventListener("scroll", handleScrollEvent, { passive: true });
-    return () => window.removeEventListener("scroll", handleScrollEvent);
+    return () => {
+      window.removeEventListener("scroll", handleScrollEvent);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   const handleScroll = (id: string) => {
