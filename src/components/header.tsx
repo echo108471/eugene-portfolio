@@ -39,31 +39,22 @@ const Header: React.FC = () => {
 
       const scrollY = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      // The activation line sits ~30% down the viewport; a section becomes
-      // active once its top scrolls up past it.
-      const line = window.innerHeight * 0.3;
-      const activateAt = sections.map(
-        (section) => section.getBoundingClientRect().top + scrollY - line
-      );
+      const header = document.querySelector("header");
+      // The activation line sits just below the sticky header, matching where a
+      // clicked nav target comes to rest, so the highlight tracks that section.
+      const line = scrollY + (header ? header.offsetHeight : 0) + 24;
 
       let currentActive = sections[0].id;
-      let lastReachable = 0;
-      activateAt.forEach((at, i) => {
-        if (at <= scrollY) currentActive = sections[i].id;
-        if (at <= maxScroll) lastReachable = i;
+      sections.forEach((section) => {
+        if (section.getBoundingClientRect().top + scrollY <= line) {
+          currentActive = section.id;
+        }
       });
 
-      // Trailing sections too close to the page bottom can never scroll up to
-      // the line. Spread them across the final stretch of scroll so each still
-      // lights up on the way down, instead of the bar jumping to the last item.
-      if (lastReachable < sections.length - 1) {
-        const tailStart = activateAt[lastReachable];
-        const tail = sections.slice(lastReachable);
-        if (scrollY >= tailStart && maxScroll > tailStart) {
-          const progress = (scrollY - tailStart) / (maxScroll - tailStart);
-          const idx = Math.min(tail.length - 1, Math.floor(progress * tail.length));
-          currentActive = tail[idx].id;
-        }
+      // The final sections can sit so close to the page bottom that their tops
+      // never reach the line; once scrolled to the end, activate the last one.
+      if (maxScroll - scrollY <= 2) {
+        currentActive = sections[sections.length - 1].id;
       }
 
       setActiveSection(currentActive);
