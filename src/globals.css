@@ -24,18 +24,6 @@
   --accent-wash: rgba(9, 105, 218, 0.08);
   --accent-edge: rgba(9, 105, 218, 0.45);
   --shadow: 0 1px 2px rgba(21, 27, 35, 0.05), 0 8px 24px -12px rgba(21, 27, 35, 0.16);
-
-  --background-light: var(--paper);
-  --foreground-light: var(--ink);
-  --accent-light: var(--accent);
-  --innerbox-light: var(--paper-raised);
-  --subtext-light: var(--ink-soft);
-  --techstack-light: var(--ink-faint);
-  --innertext-light: var(--ink-soft);
-  --tinybox-light: var(--paper-raised);
-  --header-light: var(--paper);
-  --background: var(--paper);
-  --foreground: var(--ink);
 }
 
 :root.dark {
@@ -56,18 +44,6 @@
   --accent-wash: rgba(88, 166, 255, 0.12);
   --accent-edge: rgba(88, 166, 255, 0.5);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -16px rgba(0, 0, 0, 0.6);
-
-  --background-dark: var(--paper);
-  --foreground-dark: var(--ink);
-  --accent-dark: var(--accent);
-  --innerbox-dark: var(--paper-raised);
-  --subtext-dark: var(--ink-soft);
-  --techstack-dark: var(--ink-faint);
-  --innertext-dark: var(--ink-soft);
-  --tinybox-dark: var(--paper-raised);
-  --header-dark: var(--paper);
-  --background: var(--paper);
-  --foreground: var(--ink);
 }
 
 * {
