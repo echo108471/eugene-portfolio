@@ -127,10 +127,7 @@ const Projects: React.FC = () => {
           <h2 className="section-title">Selected projects</h2>
           <span className="section-note">hover to stage</span>
         </div>
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <p className="body-copy max-w-2xl">
-            A few shipped things: campus search, AI collaboration, bioinformatics tools, decentralized storage, and a game.
-          </p>
+        <div className="mb-8 flex justify-end">
           <div className="tag-pill add">
             {projects.length} linked projects
           </div>

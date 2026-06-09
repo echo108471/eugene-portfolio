@@ -252,9 +252,6 @@ const ExperienceSection = () => {
           <h2 className="section-title">Where I&apos;ve worked</h2>
           <span className="section-note">worktree · active history</span>
         </div>
-        <p className="body-copy mb-8 max-w-2xl">
-          The through-line: backend work tied to users, data, and operational constraints.
-        </p>
       </div>
 
       <div className="quiet-list">
