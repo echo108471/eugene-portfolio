@@ -225,9 +225,75 @@ html.dark .theme-logo {
   .display-title {
     color: var(--ink);
     font-family: var(--font-display);
-    font-size: clamp(38px, 6vw, 68px);
+    font-size: clamp(42px, 5.6vw, 64px);
     font-weight: 400;
-    line-height: 1.04;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+
+  .display-title em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: 44px;
+    align-items: center;
+  }
+
+  .hero-name {
+    margin-block: 20px 12px;
+    color: var(--ink-soft);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .hero-profile {
+    width: 100%;
+    max-width: 430px;
+    justify-self: end;
+  }
+
+  .hero-signals {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 12px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--paper-raised);
+  }
+
+  .hero-signal {
+    min-width: 0;
+    padding: 14px;
+    border-left: 1px solid var(--line);
+  }
+
+  .hero-signal:first-child {
+    border-left: 0;
+  }
+
+  .hero-signal strong,
+  .hero-signal span {
+    display: block;
+  }
+
+  .hero-signal strong {
+    color: var(--accent);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .hero-signal span {
+    margin-top: 5px;
+    color: var(--ink-faint);
+    font-size: 11px;
+    line-height: 1.35;
   }
 
   .diff-line {
@@ -256,7 +322,7 @@ html.dark .theme-logo {
 
   .lede {
     max-width: 54ch;
-    margin-top: 28px;
+    margin-top: 24px;
     color: var(--ink-soft);
     font-size: 17px;
     line-height: 1.65;
@@ -715,6 +781,12 @@ html.dark .theme-logo {
 }
 
 @layer components {
+  @media (min-width: 840px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.16fr) minmax(300px, 0.84fr);
+    }
+  }
+
   @media (max-width: 680px) {
     .site-container {
       padding-inline: 22px;
@@ -736,6 +808,40 @@ html.dark .theme-logo {
 
     .section-note {
       margin-left: 0;
+    }
+
+    .display-title {
+      font-size: clamp(38px, 12vw, 52px);
+    }
+
+    .hero-grid {
+      gap: 34px;
+    }
+
+    .hero-profile {
+      max-width: none;
+    }
+
+    .hero-signals {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-signal {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      align-items: baseline;
+      gap: 10px;
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+      border-left: 0;
+    }
+
+    .hero-signal:first-child {
+      border-top: 0;
+    }
+
+    .hero-signal span {
+      margin-top: 0;
     }
   }
 }

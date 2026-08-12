@@ -16,11 +16,12 @@ interface Release {
 const releases: Release[] = [
   {
     version: "v3.0",
-    when: "2026 — now",
+    when: "2026",
     changes: [
-      { type: "add", text: "Building Zepharis AI at Sealing Technologies — an air-gapped local LLM platform for defensive cyber operators" },
-      { type: "add", text: "Shipped a 22-agent platform at Persist AI (YC W23) — APIs, real-time flows, and end-to-end coverage" },
-      { type: "add", text: "Graduating UC Davis CS — more time in production code than classroom examples" },
+      { type: "add", text: "Reworked multi-service routing and reproducible deployments for air-gapped AI at Sealing Technologies" },
+      { type: "add", text: "Shipped context-window visibility for Zepharis AI from research and PRD through implementation" },
+      { type: "add", text: "Built a 22-agent platform at Persist AI — 37 APIs plus real-time and asynchronous workflows" },
+      { type: "add", text: "Graduated from UC Davis with a B.S. in Computer Science" },
       { type: "rem", text: "deprecated: waiting to feel “senior enough” before owning a system" },
     ],
   },
@@ -38,7 +39,7 @@ const releases: Release[] = [
     version: "v1.5",
     when: "2024",
     changes: [
-      { type: "add", text: "Joined AggieWorks; built daviscattlelog.com to 40K+ users" },
+      { type: "add", text: "Joined AggieWorks; helped grow daviscattlelog.com to 60K+ users" },
       { type: "add", text: "Shipped Cattlelog and HangulStudy outside class deadlines" },
       { type: "add", text: "Genomics research at Seoul National University + first bioinformatics tools at PNA Bio" },
       { type: "rem", text: "deprecated: treating side projects as throwaway practice" },

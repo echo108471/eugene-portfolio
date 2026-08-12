@@ -13,17 +13,17 @@ interface Project {
 const Projects: React.FC = () => {
   const projects: Project[] = [
     {
-      date: "Oct. 2024 – Present",
+      date: "Oct. 2024 – Jun. 2026",
       name: "Cattlelog",
-      description: "Course search and professor insights for UC Davis students.",
+      description: "Course search and professor insights shaped through two years of product and engineering ownership.",
       techStack: ["React", "TypeScript", "TailwindCSS", "FastAPI", "PostgreSQL", "Redis", "PostHog"],
       link: "https://daviscattlelog.com",
       specimen: {
         file: "daviscattlelog.com",
         range: "prod",
         rows: [
-          { sign: "+", text: "40K+ unique users" },
-          { sign: "+", text: "faster search · caching · rendering" },
+          { sign: "+", text: "60K+ unique · 9.4K+ monthly active users" },
+          { sign: "+", text: "4× search · 90% lower API latency" },
         ],
       },
     },

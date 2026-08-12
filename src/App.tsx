@@ -22,70 +22,95 @@ const App: React.FC = () => {
       <main className="site-container pb-14">
         <section
           id="home"
-          className="scroll-mt-24 py-20 xs:py-24 sm:py-28"
+          className="scroll-mt-24 py-16 xs:py-20 sm:py-24"
         >
-          <div className="diff-block">
-            <div className="diff-gutter">
-              <span className="minus">-</span>
-              <span className="plus">+</span>
-              <span className="plus">+</span>
-            </div>
-            <div className="diff-body">
-              <div>
-                <div>
-                  <p className="eyebrow">// portfolio · branch: main · last commit {lastCommit}</p>
-                </div>
+          <div className="hero-grid">
+            <div className="diff-block">
+              <div className="diff-gutter">
+                <span className="tilde">~</span>
+                <span className="plus">+</span>
+                <span className="plus">+</span>
+              </div>
+              <div className="diff-body">
+                <p className="eyebrow">// eugene-cho · software-engineer · last commit {lastCommit}</p>
+                <p className="hero-name">Eugene Cho</p>
+                <h1 className="display-title">
+                  Backend systems, <em>applied AI</em>, and products people rely on.
+                </h1>
 
-                <div>
-                  <h1 className="display-title">
-                    <span className="del-text">Aspiring web developer.</span>
-                    <span className="diff-line add-text">
-                      Hi, I&apos;m Eugene Cho.
-                      <br />
-                      I build <em>full-stack systems</em> with the user in mind.
-                    </span>
-                  </h1>
-                </div>
+                <p className="lede">
+                  I&apos;m a UC Davis computer science graduate who moves between platform engineering
+                  and product ownership—from air-gapped AI deployments and multi-agent services to
+                  healthcare backends and course search used by 60K+ people.
+                </p>
 
-                <div>
-                  <p className="lede">
-                    I&apos;m a UC Davis CS new grad and software engineering intern at Sealing Technologies.
-                    I like full-stack work because it gives me the context to understand the whole system:
-                    data, APIs, interface, and what the user is actually trying to do.
-                    Recent work includes air-gapped LLM tooling, multi-agent backend services,
-                    patient intake systems, and course tools used by UC Davis students.
-                  </p>
-                </div>
-
-                <div>
-                  <div className="button-row mt-8">
-                    <a
-                      href="#projects"
-                      className="btn btn-primary"
-                    >
-                      projects
-                      <span aria-hidden="true">↘</span>
-                    </a>
-                    <a
-                      href="mailto:eugene.a.cho@gmail.com"
-                      className="btn btn-secondary"
-                    >
-                      email
-                      <span aria-hidden="true">↗</span>
-                    </a>
-                    <a
-                      href="/EugeneChoResume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-ghost"
-                    >
-                      resume.pdf
-                      <span aria-hidden="true">↗</span>
-                    </a>
-                  </div>
+                <div className="button-row mt-8">
+                  <a
+                    href="#experience"
+                    className="btn btn-primary"
+                  >
+                    experience
+                    <span aria-hidden="true">↘</span>
+                  </a>
+                  <a
+                    href="/EugeneChoResume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary"
+                  >
+                    resume.pdf
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                  <a
+                    href="mailto:eugene.a.cho@gmail.com"
+                    className="btn btn-ghost"
+                  >
+                    email
+                    <span aria-hidden="true">↗</span>
+                  </a>
                 </div>
               </div>
             </div>
+
+            <aside className="hero-profile" aria-label="Current engineering profile">
+              <div className="diffbox">
+                <div className="diff-head">
+                  <span>profile.md</span>
+                  <span>@@ current focus @@</span>
+                </div>
+                <div className="diff-row rem">
+                  <span className="sign">-</span>
+                  <span className="content">aspiring web developer</span>
+                </div>
+                <div className="diff-row add">
+                  <span className="sign">+</span>
+                  <span className="content">backend &amp; platform engineering</span>
+                </div>
+                <div className="diff-row add">
+                  <span className="sign">+</span>
+                  <span className="content">applied AI in constrained environments</span>
+                </div>
+                <div className="diff-row add">
+                  <span className="sign">+</span>
+                  <span className="content">product ownership at production scale</span>
+                </div>
+              </div>
+
+              <div className="hero-signals" aria-label="Selected engineering outcomes">
+                <div className="hero-signal">
+                  <strong>60K+</strong>
+                  <span>Cattlelog unique users</span>
+                </div>
+                <div className="hero-signal">
+                  <strong>500K+</strong>
+                  <span>monthly healthcare sessions</span>
+                </div>
+                <div className="hero-signal">
+                  <strong>99.9%</strong>
+                  <span>Cattlelog uptime</span>
+                </div>
+              </div>
+            </aside>
           </div>
         </section>
 

@@ -3,9 +3,9 @@ import React from "react";
 const AboutMe: React.FC = () => {
   const facts = [
     "B.S. Computer Science at UC Davis, Jun. 2026",
-    "Software Engineer Intern at Sealing Technologies, a Parsons Company",
+    "Backend and platform engineer with applied-AI experience",
     "Built systems used by 500K+ monthly healthcare sessions",
-    "Shipped course tooling reaching 40K+ UC Davis students",
+    "Led course tooling to 60K+ users and 9.4K+ monthly active users",
   ];
 
   return (
@@ -38,19 +38,19 @@ const AboutMe: React.FC = () => {
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">I&apos;m a UC Davis CS new grad and Software Engineer Intern at Sealing Technologies.</span>
+                  <span className="content">I&apos;m a UC Davis CS graduate focused on backend systems, platform work, and applied AI.</span>
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">I like full-stack work because it gives me context across data, APIs, and the interface.</span>
+                  <span className="content">I&apos;ve shipped reproducible deployments, event-driven services, multi-agent workflows, and product experiences.</span>
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">Recent work includes air-gapped LLM tooling, multi-agent backend services, patient intake, and course search.</span>
+                  <span className="content">I work across system boundaries when the problem requires it—from routing and infrastructure to APIs and the interface.</span>
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">I build with the user in mind: what they are trying to do, where they get stuck, and how the system should respond.</span>
+                  <span className="content">I care about what reaches production: a clear user outcome, observable behavior, and a system the next team can maintain.</span>
                 </div>
               </div>
 

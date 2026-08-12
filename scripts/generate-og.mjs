@@ -61,10 +61,10 @@ const svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http
   <!-- added: role -->
   <rect x="138" y="340" width="996" height="58" fill="${ADD_BG}"/>
   <text x="100" y="378" text-anchor="end" font-family="${MONO}" font-size="30" fill="${ADD}">+</text>
-  <text x="164" y="379" font-family="${SANS}" font-size="32" fill="${INK}">Software Engineer — full-stack systems, built for the user.</text>
+  <text x="164" y="379" font-family="${SANS}" font-size="32" fill="${INK}">Backend &amp; platform engineer · applied AI · product ownership</text>
 
   <!-- meta footer -->
-  <text x="164" y="470" font-family="${MONO}" font-size="24" fill="${MUTED}">UC Davis CS · multi-agent platforms · event-driven backends</text>
+  <text x="164" y="470" font-family="${MONO}" font-size="24" fill="${MUTED}">air-gapped AI · multi-agent services · production systems</text>
   <text x="164" y="510" font-family="${MONO}" font-size="24" fill="${ACCENT}">eacho.me</text>
 </svg>`;
 

@@ -21,15 +21,6 @@ const education: EducationItem[] = [
     logoDark: "/education/ucd_logo_dark.png",
     description: ["B.S. in Computer Science"],
   },
-  {
-    degree: "High School Diploma",
-    institution: "Newbury Park High School",
-    location: "Thousand Oaks, CA",
-    date: "Aug. 2018 – May. 2022",
-    description: [
-      "President of Code Nation, President of Recycling Club",
-    ],
-  },
 ];
 
 function EducationLogo({ edu }: { edu: EducationItem }) {
@@ -91,7 +82,7 @@ const EducationSection = () => {
           <span className="plus">+</span>
         </div>
         <div className="diff-body">
-          <div className="grid gap-5 lg:grid-cols-2">
+          <div className="grid gap-5">
             {education.map((edu) => (
                 <div
                   key={edu.institution}
