@@ -111,6 +111,9 @@ select {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    /* Staggered intros must also drop their delays, or reduced-motion users
+       would sit in front of an empty hero for the length of the choreography. */
+    animation-delay: 0ms !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
@@ -296,33 +299,122 @@ html.dark .theme-logo {
     line-height: 1.35;
   }
 
-  .diff-line {
-    display: block;
+  /* hero headline — the diff applies itself on load (see DESIGN.md §4.2) */
+  .hero-headline {
+    display: grid;
+    gap: 10px;
+    margin-block: 0 4px;
   }
 
-  .del-text {
-    display: inline-block;
-    margin-bottom: 2px;
-    color: var(--del);
+  .hero-prior,
+  .hero-current {
+    display: grid;
+    grid-template-columns: clamp(20px, 2.6vw, 30px) minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  .hero-sign {
+    font-family: var(--font-jetbrains-mono);
+    font-weight: 500;
+    opacity: 0;
+    animation: hero-sign-in 0.3s ease both;
+  }
+
+  .hero-prior {
+    margin-inline: -10px;
+    border-radius: 6px;
+    padding: 3px 10px;
+    color: var(--ink-faint);
     font-family: var(--font-display);
-    font-size: clamp(22px, 3.4vw, 34px);
-    opacity: 0.75;
+    font-size: clamp(18px, 2.1vw, 24px);
+    font-weight: 400;
+    line-height: 1.3;
+    animation: hero-prior-strike 0.42s ease 0.35s both;
+  }
+
+  .hero-prior .hero-sign {
+    animation-delay: 0.35s;
+  }
+
+  .hero-prior__text {
+    /* Colouring an already-present decoration keeps the strike correct on
+       wrapped lines, which a scaled pseudo-element bar cannot manage. */
     text-decoration: line-through;
     text-decoration-thickness: 1.5px;
+    text-decoration-color: transparent;
+    animation: hero-prior-line 0.4s ease 0.5s both;
   }
 
-  .add-text {
+  .hero-current {
     color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(38px, 4.9vw, 56px);
+    font-weight: 400;
+    line-height: 1.03;
+    letter-spacing: -0.025em;
+    animation: hero-rise 0.5s cubic-bezier(0.2, 0.65, 0.3, 1) 0.85s both;
   }
 
-  .add-text em {
+  .hero-current .hero-sign {
+    color: var(--add);
+    font-size: clamp(20px, 2.2vw, 26px);
+    animation-delay: 0.95s;
+  }
+
+  .hero-current__text em {
     color: var(--accent);
     font-style: italic;
   }
 
+  .hero-lede {
+    animation: hero-rise 0.5s ease 1.1s both;
+  }
+
+  .hero-actions {
+    animation: hero-rise 0.5s ease 1.22s both;
+  }
+
+  .hero-profile {
+    animation: hero-rise 0.55s ease 0.3s both;
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes hero-sign-in {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes hero-prior-strike {
+    from {
+      color: var(--ink-faint);
+      background-color: transparent;
+    }
+    to {
+      color: var(--del);
+      background-color: var(--del-wash);
+    }
+  }
+
+  @keyframes hero-prior-line {
+    to {
+      text-decoration-color: var(--del);
+    }
+  }
+
   .lede {
     max-width: 54ch;
-    margin-top: 24px;
+    margin-top: 20px;
     color: var(--ink-soft);
     font-size: 17px;
     line-height: 1.65;
@@ -656,6 +748,120 @@ html.dark .theme-logo {
     color: var(--ink);
   }
 
+  /* git blame — hovering a hero line annotates the box's status line */
+  .blame-row {
+    cursor: default;
+    outline: none;
+    transition: background 0.18s ease;
+  }
+
+  .blame-row:hover,
+  .blame-row:focus-visible {
+    background: linear-gradient(var(--accent-wash), var(--accent-wash)),
+      var(--add-wash);
+  }
+
+  .blame-row:focus-visible .content {
+    text-decoration: underline;
+    text-decoration-color: var(--accent-edge);
+    text-underline-offset: 3px;
+  }
+
+  .blame-readout {
+    /* Height is reserved for the tallest state so annotating a line never
+       shifts the stats grid sitting below it. */
+    min-height: 52px;
+    margin-top: 10px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    padding: 8px 12px;
+    background: var(--paper);
+    color: var(--ink-faint);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .blame-hash {
+    color: var(--accent);
+  }
+
+  .blame-meta {
+    margin-left: 8px;
+  }
+
+  .blame-subject {
+    display: block;
+    overflow: hidden;
+    margin-top: 3px;
+    color: var(--ink-soft);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* living gutter — the page as one scrolling source file */
+  .page-gutter {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 550px);
+    z-index: 10;
+    display: none;
+    width: 46px;
+    overflow: hidden;
+    border-right: 1px solid var(--line);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (min-width: 1240px) {
+    .page-gutter {
+      display: block;
+    }
+  }
+
+  .page-gutter__column {
+    position: absolute;
+    inset: 0 0 auto 0;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 96px,
+      #000 calc(100% - 96px),
+      transparent 100%
+    );
+    will-change: transform;
+  }
+
+  .page-gutter__row {
+    display: block;
+    height: 18px;
+    padding-right: 10px;
+    color: var(--ink-faint);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 10.5px;
+    line-height: 18px;
+    text-align: right;
+    opacity: 0.5;
+  }
+
+  .page-gutter__row.is-mark {
+    color: var(--add);
+    font-size: 12px;
+    opacity: 1;
+  }
+
+  .page-gutter__bar {
+    position: absolute;
+    top: 0;
+    right: -1px;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
   /* project specimen — a diff hunk in place of a screenshot */
   .spec-panel {
     overflow: hidden;
@@ -814,8 +1020,29 @@ html.dark .theme-logo {
       font-size: clamp(38px, 12vw, 52px);
     }
 
+    .hero-current {
+      font-size: clamp(32px, 9.6vw, 42px);
+    }
+
+    .hero-prior {
+      font-size: clamp(16px, 4.4vw, 20px);
+    }
+
     .hero-grid {
-      gap: 34px;
+      gap: 24px;
+    }
+
+    .hero-name {
+      margin-block: 14px 10px;
+    }
+
+    .hero-actions {
+      flex-wrap: nowrap;
+      gap: 8px;
+    }
+
+    .hero-actions .btn {
+      padding-inline: 12px;
     }
 
     .hero-profile {

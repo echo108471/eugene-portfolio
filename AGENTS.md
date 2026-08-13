@@ -1,3 +1,13 @@
+# Codex Project Adapter
+
+Read `~/Projects/_workspace/WORKSPACE.md` before working in this project. Also
+read the matching project note at
+`~/Projects/_vault/projects/eugene-portfolio.md` when it exists and is
+accessible.
+
+Keep project-specific working, validation, and review instructions below this
+paragraph.
+
 # Repository Guidelines
 
 ## Project Structure & Module Organization
@@ -11,6 +21,7 @@ Portfolio sections and reusable UI are in `src/components/`, using files such as
 Use npm for all project commands:
 
 ```bash
+nvm use           # Select the Node version pinned in .nvmrc
 npm run dev       # Start the local Vite dev server
 npm run build     # Type-check (tsc -b) and create a production build
 npm run preview   # Serve the production build locally

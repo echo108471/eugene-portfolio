@@ -22,7 +22,7 @@ Green is the **primary** color on purpose: growth and action are additive. Red i
 ## 2. Principles
 
 1. **Quiet metaphor.** The diff is felt, not shouted. Most of the page is muted, editorial, monochrome. Green and red appear only where there's a real add/remove.
-2. **One animated moment.** Only the project card "stages" on hover. Everything else is static or has minimal state transitions. Restraint reads as confidence.
+2. **Two animated moments, and no more.** The hero diff *applies itself* once on load (§4.4); the project card "stages" on hover (§4.3). Everything else is static or has minimal state transitions. The hero earns its moment because it's where a first-time visitor decides whether to keep scrolling; card staging is the reward for those who did. Restraint reads as confidence — do not add a third.
 3. **Honest content.** The concept is load-bearing only if the diffed copy is *true* (e.g. a real trait you've deprecated). Generic filler collapses the whole conceit.
 4. **Source view, not terminal.** Cool paper background, IBM Plex typography, and real diff tints — deliberately *not* the black-background, neon-green, monospace terminal cliché.
 5. **Lean stack.** Vite + React + TypeScript + Tailwind, fonts via Google Fonts, design system as CSS custom properties. No animation library; motion is CSS-only.
@@ -132,7 +132,7 @@ Choose markers by meaning: `+` for sections about what you've added/built, `~` f
 
 ### 4.2 Diff rows (the hero diff + `.spec-panel`)
 
-A literal diff hunk: a filename/`@@ … @@` header with `−`/`+` rows. The hero renders this inline with `.del-text` (struck prior self) and `.add-text` (current self) lines; project cards render a `.spec-panel` specimen with a `.spec-head` header (`@@ file @@` + `.spec-range`) and signed rows.
+A literal diff hunk: a filename/`@@ … @@` header with `−`/`+` rows. The hero aside renders `profile.md` as a `.diffbox` of `+` rows; the about section renders `bio.md`; project cards render a `.spec-panel` specimen with a `.spec-head` header (`@@ file @@` + `.spec-range`) and signed rows.
 
 - header → filename + `@@ … @@` range, mono, faint.
 - removal row → `--del-wash` background, struck red content.
@@ -148,6 +148,32 @@ The only animated expression of the metaphor. On `.stage-card:hover`:
 - card lifts (`translateY(-3px)`) with `--shadow` and an `--add-edge` border.
 
 Do not replicate this animation elsewhere — its scarcity is the point.
+
+### 4.4 The hero, as an applying diff
+
+The landing headline is the metaphor as a *time-based event* rather than a static picture. On load the prior self reads as ordinary text; over ~1.3s the diff lands.
+
+| Beat | Delay | What happens |
+|---|---|---|
+| aside rises | `.30s` | `profile.md` + signals fade up, so the right column is never empty |
+| removal marks | `.35s` | `.hero-prior` animates `--ink-faint` → `--del`, transparent → `--del-wash`, `−` fades in |
+| strike draws | `.50s` | `.hero-prior__text` animates `text-decoration-color` transparent → `--del` |
+| addition lands | `.85s` | `.hero-current` (the real `<h1>`) rises with its green `+` |
+| lede, actions | `1.1s`, `1.22s` | fade up to close the sequence |
+
+Rules:
+- **The struck line is decorative.** It lives outside the `<h1>` and is `aria-hidden`, so assistive tech never announces a false claim as current. The `<h1>` holds only the present-tense sentence.
+- **Strike via `text-decoration-color`,** never a scaled pseudo-element bar — the headline wraps, and a bar only covers one line.
+- **Reduced motion zeroes `animation-delay` globally,** not just duration. Without that, a reduced-motion visitor stares at an empty hero for the length of the choreography.
+- **LCP cost is real.** The `<h1>` is invisible until ~1.35s. If Speed Insights flags LCP, compress the delays — don't remove the beat.
+
+### 4.5 `git blame` on hover (`.blame-row` / `.blame-readout`)
+
+The first `+` row in `profile.md` populates a status line beneath the box by default, so the evidence is present on touch devices. Hovering or focusing another row writes that line's commit instead — hash in `--accent`, author · date, subject truncated to one line the way real `git blame` output is.
+
+- The readout **reserves its height** (`min-height: 52px`), so annotating a line never shifts the stats grid below it.
+- Rows carry `tabIndex={0}` so keyboard users reach them, plus an `sr-only` blame string, since the visual readout is `aria-hidden`.
+- Subjects must stay ≲58 characters or they ellipse.
 
 ---
 
@@ -176,6 +202,11 @@ Raised surface, left accent bar, extra left padding for the stage marker. Anatom
 
 ### Diff specimen (`.spec-panel`)
 See §4.2.
+
+### Living gutter (`.page-gutter`)
+A fixed line-number rail left of the content column (`page-gutter.tsx`), which turns the whole page into one scrolling source file. Line numbers advance with the document — `ROW_HEIGHT` doubles as the px-per-line rate, and a sub-row `translate3d` keeps the column gliding instead of stepping. Each section's first line renders as a green `+` instead of a number, so section boundaries read as additions; an `--accent` bar tracks the visible extent of the section you're inside.
+
+Decorative and inert: `aria-hidden`, `pointer-events: none`, masked to fade at both ends, and only shown at `≥1240px` where it clears the 980px container. Scroll updates are rAF-coalesced and written straight to refs, so only the line-number list re-renders, and only when the integer changes.
 
 ### Section header (`.section-head`)
 `.section-num` (mono, blue, `01`) + `.section-title` (IBM Plex Serif) + `.section-note` (mono, faint, right-aligned aside). Treat sections like numbered commits.

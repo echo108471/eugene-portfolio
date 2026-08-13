@@ -18,8 +18,13 @@ See [DESIGN.MD](./DESIGN.MD) for the full design system and [AGENTS.md](./AGENTS
 
 ## Getting Started
 
+Use Node 22 through NVM. The version is pinned in `.nvmrc`, and npm is pinned in
+`package.json`.
+
 ```bash
-npm install
+nvm install
+nvm use
+npm ci
 npm run dev       # Start the local Vite dev server
 npm run build     # Type-check (tsc -b) and create a production build
 npm run preview   # Serve the production build locally
@@ -28,6 +33,10 @@ npm run lint:fix  # Apply safe ESLint fixes
 ```
 
 There is no test suite; before handing off changes, run `npm run lint` and `npm run build`.
+
+Codex worktrees use the checked-in local environment at
+`.codex/environments/environment.toml`, which installs locked dependencies and
+provides Dev server, Lint, and Build actions.
 
 ## Project Layout
 

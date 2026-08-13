@@ -21,9 +21,8 @@ const experiences: ExperienceItem[] = [
     date: "May 2026 – Aug. 2026",
     link: "https://www.sealingtech.com/",
     description: [
-      "Re-architected networking and routing for a multi-service deployment after tracing failures to hardcoded addresses and hostname rewrites, introducing hardened NGINX routing, browser-origin URL resolution, and standardized API ports.",
-      "Decomposed a single Compose pod into independently managed systemd services and automated provisioning with Ansible for reproducible local and production deployments.",
-      "Designed and shipped context-window visibility for Zepharis AI, an air-gapped React, FastAPI, and vLLM assistant, from research and PRD through prototypes and implementation.",
+      "Re-architected networking and deployment for an air-gapped AI stack, replacing hardcoded routing and a single Compose pod with hardened NGINX, independently managed systemd services, and Ansible provisioning.",
+      "Owned context-window visibility for Zepharis AI from research and PRD through React, FastAPI, and vLLM implementation.",
     ],
     techStack: [
       "React",
@@ -43,8 +42,7 @@ const experiences: ExperienceItem[] = [
     logo: "/logos/aw_logo.svg",
     description: [
       "Led the cross-functional Davis Cattlelog team as a founding member, defining roadmap and product scope as the platform grew to 60K+ unique users and 9.4K+ monthly active users.",
-      "Served as primary engineer across the React and TypeScript frontend, FastAPI and PostgreSQL backend, ETL platform, and containerized infrastructure.",
-      "Built delivery and observability workflows, then re-architected search and performance for 4× faster retrieval, 90% lower API latency, and 99.9% uptime.",
+      "Served as primary engineer across the product stack, re-architecting search and delivery for 4× faster retrieval, 90% lower API latency, and 99.9% uptime.",
     ],
     techStack: [
       "FastAPI",
@@ -67,8 +65,7 @@ const experiences: ExperienceItem[] = [
     link: "https://www.persist.ai/",
     description: [
       "Engineered a multi-agent web platform for pharmaceutical formulation workflows, integrating 22 specialized backend agents for project execution, collaboration, and research automation.",
-      "Built and maintained 37 backend API endpoints for chat, session lifecycle, project and task management, job execution, snapshots, and visualization services.",
-      "Supported real-time and asynchronous patterns across 27+ JavaScript and Python services using WebSockets, SSE, background jobs, and multi-service orchestration.",
+      "Built and maintained 37 backend APIs across 27+ JavaScript and Python services using WebSockets, SSE, background jobs, and multi-service orchestration.",
     ],
     techStack: [
       "FastAPI",
@@ -89,7 +86,6 @@ const experiences: ExperienceItem[] = [
     logo: "/logos/kp_logo.svg",
     description: [
       "Built event-driven Spring, Express, and Kafka services for an NLP-guided patient intake and triage system processing 500K+ monthly unique sessions.",
-      "Led the end-to-end School Note decisioning feature, integrating a SOAP/XML scaffold with a config-driven release agent pattern.",
       "Resolved a Redis cache miss pattern with time-bucketed keys and negative caching, reducing external API calls by over 99% and median latency by 95%.",
     ],
     techStack: [

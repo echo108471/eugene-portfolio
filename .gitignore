@@ -9,8 +9,10 @@
 # testing
 /coverage
 
-# agents
-.codex
+# local agent state
+/.codex/*
+!/.codex/environments/
+!/.codex/environments/environment.toml
 .serena
 
 # misc

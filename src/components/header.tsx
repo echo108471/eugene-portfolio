@@ -10,14 +10,10 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: "home", href: "home" },
   { name: "about", href: "about" },
   { name: "work", href: "experience" },
   { name: "log", href: "history" },
   { name: "projects", href: "projects" },
-  { name: "stack", href: "skills" },
-  { name: "edu", href: "education" },
-  { name: "awards", href: "awards" },
   { name: "contact", href: "contact" },
 ];
 
@@ -50,7 +46,7 @@ const Header: React.FC = () => {
       // a click leaves) — so the highlight tracks the section under the header.
       const line = scrollY + headerHeight + HEADER_GAP + SPY_SLACK;
 
-      let currentActive = sections[0].id;
+      let currentActive = "home";
       sections.forEach((section) => {
         if (section.getBoundingClientRect().top + scrollY <= line) {
           currentActive = section.id;

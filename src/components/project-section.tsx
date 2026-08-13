@@ -8,6 +8,7 @@ interface Project {
   techStack: string[];
   link: string;
   specimen?: Specimen;
+  featured?: boolean;
 }
 
 const Projects: React.FC = () => {
@@ -26,6 +27,7 @@ const Projects: React.FC = () => {
           { sign: "+", text: "4× search · 90% lower API latency" },
         ],
       },
+      featured: true,
     },
     {
       date: "Nov. 2025",
@@ -72,51 +74,6 @@ const Projects: React.FC = () => {
         ],
       },
     },
-    {
-      date: "Dec. 2024",
-      name: "Monkey Trench Offense",
-      description: "Reverse tower defense game with custom abilities and two playable levels.",
-      techStack: ["Godot Engine", "GDScript"],
-      link: "https://github.com/echo108471/MonkeyTrenchOffense",
-      specimen: {
-        file: "MonkeyTrenchOffense",
-        range: "main",
-        rows: [
-          { sign: "+", text: "reverse tower-defense mechanics" },
-          { sign: "+", text: "custom power abilities · 2+ levels" },
-        ],
-      },
-    },
-    {
-      date: "Sep. 2024",
-      name: "HangulStudy",
-      description: "Korean vocabulary practice with a virtual Hangul keyboard and level-based quizzes.",
-      techStack: ["React", "TailwindCSS", "Hangul", "SQLite3", "Express.js"],
-      link: "https://koreanquiz.onrender.com/",
-      specimen: {
-        file: "koreanquiz.onrender.com",
-        range: "prod",
-        rows: [
-          { sign: "+", text: "virtual Hangul keyboard · scoring" },
-          { sign: "+", text: "level-based sets · tiered REST APIs" },
-        ],
-      },
-    },
-    {
-      date: "Sep. 2024",
-      name: "PNA Tool",
-      description: "PNA sequence analysis tool with validation for oligo design.",
-      techStack: ["PHP", "HTML/CSS", "Python", "CGI Scripts", "Input Validation"],
-      link: "https://pnabio.com/pna-tool/",
-      specimen: {
-        file: "pnabio.com/pna-tool",
-        range: "prod",
-        rows: [
-          { sign: "+", text: "PNA oligo sequence analysis" },
-          { sign: "+", text: "oligo design · input validation" },
-        ],
-      },
-    },
   ];
 
   return (
@@ -139,7 +96,7 @@ const Projects: React.FC = () => {
           <span className="tilde">~</span>
         </div>
         <div className="diff-body">
-          <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2">
+          <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
               <ProjectCard
                 key={project.name}
@@ -149,6 +106,8 @@ const Projects: React.FC = () => {
                 techStack={project.techStack}
                 link={project.link}
                 specimen={project.specimen}
+                featured={project.featured}
+                className={project.featured ? "md:col-span-2 lg:col-span-3" : ""}
               />
             ))}
           </div>

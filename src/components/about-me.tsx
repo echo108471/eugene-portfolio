@@ -26,15 +26,11 @@ const AboutMe: React.FC = () => {
               <div className="diffbox">
                 <div className="diff-head">
                   <span>bio.md</span>
-                  <span>@@ -1,2 +1,4 @@</span>
+                  <span>@@ -1,1 +1,3 @@</span>
                 </div>
                 <div className="diff-row rem">
                   <span className="sign">-</span>
-                  <span className="content">I&apos;m learning to code and looking for my first opportunity.</span>
-                </div>
-                <div className="diff-row rem">
-                  <span className="sign">-</span>
-                  <span className="content">I make websites and small apps.</span>
+                  <span className="content">I measured progress by how many features I could ship.</span>
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
@@ -42,15 +38,11 @@ const AboutMe: React.FC = () => {
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">I&apos;ve shipped reproducible deployments, event-driven services, multi-agent workflows, and product experiences.</span>
+                  <span className="content">I&apos;ve shipped reproducible deployments, event-driven services, and multi-agent workflows.</span>
                 </div>
                 <div className="diff-row add">
                   <span className="sign">+</span>
-                  <span className="content">I work across system boundaries when the problem requires it—from routing and infrastructure to APIs and the interface.</span>
-                </div>
-                <div className="diff-row add">
-                  <span className="sign">+</span>
-                  <span className="content">I care about what reaches production: a clear user outcome, observable behavior, and a system the next team can maintain.</span>
+                  <span className="content">I now measure the work by what reaches production: a clear outcome, observable behavior, and a system the next team can maintain.</span>
                 </div>
               </div>
 
