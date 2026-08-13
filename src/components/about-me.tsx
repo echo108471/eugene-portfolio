@@ -9,9 +9,9 @@ const AboutMe: React.FC = () => {
   ];
 
   return (
-    <section className="page-section">
+    <section className="page-section about-growth-section">
       <div>
-        <div className="section-head">
+        <div className="section-head about-growth-head">
           <span className="section-num">01</span>
           <h2 className="section-title">About, as a diff</h2>
           <span className="section-note">bio.md · revised</span>

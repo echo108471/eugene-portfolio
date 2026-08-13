@@ -198,19 +198,19 @@ function ExperienceLogo({
 
 const ExperienceSection = () => {
   return (
-    <section className="page-section">
+    <section className="page-section ecosystem-experience">
       <div>
-        <div className="section-head">
+        <div className="section-head ecosystem-experience-head">
           <span className="section-num">02</span>
           <h2 className="section-title">Where I&apos;ve worked</h2>
           <span className="section-note">worktree · active history</span>
         </div>
       </div>
 
-      <div className="quiet-list">
-        {experiences.map((experience) => {
+      <div className="quiet-list experience-root-list">
+        {experiences.map((experience, index) => {
           const content = (
-            <div className="diff-block">
+            <div className="diff-block experience-growth-node" data-growth-index={index + 1}>
               <div className="diff-gutter">
                 <span className="plus">+</span>
                 <span className="tilde">~</span>

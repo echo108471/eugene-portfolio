@@ -1,31 +1,32 @@
 # DESIGN.md
 
-Design system for **Eugene — portfolio (diff)**. A version-control–native visual language: the look and feel of a `git diff` turned into a design system. The metaphor lives in *structure and interaction*, not in loud surface decoration.
+Design system for **Eugene — portfolio (living systems)**. Version-control structure meets botanical behavior: branches, nodes, growth, and pruning form one visual language. The metaphor lives in *structure and interaction*, not in decorative illustrations.
 
-> Core rule: **structure over surface.** If a stranger needs the diff explained, it's too loud. If it reads as "tasteful and a little technical," it's right.
+> Core rule: **Git supplies the structure; nature supplies the behavior.** If the page looks like a source viewer with leaves pasted on it, the system has failed.
 
 ---
 
 ## 1. Concept
 
-The whole system is built on one idea: a person — and their work — is the accumulated set of changes against a previous version. So the UI borrows the *grammar* of version control:
+The whole system is built on one idea: engineering work is a living system. It branches, grows under constraints, carries history, and occasionally needs pruning. Git and trees share that grammar, so the UI combines them without making either metaphor literal everywhere:
 
-- **Additions** (`+`, green) = what's present, current, what you've added or grown into.
-- **Removals** (`−`, red, struck) = what's been deprecated, outgrown, replaced.
-- **The gutter** = a local marker column inside genuine diff blocks. The hero gets the expressive version-control moment; the rest of the page stays structurally quiet.
-- **Commits / branches / staging** = the vocabulary used for navigation, metadata, and microcopy.
+- **Trunk** = the main thread through the work.
+- **Branches and nodes** = paths, decisions, and milestones.
+- **Growth** = the page's primary motion and the natural counterpart to shipping.
+- **Additions / removals** (`+` / `−`) = genuine changes, retained inside real diff specimens.
+- **Commits / staging** = restrained metadata and interaction vocabulary, not the entire surface treatment.
 
-Green is the **primary** color on purpose: growth and action are additive. Red is used sparingly — only where something is genuinely being struck out.
+The botanical green (`--growth`) is distinct from diff green (`--add`). Red remains rare and semantic. Blue remains the normal interface accent.
 
 ---
 
 ## 2. Principles
 
-1. **Quiet metaphor.** The diff is felt, not shouted. Most of the page is muted, editorial, monochrome. Green and red appear only where there's a real add/remove.
-2. **One composed living hero, then restraint.** The headline diff and living branch graph form one opening system (§4.4–4.5); project cards still stage on hover (§4.3). The graph may route one quiet packet while idle, but the rest of the page stays static or uses minimal state transitions.
+1. **One hybrid, not two themes.** Git geometry gradually becomes organic; leaves never appear as unrelated decoration.
+2. **Growth is the signature interaction.** The canopy, moss line, and root system grow in direct response to scrolling from Hero through Experience (§4.4–4.5). Ambient plant movement is nearly imperceptible; the rest of the page stays quiet.
 3. **Honest content.** The concept is load-bearing only if the diffed copy is *true* (e.g. a real trait you've deprecated). Generic filler collapses the whole conceit.
-4. **Source view, not terminal.** Cool paper background, IBM Plex typography, and real diff tints — deliberately *not* the black-background, neon-green, monospace terminal cliché.
-5. **Lean stack.** Vite + React + TypeScript + Tailwind, fonts via Google Fonts, design system as CSS custom properties. No animation library; motion is CSS-only.
+4. **Editorial, not illustrated.** Cool paper, IBM Plex typography, thin vector lines, and restrained color keep the botanical forms from becoming whimsical.
+5. **Lean stack.** Vite + React + TypeScript + Tailwind, fonts via Google Fonts, and CSS custom properties. No animation library; one requestAnimationFrame-coalesced scroll listener updates CSS growth variables.
 
 ---
 
@@ -55,12 +56,23 @@ Semantic, not literal. Reference tokens by role, never hardcode hexes.
 | `--accent` | General UI accent | `#0969da` | `#58a6ff` |
 | `--accent-wash` | UI hover / focus tint | `rgba(9,105,218,.08)` | `rgba(88,166,255,.12)` |
 | `--accent-edge` | UI border / focus edge | `rgba(9,105,218,.45)` | `rgba(88,166,255,.5)` |
+| `--growth` | Living branch / botanical emphasis | `#477256` | `#72a982` |
+| `--growth-muted` | Leaf outlines / quiet organic detail | `#789382` | `#6f8d78` |
+| `--growth-wash` | Leaf fill | `rgba(71,114,86,.1)` | `rgba(114,169,130,.12)` |
+| `--moss` | Deep moss structure | `#31583d` | `#5f916c` |
+| `--moss-mid` | Moss texture | `#5f7d63` | `#4f7458` |
+| `--moss-soft` | Soft grass and cushion detail | `#91a681` | `#78977b` |
+| `--lichen` | Pale organic highlight | `#b7c39c` | `#aeba96` |
+| `--root-tech` | Technical root underlay | `#587465` | `#6f8b79` |
 | `--shadow` | Elevation (hover only) | `0 1px 2px rgba(21,27,35,.05), 0 8px 24px -12px rgba(21,27,35,.16)` | `0 1px 2px rgba(0,0,0,.3), 0 12px 32px -16px rgba(0,0,0,.6)` |
 
 **Usage rules**
 - `--add` is semantic, not a general brand color: `+` markers, add rows, staged-card behavior, and additive changelog signs.
 - `--del` only marks genuine removals: struck bio lines, remove rows, and the `−` marker. Never decorative.
 - `--accent` is the normal interface accent: links, buttons, icons, focus rings, active nav states, section numbers, and other non-diff affordances.
+- `--growth` belongs to stems, the word “grow,” and branch-connected section markers. It must not replace `--add` inside diffs.
+- The moss scale creates depth: `--moss` for structure, `--moss-mid` for texture, `--moss-soft` and `--lichen` for sparse highlights. Never use all four on text.
+- `--root-tech` is the low-contrast technical layer beneath the vegetation; blue `--accent` still marks actual commit nodes and interface states.
 - Washes (`*-wash`) are for backgrounds of diff rows and hover states. Keep them barely-there.
 - **Keep paper cool and `--del` a true diff red, not clay/terracotta.** The old warm paper + sage accent direction read too close to AI-lab editorial branding. The current palette borrows more from source-control surfaces: cool neutrals, sharper diff colors, and blue for non-diff UI.
 
@@ -109,9 +121,9 @@ Body measure capped at `54–62ch` for readability.
 
 ---
 
-## 4. The diff motif (signature system)
+## 4. The hybrid motif
 
-The thing that makes this system *this* system. Three mechanisms, used sparingly.
+The living branch is the signature system. Diff structures remain as precise supporting evidence.
 
 ### 4.1 The gutter
 
@@ -130,9 +142,9 @@ Every content block is a 2-column grid: a narrow marker column + content.
 
 Choose markers by meaning: `+` for sections about what you've added/built, `~` for neutral/context sections (tokens, about), `−` rarely.
 
-### 4.2 Diff rows (the hero diff + `.spec-panel`)
+### 4.2 Diff rows (`.diffbox` + `.spec-panel`)
 
-A literal diff hunk: a filename/`@@ … @@` header with `−`/`+` rows. The hero headline applies one honest removal and addition; the about section renders `bio.md`; project cards render a `.spec-panel` specimen with a `.spec-head` header (`@@ file @@` + `.spec-range`) and signed rows.
+A literal diff hunk: a filename/`@@ … @@` header with `−`/`+` rows. The About section renders `bio.md`; project cards render a `.spec-panel` specimen with a `.spec-head` header (`@@ file @@` + `.spec-range`) and signed rows. The hero no longer impersonates a diff.
 
 - header → filename + `@@ … @@` range, mono, faint.
 - removal row → `--del-wash` background, struck red content.
@@ -142,40 +154,32 @@ A literal diff hunk: a filename/`@@ … @@` header with `−`/`+` rows. The hero
 
 ### 4.3 Staging interaction
 
-The only animated expression of the metaphor. On `.stage-card:hover`:
+A small supporting interaction. On `.stage-card:hover`:
 - left accent bar turns `--add`,
 - the `.stage-mark` shifts from a resting dot to a staged `+`,
 - card lifts (`translateY(-3px)`) with `--shadow` and an `--add-edge` border.
 
-Do not replicate this animation elsewhere — its scarcity is the point.
+This stays subordinate to scroll growth: no staged entrance choreography or persistent card motion.
 
-### 4.4 The hero, as an applying diff
+### 4.4 Living hero
 
-The landing headline is the metaphor as a *time-based event* rather than a static picture. On load the prior self reads as ordinary text; over ~1.3s the diff lands.
+The opening is editorial rather than a source view: a plain identity line, the serif headline “I build systems that grow with the problem,” a concise description, and two useful actions. The single italic green word connects the claim to the branch without turning the headline into a logo treatment.
 
-| Beat | Delay | What happens |
-|---|---|---|
-| graph rises | `.30s` | `career.graph` fades up and its neutral routes draw in |
-| removal marks | `.35s` | `.hero-prior` animates `--ink-faint` → `--del`, transparent → `--del-wash`, `−` fades in |
-| strike draws | `.50s` | `.hero-prior__text` animates `text-decoration-color` transparent → `--del` |
-| addition lands | `.85s` | `.hero-current` (the real `<h1>`) rises with its green `+` |
-| lede, actions | `1.1s`, `1.22s` | fade up to close the sequence |
+The right side is intentionally left open for the living branch. On mobile, that visual space moves below the copy so the branch never competes with reading.
 
-Rules:
-- **The struck line is decorative.** It lives outside the `<h1>` and is `aria-hidden`, so assistive tech never announces a false claim as current. The `<h1>` holds only the present-tense sentence.
-- **Strike via `text-decoration-color`,** never a scaled pseudo-element bar — the headline wraps, and a bar only covers one line.
-- **Reduced motion zeroes `animation-delay` globally,** not just duration. Without that, a reduced-motion visitor stares at an empty hero for the length of the choreography.
-- **LCP cost is real.** The `<h1>` is invisible until ~1.35s. If Speed Insights flags LCP, compress the delays — don't remove the beat.
+### 4.5 Scroll-grown ecosystem (`living-branch.tsx`)
 
-### 4.5 Living branch graph (`branch-graph.tsx`)
+One decorative environment spans Hero, About, and Experience. It has three depths: atmospheric color, visible plant growth, and a root/commit underlay. A faint completed skeleton gives the composition shape; green growth strokes progressively resolve it.
 
-`career.graph` is the hero's signature object: backend/platform engineering, applied AI, and product ownership branch from `main` and converge on `production`. It visualizes one claim rather than adding résumé statistics.
-
-- The neutral routes draw once with the hero. One blue active route and a small packet show the current branch moving toward production.
-- The active branch advances every ~7 seconds while idle. Hover, focus, or tap selects a branch and pauses the automatic cycle while the visitor is exploring it.
-- Each branch exposes a one-sentence description and a real evidence link. Branch buttons are native controls with `aria-pressed`; duplicated desktop/mobile layouts are alternately hidden by CSS.
-- Desktop uses a horizontal converging graph. Mobile uses a vertical spine with three selectable branches and the same state model.
-- `prefers-reduced-motion` resolves the graph immediately and hides the traveling packet.
+- The trunk is partially grown at rest, so the landing is composed before interaction.
+- Scroll progress grows the trunk and canopy first, then the long handoff into About.
+- Past About, a second root system grows through Experience. Dashed dormant paths, commit nodes, and restrained mono annotations make the Git structure discoverable beneath the plants.
+- The terminal node appears only as the handoff reaches it and aligns with About’s `01` marker.
+- Moss cushions establish a ground line at the first fold; grass clusters and irregular moss edges recur at section boundaries rather than on every card.
+- Leaves, grass, and moss use low-contrast fills and extremely slow breathing/sway transforms. Pointer movement shifts only the near botanical layer by a few pixels; roots move more subtly in the opposite direction.
+- Desktop and mobile use separate SVG paths but the same growth model.
+- The entire environment is `aria-hidden`; it carries no information that is absent from the page copy.
+- `prefers-reduced-motion` immediately resolves the mature ecosystem and stops plant movement and pointer depth.
 
 ---
 
@@ -205,8 +209,8 @@ Raised surface, left accent bar, extra left padding for the stage marker. Anatom
 ### Diff specimen (`.spec-panel`)
 See §4.2.
 
-### Living branch graph (`.hero-graph` / `.branch-graph__*`)
-See §4.5. The graph is SVG for paths plus native HTML buttons for interaction. It stays unframed so it reads as part of the composition rather than another card.
+### Living environment (`.living-branch`, `.root-system`, `.moss-*`, `.grass-*`)
+See §4.5. The environment stays unframed and behind the content. `.living-hero__visual-space` reserves room for the canopy; opaque content surfaces protect legibility as the roots pass underneath.
 
 ### Section header (`.section-head`)
 `.section-num` (mono, blue, `01`) + `.section-title` (IBM Plex Serif) + `.section-note` (mono, faint, right-aligned aside). Treat sections like numbered commits.
@@ -219,6 +223,7 @@ Mono lines styled as `git log`, rendered from real recent commits injected at bu
 ## 6. Layout & theming
 
 - **Container:** `.site-container` — centered, max-width with responsive horizontal padding.
+- **Living intro:** `.living-intro` contains Hero, About, and Experience so one absolute environment can connect them. Content remains above the decorative layer.
 - **Block grid:** narrow diff gutter + content; gutter narrows on mobile.
 - **Breakpoints:** Tailwind responsive utilities — cards stack, the gutter narrows, and the desktop nav collapses into a slide-over menu below `lg`.
 - **Theming:** a `.dark` class on `<html>`; all colors are tokens, so the switch is automatic. `dark-mode-toggle.tsx` toggles the class and writes the choice to `localStorage`. Theme **is** persisted: an inline script in `index.html` applies the saved theme (falling back to `prefers-color-scheme`) before first paint, so there's no flash, and transitions are suppressed during that initial application.
@@ -234,6 +239,7 @@ Standing accessibility rules, plus what's already handled:
 - **Focus-visible styles.** Links, buttons, and form controls use a visible `--accent` focus ring. Keep focus blue so it stays an interface state, not an add/diff state.
 - **Cards are real links.** *(Resolved.)* A linked project card renders as an `<a>`, so it's keyboard- and screen-reader-navigable; unlinked cards stay `<div>`s.
 - **Decorative-only flourishes** (e.g. the staged-card marker) carry no essential info, so they stay invisible to assistive tech by design.
+- **Living environment.** The ecosystem is `aria-hidden`; scroll only reveals decoration and never gates copy or navigation.
 - **Reduced motion.** *(Resolved.)* `@media (prefers-reduced-motion: reduce)` neutralizes animations, the card lift, and smooth scrolling.
 - **Theme persistence.** *(Resolved.)* Saved to `localStorage` with a `prefers-color-scheme` fallback, applied pre-paint (see §6).
 
@@ -251,16 +257,16 @@ Standing accessibility rules, plus what's already handled:
 ## 9. Do / Don't
 
 **Do**
-- Keep green dominant, red rare.
+- Keep botanical green muted and distinct from diff green.
 - Reuse tokens; respect the 8px scale.
-- Limit the staging animation to project cards.
-- Keep ambient motion inside the hero graph and tied to the active production route.
+- Treat growth as the one signature interaction.
+- Let stems, roots, moss edges, and negative space do more work than individual leaves.
 - Write true, specific diff content.
 
 **Don't**
 - Flood the page with red/green or paint every element a diff color.
-- Add a second animated "clever" interaction.
-- Add particles, glow fields, blinking cursors, or motion outside the graph's routing model.
+- Add a second scroll-reactive system or scroll-jacking behavior.
+- Add particles, glow fields, leaf showers, or several kinds of ambient motion.
 - Drift toward black-background terminal styling.
 - Ship placeholder bio/work copy — empty content is where this style is most exposed.
 
@@ -270,7 +276,7 @@ Standing accessibility rules, plus what's already handled:
 
 This system started as a single-file specimen and now ships as a Vite + React + TypeScript + Tailwind site. The core moves are in place — tokens live in `src/globals.css`, the patterns (`.diff-block`, `.stage-card`, `.btn`, `.spec-panel`) are component classes, theming is persisted, and the accessibility items in §7 are largely resolved. The **release-history / changelog-of-a-person** section (`release-history.tsx`) — the strongest extension of the concept, versions of you over time, `+ added` / `− deprecated` — is built and lives in the `history` section.
 
-When extending further, keep the same discipline: new patterns become component classes referencing tokens by role, motion stays CSS-only and reduced-motion-aware, and any new diff content must be true.
+The current implementation proves the ecosystem through Hero, About, and Experience. Later sections remain outside the environment so the page can return to restraint. Extend it further only if the root network continues to clarify hierarchy rather than becoming wallpaper; any extension must reuse the same scroll progress and token roles rather than introducing another animation model.
 
 ---
 

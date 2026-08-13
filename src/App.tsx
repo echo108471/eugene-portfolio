@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "@/components/header";
 import HeroSection from "@/components/hero-section";
+import LivingBranch from "@/components/living-branch";
 import ExperienceSection from "@/components/experience-section";
 import Projects from "@/components/project-section";
 import AboutMe from "@/components/about-me";
@@ -18,17 +19,21 @@ const App: React.FC = () => {
       <Header />
 
       <main className="site-container pb-14">
-        <section id="home" className="scroll-mt-24 py-10 xs:py-12 sm:py-14">
-          <HeroSection />
-        </section>
+        <div className="living-intro">
+          <LivingBranch />
 
-        <section id="about" className="scroll-mt-16">
-          <AboutMe />
-        </section>
+          <section id="home" className="scroll-mt-24">
+            <HeroSection />
+          </section>
 
-        <section id="experience" className="scroll-mt-16">
-          <ExperienceSection />
-        </section>
+          <section id="about" className="living-intro__about scroll-mt-16">
+            <AboutMe />
+          </section>
+
+          <section id="experience" className="living-intro__experience scroll-mt-16">
+            <ExperienceSection />
+          </section>
+        </div>
 
         <section id="history" className="scroll-mt-16">
           <ReleaseHistory />
