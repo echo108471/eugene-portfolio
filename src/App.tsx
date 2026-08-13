@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "@/components/header";
 import HeroSection from "@/components/hero-section";
-import PageGutter from "@/components/page-gutter";
 import ExperienceSection from "@/components/experience-section";
 import Projects from "@/components/project-section";
 import AboutMe from "@/components/about-me";
@@ -17,7 +16,6 @@ const App: React.FC = () => {
   return (
     <div className="site-shell">
       <Header />
-      <PageGutter />
 
       <main className="site-container pb-14">
         <section id="home" className="scroll-mt-24 py-10 xs:py-12 sm:py-14">

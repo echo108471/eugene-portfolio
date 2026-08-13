@@ -12,7 +12,7 @@ The whole system is built on one idea: a person — and their work — is the ac
 
 - **Additions** (`+`, green) = what's present, current, what you've added or grown into.
 - **Removals** (`−`, red, struck) = what's been deprecated, outgrown, replaced.
-- **The gutter** = a quiet left-hand column of line-markers running down every block, the way a diff view or code editor shows line numbers.
+- **The gutter** = a local marker column inside genuine diff blocks. The hero gets the expressive version-control moment; the rest of the page stays structurally quiet.
 - **Commits / branches / staging** = the vocabulary used for navigation, metadata, and microcopy.
 
 Green is the **primary** color on purpose: growth and action are additive. Red is used sparingly — only where something is genuinely being struck out.
@@ -22,7 +22,7 @@ Green is the **primary** color on purpose: growth and action are additive. Red i
 ## 2. Principles
 
 1. **Quiet metaphor.** The diff is felt, not shouted. Most of the page is muted, editorial, monochrome. Green and red appear only where there's a real add/remove.
-2. **Two animated moments, and no more.** The hero diff *applies itself* once on load (§4.4); the project card "stages" on hover (§4.3). Everything else is static or has minimal state transitions. The hero earns its moment because it's where a first-time visitor decides whether to keep scrolling; card staging is the reward for those who did. Restraint reads as confidence — do not add a third.
+2. **One composed living hero, then restraint.** The headline diff and living branch graph form one opening system (§4.4–4.5); project cards still stage on hover (§4.3). The graph may route one quiet packet while idle, but the rest of the page stays static or uses minimal state transitions.
 3. **Honest content.** The concept is load-bearing only if the diffed copy is *true* (e.g. a real trait you've deprecated). Generic filler collapses the whole conceit.
 4. **Source view, not terminal.** Cool paper background, IBM Plex typography, and real diff tints — deliberately *not* the black-background, neon-green, monospace terminal cliché.
 5. **Lean stack.** Vite + React + TypeScript + Tailwind, fonts via Google Fonts, design system as CSS custom properties. No animation library; motion is CSS-only.
@@ -132,7 +132,7 @@ Choose markers by meaning: `+` for sections about what you've added/built, `~` f
 
 ### 4.2 Diff rows (the hero diff + `.spec-panel`)
 
-A literal diff hunk: a filename/`@@ … @@` header with `−`/`+` rows. The hero aside renders `profile.md` as a `.diffbox` of `+` rows; the about section renders `bio.md`; project cards render a `.spec-panel` specimen with a `.spec-head` header (`@@ file @@` + `.spec-range`) and signed rows.
+A literal diff hunk: a filename/`@@ … @@` header with `−`/`+` rows. The hero headline applies one honest removal and addition; the about section renders `bio.md`; project cards render a `.spec-panel` specimen with a `.spec-head` header (`@@ file @@` + `.spec-range`) and signed rows.
 
 - header → filename + `@@ … @@` range, mono, faint.
 - removal row → `--del-wash` background, struck red content.
@@ -155,7 +155,7 @@ The landing headline is the metaphor as a *time-based event* rather than a stati
 
 | Beat | Delay | What happens |
 |---|---|---|
-| aside rises | `.30s` | `profile.md` + signals fade up, so the right column is never empty |
+| graph rises | `.30s` | `career.graph` fades up and its neutral routes draw in |
 | removal marks | `.35s` | `.hero-prior` animates `--ink-faint` → `--del`, transparent → `--del-wash`, `−` fades in |
 | strike draws | `.50s` | `.hero-prior__text` animates `text-decoration-color` transparent → `--del` |
 | addition lands | `.85s` | `.hero-current` (the real `<h1>`) rises with its green `+` |
@@ -167,13 +167,15 @@ Rules:
 - **Reduced motion zeroes `animation-delay` globally,** not just duration. Without that, a reduced-motion visitor stares at an empty hero for the length of the choreography.
 - **LCP cost is real.** The `<h1>` is invisible until ~1.35s. If Speed Insights flags LCP, compress the delays — don't remove the beat.
 
-### 4.5 `git blame` on hover (`.blame-row` / `.blame-readout`)
+### 4.5 Living branch graph (`branch-graph.tsx`)
 
-The first `+` row in `profile.md` populates a status line beneath the box by default, so the evidence is present on touch devices. Hovering or focusing another row writes that line's commit instead — hash in `--accent`, author · date, subject truncated to one line the way real `git blame` output is.
+`career.graph` is the hero's signature object: backend/platform engineering, applied AI, and product ownership branch from `main` and converge on `production`. It visualizes one claim rather than adding résumé statistics.
 
-- The readout **reserves its height** (`min-height: 52px`), so annotating a line never shifts the stats grid below it.
-- Rows carry `tabIndex={0}` so keyboard users reach them, plus an `sr-only` blame string, since the visual readout is `aria-hidden`.
-- Subjects must stay ≲58 characters or they ellipse.
+- The neutral routes draw once with the hero. One blue active route and a small packet show the current branch moving toward production.
+- The active branch advances every ~7 seconds while idle. Hover, focus, or tap selects a branch and pauses the automatic cycle while the visitor is exploring it.
+- Each branch exposes a one-sentence description and a real evidence link. Branch buttons are native controls with `aria-pressed`; duplicated desktop/mobile layouts are alternately hidden by CSS.
+- Desktop uses a horizontal converging graph. Mobile uses a vertical spine with three selectable branches and the same state model.
+- `prefers-reduced-motion` resolves the graph immediately and hides the traveling packet.
 
 ---
 
@@ -203,10 +205,8 @@ Raised surface, left accent bar, extra left padding for the stage marker. Anatom
 ### Diff specimen (`.spec-panel`)
 See §4.2.
 
-### Living gutter (`.page-gutter`)
-A fixed line-number rail left of the content column (`page-gutter.tsx`), which turns the whole page into one scrolling source file. Line numbers advance with the document — `ROW_HEIGHT` doubles as the px-per-line rate, and a sub-row `translate3d` keeps the column gliding instead of stepping. Each section's first line renders as a green `+` instead of a number, so section boundaries read as additions; an `--accent` bar tracks the visible extent of the section you're inside.
-
-Decorative and inert: `aria-hidden`, `pointer-events: none`, masked to fade at both ends, and only shown at `≥1240px` where it clears the 980px container. Scroll updates are rAF-coalesced and written straight to refs, so only the line-number list re-renders, and only when the integer changes.
+### Living branch graph (`.hero-graph` / `.branch-graph__*`)
+See §4.5. The graph is SVG for paths plus native HTML buttons for interaction. It stays unframed so it reads as part of the composition rather than another card.
 
 ### Section header (`.section-head`)
 `.section-num` (mono, blue, `01`) + `.section-title` (IBM Plex Serif) + `.section-note` (mono, faint, right-aligned aside). Treat sections like numbered commits.
@@ -254,11 +254,13 @@ Standing accessibility rules, plus what's already handled:
 - Keep green dominant, red rare.
 - Reuse tokens; respect the 8px scale.
 - Limit the staging animation to project cards.
+- Keep ambient motion inside the hero graph and tied to the active production route.
 - Write true, specific diff content.
 
 **Don't**
 - Flood the page with red/green or paint every element a diff color.
 - Add a second animated "clever" interaction.
+- Add particles, glow fields, blinking cursors, or motion outside the graph's routing model.
 - Drift toward black-background terminal styling.
 - Ship placeholder bio/work copy — empty content is where this style is most exposed.
 
