@@ -71,11 +71,11 @@ export const MetricsSection: React.FC = () => {
         <span className="section-note">telemetry · production proof</span>
       </div>
 
-      <div className="metrics-grid">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {METRICS.map((item, index) => (
           <div
             key={item.id}
-            className="metric-card"
+            className={`metric-card ${index === 3 ? "lg:col-span-1" : ""} ${index === 4 ? "lg:col-span-2" : ""}`}
             style={{ "--card-index": index } as React.CSSProperties}
           >
             <div className="metric-card__header">

@@ -24,7 +24,8 @@ type SceneTone =
   | "violet"
   | "sky"
   | "node"
-  | "spore";
+  | "spore"
+  | "ambient";
 
 type Palette = Record<SceneTone, string>;
 
@@ -46,22 +47,24 @@ type CurvePoints = [
   number,
 ];
 
+// Color mapping definitions for offscreen raster scene
 const SCENE_TONES: Record<SceneTone, { css: string; rgb: [number, number, number] }> = {
-  barkDeep: { css: "rgb(72, 34, 24)", rgb: [72, 34, 24] },
-  bark: { css: "rgb(164, 84, 38)", rgb: [164, 84, 38] },
-  barkLight: { css: "rgb(236, 158, 68)", rgb: [236, 158, 68] },
-  moss: { css: "rgb(35, 150, 76)", rgb: [35, 150, 76] },
-  leaf: { css: "rgb(38, 225, 104)", rgb: [38, 225, 104] },
-  gold: { css: "rgb(244, 207, 42)", rgb: [244, 207, 42] },
-  coral: { css: "rgb(242, 72, 35)", rgb: [242, 72, 35] },
-  rose: { css: "rgb(227, 38, 137)", rgb: [227, 38, 137] },
-  violet: { css: "rgb(114, 60, 238)", rgb: [114, 60, 238] },
-  sky: { css: "rgb(48, 180, 235)", rgb: [48, 180, 235] },
-  node: { css: "rgb(38, 82, 250)", rgb: [38, 82, 250] },
-  spore: { css: "rgb(214, 218, 216)", rgb: [214, 218, 216] },
+  barkDeep: { css: "rgb(64, 30, 20)", rgb: [64, 30, 20] },
+  bark: { css: "rgb(150, 78, 36)", rgb: [150, 78, 36] },
+  barkLight: { css: "rgb(228, 150, 60)", rgb: [228, 150, 60] },
+  moss: { css: "rgb(32, 140, 70)", rgb: [32, 140, 70] },
+  leaf: { css: "rgb(34, 215, 96)", rgb: [34, 215, 96] },
+  gold: { css: "rgb(238, 198, 38)", rgb: [238, 198, 38] },
+  coral: { css: "rgb(235, 68, 32)", rgb: [235, 68, 32] },
+  rose: { css: "rgb(220, 36, 130)", rgb: [220, 36, 130] },
+  violet: { css: "rgb(110, 58, 230)", rgb: [110, 58, 230] },
+  sky: { css: "rgb(44, 172, 226)", rgb: [44, 172, 226] },
+  node: { css: "rgb(34, 78, 242)", rgb: [34, 78, 242] },
+  spore: { css: "rgb(205, 210, 208)", rgb: [205, 210, 208] },
+  ambient: { css: "rgb(100, 115, 110)", rgb: [100, 115, 110] },
 };
 
-const CANOPY_TONES: SceneTone[] = ["moss", "gold", "coral", "rose", "violet", "sky"];
+const CANOPY_TONES: SceneTone[] = ["moss", "leaf", "gold", "sky", "violet", "rose", "coral"];
 
 const clamp = (value: number, min = 0, max = 1) =>
   Math.min(max, Math.max(min, value));
@@ -92,29 +95,33 @@ const AsciiTreeCanvas: React.FC = () => {
     let width = window.innerWidth;
     let height = window.innerHeight;
     let density = Math.min(2, window.devicePixelRatio || 1);
-    let cellWidth = width <= 680 ? 6.8 : 6.4;
-    let cellHeight = width <= 680 ? 10.5 : 10.8;
+    let cellWidth = width <= 680 ? 6.2 : 6.0;
+    let cellHeight = width <= 680 ? 10.2 : 10.4;
     let columns = Math.ceil(width / cellWidth);
     let rows = Math.ceil(height / cellHeight);
     let animationFrame: number | null = null;
     let lastFrame = 0;
     let pointerX = 0;
     let pointerY = 0;
+    let targetPointerX = 0;
+    let targetPointerY = 0;
     let sectionAnchors: SectionAnchor[] = [];
     let isDark = document.documentElement.classList.contains("dark");
+
     let palette: Palette = {
-      barkDeep: "#393a33",
-      bark: "#5c594d",
-      barkLight: "#8c8979",
-      moss: "#3e7652",
-      leaf: "#2f9e5c",
-      gold: "#d89a22",
-      coral: "#d5614d",
-      rose: "#bb4f79",
-      violet: "#725f99",
-      sky: "#4b7894",
-      node: "#1d6fa5",
-      spore: "#8e8174",
+      barkDeep: "#38342c",
+      bark: "#5c574c",
+      barkLight: "#878172",
+      moss: "#2b7548",
+      leaf: "#22c55e",
+      gold: "#c98816",
+      coral: "#cf533c",
+      rose: "#b64573",
+      violet: "#6b5594",
+      sky: "#3b7e9e",
+      node: "#0284c7",
+      spore: "#7e8781",
+      ambient: "#597564",
     };
 
     const readPalette = () => {
@@ -135,6 +142,7 @@ const AsciiTreeCanvas: React.FC = () => {
         sky: token("--tree-sky", palette.sky),
         node: token("--accent", palette.node),
         spore: token("--tree-spore", palette.spore),
+        ambient: token("--ink-faint", palette.ambient),
       };
     };
 
@@ -144,12 +152,14 @@ const AsciiTreeCanvas: React.FC = () => {
         const section = document.getElementById(id);
         if (!section) return [];
         const bounds = section.getBoundingClientRect();
-        return [{
-          top: bounds.top + scrollTop,
-          height: bounds.height,
-          side: section.dataset.treeSide === "right" ? "right" : "left",
-          index,
-        }];
+        return [
+          {
+            top: bounds.top + scrollTop,
+            height: bounds.height,
+            side: section.dataset.treeSide === "right" ? "right" : "left",
+            index,
+          },
+        ];
       });
     };
 
@@ -157,8 +167,8 @@ const AsciiTreeCanvas: React.FC = () => {
       width = window.innerWidth;
       height = window.innerHeight;
       density = Math.min(2, window.devicePixelRatio || 1);
-      cellWidth = width <= 680 ? 6.8 : 6.4;
-      cellHeight = width <= 680 ? 10.5 : 10.8;
+      cellWidth = width <= 680 ? 6.2 : 6.0;
+      cellHeight = width <= 680 ? 10.2 : 10.4;
       columns = Math.ceil(width / cellWidth);
       rows = Math.ceil(height / cellHeight);
 
@@ -197,7 +207,10 @@ const AsciiTreeCanvas: React.FC = () => {
           const y = points[index + 3] - points[index + 1];
           return total + Math.hypot(x, y);
         }, 0);
-        sceneContext.setLineDash([Math.max(0.25, distances * visibleProgress), distances + 2]);
+        sceneContext.setLineDash([
+          Math.max(0.25, distances * visibleProgress),
+          distances + 2,
+        ]);
       }
 
       sceneContext.beginPath();
@@ -226,25 +239,26 @@ const AsciiTreeCanvas: React.FC = () => {
       alpha: number,
       growth: number,
     ) => {
-      const scale = smoothstep(0.42, 0.9, growth);
+      const scale = smoothstep(0.28, 0.95, growth);
       if (scale <= 0.01) return;
 
       sceneContext.fillStyle = SCENE_TONES[tone].css;
-      for (let index = 0; index < 13; index += 1) {
-        const angle = seeded(seed + index * 3.1) * Math.PI * 2;
-        const distance = Math.sqrt(seeded(seed + index * 7.7));
-        const lobeX = x + Math.cos(angle) * radiusX * distance + wind * (0.12 + index * 0.006);
+      const count = 22;
+      for (let index = 0; index < count; index += 1) {
+        const angle = seeded(seed + index * 3.7) * Math.PI * 2;
+        const distance = Math.sqrt(seeded(seed + index * 7.1));
+        const lobeX = x + Math.cos(angle) * radiusX * distance + wind * (0.15 + index * 0.008);
         const lobeY = y + Math.sin(angle) * radiusY * distance;
-        const lobeRadiusX = radiusX * (0.22 + seeded(seed + index * 11.3) * 0.24) * scale;
-        const lobeRadiusY = radiusY * (0.18 + seeded(seed + index * 13.9) * 0.23) * scale;
-        sceneContext.globalAlpha = alpha * (0.42 + seeded(seed + index * 5.3) * 0.45);
+        const lobeRadiusX = radiusX * (0.28 + seeded(seed + index * 11.3) * 0.3) * scale;
+        const lobeRadiusY = radiusY * (0.24 + seeded(seed + index * 13.9) * 0.28) * scale;
+        sceneContext.globalAlpha = alpha * (0.48 + seeded(seed + index * 5.3) * 0.48);
         sceneContext.beginPath();
         sceneContext.ellipse(
           lobeX,
           lobeY,
-          Math.max(0.6, lobeRadiusX),
-          Math.max(0.45, lobeRadiusY),
-          angle * 0.24,
+          Math.max(0.75, lobeRadiusX),
+          Math.max(0.6, lobeRadiusY),
+          angle * 0.25,
           0,
           Math.PI * 2,
         );
@@ -263,24 +277,29 @@ const AsciiTreeCanvas: React.FC = () => {
       bloomTone?: SceneTone,
     ) => {
       const offsets = [
-        [0, -2.2],
-        [-2.4, -0.8],
-        [2.4, -0.8],
-        [-3.6, -2.6],
-        [3.6, -2.7],
-        [-1.4, -4.2],
-        [1.6, -4.5],
+        [0, -2.5],
+        [-3.2, -1.0],
+        [3.2, -1.0],
+        [-4.8, -3.2],
+        [4.8, -3.4],
+        [-2.0, -5.2],
+        [2.0, -5.5],
+        [-6.5, -1.8],
+        [6.5, -1.8],
+        [0, -7.0],
+        [-3.5, 0.8],
+        [3.5, 0.8],
       ];
       sceneContext.globalAlpha = alpha;
       sceneContext.fillStyle = SCENE_TONES[tone].css;
       offsets.forEach(([offsetX, offsetY], index) => {
         sceneContext.beginPath();
         sceneContext.ellipse(
-          x + (offsetX + wind * (0.22 + index * 0.02)) * scale,
+          x + (offsetX + wind * (0.25 + index * 0.03)) * scale,
           y + offsetY * scale,
-          Math.max(0.65, 1.65 * scale),
-          Math.max(0.5, 0.82 * scale),
-          (index - 3) * 0.42,
+          Math.max(0.75, 2.2 * scale),
+          Math.max(0.6, 1.2 * scale),
+          (index - 5) * 0.36,
           0,
           Math.PI * 2,
         );
@@ -289,7 +308,7 @@ const AsciiTreeCanvas: React.FC = () => {
       if (bloomTone) {
         sceneContext.fillStyle = SCENE_TONES[bloomTone].css;
         sceneContext.beginPath();
-        sceneContext.arc(x + wind * scale, y - 6.4 * scale, 0.85 * scale, 0, Math.PI * 2);
+        sceneContext.arc(x + wind * scale * 1.2, y - 7.5 * scale, 1.2 * scale, 0, Math.PI * 2);
         sceneContext.fill();
       }
       sceneContext.globalAlpha = 1;
@@ -308,13 +327,13 @@ const AsciiTreeCanvas: React.FC = () => {
       growth: number,
       toneIndex: number,
     ) => {
-      const generation = 3 - depth;
-      const stage = 0.2 + generation * 0.18 + seeded(seed) * 0.04;
+      const generation = 4 - depth;
+      const stage = 0.12 + generation * 0.15 + seeded(seed) * 0.04;
       const branchProgress = smoothstep(stage, stage + 0.18, growth);
       if (branchProgress <= 0.01) return;
 
-      const bend = (seeded(seed + 4.1) - 0.5) * 0.72;
-      const windLift = wind * (0.1 + generation * 0.07);
+      const bend = (seeded(seed + 4.1) - 0.5) * 0.78;
+      const windLift = wind * (0.14 + generation * 0.08);
       const endX = x + Math.cos(angle) * length + windLift;
       const endY = y + Math.sin(angle) * length;
       const points: CurvePoints = [
@@ -330,32 +349,32 @@ const AsciiTreeCanvas: React.FC = () => {
       drawCurve(points, depth >= 2 ? "barkDeep" : "bark", branchWidth, alpha, branchProgress);
 
       if (depth <= 0) {
-        const leafProgress = smoothstep(stage + 0.1, stage + 0.22, growth);
+        const leafProgress = smoothstep(stage + 0.08, stage + 0.22, growth);
         if (leafProgress > 0.01) {
           const tone = CANOPY_TONES[Math.abs(toneIndex) % CANOPY_TONES.length];
           drawLeafCluster(
             endX,
             endY,
-            0.34 + seeded(seed + 8.3) * 0.3,
+            0.5 + seeded(seed + 8.3) * 0.38,
             wind,
-            alpha * leafProgress * 0.88,
+            alpha * leafProgress * 0.95,
             tone,
-            seeded(seed + 12.7) > 0.78 ? "gold" : undefined,
+            seeded(seed + 12.7) > 0.62 ? "gold" : undefined,
           );
         }
         return;
       }
 
-      const spread = 0.3 + seeded(seed + 5.2) * 0.24;
-      const nextLength = length * (0.58 + seeded(seed + 9.4) * 0.08);
+      const spread = 0.36 + seeded(seed + 5.2) * 0.26;
+      const nextLength = length * (0.66 + seeded(seed + 9.4) * 0.09);
       drawTwig(
         endX,
         endY,
         angle - spread,
         nextLength,
-        Math.max(0.34, branchWidth * 0.58),
+        Math.max(0.45, branchWidth * 0.65),
         depth - 1,
-        seed + 17,
+        seed + 19,
         wind,
         alpha,
         growth,
@@ -364,11 +383,11 @@ const AsciiTreeCanvas: React.FC = () => {
       drawTwig(
         endX,
         endY,
-        angle + spread * 0.82,
-        nextLength * 0.92,
-        Math.max(0.32, branchWidth * 0.54),
+        angle + spread * 0.84,
+        nextLength * 0.95,
+        Math.max(0.42, branchWidth * 0.6),
         depth - 1,
-        seed + 31,
+        seed + 37,
         wind,
         alpha,
         growth,
@@ -376,61 +395,90 @@ const AsciiTreeCanvas: React.FC = () => {
       );
     };
 
+    // Draw ambient background field
     const drawAmbient = (time: number, wind: number, fade: number) => {
+      // 1. Subtle background grid ticks
+      sceneContext.fillStyle = SCENE_TONES.ambient.css;
+      const gridStep = 16;
+      for (let x = 6; x < columns; x += gridStep) {
+        for (let y = 6; y < rows; y += gridStep) {
+          const tickAlpha = 0.038 + Math.sin(time * 0.0006 + x * 0.1 + y * 0.08) * 0.014;
+          sceneContext.globalAlpha = fade * tickAlpha;
+          sceneContext.beginPath();
+          sceneContext.arc(x, y, 0.45, 0, Math.PI * 2);
+          sceneContext.fill();
+        }
+      }
+
+      // 2. Drifting living spores/particles across the entire view
       sceneContext.fillStyle = SCENE_TONES.spore.css;
-      for (let index = 0; index < 34; index += 1) {
-        const originX = columns * (0.43 + seeded(index + 2) * 0.54);
-        const originY = rows * seeded(index + 12);
-        const drift = Math.sin(time * 0.00025 + index * 1.7) * (1 + seeded(index + 22) * 1.8);
-        const x = originX + drift + wind * 0.4;
-        const y = (originY + time * (0.00012 + seeded(index + 42) * 0.00008)) % (rows + 4) - 2;
-        sceneContext.globalAlpha = fade * (0.08 + seeded(index + 52) * 0.2);
+      const sporeCount = 72;
+      for (let index = 0; index < sporeCount; index += 1) {
+        const originX = columns * (0.05 + seeded(index + 3) * 0.92);
+        const originY = rows * seeded(index + 15);
+        const drift = Math.sin(time * 0.00032 + index * 1.9) * (1.8 + seeded(index + 25) * 2.6);
+        const x = originX + drift + wind * 0.65;
+        const y = (originY + time * (0.00018 + seeded(index + 45) * 0.00012)) % (rows + 6) - 3;
+        sceneContext.globalAlpha = fade * (0.12 + seeded(index + 55) * 0.35);
         sceneContext.beginPath();
-        sceneContext.arc(x, y, 0.18 + seeded(index + 62) * 0.28, 0, Math.PI * 2);
+        sceneContext.arc(x, y, 0.28 + seeded(index + 65) * 0.45, 0, Math.PI * 2);
         sceneContext.fill();
       }
       sceneContext.globalAlpha = 1;
     };
 
+    // Draw Hero Majestic ASCII Tree Crown
     const drawHeroTree = (time: number, scrollTop: number) => {
       const fade = 1;
-
       const compact = width <= 680;
-      const scrollGrowth = smoothstep(0, height * 0.72, scrollTop);
-      const growth = 0.8 + scrollGrowth * 0.2;
+      const scrollGrowth = smoothstep(0, height * 0.8, scrollTop);
+      const growth = 0.88 + scrollGrowth * 0.12;
       const wind =
-        Math.sin(time * 0.00043) * (compact ? 0.7 : 1.25) +
-        Math.sin(time * 0.00019 + 1.7) * 0.6 +
-        pointerX * (compact ? 0.45 : 1.15) +
-        pointerY * 0.16;
+        Math.sin(time * 0.00048) * (compact ? 0.8 : 1.4) +
+        Math.sin(time * 0.00021 + 1.9) * 0.7 +
+        pointerX * (compact ? 0.5 : 1.3) +
+        pointerY * 0.2;
+
+      // Base location of the trunk
       const baseX = columns * (compact ? 0.78 : 0.74);
-      const baseY = rows * 1.04;
-      const forkX = columns * (compact ? 0.76 : 0.715);
-      const forkY = rows * 0.51;
-      const trunkWidth = Math.max(compact ? 3.5 : 5.2, columns * (compact ? 0.055 : 0.038));
+      const baseY = rows * 1.1;
+      const forkX = columns * (compact ? 0.75 : 0.71);
+      const forkY = rows * 0.46;
+
+      // Immense ancient braided trunk width
+      const trunkWidth = Math.max(
+        compact ? 11.0 : 18.0,
+        columns * (compact ? 0.11 : 0.088),
+      );
 
       drawAmbient(time, wind, fade);
 
-      sceneContext.globalAlpha = fade * (isDark ? 0.13 : 0.1);
+      // Atmospheric celestial glow field spanning canopy
+      sceneContext.globalAlpha = fade * (isDark ? 0.18 : 0.14);
       sceneContext.fillStyle = SCENE_TONES[isDark ? "sky" : "gold"].css;
       sceneContext.beginPath();
-      sceneContext.arc(columns * 0.9, rows * 0.14, compact ? 5 : 7.5, 0, Math.PI * 2);
+      sceneContext.arc(columns * 0.72, rows * 0.16, compact ? 15 : 28, 0, Math.PI * 2);
       sceneContext.fill();
       sceneContext.globalAlpha = 1;
 
+      // Draped Canopy Washes spanning across top from Left to Right
       const washes: Array<[number, number, number, number, SceneTone, number]> = [
-        [0.53, 0.18, 0.105, 0.105, "gold", 11],
-        [0.65, 0.13, 0.11, 0.09, "coral", 23],
-        [0.76, 0.16, 0.11, 0.11, "rose", 37],
-        [0.88, 0.2, 0.105, 0.13, "violet", 41],
-        [0.95, 0.34, 0.075, 0.14, "violet", 53],
-        [0.82, 0.32, 0.11, 0.12, "coral", 67],
-        [0.62, 0.31, 0.105, 0.12, "moss", 79],
-        [0.53, 0.4, 0.075, 0.115, "sky", 83],
-        [0.91, 0.49, 0.08, 0.11, "rose", 97],
+        // Left arch washes framing top headline
+        [0.22, 0.14, 0.12, 0.11, "moss", 7],
+        [0.34, 0.10, 0.14, 0.12, "gold", 15],
+        [0.48, 0.12, 0.16, 0.13, "leaf", 23],
+        // Central & right massive crown washes
+        [0.62, 0.08, 0.18, 0.14, "coral", 31],
+        [0.74, 0.12, 0.18, 0.16, "leaf", 37],
+        [0.86, 0.16, 0.17, 0.16, "moss", 41],
+        [0.96, 0.26, 0.14, 0.18, "sky", 53],
+        [0.85, 0.32, 0.17, 0.16, "violet", 67],
+        [0.68, 0.28, 0.18, 0.16, "rose", 79],
+        [0.52, 0.32, 0.15, 0.15, "leaf", 83],
+        [0.90, 0.42, 0.13, 0.15, "gold", 97],
       ];
       washes.forEach(([x, y, radiusX, radiusY, tone, seed]) => {
-        if (compact && x < 0.54) return;
+        if (compact && x < 0.35) return;
         drawCanopyWash(
           columns * x,
           rows * y,
@@ -439,117 +487,172 @@ const AsciiTreeCanvas: React.FC = () => {
           tone,
           seed,
           wind,
-          fade * (isDark ? 0.58 : 0.54),
+          fade * (isDark ? 0.68 : 0.62),
           growth,
         );
       });
 
+      // Massive Central Trunk Backbone
       const trunk: CurvePoints = [
         baseX,
         baseY,
-        columns * 0.7,
-        rows * 0.84,
-        columns * 0.78,
+        columns * 0.71,
+        rows * 0.88,
+        columns * 0.77,
         rows * 0.68,
         forkX,
         forkY,
       ];
-      drawCurve(trunk, "barkDeep", trunkWidth, fade, smoothstep(0.02, 0.46, growth));
+      drawCurve(trunk, "barkDeep", trunkWidth, fade, smoothstep(0.01, 0.48, growth));
 
+      // 9 Intertwined Braided Bark Ribbons
       const ribbons: Array<[number, CurvePoints, SceneTone, number]> = [
-        [-0.34, [baseX - 3, baseY, columns * 0.67, rows * 0.86, columns * 0.74, rows * 0.67, forkX - 2.4, forkY], "bark", 0.19],
-        [-0.15, [baseX - 1.2, baseY, columns * 0.75, rows * 0.86, columns * 0.69, rows * 0.69, forkX - 1.1, forkY], "barkLight", 0.1],
-        [0.05, [baseX + 0.4, baseY, columns * 0.7, rows * 0.84, columns * 0.79, rows * 0.67, forkX + 0.4, forkY], "bark", 0.2],
-        [0.22, [baseX + 2, baseY, columns * 0.77, rows * 0.83, columns * 0.72, rows * 0.66, forkX + 1.6, forkY], "barkLight", 0.09],
-        [0.38, [baseX + 3.3, baseY, columns * 0.72, rows * 0.84, columns * 0.8, rows * 0.68, forkX + 2.8, forkY], "bark", 0.16],
+        [-0.45, [baseX - trunkWidth * 0.42, baseY, columns * 0.65, rows * 0.88, columns * 0.72, rows * 0.67, forkX - trunkWidth * 0.36, forkY], "bark", 0.28],
+        [-0.30, [baseX - trunkWidth * 0.28, baseY, columns * 0.68, rows * 0.88, columns * 0.74, rows * 0.68, forkX - trunkWidth * 0.24, forkY], "barkLight", 0.18],
+        [-0.15, [baseX - trunkWidth * 0.14, baseY, columns * 0.75, rows * 0.87, columns * 0.69, rows * 0.69, forkX - trunkWidth * 0.12, forkY], "bark", 0.24],
+        [0.0, [baseX, baseY, columns * 0.70, rows * 0.85, columns * 0.78, rows * 0.67, forkX, forkY], "barkDeep", 0.32],
+        [0.15, [baseX + trunkWidth * 0.14, baseY, columns * 0.73, rows * 0.84, columns * 0.75, rows * 0.66, forkX + trunkWidth * 0.12, forkY], "barkLight", 0.18],
+        [0.30, [baseX + trunkWidth * 0.28, baseY, columns * 0.78, rows * 0.84, columns * 0.72, rows * 0.66, forkX + trunkWidth * 0.24, forkY], "bark", 0.24],
+        [0.45, [baseX + trunkWidth * 0.42, baseY, columns * 0.74, rows * 0.85, columns * 0.82, rows * 0.68, forkX + trunkWidth * 0.36, forkY], "barkLight", 0.18],
+        [-0.08, [baseX - trunkWidth * 0.08, baseY, columns * 0.69, rows * 0.86, columns * 0.76, rows * 0.68, forkX - trunkWidth * 0.06, forkY], "barkDeep", 0.2],
+        [0.08, [baseX + trunkWidth * 0.08, baseY, columns * 0.74, rows * 0.83, columns * 0.74, rows * 0.66, forkX + trunkWidth * 0.06, forkY], "bark", 0.2],
       ];
       ribbons.forEach(([offset, points, tone, ribbonScale]) => {
         drawCurve(
-          points.map((value, index) => (index % 2 === 0 ? value + offset : value)) as CurvePoints,
+          points.map((value, index) => (index % 2 === 0 ? value + offset * 1.6 : value)) as CurvePoints,
           tone,
-          Math.max(0.65, trunkWidth * ribbonScale),
-          fade * 0.92,
-          smoothstep(0.08, 0.52, growth),
+          Math.max(1.2, trunkWidth * ribbonScale),
+          fade * 0.96,
+          smoothstep(0.04, 0.54, growth),
         );
       });
 
+      // Primary Major Boughs branching outwards
       const boughs: Array<[CurvePoints, number, SceneTone, number]> = [
-        [[forkX, rows * 0.58, columns * 0.65, rows * 0.5, columns * 0.54, rows * 0.42, columns * 0.48, rows * 0.28], trunkWidth * 0.53, "barkDeep", 0.86],
-        [[forkX - 1, rows * 0.55, columns * 0.66, rows * 0.43, columns * 0.6, rows * 0.28, columns * 0.55, rows * 0.16], trunkWidth * 0.46, "barkDeep", 0.79],
-        [[forkX, rows * 0.54, columns * 0.74, rows * 0.39, columns * 0.72, rows * 0.24, columns * 0.72, rows * 0.11], trunkWidth * 0.42, "bark", 0.76],
-        [[forkX + 1, rows * 0.57, columns * 0.79, rows * 0.51, columns * 0.86, rows * 0.43, columns * 0.94, rows * 0.31], trunkWidth * 0.55, "barkDeep", 0.85],
-        [[forkX, rows * 0.48, columns * 0.78, rows * 0.37, columns * 0.85, rows * 0.21, columns * 0.91, rows * 0.13], trunkWidth * 0.43, "barkDeep", 0.8],
-        [[forkX - 2, rows * 0.44, columns * 0.63, rows * 0.34, columns * 0.55, rows * 0.2, columns * 0.49, rows * 0.1], trunkWidth * 0.29, "bark", 0.72],
-        [[forkX + 2, rows * 0.49, columns * 0.82, rows * 0.48, columns * 0.9, rows * 0.5, columns * 0.98, rows * 0.43], trunkWidth * 0.3, "bark", 0.72],
+        // Left sweeping canopy bough extending over headline
+        [
+          [forkX, rows * 0.56, columns * 0.54, rows * 0.44, columns * 0.36, rows * 0.32, columns * 0.24, rows * 0.16],
+          trunkWidth * 0.58,
+          "barkDeep",
+          0.88,
+        ],
+        // Left mid bough
+        [
+          [forkX - 2, rows * 0.52, columns * 0.58, rows * 0.38, columns * 0.48, rows * 0.24, columns * 0.42, rows * 0.10],
+          trunkWidth * 0.52,
+          "barkDeep",
+          0.84,
+        ],
+        // Center crown rising vertical bough
+        [
+          [forkX, rows * 0.50, columns * 0.72, rows * 0.34, columns * 0.68, rows * 0.18, columns * 0.68, rows * 0.06],
+          trunkWidth * 0.50,
+          "bark",
+          0.80,
+        ],
+        // Right sweeping primary bough
+        [
+          [forkX + 2, rows * 0.54, columns * 0.84, rows * 0.48, columns * 0.92, rows * 0.38, columns * 0.98, rows * 0.24],
+          trunkWidth * 0.62,
+          "barkDeep",
+          0.88,
+        ],
+        // Right upper crown bough
+        [
+          [forkX + 1, rows * 0.46, columns * 0.82, rows * 0.32, columns * 0.90, rows * 0.16, columns * 0.96, rows * 0.08],
+          trunkWidth * 0.48,
+          "barkDeep",
+          0.82,
+        ],
+        // Far left foliage arm
+        [
+          [forkX - 3, rows * 0.42, columns * 0.50, rows * 0.28, columns * 0.38, rows * 0.14, columns * 0.30, rows * 0.06],
+          trunkWidth * 0.36,
+          "bark",
+          0.76,
+        ],
+        // Far right foliage arm
+        [
+          [forkX + 3, rows * 0.46, columns * 0.86, rows * 0.44, columns * 0.94, rows * 0.46, columns * 1.0, rows * 0.38],
+          trunkWidth * 0.38,
+          "bark",
+          0.76,
+        ],
       ];
       boughs.forEach(([points, branchWidth, tone, threshold], index) => {
         drawCurve(
           points.map((value, pointIndex) =>
-            pointIndex % 2 === 0 && pointIndex > 1 ? value + wind * (0.08 + index * 0.012) : value,
+            pointIndex % 2 === 0 && pointIndex > 1 ? value + wind * (0.09 + index * 0.014) : value,
           ) as CurvePoints,
           tone,
-          Math.max(0.9, branchWidth),
+          Math.max(1.4, branchWidth),
           fade,
-          smoothstep(0.28, threshold, growth),
+          smoothstep(0.22, threshold, growth),
         );
       });
 
+      // Recursive Twig Clusters spanning across the crown & arch
       const twigOrigins: Array<[number, number, number, number, number]> = [
-        [0.48, 0.28, -2.56, 12, 17],
-        [0.55, 0.16, -2.03, 13, 31],
-        [0.72, 0.11, -1.54, 12, 47],
-        [0.91, 0.13, -0.72, 14, 61],
-        [0.94, 0.31, -0.2, 13, 73],
-        [0.98, 0.43, 0.23, 10, 89],
-        [0.61, 0.34, -2.75, 10, 101],
+        [0.24, 0.16, -2.75, 18, 11],
+        [0.30, 0.06, -2.45, 16, 17],
+        [0.42, 0.10, -2.05, 18, 31],
+        [0.68, 0.06, -1.55, 17, 47],
+        [0.96, 0.08, -0.65, 18, 61],
+        [0.98, 0.24, -0.12, 18, 73],
+        [1.0, 0.38, 0.30, 15, 89],
+        [0.50, 0.28, -2.85, 15, 101],
+        [0.84, 0.34, 0.06, 15, 113],
       ];
       twigOrigins.forEach(([x, y, angle, length, seed], index) => {
-        if (compact && x < 0.52) return;
+        if (compact && x < 0.32) return;
         drawTwig(
           columns * x,
           rows * y,
           angle,
-          compact ? length * 0.7 : length,
-          compact ? 0.85 : 1.18,
-          3,
+          compact ? length * 0.75 : length,
+          compact ? 1.15 : 1.65,
+          4,
           seed,
           wind,
-          fade * 0.94,
+          fade * 0.96,
           growth,
           index,
         );
       });
 
+      // Luminous Commit Node at the main fork
       sceneContext.globalAlpha = fade;
       sceneContext.fillStyle = SCENE_TONES.node.css;
       sceneContext.beginPath();
-      sceneContext.arc(forkX, rows * 0.58, compact ? 0.85 : 1.15, 0, Math.PI * 2);
+      sceneContext.arc(forkX, rows * 0.56, compact ? 1.3 : 1.9, 0, Math.PI * 2);
       sceneContext.fill();
       sceneContext.globalAlpha = 1;
     };
 
+    // Draw the World-Scale Document Tree through sections to roots
     const drawWorldTree = (time: number, scrollTop: number, documentHeight: number) => {
       const compact = width <= 680;
       const wind =
-        Math.sin(time * 0.00038 + scrollTop * 0.00016) * (compact ? 0.42 : 0.9) +
-        Math.sin(time * 0.00017 + 2.4) * 0.34 +
-        pointerX * (compact ? 0.2 : 0.5) +
-        pointerY * 0.08;
+        Math.sin(time * 0.00042 + scrollTop * 0.00018) * (compact ? 0.5 : 1.0) +
+        Math.sin(time * 0.00019 + 2.6) * 0.4 +
+        pointerX * (compact ? 0.25 : 0.6) +
+        pointerY * 0.1;
 
+      // Section waypoints that guide the trunk curve
       const waypoints = [
-        { y: height * 0.82, x: compact ? 0.82 : 0.74 },
+        { y: height * 0.8, x: compact ? 0.8 : 0.74 },
         ...sectionAnchors.map((section) => ({
-          y: section.top + Math.min(92, section.height * 0.1),
-          x: compact ? 0.075 : section.side === "left" ? 0.84 : 0.16,
+          y: section.top + Math.min(84, section.height * 0.08),
+          x: compact ? 0.08 : section.side === "left" ? 0.82 : 0.18,
         })),
-        { y: documentHeight - height * 0.42, x: compact ? 0.09 : 0.5 },
+        { y: documentHeight - height * 0.35, x: compact ? 0.1 : 0.5 },
       ].sort((a, b) => a.y - b.y);
 
       const trunkXAt = (worldY: number) => {
         if (compact) {
-          const handoff = smoothstep(height * 0.78, height * 1.42, worldY);
-          const x = 0.78 + (0.075 - 0.78) * handoff;
-          return columns * (x + Math.sin(worldY * 0.0017) * 0.013 * handoff);
+          const handoff = smoothstep(height * 0.75, height * 1.4, worldY);
+          const x = 0.78 + (0.08 - 0.78) * handoff;
+          return columns * (x + Math.sin(worldY * 0.0018) * 0.015 * handoff);
         }
         const first = waypoints[0];
         const last = waypoints[waypoints.length - 1];
@@ -560,7 +663,7 @@ const AsciiTreeCanvas: React.FC = () => {
           const next = waypoints[index + 1];
           if (worldY < current.y || worldY > next.y) continue;
           const progress = smoothstep(current.y, next.y, worldY);
-          const organicDrift = Math.sin(worldY * 0.0031 + index * 1.7) * 0.012;
+          const organicDrift = Math.sin(worldY * 0.003 + index * 1.8) * 0.014;
           return columns * (current.x + (next.x - current.x) * progress + organicDrift);
         }
         return columns * last.x;
@@ -568,49 +671,58 @@ const AsciiTreeCanvas: React.FC = () => {
 
       const toScreenRow = (worldY: number) => (worldY - scrollTop) / cellHeight;
       const pageProgress = clamp(scrollTop / Math.max(1, documentHeight - height));
+
+      // Substantial trunk thickness throughout document scroll (10-18 cells thick)
       const trunkWidth = compact
-        ? 3.2 + Math.sin(pageProgress * Math.PI) * 0.7
-        : columns * (0.032 + Math.sin(pageProgress * Math.PI) * 0.009);
-      const segmentSize = Math.max(260, height * 0.32);
+        ? 8.0 + Math.sin(pageProgress * Math.PI) * 1.8
+        : columns * (0.075 + Math.sin(pageProgress * Math.PI) * 0.022);
+
+      const segmentSize = Math.max(280, height * 0.34);
       const firstSegment = Math.max(
-        height * 0.78,
-        Math.floor((scrollTop - height * 0.55) / segmentSize) * segmentSize,
+        height * 0.75,
+        Math.floor((scrollTop - height * 0.6) / segmentSize) * segmentSize,
       );
       const lastSegment = Math.min(
-        documentHeight + height * 0.2,
-        scrollTop + height * 1.55,
+        documentHeight + height * 0.25,
+        scrollTop + height * 1.6,
       );
 
+      // Render Continuous Trunk Segments
       for (let worldY = firstSegment; worldY < lastSegment; worldY += segmentSize) {
-        const nextWorldY = Math.min(worldY + segmentSize + 1, documentHeight + height * 0.2);
+        const nextWorldY = Math.min(worldY + segmentSize + 1, documentHeight + height * 0.25);
         const y0 = toScreenRow(worldY);
         const y1 = toScreenRow(nextWorldY);
         const x0 = trunkXAt(worldY);
         const x1 = trunkXAt(nextWorldY);
         const segmentIndex = Math.floor(worldY / segmentSize);
-        const bend = (seeded(segmentIndex * 13 + 7) - 0.5) * (compact ? 1.2 : 3.8);
+        const bend = (seeded(segmentIndex * 13 + 7) - 0.5) * (compact ? 1.8 : 4.8);
         const points: CurvePoints = [
           x0,
           y0,
-          x0 + bend + wind * 0.1,
+          x0 + bend + wind * 0.14,
           y0 + (y1 - y0) * 0.34,
-          x1 - bend + wind * 0.18,
+          x1 - bend + wind * 0.22,
           y0 + (y1 - y0) * 0.68,
           x1,
           y1,
         ];
 
-        drawCurve(points, "barkDeep", trunkWidth, 0.96);
+        // Central Core Wood
+        drawCurve(points, "barkDeep", trunkWidth, 0.98);
+
+        // Multiple Bark Ribbons for Braided Grain Look
         const ribbons: Array<[number, SceneTone, number]> = [
-          [-0.32, "bark", 0.18],
-          [-0.12, "barkLight", 0.075],
-          [0.06, "bark", 0.16],
-          [0.23, "barkLight", 0.06],
-          [0.37, "bark", 0.13],
+          [-0.40, "bark", 0.28],
+          [-0.20, "barkLight", 0.14],
+          [0.0, "barkDeep", 0.24],
+          [0.20, "barkLight", 0.14],
+          [0.40, "bark", 0.26],
+          [-0.10, "bark", 0.16],
+          [0.10, "barkLight", 0.12],
         ];
         ribbons.forEach(([offsetScale, tone, widthScale], ribbonIndex) => {
           const offset = trunkWidth * offsetScale;
-          const ripple = Math.sin(segmentIndex * 2.1 + ribbonIndex) * (compact ? 0.3 : 0.7);
+          const ripple = Math.sin(segmentIndex * 2.2 + ribbonIndex) * (compact ? 0.45 : 0.95);
           drawCurve(
             [
               points[0] + offset,
@@ -623,23 +735,24 @@ const AsciiTreeCanvas: React.FC = () => {
               points[7],
             ],
             tone,
-            Math.max(0.46, trunkWidth * widthScale),
-            tone === "barkLight" ? 0.74 : 0.9,
+            Math.max(0.8, trunkWidth * widthScale),
+            tone === "barkLight" ? 0.82 : 0.95,
           );
         });
 
-        const knotWorldY = worldY + segmentSize * (0.44 + seeded(segmentIndex + 18) * 0.24);
+        // Bark Knots and Rings
+        const knotWorldY = worldY + segmentSize * (0.42 + seeded(segmentIndex + 18) * 0.26);
         const knotY = toScreenRow(knotWorldY);
         const knotX = trunkXAt(knotWorldY);
-        sceneContext.globalAlpha = 0.68;
+        sceneContext.globalAlpha = 0.75;
         sceneContext.strokeStyle = SCENE_TONES.barkLight.css;
-        sceneContext.lineWidth = Math.max(0.45, trunkWidth * 0.07);
+        sceneContext.lineWidth = Math.max(0.75, trunkWidth * 0.085);
         sceneContext.beginPath();
         sceneContext.ellipse(
           knotX + (seeded(segmentIndex + 44) - 0.5) * trunkWidth * 0.5,
           knotY,
-          Math.max(0.8, trunkWidth * 0.27),
-          Math.max(0.65, trunkWidth * 0.12),
+          Math.max(1.4, trunkWidth * 0.34),
+          Math.max(1.0, trunkWidth * 0.18),
           seeded(segmentIndex + 61) * Math.PI,
           0,
           Math.PI * 2,
@@ -648,34 +761,36 @@ const AsciiTreeCanvas: React.FC = () => {
         sceneContext.globalAlpha = 1;
       }
 
+      // Render Section Anchor Limbs & Commit Waypoints
       sectionAnchors.forEach((section) => {
-        const worldY = section.top + Math.min(92, section.height * 0.1);
+        const worldY = section.top + Math.min(84, section.height * 0.08);
         const screenY = toScreenRow(worldY);
-        if (screenY < -24 || screenY > rows + 24) return;
+        if (screenY < -32 || screenY > rows + 32) return;
 
-        const sectionGrowth = 1 - smoothstep(rows * 0.8, rows * 1.08, screenY);
+        const sectionGrowth = 1 - smoothstep(rows * 0.78, rows * 1.06, screenY);
         const trunkX = trunkXAt(worldY);
         const endX = compact
-          ? columns * 0.2
-          : columns * (section.side === "left" ? 0.57 : 0.43);
-        const endY = screenY - (compact ? 2.5 : 5 + (section.index % 2) * 1.8);
+          ? columns * 0.18
+          : columns * (section.side === "left" ? 0.52 : 0.48);
+        const endY = screenY - (compact ? 2.8 : 6.0 + (section.index % 2) * 2.0);
         const tone = toneForIndex(section.index);
-        const branchWidth = compact ? 1.05 : Math.max(1.5, trunkWidth * 0.34);
+        const branchWidth = compact ? 2.2 : Math.max(3.2, trunkWidth * 0.44);
 
+        // Heavy bough connecting trunk to section
         drawCurve(
           [
             trunkX,
             screenY,
             trunkX + (endX - trunkX) * 0.28,
-            screenY - 0.8,
+            screenY - 1.2,
             trunkX + (endX - trunkX) * 0.7,
-            endY + 1.3,
+            endY + 1.6,
             endX,
             endY,
           ],
-          section.index % 3 === 0 ? "bark" : "barkDeep",
+          section.index % 2 === 0 ? "bark" : "barkDeep",
           branchWidth,
-          0.96,
+          0.98,
           sectionGrowth,
         );
         drawCurve(
@@ -690,101 +805,94 @@ const AsciiTreeCanvas: React.FC = () => {
             endY,
           ],
           "barkLight",
-          Math.max(0.42, branchWidth * 0.13),
-          0.68,
+          Math.max(0.7, branchWidth * 0.24),
+          0.8,
           sectionGrowth,
         );
 
         if (sectionGrowth > 0.05) {
+          // Lush section canopy wash
           drawCanopyWash(
             endX,
-            endY - 1,
-            compact ? 4 : 8.5,
-            compact ? 3 : 5.5,
+            endY - 1.5,
+            compact ? 6.5 : 13.0,
+            compact ? 5.0 : 8.5,
             tone,
-            section.index * 29 + 11,
+            section.index * 31 + 11,
             wind,
-            sectionGrowth * 0.3,
+            sectionGrowth * 0.45,
             1,
           );
+          // Delicate section twigs & leaves
           drawTwig(
             endX,
             endY,
-            compact ? -0.22 : section.side === "left" ? -2.72 : -0.42,
-            compact ? 5.5 : 13 + (section.index % 3) * 1.7,
-            compact ? 0.72 : 1.08,
-            compact ? 1 : 3,
-            section.index * 37 + 23,
+            compact ? -0.25 : section.side === "left" ? -2.78 : -0.38,
+            compact ? 8.0 : 18 + (section.index % 3) * 2.4,
+            compact ? 1.1 : 1.55,
+            compact ? 2 : 4,
+            section.index * 41 + 23,
             wind,
-            sectionGrowth * 0.9,
+            sectionGrowth * 0.95,
             1,
             section.index,
           );
           drawLeafCluster(
             endX,
             endY,
-            compact ? 0.34 : 0.58,
+            compact ? 0.52 : 0.88,
             wind,
-            sectionGrowth * 0.86,
+            sectionGrowth * 0.94,
             tone,
             section.index % 3 === 0 ? "gold" : undefined,
           );
         }
 
+        // Section Commit Node Anchor
         sceneContext.globalAlpha = sectionGrowth;
         sceneContext.fillStyle = SCENE_TONES.node.css;
         sceneContext.beginPath();
-        sceneContext.arc(trunkX, screenY, compact ? 0.54 : 0.86, 0, Math.PI * 2);
+        sceneContext.arc(trunkX, screenY, compact ? 0.95 : 1.45, 0, Math.PI * 2);
         sceneContext.fill();
         sceneContext.globalAlpha = 1;
       });
 
-      const sprigSpacing = Math.max(440, height * 0.58);
+      // Intermediate Organic Sprigs
+      const sprigSpacing = Math.max(380, height * 0.48);
       const firstSprig = Math.floor((scrollTop - height * 0.4) / sprigSpacing) * sprigSpacing;
       for (
-        let worldY = Math.max(height * 1.1, firstSprig);
-        worldY < scrollTop + height * 1.4;
+        let worldY = Math.max(height * 1.0, firstSprig);
+        worldY < scrollTop + height * 1.5;
         worldY += sprigSpacing
       ) {
-        if (sectionAnchors.some((section) => Math.abs(section.top - worldY) < 240)) continue;
+        if (sectionAnchors.some((section) => Math.abs(section.top - worldY) < 220)) continue;
         const sprigIndex = Math.floor(worldY / sprigSpacing);
         const screenY = toScreenRow(worldY);
         const trunkX = trunkXAt(worldY);
         const direction = sprigIndex % 2 === 0 ? 1 : -1;
-        const reach = compact ? 4.5 : 8 + seeded(sprigIndex + 7) * 6;
+        const reach = compact ? 6.5 : 14 + seeded(sprigIndex + 7) * 9;
         const endX = trunkX + direction * reach;
-        const endY = screenY - 2.6 - seeded(sprigIndex + 17) * 3;
+        const endY = screenY - 3.2 - seeded(sprigIndex + 17) * 4;
         const tone = toneForIndex(sprigIndex);
         drawCurve(
-          [trunkX, screenY, trunkX + direction * reach * 0.28, screenY, endX - direction * 2, endY, endX, endY],
+          [trunkX, screenY, trunkX + direction * reach * 0.28, screenY, endX - direction * 2.5, endY, endX, endY],
           "bark",
-          compact ? 0.58 : 0.86,
-          0.68,
+          compact ? 0.9 : 1.35,
+          0.82,
         );
-        drawLeafCluster(endX, endY, compact ? 0.24 : 0.38, wind, 0.58, tone);
+        drawLeafCluster(endX, endY, compact ? 0.38 : 0.6, wind, 0.76, tone);
       }
 
-      const sporeBand = Math.floor(scrollTop / height);
-      sceneContext.fillStyle = SCENE_TONES.spore.css;
-      for (let index = 0; index < 28; index += 1) {
-        const seed = sporeBand * 43 + index;
-        const worldY = (sporeBand - 0.2 + seeded(seed + 9) * 1.5) * height;
-        const screenY = toScreenRow(worldY);
-        if (screenY < -2 || screenY > rows + 2) continue;
-        const x = columns * seeded(seed + 21) + Math.sin(time * 0.00022 + index) * 1.4;
-        sceneContext.globalAlpha = 0.06 + seeded(seed + 33) * 0.15;
-        sceneContext.beginPath();
-        sceneContext.arc(x, screenY, 0.16 + seeded(seed + 47) * 0.24, 0, Math.PI * 2);
-        sceneContext.fill();
-      }
-      sceneContext.globalAlpha = 1;
-
-      const rootStart = documentHeight - height * 0.82;
-      if (scrollTop + height > rootStart - height * 0.25) {
+      // Sprawling Footer Root System
+      const rootStart = documentHeight - height * 0.95;
+      if (scrollTop + height > rootStart - height * 0.3) {
         const rootX = trunkXAt(rootStart);
         const rootY = toScreenRow(rootStart);
-        const rootEndY = toScreenRow(documentHeight + height * 0.08);
-        const rootEnds = compact ? [0.02, 0.28, 0.56] : [0.02, 0.18, 0.36, 0.62, 0.82, 0.98];
+        const rootEndY = toScreenRow(documentHeight + height * 0.12);
+        const rootEnds = compact
+          ? [0.03, 0.25, 0.5, 0.78, 0.97]
+          : [0.02, 0.12, 0.25, 0.42, 0.58, 0.74, 0.88, 0.98];
+
         rootEnds.forEach((endFraction, index) => {
           const endX = columns * endFraction;
           const direction = endX < rootX ? -1 : 1;
@@ -792,16 +900,16 @@ const AsciiTreeCanvas: React.FC = () => {
             [
               rootX,
               rootY,
-              rootX + direction * trunkWidth * (0.8 + index * 0.08),
+              rootX + direction * trunkWidth * (0.9 + index * 0.1),
               rootY + (rootEndY - rootY) * 0.28,
-              endX - direction * columns * 0.07,
+              endX - direction * columns * 0.08,
               rootY + (rootEndY - rootY) * 0.7,
               endX,
               rootEndY,
             ],
             index % 2 === 0 ? "barkDeep" : "bark",
-            Math.max(0.78, trunkWidth * (0.22 + (index % 3) * 0.035)),
-            0.94,
+            Math.max(1.2, trunkWidth * (0.36 + (index % 3) * 0.05)),
+            0.96,
           );
         });
       }
@@ -828,10 +936,11 @@ const AsciiTreeCanvas: React.FC = () => {
       return nearest;
     };
 
+    // Sample offscreen raster buffer and map into crisp ASCII characters
     const renderAscii = () => {
       const pixels = sceneContext.getImageData(0, 0, columns, rows).data;
       context.clearRect(0, 0, width, height);
-      context.font = `600 ${Math.round(cellHeight * 0.82)}px "JetBrains Mono", "SFMono-Regular", monospace`;
+      context.font = `600 ${Math.round(cellHeight * 0.84)}px "JetBrains Mono", "SFMono-Regular", Consolas, monospace`;
 
       const alphaAt = (x: number, y: number) => {
         if (x < 0 || y < 0 || x >= columns || y >= rows) return 0;
@@ -842,44 +951,51 @@ const AsciiTreeCanvas: React.FC = () => {
         for (let x = 0; x < columns; x += 1) {
           const index = (y * columns + x) * 4;
           const alpha = pixels[index + 3] / 255;
-          if (alpha < 0.045) continue;
+          if (alpha < 0.035) continue;
 
           const tone = nearestTone(pixels[index], pixels[index + 1], pixels[index + 2]);
           let character = ".";
 
           if (tone === "node") {
-            character = alpha > 0.48 ? "o" : "+";
-          } else if (tone === "moss" || tone === "leaf") {
-            character = alpha > 0.7 ? "*" : alpha > 0.3 ? "+" : ".";
+            character = alpha > 0.45 ? "●" : "o";
+          } else if (tone === "leaf" || tone === "moss") {
+            character = alpha > 0.72 ? "@" : alpha > 0.45 ? "*" : alpha > 0.2 ? "+" : ".";
           } else if (tone === "gold") {
-            character = alpha > 0.62 ? "o" : alpha > 0.25 ? "*" : ".";
+            character = alpha > 0.65 ? "o" : alpha > 0.28 ? "*" : ".";
           } else if (tone === "coral") {
-            character = alpha > 0.58 ? "%" : alpha > 0.24 ? "*" : ".";
+            character = alpha > 0.6 ? "%" : alpha > 0.25 ? "*" : ".";
           } else if (tone === "rose") {
-            character = alpha > 0.58 ? "@" : alpha > 0.24 ? "+" : ".";
+            character = alpha > 0.6 ? "@" : alpha > 0.25 ? "+" : ".";
           } else if (tone === "violet") {
-            character = alpha > 0.56 ? "~" : alpha > 0.23 ? "+" : ".";
+            character = alpha > 0.58 ? "~" : alpha > 0.24 ? "+" : ".";
           } else if (tone === "sky") {
-            character = alpha > 0.52 ? "+" : ".";
+            character = alpha > 0.55 ? "+" : ".";
           } else if (tone === "spore") {
-            character = alpha > 0.35 ? ":" : ".";
+            character = alpha > 0.38 ? ":" : "·";
+          } else if (tone === "ambient") {
+            character = "·";
           } else {
+            // Bark & structural wood texturing
             const horizontalGradient = alphaAt(x + 1, y) - alphaAt(x - 1, y);
             const verticalGradient = alphaAt(x, y + 1) - alphaAt(x, y - 1);
-            if (Math.abs(horizontalGradient) > Math.abs(verticalGradient) * 1.35) {
+            if (Math.abs(horizontalGradient) > Math.abs(verticalGradient) * 1.3) {
               character = "|";
-            } else if (Math.abs(verticalGradient) > Math.abs(horizontalGradient) * 1.35) {
+            } else if (Math.abs(verticalGradient) > Math.abs(horizontalGradient) * 1.3) {
               character = "-";
             } else if (horizontalGradient * verticalGradient > 0) {
               character = "/";
             } else if (horizontalGradient * verticalGradient < 0) {
               character = "\\";
             } else {
-              character = alpha > 0.72 ? "#" : alpha > 0.34 ? ":" : ".";
+              character = alpha > 0.78 ? "█" : alpha > 0.55 ? "▓" : alpha > 0.32 ? "#" : ":";
             }
           }
 
-          context.globalAlpha = clamp(alpha * 1.34, 0.12, tone === "barkDeep" ? 0.94 : 0.9);
+          context.globalAlpha = clamp(
+            alpha * 1.38,
+            0.14,
+            tone === "barkDeep" ? 0.96 : 0.92,
+          );
           context.fillStyle = palette[tone];
           context.fillText(character, (x + 0.5) * cellWidth, (y + 0.5) * cellHeight);
         }
@@ -890,24 +1006,34 @@ const AsciiTreeCanvas: React.FC = () => {
     const draw = (time: number) => {
       animationFrame = null;
       if (document.visibilityState === "hidden") return;
-      if (!reducedMotion.matches && time - lastFrame < 40) {
+      if (!reducedMotion.matches && time - lastFrame < 33) {
         animationFrame = window.requestAnimationFrame(draw);
         return;
       }
       lastFrame = time;
+
+      // Smooth pointer interpolation
+      pointerX += (targetPointerX - pointerX) * 0.08;
+      pointerY += (targetPointerY - pointerY) * 0.08;
+
       sceneContext.clearRect(0, 0, columns, rows);
       const scrollTop = window.scrollY;
       const documentHeight = document.documentElement.scrollHeight;
       const motionTime = reducedMotion.matches ? 0 : time;
+
       drawWorldTree(motionTime, scrollTop, documentHeight);
-      if (scrollTop < height * 1.35) {
+      if (scrollTop < height * 1.4) {
         sceneContext.save();
         sceneContext.translate(0, -scrollTop / cellHeight);
         drawHeroTree(motionTime, scrollTop);
         sceneContext.restore();
       }
+
       renderAscii();
-      if (!reducedMotion.matches) animationFrame = window.requestAnimationFrame(draw);
+
+      if (!reducedMotion.matches) {
+        animationFrame = window.requestAnimationFrame(draw);
+      }
     };
 
     const start = () => {
@@ -924,8 +1050,8 @@ const AsciiTreeCanvas: React.FC = () => {
 
     const handlePointer = (event: PointerEvent) => {
       if (reducedMotion.matches) return;
-      pointerX = (event.clientX / Math.max(1, width)) * 2 - 1;
-      pointerY = (event.clientY / Math.max(1, height)) * 2 - 1;
+      targetPointerX = (event.clientX / Math.max(1, width)) * 2 - 1;
+      targetPointerY = (event.clientY / Math.max(1, height)) * 2 - 1;
     };
 
     const handleScroll = () => {
@@ -946,6 +1072,8 @@ const AsciiTreeCanvas: React.FC = () => {
       if (reducedMotion.matches) {
         pointerX = 0;
         pointerY = 0;
+        targetPointerX = 0;
+        targetPointerY = 0;
       }
       restart();
     };
@@ -954,6 +1082,7 @@ const AsciiTreeCanvas: React.FC = () => {
       readPalette();
       restart();
     });
+
     const resizeObserver = new ResizeObserver(() => {
       resize();
       restart();
@@ -962,7 +1091,11 @@ const AsciiTreeCanvas: React.FC = () => {
     resize();
     start();
     resizeObserver.observe(document.body);
-    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     window.addEventListener("resize", resize);
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("pointermove", handlePointer, { passive: true });
@@ -981,7 +1114,13 @@ const AsciiTreeCanvas: React.FC = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="ascii-shader-canvas" aria-hidden="true" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="ascii-shader-canvas"
+      aria-hidden="true"
+    />
+  );
 };
 
 export default AsciiTreeCanvas;
