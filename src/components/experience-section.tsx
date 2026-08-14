@@ -5,6 +5,7 @@ interface ExperienceItem {
   company: string;
   location: string;
   date: string;
+  gitTag: string;
   link?: string;
   logo?: string;
   logoLight?: string;
@@ -19,6 +20,7 @@ const experiences: ExperienceItem[] = [
     company: "Sealing Technologies, a Parsons Company",
     location: "Columbia, MD",
     date: "May 2026 – Aug. 2026",
+    gitTag: "HEAD · air-gapped-ai",
     link: "https://www.sealingtech.com/",
     description: [
       "Re-architected networking and deployment for an air-gapped AI stack, replacing hardcoded routing and a single Compose pod with hardened NGINX, independently managed systemd services, and Ansible provisioning.",
@@ -38,6 +40,7 @@ const experiences: ExperienceItem[] = [
     company: "AggieWorks (UC Davis Product Organization)",
     location: "Davis, CA",
     date: "Oct. 2024 – Jun. 2026",
+    gitTag: "merge · cattlelog-60k",
     link: "https://aggieworks.org/",
     logo: "/logos/aw_logo.svg",
     description: [
@@ -62,6 +65,7 @@ const experiences: ExperienceItem[] = [
     company: "Persist AI (YC W23)",
     location: "Sacramento, CA",
     date: "Feb. 2026 – May 2026",
+    gitTag: "branch · 22-agents",
     link: "https://www.persist.ai/",
     description: [
       "Engineered a multi-agent web platform for pharmaceutical formulation workflows, integrating 22 specialized backend agents for project execution, collaboration, and research automation.",
@@ -82,6 +86,7 @@ const experiences: ExperienceItem[] = [
     company: "Kaiser Permanente",
     location: "Remote",
     date: "Jun. 2025 – Dec. 2025",
+    gitTag: "commit · kafka-500k",
     link: "https://www.kaiserpermanente.com/",
     logo: "/logos/kp_logo.svg",
     description: [
@@ -102,6 +107,7 @@ const experiences: ExperienceItem[] = [
     company: "PNA Bio Inc.",
     location: "Thousand Oaks, CA",
     date: "Sep. 2024 – Jan. 2025",
+    gitTag: "init · bioinformatics",
     link: "https://www.pnabio.com/",
     logoLight: "/logos/pna_logo_light.svg",
     logoDark: "/logos/pna_logo_dark.svg",
@@ -135,19 +141,19 @@ function ExperienceLogo({
   experience: ExperienceItem;
 }) {
   const baseClasses =
-    "relative z-10 flex h-14 w-14 sm:h-16 sm:w-16 flex-none items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--paper)] transition-colors duration-200 group-hover/item:border-[var(--accent-edge)]";
+    "relative z-10 flex h-13 w-13 sm:h-14 sm:w-14 flex-none items-center justify-center rounded-xl border border-[var(--line)] bg-[var(--paper)] shadow-sm transition-all duration-200 group-hover/item:border-[var(--accent-edge)] group-hover/item:shadow-md";
 
   if (!experience.logo && !experience.logoLight && !experience.logoDark) {
     const companyCode = companyCodeForBadge(experience.company);
 
     return (
       <div
-        className={`${baseClasses} flex-col gap-1.5 font-mono leading-none`}
+        className={`${baseClasses} flex-col gap-1 font-mono leading-none`}
         role="img"
         aria-label={`${experience.company} badge`}
       >
         <svg
-          className="h-4 w-4 text-[var(--accent)]"
+          className="h-3.5 w-3.5 text-[var(--accent)]"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -160,7 +166,7 @@ function ExperienceLogo({
           <circle cx="18" cy="9" r="2.4" />
           <path d="M6 8.4v7.2M8.2 6.6c6 0 7.6 1 7.6 4.4" />
         </svg>
-        <span className="text-sm font-semibold tracking-normal text-[var(--ink-soft)]">
+        <span className="text-xs font-semibold tracking-normal text-[var(--ink-soft)]">
           {companyCode}
         </span>
       </div>
@@ -171,7 +177,7 @@ function ExperienceLogo({
     <div className={baseClasses}>
       {(experience.logoLight || experience.logoDark) && (
         <div
-          className="theme-logo h-10 w-10 sm:h-12 sm:w-12"
+          className="theme-logo h-9 w-9 sm:h-10 sm:w-10"
           style={
             {
               "--logo-light": `url(${experience.logoLight})`,
@@ -187,9 +193,9 @@ function ExperienceLogo({
         <img
           src={experience.logo}
           alt={`${experience.company} logo`}
-          width={48}
-          height={48}
-          className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
+          width={40}
+          height={40}
+          className="h-9 w-9 sm:h-10 sm:w-10 object-contain"
         />
       )}
     </div>
@@ -201,33 +207,49 @@ const ExperienceSection = () => {
     <section className="page-section ecosystem-experience">
       <div>
         <div className="section-head ecosystem-experience-head">
-          <span className="section-num">02</span>
+          <span className="section-num">03</span>
           <h2 className="section-title">Where I&apos;ve worked</h2>
-          <span className="section-note">worktree · active history</span>
+          <span className="section-note">worktree · continuous spine</span>
         </div>
       </div>
 
-      <div className="quiet-list experience-root-list">
+      <div className="worktree-timeline experience-root-list">
         {experiences.map((experience, index) => {
+          const isLatest = index === 0;
+          const isLast = index === experiences.length - 1;
+
           const content = (
-            <div className="diff-block experience-growth-node" data-growth-index={index + 1}>
-              <div className="diff-gutter">
+            <div className="diff-block experience-worktree-node group/node" data-growth-index={index + 1}>
+              {/* Worktree Gutter with Continuous Commit Spine */}
+              <div className="diff-gutter worktree-gutter">
+                <div className={`worktree-spine-line ${isLatest ? "is-first" : ""} ${isLast ? "is-last" : ""}`} />
+                <div className="worktree-node-pin">
+                  <span className={`worktree-node-dot ${isLatest ? "is-head" : ""}`} />
+                </div>
                 <span className="plus">+</span>
                 <span className="tilde">~</span>
               </div>
+
               <div className="diff-body">
-                <div className="group/item surface-card interactive-surface p-5">
+                <div className="group/item surface-card interactive-surface p-5 transition-all duration-200 hover:-translate-y-0.5">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                     <ExperienceLogo experience={experience} />
 
-                    <div className="min-w-0 flex-1 sm:pt-1">
-                      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="min-w-0 flex-1 sm:pt-0.5">
+                      <div className="flex flex-col gap-2.5 lg:flex-row lg:items-start lg:justify-between">
                         <div>
-                          <p className="meta-text mb-1">worktree · {experience.date}</p>
-                          <h3 className="font-display text-xl font-medium text-[var(--ink)]">
+                          <div className="flex flex-wrap items-center gap-2 mb-1">
+                            <span className="branch-pill text-[11px] py-0.5 px-2">
+                              <span className={`branch-dot ${isLatest ? "bg-[var(--add)]" : "bg-[var(--accent)]"}`} />
+                              {experience.gitTag}
+                            </span>
+                            <span className="meta-text">{experience.date}</span>
+                          </div>
+
+                          <h3 className="font-display text-xl font-medium text-[var(--ink)] tracking-tight">
                             {experience.company}
                           </h3>
-                          <p className="mt-1 text-sm font-medium text-[var(--ink-soft)]">
+                          <p className="mt-0.5 text-sm font-medium text-[var(--ink-soft)]">
                             {experience.title}
                           </p>
                         </div>
@@ -237,7 +259,7 @@ const ExperienceSection = () => {
                           {experience.link && (
                             <>
                               <span className="hidden sm:block text-[var(--line-strong)]">&bull;</span>
-                              <span className="inline-flex items-center gap-1 text-[var(--ink-soft)] transition-colors group-hover/item:text-[var(--accent)]">
+                              <span className="inline-flex items-center gap-1 text-[var(--ink-soft)] transition-colors group-hover/item:text-[var(--accent)] font-mono text-xs">
                                 Visit <span aria-hidden="true">↗</span>
                               </span>
                             </>
@@ -245,16 +267,16 @@ const ExperienceSection = () => {
                         </div>
                       </div>
 
-                      <ul className="mt-4 space-y-2.5 text-sm leading-6 text-[var(--ink-soft)]">
+                      <ul className="mt-4 space-y-2 text-sm leading-relaxed text-[var(--ink-soft)]">
                         {experience.description.map((item) => (
-                          <li key={item} className="flex gap-3">
-                            <span className="mt-0.5 flex-none font-mono text-[var(--add)]">+</span>
+                          <li key={item} className="flex gap-2.5">
+                            <span className="mt-0.5 flex-none font-mono text-[var(--add)] font-medium">+</span>
                             <span>{item}</span>
                           </li>
                         ))}
                       </ul>
 
-                      <div className="mt-5 flex flex-wrap gap-2">
+                      <div className="mt-5 flex flex-wrap gap-1.5 pt-1">
                         {experience.techStack.map((tech) => (
                           <span
                             key={tech}

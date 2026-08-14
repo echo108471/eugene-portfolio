@@ -62,9 +62,9 @@ const Awards: React.FC = () => {
     <section className="page-section">
       <div>
         <div className="section-head">
-          <span className="section-num">07</span>
-          <h2 className="section-title">Awards & honors</h2>
-          <span className="section-note">recognition</span>
+          <span className="section-num">08</span>
+          <h2 className="section-title">Recognition &amp; Milestones</h2>
+          <span className="section-note">recognition · service</span>
         </div>
       </div>
 

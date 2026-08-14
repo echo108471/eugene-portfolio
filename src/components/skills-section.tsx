@@ -60,8 +60,8 @@ const SkillsSection: React.FC = () => {
       <div>
         <div className="section-head">
           <span className="section-num">05</span>
-          <h2 className="section-title">Tools and systems</h2>
-          <span className="section-note">skills.lock</span>
+          <h2 className="section-title">The Root Biome</h2>
+          <span className="section-note">roots · technical ecosystem</span>
         </div>
       </div>
 

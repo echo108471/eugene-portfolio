@@ -56,9 +56,9 @@ const ContactMe: React.FC = () => {
     <section className="page-section pb-16">
       <div>
         <div className="section-head">
-          <span className="section-num">08</span>
-          <h2 className="section-title">Contact</h2>
-          <span className="section-note">git log --oneline</span>
+          <span className="section-num">09</span>
+          <h2 className="section-title">Open Channels</h2>
+          <span className="section-note">git remote -v</span>
         </div>
 
         <div className="diff-block">

@@ -61,9 +61,9 @@ const ReleaseHistory: React.FC = () => {
     <section className="page-section">
       <div>
         <div className="section-head">
-          <span className="section-num">03</span>
-          <h2 className="section-title">Release history</h2>
-          <span className="section-note">git log --me</span>
+          <span className="section-num">06</span>
+          <h2 className="section-title">Personal Changelog</h2>
+          <span className="section-note">git log --growth</span>
         </div>
       </div>
 

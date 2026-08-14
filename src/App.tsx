@@ -1,7 +1,8 @@
 import React from "react";
 import Header from "@/components/header";
 import HeroSection from "@/components/hero-section";
-import LivingBranch from "@/components/living-branch";
+import AsciiTreeCanvas from "@/components/ascii-tree-canvas";
+import MetricsSection from "@/components/metrics-section";
 import ExperienceSection from "@/components/experience-section";
 import Projects from "@/components/project-section";
 import AboutMe from "@/components/about-me";
@@ -15,49 +16,99 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const App: React.FC = () => {
   return (
-    <div className="site-shell">
+    <div className="site-shell ascii-site relative">
       <Header />
+      <AsciiTreeCanvas />
 
-      <main className="site-container pb-14">
-        <div className="living-intro">
-          <LivingBranch />
+      <main className="ascii-main relative z-10 pb-14">
+        <section id="home" className="site-container scroll-mt-24">
+          <HeroSection />
+        </section>
 
-          <section id="home" className="scroll-mt-24">
-            <HeroSection />
-          </section>
+        <div className="site-container ascii-repo-layout">
+          <div className="ascii-branch-stream">
+            <section
+              id="metrics"
+              className="ascii-branch-section scroll-mt-20"
+              data-ref="refs/impact"
+              data-tree-side="left"
+            >
+              <MetricsSection />
+            </section>
 
-          <section id="about" className="living-intro__about scroll-mt-16">
-            <AboutMe />
-          </section>
+            <section
+              id="about"
+              className="ascii-branch-section scroll-mt-20"
+              data-ref="bio.md"
+              data-tree-side="right"
+            >
+              <AboutMe />
+            </section>
 
-          <section id="experience" className="living-intro__experience scroll-mt-16">
-            <ExperienceSection />
-          </section>
+            <section
+              id="experience"
+              className="ascii-branch-section scroll-mt-20"
+              data-ref="worktree"
+              data-tree-side="left"
+            >
+              <ExperienceSection />
+            </section>
+
+            <section
+              id="projects"
+              className="ascii-branch-section scroll-mt-20"
+              data-ref="refs/selected"
+              data-tree-side="right"
+            >
+              <Projects />
+            </section>
+
+            <section
+              id="skills"
+              className="ascii-branch-section scroll-mt-20"
+              data-ref="skills.lock"
+              data-tree-side="left"
+            >
+              <SkillsSection />
+            </section>
+
+            <section
+              id="history"
+              className="ascii-branch-section scroll-mt-20"
+              data-ref="git/log"
+              data-tree-side="right"
+            >
+              <ReleaseHistory />
+            </section>
+
+            <section
+              id="education"
+              className="ascii-branch-section scroll-mt-20"
+              data-ref="roots/education"
+              data-tree-side="left"
+            >
+              <EducationSection />
+            </section>
+
+            <section
+              id="awards"
+              className="ascii-branch-section scroll-mt-20"
+              data-ref="tags/milestones"
+              data-tree-side="right"
+            >
+              <AwardsSection />
+            </section>
+
+            <section
+              id="contact"
+              className="ascii-branch-section ascii-branch-section--last scroll-mt-20"
+              data-ref="remotes"
+              data-tree-side="left"
+            >
+              <ContactMe />
+            </section>
+          </div>
         </div>
-
-        <section id="history" className="scroll-mt-16">
-          <ReleaseHistory />
-        </section>
-
-        <section id="projects" className="scroll-mt-16">
-          <Projects />
-        </section>
-
-        <section id="skills" className="scroll-mt-16">
-          <SkillsSection />
-        </section>
-
-        <section id="education" className="scroll-mt-16">
-          <EducationSection />
-        </section>
-
-        <section id="awards" className="scroll-mt-16">
-          <AwardsSection />
-        </section>
-
-        <section id="contact" className="scroll-mt-16">
-          <ContactMe />
-        </section>
       </main>
 
       <Analytics />

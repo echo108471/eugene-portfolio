@@ -10,10 +10,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  { name: "metrics", href: "metrics" },
   { name: "about", href: "about" },
   { name: "work", href: "experience" },
-  { name: "log", href: "history" },
   { name: "projects", href: "projects" },
+  { name: "skills", href: "skills" },
   { name: "contact", href: "contact" },
 ];
 
@@ -22,7 +23,7 @@ const HEADER_GAP = 12;
 // Extra slack above the scroll-spy line so a just-clicked section — which parks
 // HEADER_GAP below the header — still reads as active. Keep these two in sync:
 // the spy must forgive at least the gap the click handler leaves behind.
-const SPY_SLACK = 12;
+const SPY_SLACK = 28;
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -69,9 +70,14 @@ const Header: React.FC = () => {
     };
 
     updateActiveSection();
+    frame = window.requestAnimationFrame(updateActiveSection);
     window.addEventListener("scroll", handleScrollEvent, { passive: true });
+    window.addEventListener("hashchange", handleScrollEvent);
+    window.addEventListener("resize", handleScrollEvent);
     return () => {
       window.removeEventListener("scroll", handleScrollEvent);
+      window.removeEventListener("hashchange", handleScrollEvent);
+      window.removeEventListener("resize", handleScrollEvent);
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
@@ -112,20 +118,7 @@ const Header: React.FC = () => {
           className="group flex min-w-0 items-center gap-2.5 rounded-md px-1 py-1.5 text-left text-sm font-semibold text-[var(--ink)] transition-colors hover:text-[var(--accent)]"
           aria-label="Scroll to home"
         >
-          <svg
-            className="h-4 w-4 text-[var(--accent)]"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <circle cx="6" cy="6" r="2.4" />
-            <circle cx="6" cy="18" r="2.4" />
-            <circle cx="18" cy="9" r="2.4" />
-            <path d="M6 8.4v7.2M8.2 6.6c6 0 7.6 1 7.6 4.4" />
-          </svg>
+          <span className="font-mono text-sm text-[var(--accent)]" aria-hidden="true">╭─●</span>
           <span className="hidden xs:inline sm:inline">Eugene</span>
           <span className="xs:hidden">EC</span>
           <span className="branch-pill hidden sm:inline-flex">
@@ -141,12 +134,18 @@ const Header: React.FC = () => {
               type="button"
               onClick={() => handleScroll(item.href)}
               aria-current={activeSection === item.href ? "page" : undefined}
-              className={`font-mono text-[13px] transition-colors duration-200 ${
+              className={`inline-flex items-center gap-1.5 font-mono text-[13px] transition-colors duration-200 ${
                 activeSection === item.href
                   ? "text-[var(--ink)]"
                   : "text-[var(--ink-soft)] hover:text-[var(--ink)]"
               }`}
             >
+              <span
+                className={activeSection === item.href ? "text-[var(--growth)]" : "text-[var(--line-strong)]"}
+                aria-hidden="true"
+              >
+                {activeSection === item.href ? "●" : "○"}
+              </span>
               {item.name}
             </button>
           ))}
@@ -231,7 +230,7 @@ const Header: React.FC = () => {
                             : "text-[var(--ink-soft)] hover:bg-[var(--accent-wash)] hover:text-[var(--ink)]"
                         }`}
                       >
-                        <span className="mr-2 text-[var(--accent)]">+</span>
+                        <span className="mr-2 text-[var(--accent)]">├─●</span>
                         {item.name}
                       </button>
                     ))}

@@ -70,9 +70,9 @@ const EducationSection = () => {
     <section className="page-section">
       <div>
         <div className="section-head">
-          <span className="section-num">06</span>
-          <h2 className="section-title">Education & background</h2>
-          <span className="section-note">history.md</span>
+          <span className="section-num">07</span>
+          <h2 className="section-title">Education &amp; Roots</h2>
+          <span className="section-note">roots · academic baseline</span>
         </div>
       </div>
 
