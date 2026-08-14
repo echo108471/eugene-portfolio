@@ -2,7 +2,6 @@ import React from "react";
 import Header from "@/components/header";
 import HeroSection from "@/components/hero-section";
 import AsciiTreeCanvas from "@/components/ascii-tree-canvas";
-import MetricsSection from "@/components/metrics-section";
 import ExperienceSection from "@/components/experience-section";
 import Projects from "@/components/project-section";
 import AboutMe from "@/components/about-me";
@@ -28,19 +27,10 @@ const App: React.FC = () => {
         <div className="site-container ascii-repo-layout">
           <div className="ascii-branch-stream">
             <section
-              id="metrics"
-              className="ascii-branch-section scroll-mt-20"
-              data-ref="refs/impact"
-              data-tree-side="left"
-            >
-              <MetricsSection />
-            </section>
-
-            <section
               id="about"
               className="ascii-branch-section scroll-mt-20"
               data-ref="bio.md"
-              data-tree-side="right"
+              data-tree-side="left"
             >
               <AboutMe />
             </section>
@@ -49,7 +39,7 @@ const App: React.FC = () => {
               id="experience"
               className="ascii-branch-section scroll-mt-20"
               data-ref="worktree"
-              data-tree-side="left"
+              data-tree-side="right"
             >
               <ExperienceSection />
             </section>
@@ -58,7 +48,7 @@ const App: React.FC = () => {
               id="projects"
               className="ascii-branch-section scroll-mt-20"
               data-ref="refs/selected"
-              data-tree-side="right"
+              data-tree-side="left"
             >
               <Projects />
             </section>
@@ -67,7 +57,7 @@ const App: React.FC = () => {
               id="skills"
               className="ascii-branch-section scroll-mt-20"
               data-ref="skills.lock"
-              data-tree-side="left"
+              data-tree-side="right"
             >
               <SkillsSection />
             </section>
@@ -76,7 +66,7 @@ const App: React.FC = () => {
               id="history"
               className="ascii-branch-section scroll-mt-20"
               data-ref="git/log"
-              data-tree-side="right"
+              data-tree-side="left"
             >
               <ReleaseHistory />
             </section>
@@ -85,7 +75,7 @@ const App: React.FC = () => {
               id="education"
               className="ascii-branch-section scroll-mt-20"
               data-ref="roots/education"
-              data-tree-side="left"
+              data-tree-side="right"
             >
               <EducationSection />
             </section>
@@ -94,7 +84,7 @@ const App: React.FC = () => {
               id="awards"
               className="ascii-branch-section scroll-mt-20"
               data-ref="tags/milestones"
-              data-tree-side="right"
+              data-tree-side="left"
             >
               <AwardsSection />
             </section>
@@ -103,7 +93,7 @@ const App: React.FC = () => {
               id="contact"
               className="ascii-branch-section ascii-branch-section--last scroll-mt-20"
               data-ref="remotes"
-              data-tree-side="left"
+              data-tree-side="right"
             >
               <ContactMe />
             </section>

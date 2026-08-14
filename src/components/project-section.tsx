@@ -1,5 +1,6 @@
 import React from "react";
 import ProjectCard, { type Specimen } from "./project-card";
+import AsciiScrambleText from "./ascii-scramble";
 
 interface Project {
   date: string;
@@ -80,8 +81,10 @@ const Projects: React.FC = () => {
     <section className="page-section">
       <div>
         <div className="section-head">
-          <span className="section-num">04</span>
-          <h2 className="section-title">Selected projects</h2>
+          <span className="section-num">03</span>
+          <h2 className="section-title">
+            <AsciiScrambleText text="Selected projects" />
+          </h2>
           <span className="section-note">hover to stage</span>
           <div className="tag-pill add">
             {projects.length} linked projects
@@ -116,7 +119,5 @@ const Projects: React.FC = () => {
     </section>
   );
 };
-
-
 
 export default Projects;

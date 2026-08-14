@@ -1,4 +1,5 @@
 import React from "react";
+import AsciiScrambleText from "./ascii-scramble";
 
 interface ExperienceItem {
   title: string;
@@ -207,8 +208,10 @@ const ExperienceSection = () => {
     <section className="page-section ecosystem-experience">
       <div>
         <div className="section-head ecosystem-experience-head">
-          <span className="section-num">03</span>
-          <h2 className="section-title">Where I&apos;ve worked</h2>
+          <span className="section-num">02</span>
+          <h2 className="section-title">
+            <AsciiScrambleText text="Where I've worked" />
+          </h2>
           <span className="section-note">worktree · continuous spine</span>
         </div>
       </div>
@@ -231,7 +234,7 @@ const ExperienceSection = () => {
               </div>
 
               <div className="diff-body">
-                <div className="group/item surface-card interactive-surface p-5 transition-all duration-200 hover:-translate-y-0.5">
+                <div className="group/item surface-card interactive-surface p-5 transition-all duration-200 hover:-translate-y-0.5 relative">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                     <ExperienceLogo experience={experience} />
 
@@ -247,7 +250,7 @@ const ExperienceSection = () => {
                           </div>
 
                           <h3 className="font-display text-xl font-medium text-[var(--ink)] tracking-tight">
-                            {experience.company}
+                            <AsciiScrambleText text={experience.company} />
                           </h3>
                           <p className="mt-0.5 text-sm font-medium text-[var(--ink-soft)]">
                             {experience.title}

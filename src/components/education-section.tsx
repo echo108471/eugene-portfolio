@@ -1,4 +1,5 @@
 import React from "react";
+import AsciiScrambleText from "./ascii-scramble";
 
 interface EducationItem {
   degree: string;
@@ -70,8 +71,10 @@ const EducationSection = () => {
     <section className="page-section">
       <div>
         <div className="section-head">
-          <span className="section-num">07</span>
-          <h2 className="section-title">Education &amp; Roots</h2>
+          <span className="section-num">06</span>
+          <h2 className="section-title">
+            <AsciiScrambleText text="Education & Roots" />
+          </h2>
           <span className="section-note">roots · academic baseline</span>
         </div>
       </div>
@@ -84,40 +87,40 @@ const EducationSection = () => {
         <div className="diff-body">
           <div className="grid gap-5">
             {education.map((edu) => (
-                <div
-                  key={edu.institution}
-                  className="surface-card group p-5"
-                >
-                  <div className="flex gap-4">
-                    <EducationLogo edu={edu} />
+              <div
+                key={edu.institution}
+                className="surface-card group p-5"
+              >
+                <div className="flex gap-4">
+                  <EducationLogo edu={edu} />
 
-                    <div className="min-w-0 flex-1">
-                      <h3 className="font-display text-lg font-medium text-[var(--ink)]">
-                        {edu.institution}
-                      </h3>
-                      <p className="mt-1 text-sm font-medium text-[var(--ink-soft)]">
-                        {edu.degree}
-                      </p>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-display text-lg font-medium text-[var(--ink)]">
+                      <AsciiScrambleText text={edu.institution} />
+                    </h3>
+                    <p className="mt-1 text-sm font-medium text-[var(--ink-soft)]">
+                      {edu.degree}
+                    </p>
 
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        <span className="tag-pill">@ {edu.location}</span>
-                        <span className="tag-pill">{edu.date}</span>
-                      </div>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <span className="tag-pill">@ {edu.location}</span>
+                      <span className="tag-pill">{edu.date}</span>
                     </div>
                   </div>
-
-                  <div className="mt-5 border-t border-[var(--line)] pt-5">
-                    {edu.description.map((item) => (
-                      <p
-                        key={item}
-                        className="body-copy flex gap-3 text-sm"
-                      >
-                        <span className="flex-none font-mono text-[var(--add)]">+</span>
-                        <span>{item}</span>
-                      </p>
-                    ))}
-                  </div>
                 </div>
+
+                <div className="mt-5 border-t border-[var(--line)] pt-5">
+                  {edu.description.map((item) => (
+                    <p
+                      key={item}
+                      className="body-copy flex gap-3 text-sm"
+                    >
+                      <span className="flex-none font-mono text-[var(--add)]">+</span>
+                      <span>{item}</span>
+                    </p>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>

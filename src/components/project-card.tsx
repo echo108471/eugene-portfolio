@@ -1,4 +1,5 @@
 import React from "react";
+import AsciiScrambleText from "./ascii-scramble";
 
 export interface SpecimenRow {
   sign: "+" | "~" | "-";
@@ -40,15 +41,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
       <div className="flex flex-1 flex-col p-5 pl-8">
         <div className="flex items-center justify-between gap-3">
-          <span className="meta-text">{featured ? "featured diff" : "commit log"} · {date}</span>
-          <span className="meta-text inline-flex items-center gap-1.5 transition-colors duration-200 group-hover:text-[var(--accent)]">
+          <span className="meta-text font-mono text-[11px]">
+            <span className="text-[var(--growth)] mr-1" aria-hidden="true">┌─</span>
+            {featured ? "featured diff" : "commit log"} · {date}
+          </span>
+          <span className="meta-text font-mono text-[11px] inline-flex items-center gap-1.5 transition-colors duration-200 group-hover:text-[var(--accent)]">
             Open
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true">↗ ┐</span>
           </span>
         </div>
 
         <h3 className={`mt-3 font-display font-medium text-[var(--ink)] ${featured ? "text-2xl" : "text-xl"}`}>
-          {name}
+          <AsciiScrambleText text={name} />
         </h3>
 
         {featured ? (

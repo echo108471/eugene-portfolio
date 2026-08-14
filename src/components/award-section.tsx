@@ -1,4 +1,5 @@
 import React from "react";
+import AsciiScrambleText from "./ascii-scramble";
 
 interface AwardCardProps {
   name: string;
@@ -21,7 +22,7 @@ const AwardCard: React.FC<AwardCardProps> = ({ name, organization, date, link })
         </span>
         <span className="min-w-0">
           <span className="block font-display text-base font-medium leading-6 text-[var(--ink)]">
-            {name}
+            <AsciiScrambleText text={name} />
           </span>
           <span className="mt-0.5 block text-sm text-[var(--ink-soft)]">
             {organization}
@@ -62,9 +63,11 @@ const Awards: React.FC = () => {
     <section className="page-section">
       <div>
         <div className="section-head">
-          <span className="section-num">08</span>
-          <h2 className="section-title">Recognition &amp; Milestones</h2>
-          <span className="section-note">recognition · service</span>
+          <span className="section-num">07</span>
+          <h2 className="section-title">
+            <AsciiScrambleText text="Recognition & Milestones" />
+          </h2>
+          <span className="section-note">tags/milestones · service</span>
         </div>
       </div>
 

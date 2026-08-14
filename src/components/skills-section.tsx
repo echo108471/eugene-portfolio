@@ -1,4 +1,5 @@
 import React from "react";
+import AsciiScrambleText from "./ascii-scramble";
 
 const skillGroups = [
   {
@@ -59,9 +60,11 @@ const SkillsSection: React.FC = () => {
     <section className="page-section">
       <div>
         <div className="section-head">
-          <span className="section-num">05</span>
-          <h2 className="section-title">The Root Biome</h2>
-          <span className="section-note">roots · technical ecosystem</span>
+          <span className="section-num">04</span>
+          <h2 className="section-title">
+            <AsciiScrambleText text="The Root Biome" />
+          </h2>
+          <span className="section-note">roots · skills.lock</span>
         </div>
       </div>
 
@@ -80,7 +83,7 @@ const SkillsSection: React.FC = () => {
                 <div>
                   <p className="meta-text mb-1">package</p>
                   <h3 className="font-display text-base font-medium text-[var(--ink)]">
-                    {group.label}
+                    <AsciiScrambleText text={group.label} />
                   </h3>
                 </div>
                 <div className="flex min-w-0 flex-wrap gap-2">

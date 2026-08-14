@@ -1,4 +1,5 @@
 import React from "react";
+import AsciiScrambleText from "./ascii-scramble";
 
 interface Change {
   type: "add" | "rem";
@@ -61,8 +62,10 @@ const ReleaseHistory: React.FC = () => {
     <section className="page-section">
       <div>
         <div className="section-head">
-          <span className="section-num">06</span>
-          <h2 className="section-title">Personal Changelog</h2>
+          <span className="section-num">05</span>
+          <h2 className="section-title">
+            <AsciiScrambleText text="Personal Changelog" />
+          </h2>
           <span className="section-note">git log --growth</span>
         </div>
       </div>

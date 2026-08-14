@@ -1,5 +1,6 @@
 import React from "react";
 import { FaEnvelope, FaFilePdf, FaGithub, FaGlobe, FaLinkedin } from "react-icons/fa";
+import AsciiScrambleText from "./ascii-scramble";
 
 // Injected at build time by Vite (see vite.config.ts): the most recent commits
 // from git history, powering the footer commit log.
@@ -56,8 +57,10 @@ const ContactMe: React.FC = () => {
     <section className="page-section pb-16">
       <div>
         <div className="section-head">
-          <span className="section-num">09</span>
-          <h2 className="section-title">Open Channels</h2>
+          <span className="section-num">08</span>
+          <h2 className="section-title">
+            <AsciiScrambleText text="Open Channels" />
+          </h2>
           <span className="section-note">git remote -v</span>
         </div>
 
@@ -133,28 +136,24 @@ const ContactMe: React.FC = () => {
               </div>
             </div>
 
-            {recentCommits.length > 0 && (
-              <div className="commit-log mt-6">
-                {recentCommits.map((commit) => (
-                  <React.Fragment key={commit.hash}>
-                    {commit.url ? (
-                      <a
-                        href={commit.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hash transition-colors hover:underline"
-                      >
-                        {commit.hash}
-                      </a>
-                    ) : (
-                      <span className="hash">{commit.hash}</span>
-                    )}{" "}
-                    <b>{commit.author.split(" ")[0]}</b> - {commit.subject}
-                    <br />
-                  </React.Fragment>
-                ))}
+            {/* Commit Log Footer */}
+            <div className="mt-12 border-t border-[var(--line)] pt-8">
+              <div className="commit-log">
+                <div className="commit-log__header">
+                  <span>recent git activity</span>
+                  <span>HEAD@{'{'}0{'}'}</span>
+                </div>
+                <div className="space-y-1.5 pt-2 font-mono text-xs text-[var(--ink-soft)]">
+                  {recentCommits.map((commit) => (
+                    <div key={commit.hash} className="commit-log__row flex items-baseline gap-2">
+                      <span className="text-[var(--accent)]">{commit.hash}</span>
+                      <span className="text-[var(--ink-faint)]">({commit.author})</span>
+                      <span className="truncate text-[var(--ink)]">{commit.subject}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>

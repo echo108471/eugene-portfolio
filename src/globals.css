@@ -57,6 +57,12 @@
   --tree-violet: #6b5594;
   --tree-sky: #3b7e9e;
   --tree-spore: #7e8781;
+  --tree-lantern: #d97706;
+  --tree-lantern-core: #fef3c7;
+  --tree-rune: #0284c7;
+  --tree-rune-glow: #38bdf8;
+  --tree-crevice: #241e17;
+  --tree-forest-far: #94a3b8;
   --tree-sky-glow: rgba(201, 136, 22, 0.12);
   --tree-canopy-haze: rgba(182, 69, 115, 0.07);
 
@@ -116,12 +122,94 @@
   --tree-violet: #a78bfa;
   --tree-sky: #67e8f9;
   --tree-spore: #94a3b8;
+  --tree-lantern: #fbbf24;
+  --tree-lantern-core: #fffbeb;
+  --tree-rune: #38bdf8;
+  --tree-rune-glow: #67e8f9;
+  --tree-crevice: #181510;
+  --tree-forest-far: #334155;
   --tree-sky-glow: rgba(103, 232, 249, 0.12);
   --tree-canopy-haze: rgba(167, 139, 250, 0.1);
 
   --shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 20px 48px -12px rgba(0, 0, 0, 0.75), 0 6px 18px rgba(0, 0, 0, 0.45);
   --shadow-glow: 0 0 24px rgba(52, 211, 153, 0.22);
+}
+
+/* ==========================================================================
+   TREE SPECIMEN THEME OVERRIDES
+   ========================================================================== */
+
+/* 02. Celestial Sakura */
+[data-tree-specimen="sakura"] {
+  --growth: #db2777;
+  --growth-bright: #f472b6;
+  --growth-muted: #9d174d;
+  --growth-wash: rgba(244, 114, 182, 0.12);
+  --accent: #f43f5e;
+  --accent-wash: rgba(244, 63, 94, 0.12);
+  --bark: #6b21a8;
+  --bark-deep: #4c1d95;
+  --bark-light: #9333ea;
+  --tree-moss: #db2777;
+  --tree-gold: #f472b6;
+  --tree-rose: #fb7185;
+  --tree-coral: #fda4af;
+  --tree-violet: #c084fc;
+  --tree-sky: #fbcfe8;
+  --tree-lantern: #f472b6;
+  --tree-lantern-core: #fff1f2;
+  --tree-rune: #ec4899;
+  --tree-rune-glow: #fb7185;
+  --tree-canopy-haze: rgba(244, 114, 182, 0.14);
+}
+
+/* 03. Midnight Bio-Cypress */
+[data-tree-specimen="bio-cypress"] {
+  --growth: #06b6d4;
+  --growth-bright: #22d3ee;
+  --growth-muted: #0891b2;
+  --growth-wash: rgba(34, 211, 238, 0.14);
+  --accent: #818cf8;
+  --accent-wash: rgba(129, 140, 248, 0.14);
+  --bark: #1e293b;
+  --bark-deep: #0f172a;
+  --bark-light: #334155;
+  --tree-moss: #06b6d4;
+  --tree-gold: #c084fc;
+  --tree-rose: #38bdf8;
+  --tree-coral: #818cf8;
+  --tree-violet: #a855f7;
+  --tree-sky: #22d3ee;
+  --tree-lantern: #38bdf8;
+  --tree-lantern-core: #e0f2fe;
+  --tree-rune: #22d3ee;
+  --tree-rune-glow: #818cf8;
+  --tree-canopy-haze: rgba(34, 211, 238, 0.16);
+}
+
+/* 04. Golden Autumn Ginkgo */
+[data-tree-specimen="ginkgo"] {
+  --growth: #d97706;
+  --growth-bright: #f59e0b;
+  --growth-muted: #b45309;
+  --growth-wash: rgba(245, 158, 11, 0.12);
+  --accent: #ea580c;
+  --accent-wash: rgba(234, 88, 12, 0.12);
+  --bark: #78350f;
+  --bark-deep: #451a03;
+  --bark-light: #92400e;
+  --tree-moss: #ca8a04;
+  --tree-gold: #facc15;
+  --tree-rose: #ef4444;
+  --tree-coral: #f97316;
+  --tree-violet: #d97706;
+  --tree-sky: #fbbf24;
+  --tree-lantern: #f97316;
+  --tree-lantern-core: #fef3c7;
+  --tree-rune: #f59e0b;
+  --tree-rune-glow: #ea580c;
+  --tree-canopy-haze: rgba(250, 204, 21, 0.14);
 }
 
 * {
@@ -312,11 +400,27 @@ html.dark .theme-logo {
     margin-top: 12px;
   }
 
+  .botanical-sprout-wrap {
+    position: relative;
+    cursor: default;
+  }
+
   .ascii-hero__title em {
-    color: var(--growth);
+    color: var(--growth-bright);
     font-weight: inherit;
     font-style: italic;
     text-shadow: 0 0 28px var(--growth-wash);
+    transition: text-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .botanical-sprout-wrap:hover em {
+    text-shadow: 0 0 36px var(--growth-glow), 0 0 12px var(--growth-bright);
+  }
+
+  .botanical-sprout-flourish {
+    line-height: 1;
+    margin-top: 2px;
+    filter: drop-shadow(0 0 6px var(--growth-glow));
   }
 
   .ascii-hero__lede {
@@ -370,10 +474,10 @@ html.dark .theme-logo {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    width: min(100%, 300px);
+    width: min(100%, 320px);
     border: 1px solid var(--line-strong);
-    border-radius: 10px;
-    padding: 12px 14px;
+    border-radius: 8px;
+    padding: 14px 16px;
     background: var(--paper-glass);
     backdrop-filter: blur(16px);
     box-shadow: var(--shadow);
@@ -389,14 +493,14 @@ html.dark .theme-logo {
     padding-bottom: 8px;
     border-bottom: 1px solid var(--line-faint);
     color: var(--ink-faint);
-    font-size: 10px;
+    font-size: 10.5px;
   }
 
   .ascii-hero__telemetry-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 10.5px;
+    font-size: 11px;
   }
 
   .ascii-hero__telemetry-row .key {
@@ -404,6 +508,120 @@ html.dark .theme-logo {
   }
 
   .ascii-hero__telemetry-row .val {
+    color: var(--growth);
+    font-weight: 500;
+  }
+
+  /* --------------------------------------------------------------------------
+     ASCII-FIRST BOX-DRAWING & MOUNTING INFRASTRUCTURE
+     -------------------------------------------------------------------------- */
+  .ascii-box-frame {
+    position: relative;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: var(--paper-glass);
+    backdrop-filter: blur(14px);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .ascii-box-frame::before {
+    content: "┌";
+    position: absolute;
+    top: -6px;
+    left: -4px;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 10px;
+    line-height: 1;
+    color: var(--growth);
+    pointer-events: none;
+  }
+
+  .ascii-box-frame::after {
+    content: "┐";
+    position: absolute;
+    top: -6px;
+    right: -4px;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 10px;
+    line-height: 1;
+    color: var(--growth);
+    pointer-events: none;
+  }
+
+  .ascii-box-frame:hover {
+    border-color: var(--growth);
+    box-shadow: 0 0 16px var(--growth-wash);
+  }
+
+  .ascii-mount-bracket {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 11px;
+    color: var(--growth-muted);
+  }
+
+  .ascii-mount-bracket .bracket {
+    color: var(--bark-light);
+  }
+
+  /* Specimen Switcher Widget */
+  .specimen-switcher-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 4px 10px;
+    background: var(--paper-glass);
+    color: var(--ink-soft);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 11px;
+    backdrop-filter: blur(12px);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .specimen-switcher-btn:hover {
+    border-color: var(--growth);
+    color: var(--ink);
+    box-shadow: 0 0 12px var(--growth-wash);
+  }
+
+  .specimen-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    z-index: 50;
+    width: 240px;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    padding: 6px;
+    background: var(--paper-raised);
+    box-shadow: var(--shadow-lg);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 11px;
+  }
+
+  .specimen-dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .specimen-dropdown-item:hover,
+  .specimen-dropdown-item.active {
+    background: var(--growth-wash);
     color: var(--growth);
     font-weight: 500;
   }
@@ -503,6 +721,49 @@ html.dark .theme-logo {
   .stage-card:hover .stage-mark {
     background: var(--add);
     transform: scale(1.3);
+  }
+
+  /* --------------------------------------------------------------------------
+     ASCII SCRAMBLE & REF TAG ACCENTS
+     -------------------------------------------------------------------------- */
+  .ascii-scramble-text {
+    cursor: default;
+  }
+
+  .text-glow-growth {
+    text-shadow: 0 0 12px var(--growth-glow);
+  }
+
+  .ref-chip {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 4px;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+    background: color-mix(in srgb, var(--accent-wash) 50%, transparent);
+    color: var(--accent);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 10px;
+    letter-spacing: -0.02em;
+    vertical-align: middle;
+  }
+
+  .surface-card::after {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+    color: var(--line-strong);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    content: "┐";
+    opacity: 0.4;
+    pointer-events: none;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+
+  .surface-card:hover::after {
+    opacity: 0.9;
+    color: var(--accent);
   }
 
   /* --------------------------------------------------------------------------

@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import DarkModeToggle from "./dark-mode-toggle";
+import SpecimenSwitcher from "./specimen-switcher";
 
 interface NavItem {
   name: string;
@@ -10,11 +11,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: "metrics", href: "metrics" },
   { name: "about", href: "about" },
   { name: "work", href: "experience" },
   { name: "projects", href: "projects" },
   { name: "skills", href: "skills" },
+  { name: "history", href: "history" },
   { name: "contact", href: "contact" },
 ];
 
@@ -154,6 +155,7 @@ const Header: React.FC = () => {
         <div className="flex-1 lg:hidden" />
 
         <div className="flex items-center gap-2">
+          <SpecimenSwitcher />
           <DarkModeToggle />
 
           <button
