@@ -1,6 +1,13 @@
 import React from "react";
 import AsciiScrambleText from "./ascii-scramble";
 
+interface ArchitectureSpec {
+  file: string;
+  pattern: string;
+  impact: string;
+  runtime: string;
+}
+
 interface ExperienceItem {
   title: string;
   company: string;
@@ -13,6 +20,7 @@ interface ExperienceItem {
   logoDark?: string;
   description: string[];
   techStack: string[];
+  spec: ArchitectureSpec;
 }
 
 const experiences: ExperienceItem[] = [
@@ -35,6 +43,12 @@ const experiences: ExperienceItem[] = [
       "systemd",
       "Ansible",
     ],
+    spec: {
+      file: "air-gap-platform.spec",
+      pattern: "systemd daemons + Ansible zero-trust",
+      impact: "99.9% uptime · zero-trust",
+      runtime: "vLLM / NGINX / Linux",
+    },
   },
   {
     title: "Technical Product Manager",
@@ -54,12 +68,16 @@ const experiences: ExperienceItem[] = [
       "TypeScript",
       "PostgreSQL",
       "pgvector",
-      "GitHub Actions",
       "Docker Compose",
       "Prometheus",
       "Grafana",
-      "Loki",
     ],
+    spec: {
+      file: "search-engine.spec",
+      pattern: "pgvector similarity + Redis tiered cache",
+      impact: "4× search · 90% latency drop",
+      runtime: "60K+ users · 9.4K+ MAU",
+    },
   },
   {
     title: "Software Engineer Intern",
@@ -81,6 +99,12 @@ const experiences: ExperienceItem[] = [
       "WebSockets",
       "SSE",
     ],
+    spec: {
+      file: "multi-agent-mesh.spec",
+      pattern: "WebSocket bidirectional sync + SSE streams",
+      impact: "22 AI agents · 37 APIs",
+      runtime: "27+ microservices",
+    },
   },
   {
     title: "Software Engineer Intern",
@@ -102,6 +126,12 @@ const experiences: ExperienceItem[] = [
       "Redis",
       "SOAP/XML",
     ],
+    spec: {
+      file: "event-triage.spec",
+      pattern: "Kafka event streams + time-bucketed Redis",
+      impact: "95% latency cut · 99% API drop",
+      runtime: "500K+ monthly sessions",
+    },
   },
   {
     title: "Software Engineer Intern",
@@ -117,6 +147,12 @@ const experiences: ExperienceItem[] = [
       "Automated sequence-design workflows through validated data-processing pipelines, reducing manual processing time by 90%.",
     ],
     techStack: ["PHP", "Python", "CGI Scripts", "HTML/CSS", "Input Validation"],
+    spec: {
+      file: "sequence-pipeline.spec",
+      pattern: "Validated CGI pipeline + molecular parsing",
+      impact: "90% manual processing reduction",
+      runtime: "1.5K+ monthly visitors",
+    },
   },
 ];
 
@@ -142,7 +178,7 @@ function ExperienceLogo({
   experience: ExperienceItem;
 }) {
   const baseClasses =
-    "relative z-10 flex h-13 w-13 sm:h-14 sm:w-14 flex-none items-center justify-center rounded-xl border border-[var(--line)] bg-[var(--paper)] shadow-sm transition-all duration-200 group-hover/item:border-[var(--accent-edge)] group-hover/item:shadow-md";
+    "relative z-10 flex h-12 w-12 sm:h-14 sm:w-14 flex-none items-center justify-center rounded-xl border border-[var(--line)] bg-[var(--paper)] shadow-sm transition-all duration-200 group-hover/item:border-[var(--accent-edge)] group-hover/item:shadow-md";
 
   if (!experience.logo && !experience.logoLight && !experience.logoDark) {
     const companyCode = companyCodeForBadge(experience.company);
@@ -207,8 +243,16 @@ const ExperienceSection = () => {
   return (
     <section className="page-section ecosystem-experience">
       <div>
+        <div className="ascii-mount-bracket mb-3">
+          <span className="bracket text-[var(--growth)] font-mono text-xs" aria-hidden="true">┌──[</span>
+          <span className="font-mono text-xs text-[var(--accent)] font-medium">worktree://experience</span>
+          <span className="bracket text-[var(--growth)] font-mono text-xs" aria-hidden="true">]───[</span>
+          <span className="font-mono text-xs text-[var(--growth)]">● 5 active nodes · continuous spine</span>
+          <span className="bracket text-[var(--growth)] font-mono text-xs" aria-hidden="true">]──</span>
+        </div>
+
         <div className="section-head ecosystem-experience-head">
-          <span className="section-num">02</span>
+          <span className="section-num">03</span>
           <h2 className="section-title">
             <AsciiScrambleText text="Where I've worked" />
           </h2>
@@ -270,24 +314,51 @@ const ExperienceSection = () => {
                         </div>
                       </div>
 
-                      <ul className="mt-4 space-y-2 text-sm leading-relaxed text-[var(--ink-soft)]">
-                        {experience.description.map((item) => (
-                          <li key={item} className="flex gap-2.5">
-                            <span className="mt-0.5 flex-none font-mono text-[var(--add)] font-medium">+</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      {/* 2-Column Experience Layout: Accomplishments on Left, Architecture Spec on Right */}
+                      <div className="mt-4 grid gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] lg:items-start">
+                        <div>
+                          <ul className="space-y-2 text-sm leading-relaxed text-[var(--ink-soft)]">
+                            {experience.description.map((item) => (
+                              <li key={item} className="flex gap-2.5">
+                                <span className="mt-0.5 flex-none font-mono text-[var(--add)] font-medium">+</span>
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
 
-                      <div className="mt-5 flex flex-wrap gap-1.5 pt-1">
-                        {experience.techStack.map((tech) => (
-                          <span
-                            key={tech}
-                            className="tag-pill"
-                          >
-                            {tech}
-                          </span>
-                        ))}
+                          <div className="mt-4 flex flex-wrap gap-1.5 pt-1">
+                            {experience.techStack.map((tech) => (
+                              <span
+                                key={tech}
+                                className="tag-pill"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Right Column: Architecture & Impact Spec Panel */}
+                        <div className="spec-panel bg-[var(--paper-glass-subtle)]">
+                          <div className="spec-head">
+                            <span className="font-mono text-[10.5px]">@@ {experience.spec.file} @@</span>
+                            <span className="spec-range font-mono text-[10px] text-[var(--growth)]">active-spec</span>
+                          </div>
+                          <div className="p-3 space-y-2 text-xs font-mono">
+                            <div className="flex items-start gap-2 text-[var(--ink-soft)]">
+                              <span className="text-[var(--accent)] font-semibold flex-none">~ pattern:</span>
+                              <span className="text-[var(--ink)] leading-snug">{experience.spec.pattern}</span>
+                            </div>
+                            <div className="flex items-start gap-2 text-[var(--ink-soft)]">
+                              <span className="text-[var(--growth)] font-semibold flex-none">+ impact:</span>
+                              <span className="text-[var(--growth-bright)] font-medium leading-snug">{experience.spec.impact}</span>
+                            </div>
+                            <div className="flex items-start gap-2 text-[var(--ink-soft)] pt-1 border-t border-[var(--line-faint)]">
+                              <span className="text-[var(--ink-faint)] flex-none">● runtime:</span>
+                              <span className="text-[var(--ink-soft)]">{experience.spec.runtime}</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -318,3 +389,4 @@ const ExperienceSection = () => {
 };
 
 export default ExperienceSection;
+

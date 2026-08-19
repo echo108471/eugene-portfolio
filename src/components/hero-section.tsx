@@ -1,123 +1,109 @@
 import React from "react";
 import AsciiScrambleText from "./ascii-scramble";
-import { useTreeTheme } from "../use-tree-theme";
 
 const HeroSection: React.FC = () => {
-  const { info, setSpecimen, specimens, specimen } = useTreeTheme();
-
   return (
     <div className="ascii-hero">
       <div className="ascii-hero__copy">
+        {/* Top ASCII Mount Frame */}
         <div className="ascii-hero__badge-row">
-          <div className="ascii-mount-bracket">
-            <span className="bracket font-mono text-[11px]" aria-hidden="true">├──</span>
-            <p className="ascii-hero__path">
-              <span className="font-mono text-[var(--accent)]">~/eugene/main/</span>
-              <AsciiScrambleText text="README.md" className="font-mono" />
+          <div className="ascii-mount-bracket bg-[var(--paper-glass)] px-3 py-1.5 rounded-md border border-[var(--line-strong)] backdrop-blur-md shadow-sm">
+            <span className="bracket font-mono text-[12px] text-[var(--growth)]" aria-hidden="true">┌──[</span>
+            <p className="ascii-hero__path !border-0 !p-0 !bg-transparent !shadow-none">
+              <span className="font-mono text-[var(--accent)] font-medium">~/eugene/main/</span>
+              <AsciiScrambleText text="README.md" className="font-mono text-[var(--ink)] font-semibold" />
             </p>
-          </div>
-          <span className="ascii-hero__status-chip">
-            <span className="branch-dot" />
-            arboretum live · {info.id}
-          </span>
-        </div>
-
-        <p className="eyebrow">
-          <AsciiScrambleText text="Eugene Cho" /> · software engineer
-        </p>
-
-        <h1 className="ascii-hero__title">
-          I build systems that{" "}
-          <span className="botanical-sprout-wrap group/sprout inline-flex flex-col items-center">
-            <em className="transition-transform duration-300 group-hover/sprout:-translate-y-0.5">
-              grow
-            </em>
-            <span
-              className="botanical-sprout-flourish select-none font-mono text-[10px] tracking-widest text-[var(--growth-bright)] transition-all duration-300 opacity-75 group-hover/sprout:opacity-100 group-hover/sprout:scale-110"
-              aria-hidden="true"
-            >
-              {info.flourish}
+            <span className="bracket font-mono text-[12px] text-[var(--growth)]" aria-hidden="true">]───[</span>
+            <span className="ascii-hero__status-chip !border-0 !p-0 !bg-transparent text-[var(--growth)] font-mono">
+              <span className="branch-dot" />
+              arboretum live · v3.2
             </span>
-          </span>{" "}
-          with the problem.
-        </h1>
-
-        <p className="ascii-hero__lede">
-          Backend and platform engineering, applied AI under real constraints, and product
-          ownership from first decision through production.
-        </p>
-
-        <div className="ascii-hero__actions">
-          <a href="#experience" className="btn btn-primary group/btn">
-            <span className="font-mono text-[11px] opacity-70 group-hover/btn:opacity-100" aria-hidden="true">[</span>
-            <span>selected work</span>
-            <span aria-hidden="true">↘</span>
-            <span className="font-mono text-[11px] opacity-70 group-hover/btn:opacity-100" aria-hidden="true">]</span>
-          </a>
-          <a
-            href="/EugeneChoResume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-secondary group/btn"
-          >
-            <span className="font-mono text-[11px] opacity-70 group-hover/btn:opacity-100" aria-hidden="true">[</span>
-            <span>resume.pdf</span>
-            <span aria-hidden="true">↗</span>
-            <span className="font-mono text-[11px] opacity-70 group-hover/btn:opacity-100" aria-hidden="true">]</span>
-          </a>
+            <span className="bracket font-mono text-[12px] text-[var(--growth)]" aria-hidden="true">]──</span>
+          </div>
         </div>
 
-        <a href="#about" className="ascii-hero__scroll-cue">
-          <span aria-hidden="true">│</span>
-          <span aria-hidden="true">└──●───</span>
-          enter worktree · bio.md
-        </a>
+        <div className="relative pl-5 border-l-2 border-[var(--growth-muted)] hover:border-[var(--growth)] transition-colors duration-300">
+          <p className="eyebrow inline-flex items-center gap-2 bg-[var(--paper-glass-subtle)] px-2.5 py-1 rounded border border-[var(--line-faint)] backdrop-blur-sm">
+            <span className="text-[var(--growth)] font-mono text-xs" aria-hidden="true">├─</span>
+            <span className="text-[var(--ink)] font-semibold"><AsciiScrambleText text="Eugene Cho" /></span>
+            <span className="text-[var(--ink-soft)]">· software engineer</span>
+          </p>
+
+          <h1 className="ascii-hero__title [text-shadow:0_2px_12px_var(--paper)]">
+            I build systems that{" "}
+            <span className="botanical-sprout-wrap group/sprout inline-flex flex-col items-center">
+              <em className="transition-transform duration-300 group-hover/sprout:-translate-y-0.5">
+                grow
+              </em>
+              <span
+                className="botanical-sprout-flourish select-none font-mono text-[10px] tracking-widest text-[var(--growth-bright)] transition-all duration-300 opacity-80 group-hover/sprout:opacity-100 group-hover/sprout:scale-110"
+                aria-hidden="true"
+              >
+                ·~*~+~*~·
+              </span>
+            </span>{" "}
+            with the problem.
+          </h1>
+
+          <p className="ascii-hero__lede [text-shadow:0_1px_8px_var(--paper)]">
+            Backend and platform engineering, applied AI under real constraints, and product
+            ownership from first decision through production.
+          </p>
+
+          <div className="ascii-hero__actions">
+            <a href="#experience" className="btn btn-primary group/btn shadow-sm">
+              <span className="font-mono text-[11px] text-[var(--growth-bright)] group-hover/btn:text-[var(--accent)]" aria-hidden="true">[</span>
+              <span>selected work</span>
+              <span aria-hidden="true">↘</span>
+              <span className="font-mono text-[11px] text-[var(--growth-bright)] group-hover/btn:text-[var(--accent)]" aria-hidden="true">]</span>
+            </a>
+            <a
+              href="/EugeneChoResume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary group/btn shadow-sm"
+            >
+              <span className="font-mono text-[11px] opacity-70 group-hover/btn:opacity-100" aria-hidden="true">[</span>
+              <span>resume.pdf</span>
+              <span aria-hidden="true">↗</span>
+              <span className="font-mono text-[11px] opacity-70 group-hover/btn:opacity-100" aria-hidden="true">]</span>
+            </a>
+          </div>
+
+          <div className="mt-8">
+            <a href="#about" className="ascii-hero__scroll-cue bg-[var(--paper-glass-subtle)] px-3 py-1.5 rounded-md border border-[var(--line-faint)] backdrop-blur-sm inline-flex items-center gap-2">
+              <span aria-hidden="true" className="text-[var(--growth)] font-mono">└──●───</span>
+              <span className="font-mono text-[11px]">enter worktree · bio.md</span>
+            </a>
+          </div>
+        </div>
       </div>
 
       <div className="ascii-hero__shader-window" aria-hidden="true">
-        <div className="ascii-hero__telemetry-hud">
+        <div className="ascii-hero__telemetry-hud ascii-box-frame">
           <div className="ascii-hero__telemetry-header">
-            <span>╔═ arboretum://topology ═╗</span>
-            <span className="text-[var(--growth)]">● {info.glyph}</span>
+            <span className="font-mono text-[var(--growth)]">╭─[ arboretum://topology ]</span>
+            <span className="text-[var(--growth)] font-mono">● synchronized ─╮</span>
           </div>
           <div className="ascii-hero__telemetry-row">
-            <span className="key">render.mode</span>
-            <span className="val font-mono">high-density-matrix</span>
+            <span className="key font-mono">│ render.mode</span>
+            <span className="val font-mono">high-density-matrix │</span>
           </div>
           <div className="ascii-hero__telemetry-row">
-            <span className="key">tree.specimen</span>
-            <span className="val font-mono">{info.id}</span>
+            <span className="key font-mono">│ tree.specimen</span>
+            <span className="val font-mono">ancient-spirit-tree │</span>
           </div>
           <div className="ascii-hero__telemetry-row">
-            <span className="key">palette</span>
-            <span className="val font-mono">{info.paletteLabel}</span>
+            <span className="key font-mono">│ atmosphere</span>
+            <span className="val font-mono">multi-plane-depth │</span>
           </div>
           <div className="ascii-hero__telemetry-row">
-            <span className="key">branch.waypoints</span>
-            <span className="val font-mono">8 active clearings</span>
+            <span className="key font-mono">│ branch.waypoints</span>
+            <span className="val font-mono">8 active clearings │</span>
           </div>
-
-          <div className="mt-2 pt-2 border-t border-[var(--line-faint)] pointer-events-auto">
-            <div className="text-[10px] text-[var(--ink-faint)] mb-1.5 font-mono">
-              [ specimen-selector ]:
-            </div>
-            <div className="grid grid-cols-2 gap-1.5">
-              {specimens.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setSpecimen(item.id)}
-                  className={`flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-mono transition-colors text-left border ${
-                    specimen === item.id
-                      ? "border-[var(--growth)] bg-[var(--growth-wash)] text-[var(--growth)] font-semibold"
-                      : "border-[var(--line)] bg-[var(--paper-glass-subtle)] text-[var(--ink-soft)] hover:border-[var(--line-strong)] hover:text-[var(--ink)]"
-                  }`}
-                >
-                  <span aria-hidden="true">{item.glyph}</span>
-                  <span className="truncate">{item.name.split(" ")[1] || item.name}</span>
-                </button>
-              ))}
-            </div>
+          <div className="ascii-hero__telemetry-row pt-1 border-t border-[var(--line-faint)] text-[var(--growth-muted)]">
+            <span className="font-mono text-[10px]">╰────────────────────────────</span>
+            <span className="font-mono text-[10px]">─────────╯</span>
           </div>
         </div>
       </div>

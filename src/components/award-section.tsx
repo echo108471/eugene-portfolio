@@ -1,69 +1,60 @@
 import React from "react";
 import AsciiScrambleText from "./ascii-scramble";
 
-interface AwardCardProps {
+interface AwardItem {
   name: string;
   organization: string;
   date: string;
   link: string;
+  summary: string;
+  tag: string;
+  highlight: string;
 }
 
-const AwardCard: React.FC<AwardCardProps> = ({ name, organization, date, link }) => {
-  return (
-    <a
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group grid gap-3 border-t border-[var(--line)] px-4 py-4 transition-colors duration-200 first:border-t-0 hover:bg-[var(--accent-wash)] sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
-    >
-      <div className="flex min-w-0 items-start gap-3">
-        <span className="mt-0.5 flex h-7 w-7 flex-none items-center justify-center rounded-md border border-[var(--accent-edge)] bg-[var(--accent-wash)] font-mono text-sm leading-none text-[var(--accent)]">
-          <span aria-hidden="true">★</span>
-        </span>
-        <span className="min-w-0">
-          <span className="block font-display text-base font-medium leading-6 text-[var(--ink)]">
-            <AsciiScrambleText text={name} />
-          </span>
-          <span className="mt-0.5 block text-sm text-[var(--ink-soft)]">
-            {organization}
-          </span>
-        </span>
-      </div>
-      <span className="meta-text flex items-center gap-3 pl-10 sm:justify-end sm:pl-0">
-        {date}
-        <span className="font-mono transition-colors duration-200 group-hover:text-[var(--accent)]" aria-hidden="true">↗</span>
-      </span>
-    </a>
-  );
-};
+const awards: AwardItem[] = [
+  {
+    name: "Eagle Scout Award",
+    organization: "Boy Scouts of America",
+    date: "2022",
+    link: "https://www.scouting.org/",
+    summary: "Planned, raised municipal funds, and directed a 30-person volunteer team through a complete public staircase restoration project.",
+    tag: "leadership · service",
+    highlight: "Highest rank attained by ~6% of all scouts",
+  },
+  {
+    name: "ACSL Intermediate Division Finalist",
+    organization: "American Computer Science League",
+    date: "2022",
+    link: "https://www.acsl.org/",
+    summary: "International competitive finalist in algorithmic problem solving, graph theory, Boolean logic, and digital assembly data structures.",
+    tag: "algorithms · international",
+    highlight: "Top 5% internationally in competitive round",
+  },
+  {
+    name: "Ventura County Fire Department Citizen Award",
+    organization: "Ventura County Fire Department",
+    date: "2018",
+    link: "https://vcfd.org/",
+    summary: "Commended by VCFD leadership for emergency notification and immediate community assistance during acute wildfire threat.",
+    tag: "civic · community",
+    highlight: "Official citation by Fire Chief & County Board",
+  },
+];
 
 const Awards: React.FC = () => {
-  const awards = [
-    {
-      name: "Eagle Scout Award",
-      organization: "Boy Scouts of America",
-      date: "2022",
-      link: "https://www.scouting.org/",
-    },
-    {
-      name: "ACSL Intermediate Division Finalist",
-      organization: "American Computer Science League",
-      date: "2022",
-      link: "https://www.acsl.org/",
-    },
-    {
-      name: "Ventura County Fire Department Citizen Award",
-      organization: "Ventura County Fire Department",
-      date: "2018",
-      link: "https://vcfd.org/",
-    },
-  ];
-
   return (
     <section className="page-section">
       <div>
+        <div className="ascii-mount-bracket mb-3">
+          <span className="bracket text-[var(--growth)] font-mono text-xs" aria-hidden="true">┌──[</span>
+          <span className="font-mono text-xs text-[var(--accent)] font-medium">tags/milestones // honors</span>
+          <span className="bracket text-[var(--growth)] font-mono text-xs" aria-hidden="true">]───[</span>
+          <span className="font-mono text-xs text-[var(--growth)]">● 3 verified tags</span>
+          <span className="bracket text-[var(--growth)] font-mono text-xs" aria-hidden="true">]──</span>
+        </div>
+
         <div className="section-head">
-          <span className="section-num">07</span>
+          <span className="section-num">08</span>
           <h2 className="section-title">
             <AsciiScrambleText text="Recognition & Milestones" />
           </h2>
@@ -74,18 +65,53 @@ const Awards: React.FC = () => {
       <div className="diff-block">
         <div className="diff-gutter">
           <span className="plus">+</span>
+          <span className="plus">+</span>
           <span className="tilde">~</span>
         </div>
         <div className="diff-body">
-          <div className="surface-card overflow-hidden">
+          <div className="grid gap-4 md:grid-cols-3">
             {awards.map((award) => (
-              <AwardCard
+              <a
                 key={award.name}
-                name={award.name}
-                organization={award.organization}
-                date={award.date}
-                link={award.link}
-              />
+                href={award.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="surface-card interactive-surface group p-5 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 block"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-[var(--line-faint)]">
+                    <span className="ref-chip">[{award.tag}]</span>
+                    <span className="font-mono text-xs text-[var(--accent)] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                      {award.date} <span aria-hidden="true">↗</span>
+                    </span>
+                  </div>
+
+                  <div className="flex items-start gap-3 mb-2">
+                    <span className="mt-0.5 flex h-7 w-7 flex-none items-center justify-center rounded-lg border border-[var(--accent-edge)] bg-[var(--accent-wash)] font-mono text-xs text-[var(--accent)]">
+                      ★
+                    </span>
+                    <div>
+                      <h3 className="font-display text-base font-medium text-[var(--ink)] leading-snug">
+                        <AsciiScrambleText text={award.name} />
+                      </h3>
+                      <p className="text-xs text-[var(--ink-soft)] font-medium mt-0.5">
+                        {award.organization}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-[var(--ink-soft)] leading-relaxed mt-3">
+                    {award.summary}
+                  </p>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-[var(--line-faint)] flex items-center justify-between text-[11px] font-mono text-[var(--ink-faint)]">
+                  <span className="text-[var(--growth)] flex items-center gap-1">
+                    <span>+</span>
+                    <span>{award.highlight}</span>
+                  </span>
+                </div>
+              </a>
             ))}
           </div>
         </div>
@@ -95,3 +121,4 @@ const Awards: React.FC = () => {
 };
 
 export default Awards;
+

@@ -2,6 +2,7 @@ import React from "react";
 import Header from "@/components/header";
 import HeroSection from "@/components/hero-section";
 import AsciiTreeCanvas from "@/components/ascii-tree-canvas";
+import MetricsSection from "@/components/metrics-section";
 import ExperienceSection from "@/components/experience-section";
 import Projects from "@/components/project-section";
 import AboutMe from "@/components/about-me";
@@ -36,10 +37,19 @@ const App: React.FC = () => {
             </section>
 
             <section
+              id="metrics"
+              className="ascii-branch-section scroll-mt-20"
+              data-ref="telemetry"
+              data-tree-side="right"
+            >
+              <MetricsSection />
+            </section>
+
+            <section
               id="experience"
               className="ascii-branch-section scroll-mt-20"
               data-ref="worktree"
-              data-tree-side="right"
+              data-tree-side="left"
             >
               <ExperienceSection />
             </section>

@@ -3,6 +3,7 @@ import { TreeSpecimen } from "../use-tree-theme";
 
 const SECTION_IDS = [
   "about",
+  "metrics",
   "experience",
   "projects",
   "skills",
@@ -38,6 +39,7 @@ type SceneTone =
 type Palette = Record<SceneTone, string>;
 
 type SectionAnchor = {
+  id: string;
   top: number;
   height: number;
   side: "left" | "right";
@@ -55,7 +57,6 @@ type CurvePoints = [
   number,
 ];
 
-// Color mapping definitions for offscreen raster scene
 const SCENE_TONES: Record<SceneTone, { css: string; rgb: [number, number, number] }> = {
   barkCrevice: { css: "rgb(18, 14, 10)", rgb: [18, 14, 10] },
   barkDeep: { css: "rgb(58, 40, 28)", rgb: [58, 40, 28] },
@@ -196,6 +197,7 @@ const AsciiTreeCanvas: React.FC = () => {
         const bounds = section.getBoundingClientRect();
         return [
           {
+            id,
             top: bounds.top + scrollTop,
             height: bounds.height,
             side: section.dataset.treeSide === "right" ? "right" : "left",
@@ -270,7 +272,61 @@ const AsciiTreeCanvas: React.FC = () => {
       sceneContext.globalAlpha = 1;
     };
 
-    // Tiered Cloud-Canopy Clump
+    // Draw an organic tree branch with natural bark striations and depth
+    const drawOrganicBranch = (
+      points: CurvePoints,
+      widthBase: number,
+      widthTip: number,
+      wind = 0,
+      alpha = 0.98,
+    ) => {
+      const p: CurvePoints = [
+        points[0],
+        points[1],
+        points[2] + wind * 0.15,
+        points[3],
+        points[4] + wind * 0.35,
+        points[5],
+        points[6] + wind * 0.65,
+        points[7],
+      ];
+
+      const avgWidth = (widthBase + widthTip) * 0.5;
+
+      // 1. Deep wood core shadow
+      drawCurve(p, "barkDeep", avgWidth * 1.1, alpha * 0.96);
+
+      // 2. Main bark body
+      drawCurve(p, "bark", avgWidth * 0.85, alpha * 0.98);
+
+      // 3. Lit bark ridge on top edge
+      const litPoints: CurvePoints = [
+        p[0] - 0.6,
+        p[1] - 0.6,
+        p[2] - 0.5,
+        p[3] - 0.5,
+        p[4] - 0.4,
+        p[5] - 0.4,
+        p[6] - 0.3,
+        p[7] - 0.3,
+      ];
+      drawCurve(litPoints, "barkLight", avgWidth * 0.35, alpha * 0.88);
+
+      // 4. Shaded moss underside
+      const mossPoints: CurvePoints = [
+        p[0] + 0.7,
+        p[1] + 0.7,
+        p[2] + 0.6,
+        p[3] + 0.6,
+        p[4] + 0.5,
+        p[5] + 0.5,
+        p[6] + 0.4,
+        p[7] + 0.4,
+      ];
+      drawCurve(mossPoints, "moss", avgWidth * 0.3, alpha * 0.75);
+    };
+
+    // Organic Leaf Cloud Canopy Clump
     const drawCloudCanopy = (
       x: number,
       y: number,
@@ -281,51 +337,49 @@ const AsciiTreeCanvas: React.FC = () => {
       seed: number,
       wind: number,
       alpha: number,
-      growth: number,
     ) => {
-      const scale = smoothstep(0.18, 0.95, growth);
-      if (scale <= 0.01) return;
+      if (alpha <= 0.01) return;
 
       // Base shadow layer
       sceneContext.fillStyle = SCENE_TONES.leafDeep.css;
-      sceneContext.globalAlpha = alpha * 0.68;
+      sceneContext.globalAlpha = alpha * 0.7;
       sceneContext.beginPath();
-      sceneContext.ellipse(x + wind * 0.4, y + radiusY * 0.25, radiusX * 0.9 * scale, radiusY * 0.6 * scale, 0, 0, Math.PI * 2);
+      sceneContext.ellipse(x + wind * 0.3, y + radiusY * 0.22, radiusX * 0.9, radiusY * 0.6, 0, 0, Math.PI * 2);
       sceneContext.fill();
 
       // Multi-Lobe Tiered Cloud
-      const lobeCount = 24;
+      const lobeCount = 20;
       for (let i = 0; i < lobeCount; i += 1) {
         const angle = seeded(seed + i * 4.3) * Math.PI * 2;
         const dist = Math.sqrt(seeded(seed + i * 7.7));
-        const lobeX = x + Math.cos(angle) * radiusX * dist + wind * (0.15 + i * 0.01);
-        const lobeY = y + Math.sin(angle) * radiusY * 0.6 * dist;
-        const rx = radiusX * (0.2 + seeded(seed + i * 11.1) * 0.26) * scale;
-        const ry = radiusY * (0.16 + seeded(seed + i * 13.5) * 0.22) * scale;
+        const lobeX = x + Math.cos(angle) * radiusX * dist + wind * (0.12 + i * 0.01);
+        const lobeY = y + Math.sin(angle) * radiusY * 0.58 * dist;
+        const rx = radiusX * (0.24 + seeded(seed + i * 11.1) * 0.26);
+        const ry = radiusY * (0.20 + seeded(seed + i * 13.5) * 0.22);
 
-        const isHighlight = lobeY < y - radiusY * 0.08 && seeded(seed + i * 9.1) > 0.4;
+        const isHighlight = lobeY < y - radiusY * 0.06 && seeded(seed + i * 9.1) > 0.35;
         const isAccent = seeded(seed + i * 17.3) > 0.72;
         const tone = isAccent ? accentTone : isHighlight ? "leaf" : primaryTone;
 
         sceneContext.fillStyle = SCENE_TONES[tone].css;
-        sceneContext.globalAlpha = alpha * (0.5 + seeded(seed + i * 5.7) * 0.44);
+        sceneContext.globalAlpha = alpha * (0.52 + seeded(seed + i * 5.7) * 0.44);
         sceneContext.beginPath();
         sceneContext.ellipse(lobeX, lobeY, Math.max(1.0, rx), Math.max(0.8, ry), angle * 0.2, 0, Math.PI * 2);
         sceneContext.fill();
       }
 
       // Hanging Moss Tendrils beneath the cloud shelf
-      const tendrilCount = 7;
+      const tendrilCount = 6;
       sceneContext.strokeStyle = SCENE_TONES.moss.css;
       sceneContext.lineWidth = 1.0;
       for (let j = 0; j < tendrilCount; j += 1) {
-        const tx = x - radiusX * 0.55 + (radiusX * 1.1 * j) / (tendrilCount - 1);
-        const ty = y + radiusY * 0.3 + seeded(seed + j * 19) * radiusY * 0.16;
-        const tlen = (radiusY * 0.35 + seeded(seed + j * 23) * radiusY * 0.5) * scale;
+        const tx = x - radiusX * 0.5 + (radiusX * j) / (tendrilCount - 1);
+        const ty = y + radiusY * 0.28 + seeded(seed + j * 19) * radiusY * 0.16;
+        const tlen = radiusY * 0.35 + seeded(seed + j * 23) * radiusY * 0.5;
         sceneContext.globalAlpha = alpha * (0.35 + seeded(seed + j * 31) * 0.35);
         sceneContext.beginPath();
         sceneContext.moveTo(tx, ty);
-        sceneContext.quadraticCurveTo(tx + wind * 0.5 + (seeded(seed + j) - 0.5) * 3.5, ty + tlen * 0.5, tx + wind * 0.9, ty + tlen);
+        sceneContext.quadraticCurveTo(tx + wind * 0.4 + (seeded(seed + j) - 0.5) * 3.0, ty + tlen * 0.5, tx + wind * 0.8, ty + tlen);
         sceneContext.stroke();
       }
       sceneContext.globalAlpha = 1;
@@ -341,31 +395,31 @@ const AsciiTreeCanvas: React.FC = () => {
       isRune = false,
       time = 0,
     ) => {
-      const pulse = 0.82 + Math.sin(time * 0.002 + x * 0.05 + y * 0.05) * 0.18;
-      const lx = x + wind * 0.7;
+      const pulse = 0.84 + Math.sin(time * 0.002 + x * 0.05 + y * 0.05) * 0.16;
+      const lx = x + wind * 0.6;
       const ly = y;
 
       // Hanging cord for lanterns
       if (!isRune) {
         sceneContext.strokeStyle = SCENE_TONES.barkCrevice.css;
-        sceneContext.lineWidth = 0.75;
+        sceneContext.lineWidth = 0.8;
         sceneContext.globalAlpha = alpha * 0.65;
         sceneContext.beginPath();
         sceneContext.moveTo(lx, ly - radius * 2.8);
-        sceneContext.lineTo(lx, ly - radius * 0.7);
+        sceneContext.lineTo(lx, ly - radius * 0.6);
         sceneContext.stroke();
       }
 
       // Outer Glow Halo
       sceneContext.fillStyle = isRune ? SCENE_TONES.runeGlow.css : SCENE_TONES.lantern.css;
-      sceneContext.globalAlpha = alpha * (isRune ? 0.34 : 0.28) * pulse;
+      sceneContext.globalAlpha = alpha * (isRune ? 0.35 : 0.28) * pulse;
       sceneContext.beginPath();
-      sceneContext.arc(lx, ly, radius * (isRune ? 2.6 : 3.2), 0, Math.PI * 2);
+      sceneContext.arc(lx, ly, radius * (isRune ? 2.6 : 3.4), 0, Math.PI * 2);
       sceneContext.fill();
 
       // Mid Glow
       sceneContext.fillStyle = isRune ? SCENE_TONES.rune.css : SCENE_TONES.lantern.css;
-      sceneContext.globalAlpha = alpha * (isRune ? 0.74 : 0.82) * pulse;
+      sceneContext.globalAlpha = alpha * (isRune ? 0.75 : 0.82) * pulse;
       sceneContext.beginPath();
       sceneContext.arc(lx, ly, radius * 1.25, 0, Math.PI * 2);
       sceneContext.fill();
@@ -379,15 +433,16 @@ const AsciiTreeCanvas: React.FC = () => {
       sceneContext.globalAlpha = 1;
     };
 
-    // Deep Atmospheric Background Layer with Specimen-Specific Particles
-    const drawAtmosphere = (time: number, wind: number, fade: number) => {
-      // 1. Aurora / Celestial Sky Haze
+    // Continuous Multi-Plane Atmosphere Across Entire Scroll Height
+    const drawAtmosphere = (time: number, wind: number, fade: number, scrollTop: number) => {
+      // 1. Celestial Aurora Sky Haze & Parallax Glow Waves
       sceneContext.fillStyle = SCENE_TONES.aurora.css;
       const skyGlows = [
-        [0.70, 0.10, 48, 0.12],
-        [0.32, 0.08, 36, 0.09],
-        [0.88, 0.22, 42, 0.11],
-        [0.15, 0.18, 32, 0.08],
+        [0.65, 0.12, 58, 0.15],
+        [0.25, 0.10, 48, 0.12],
+        [0.85, 0.28, 52, 0.14],
+        [0.18, 0.55, 46, 0.10],
+        [0.82, 0.75, 50, 0.12],
       ];
       skyGlows.forEach(([gx, gy, gr, ga]) => {
         sceneContext.globalAlpha = fade * ga * (isDark ? 1.0 : 0.65);
@@ -396,15 +451,16 @@ const AsciiTreeCanvas: React.FC = () => {
         sceneContext.fill();
       });
 
-      // 2. Distant Forest Silhouettes
+      // 2. Continuous Parallax Distant Ancient Forest Silhouettes Across the Document
       sceneContext.fillStyle = SCENE_TONES.forestFar.css;
-      const treeCount = 28;
+      const treeCount = 42;
       for (let i = 0; i < treeCount; i += 1) {
         const tx = columns * (0.01 + (i / (treeCount - 1)) * 0.98);
-        const th = rows * (0.16 + seeded(i * 13 + 5) * 0.24);
-        const ty = rows * 0.54 + seeded(i * 17 + 2) * rows * 0.16;
-        const tw = 5 + seeded(i * 29) * 7;
-        sceneContext.globalAlpha = fade * (isDark ? 0.09 : 0.06) * (0.6 + seeded(i * 31) * 0.4);
+        const parallaxY = (i * 197.3 - scrollTop * 0.18) % (rows * 1.4);
+        const ty = (parallaxY < -rows * 0.2 ? parallaxY + rows * 1.4 : parallaxY);
+        const th = rows * (0.14 + seeded(i * 13 + 5) * 0.24);
+        const tw = 4 + seeded(i * 29) * 8;
+        sceneContext.globalAlpha = fade * (isDark ? 0.085 : 0.055) * (0.6 + seeded(i * 31) * 0.4);
 
         sceneContext.beginPath();
         sceneContext.moveTo(tx, ty - th);
@@ -414,41 +470,7 @@ const AsciiTreeCanvas: React.FC = () => {
         sceneContext.fill();
       }
 
-      // 3. Subtle background grid coordinates
-      sceneContext.fillStyle = SCENE_TONES.ambient.css;
-      const gridStep = 24;
-      for (let x = 12; x < columns; x += gridStep) {
-        for (let y = 10; y < rows; y += gridStep) {
-          const tickAlpha = 0.024 + Math.sin(time * 0.0005 + x * 0.08 + y * 0.06) * 0.01;
-          sceneContext.globalAlpha = fade * tickAlpha;
-          sceneContext.beginPath();
-          sceneContext.arc(x, y, 0.4, 0, Math.PI * 2);
-          sceneContext.fill();
-        }
-      }
-
-      // 4. Waterfall & Cascading River Spray at Base
-      const waterfalls = [
-        [0.44, 0.88, 22],
-        [0.88, 0.86, 18],
-        [0.65, 0.94, 26],
-      ];
-      sceneContext.fillStyle = SCENE_TONES.waterfall.css;
-      waterfalls.forEach(([wfxScale, wfyScale, spread]) => {
-        const wfx = columns * (width <= 680 ? wfxScale * 0.8 : wfxScale);
-        const wfy = rows * wfyScale;
-        for (let w = 0; w < 12; w += 1) {
-          const wx = wfx + (seeded(w * 17 + spread) - 0.5) * spread;
-          const wy = wfy + seeded(w * 23 + spread) * rows * 0.14;
-          const wr = 1.0 + seeded(w * 31 + spread) * 3.2;
-          sceneContext.globalAlpha = fade * (0.07 + seeded(w * 43) * 0.16) * (isDark ? 1.0 : 0.8);
-          sceneContext.beginPath();
-          sceneContext.ellipse(wx, wy, wr * 1.6, wr * 0.7, 0, 0, Math.PI * 2);
-          sceneContext.fill();
-        }
-      });
-
-      // 5. Specimen-Specific Particle Shaders (Spores vs Sakura Petals vs Cyber Sparks vs Ginkgo Leaves)
+      // 3. Specimen-Specific Particle Shaders (Spores / Sakura Petals / Matrix Sparks / Ginkgo Leaves)
       const particleTone =
         currentSpecimen === "sakura"
           ? "rose"
@@ -459,427 +481,533 @@ const AsciiTreeCanvas: React.FC = () => {
           : "spore";
 
       sceneContext.fillStyle = SCENE_TONES[particleTone].css;
-      const particleCount = 110;
+      const particleCount = 140;
       for (let index = 0; index < particleCount; index += 1) {
         const originX = columns * (0.01 + seeded(index + 3) * 0.98);
-        const originY = rows * seeded(index + 15);
+        const originY = rows * seeded(index + 15 + Math.floor(scrollTop * 0.0008));
 
-        // Specimen-Specific Particle Motion
         let x = originX;
         let y = originY;
         if (currentSpecimen === "sakura") {
-          // Drifting sakura petal flutter with gentle horizontal gusts
-          const sway = Math.sin(time * 0.0006 + index * 2.1) * (4.5 + seeded(index * 7) * 5.0);
-          x = originX + sway + wind * 1.2;
-          y = (originY + time * (0.00022 + seeded(index + 45) * 0.00015)) % (rows + 12) - 6;
+          const sway = Math.sin(time * 0.0006 + index * 2.1) * (5.5 + seeded(index * 7) * 6.0);
+          x = originX + sway + wind * 1.4;
+          y = (originY + time * (0.00024 + seeded(index + 45) * 0.00018)) % (rows + 16) - 8;
         } else if (currentSpecimen === "bio-cypress") {
-          // Rapid vertical cyber spark flutter
-          const jitter = (seeded(index * 99 + Math.floor(time * 0.003)) - 0.5) * 1.8;
-          x = originX + jitter + wind * 0.4;
-          y = (originY - time * 0.00018) % (rows + 8);
-          if (y < 0) y += rows + 8;
+          const jitter = (seeded(index * 99 + Math.floor(time * 0.003)) - 0.5) * 2.2;
+          x = originX + jitter + wind * 0.5;
+          y = (originY - time * 0.00022) % (rows + 12);
+          if (y < 0) y += rows + 12;
         } else if (currentSpecimen === "ginkgo") {
-          // Swaying falling autumn ginkgo leaf
-          const swing = Math.sin(time * 0.00045 + index * 1.5) * 6.0;
-          x = originX + swing + wind * 0.8;
-          y = (originY + time * 0.00018) % (rows + 10) - 5;
+          const swing = Math.sin(time * 0.00045 + index * 1.5) * 7.5;
+          x = originX + swing + wind * 0.9;
+          y = (originY + time * 0.00022) % (rows + 14) - 7;
         } else {
-          // Default Spirit Oak Spores
-          const drift = Math.sin(time * 0.00028 + index * 1.7) * (2.2 + seeded(index + 25) * 3.4);
-          x = originX + drift + wind * 0.65;
-          y = (originY + time * (0.00015 + seeded(index + 45) * 0.00009)) % (rows + 8) - 4;
+          const drift = Math.sin(time * 0.00028 + index * 1.7) * (3.0 + seeded(index + 25) * 4.0);
+          x = originX + drift + wind * 0.75;
+          y = (originY + time * (0.00018 + seeded(index + 45) * 0.00012)) % (rows + 12) - 6;
         }
 
-        sceneContext.globalAlpha = fade * (0.12 + seeded(index + 55) * 0.42);
+        sceneContext.globalAlpha = fade * (0.14 + seeded(index + 55) * 0.46);
         sceneContext.beginPath();
-        sceneContext.arc(x, y, 0.25 + seeded(index + 65) * 0.45, 0, Math.PI * 2);
+        sceneContext.arc(x, y, 0.28 + seeded(index + 65) * 0.55, 0, Math.PI * 2);
         sceneContext.fill();
       }
       sceneContext.globalAlpha = 1;
     };
 
-    // Draw Monumental Cathedral Spirit Tree
-    const drawHeroSpiritTree = (time: number, scrollTop: number) => {
-      const fade = 1;
+    // PROCEDURAL ASYMMETRICAL ANCIENT TREE (Natural Branching Architecture)
+    const drawUnifiedWorldTree = (time: number, scrollTop: number, documentHeight: number) => {
       const compact = width <= 680;
-      const scrollGrowth = smoothstep(0, height * 0.8, scrollTop);
-      const growth = 0.92 + scrollGrowth * 0.08;
       const wind =
-        Math.sin(time * 0.00045) * (compact ? 0.8 : 1.4) +
+        Math.sin(time * 0.00045 + scrollTop * 0.00015) * (compact ? 0.8 : 1.4) +
         Math.sin(time * 0.00022 + 1.8) * 0.7 +
-        pointerX * (compact ? 0.5 : 1.3) +
+        pointerX * (compact ? 0.5 : 1.2) +
         pointerY * 0.22;
 
-      const baseX = columns * (compact ? 0.74 : 0.70);
-      const baseY = rows * 1.15;
-      const forkX = columns * (compact ? 0.72 : 0.67);
-      const forkY = rows * 0.42;
+      const toScreenRow = (worldY: number) => (worldY - scrollTop) / cellHeight;
 
-      drawAtmosphere(time, wind, fade);
+      // Draw continuous multi-plane atmosphere
+      drawAtmosphere(time, wind, 1, scrollTop);
 
-      // Sprawling Buttressed Cathedral Roots at Base (spanning x=0.38 to x=0.98)
-      const buttressRoots: Array<[number, number, number, SceneTone, number]> = [
-        [-46, -26, 7.5, "barkDeep", 0.38],
-        [-34, -18, 8.2, "moss", 0.42],
-        [-24, -12, 9.0, "bark", 0.46],
-        [-14, -6, 9.5, "barkLight", 0.48],
-        [14, 6, 9.5, "barkLight", 0.48],
-        [24, 12, 9.0, "bark", 0.46],
-        [36, 20, 8.5, "moss", 0.42],
-        [48, 28, 7.8, "barkDeep", 0.38],
-        [60, 36, 6.8, "barkDeep", 0.34],
+      // ─────────────────────────────────────────────────────────────────────────────
+      // 1. DYNAMIC ASYMMETRICAL TRUNK SPINE (Oscillating organically down the page)
+      // ─────────────────────────────────────────────────────────────────────────────
+      // Derive waypoints dynamically from measured section anchors with fallback defaults
+      const dynamicWaypoints: Array<{ y: number; x: number }> = [
+        { y: 0, x: compact ? 0.64 : 0.58 },
+        { y: Math.min(500, height * 0.55), x: compact ? 0.66 : 0.60 },
       ];
 
-      buttressRoots.forEach(([baseOffset, midOffset, rWidth, rTone, growthThresh]) => {
-        const x0 = baseX + (compact ? baseOffset * 0.55 : baseOffset);
-        const x1 = columns * 0.70 + (compact ? midOffset * 0.55 : midOffset);
-        const x2 = forkX + (compact ? baseOffset * 0.15 : baseOffset * 0.22);
-        const curve: CurvePoints = [x0, baseY, x1, rows * 0.85, x2, rows * 0.62, forkX, forkY];
-        drawCurve(curve, rTone, compact ? rWidth * 0.65 : rWidth, fade * 0.96, smoothstep(0.01, growthThresh, growth));
-      });
-
-      // 12 Braided Trunk Pillars with Gnarled Bark Striations
-      const trunkPillars: Array<{ dx: number; bend: number; tone: SceneTone; width: number; tone2: SceneTone }> = [
-        { dx: -28, bend: -14, tone: "moss", width: 6.2, tone2: "barkDeep" },
-        { dx: -21, bend: -9, tone: "barkDeep", width: 6.8, tone2: "bark" },
-        { dx: -15, bend: -6, tone: "bark", width: 7.2, tone2: "barkLight" },
-        { dx: -9, bend: -3, tone: "barkLight", width: 6.8, tone2: "bark" },
-        { dx: -3, bend: 0, tone: "barkCrevice", width: 6.0, tone2: "barkDeep" },
-        { dx: 3, bend: 2, tone: "barkCrevice", width: 6.0, tone2: "barkDeep" },
-        { dx: 9, bend: 4, tone: "barkLight", width: 7.0, tone2: "bark" },
-        { dx: 15, bend: 8, tone: "bark", width: 7.4, tone2: "barkDeep" },
-        { dx: 22, bend: 13, tone: "barkDeep", width: 7.0, tone2: "moss" },
-        { dx: 29, bend: 18, tone: "moss", width: 6.4, tone2: "barkDeep" },
-        { dx: 36, bend: 24, tone: "barkDeep", width: 5.8, tone2: "bark" },
-      ];
-
-      trunkPillars.forEach((p) => {
-        const x0 = baseX + (compact ? p.dx * 0.55 : p.dx);
-        const x1 = columns * 0.69 + (compact ? p.bend * 0.55 : p.bend);
-        const x2 = columns * 0.72 + (compact ? p.dx * 0.35 : p.dx * 0.45);
-        const x3 = forkX + (compact ? p.dx * 0.22 : p.dx * 0.32);
-
-        const curve: CurvePoints = [x0, baseY, x1, rows * 0.86, x2, rows * 0.64, x3, forkY];
-        drawCurve(curve, p.tone, compact ? p.width * 0.65 : p.width, fade * 0.96, smoothstep(0.02, 0.46, growth));
-        drawCurve(
-          [curve[0] + 1, curve[1], curve[2] + 0.5, curve[3], curve[4] + 1, curve[5], curve[6] + 0.5, curve[7]],
-          p.tone2,
-          compact ? p.width * 0.3 : p.width * 0.38,
-          fade * 0.85,
-          smoothstep(0.04, 0.5, growth),
+      if (sectionAnchors.length > 0) {
+        sectionAnchors.forEach((sec, idx) => {
+          const isLeft = sec.side === "left";
+          // Trunk curves toward the opposite side to balance the section card, weaving back and forth
+          const targetX = isLeft
+            ? compact ? 0.70 : 0.64 + (idx % 2 === 0 ? 0.03 : -0.02)
+            : compact ? 0.30 : 0.36 + (idx % 2 === 0 ? -0.03 : 0.02);
+          const midY = sec.top + sec.height * 0.45;
+          dynamicWaypoints.push({ y: sec.top, x: targetX });
+          dynamicWaypoints.push({ y: midY, x: targetX + (isLeft ? 0.02 : -0.02) });
+        });
+      } else {
+        // Fallback default waypoints if anchors not yet measured
+        dynamicWaypoints.push(
+          { y: 900, x: compact ? 0.70 : 0.65 },
+          { y: 1800, x: compact ? 0.30 : 0.35 },
+          { y: 2700, x: compact ? 0.70 : 0.65 },
+          { y: 3600, x: compact ? 0.30 : 0.35 },
+          { y: 4500, x: compact ? 0.68 : 0.62 },
+          { y: 5400, x: compact ? 0.32 : 0.38 },
         );
-      });
+      }
 
-      // Climbing Spiraling Vines
-      const vineCurves: Array<[CurvePoints, SceneTone]> = [
-        [[baseX - 22, baseY, columns * 0.74, rows * 0.84, columns * 0.66, rows * 0.66, forkX - 6, forkY], "gold"],
-        [[baseX + 24, baseY, columns * 0.66, rows * 0.82, columns * 0.78, rows * 0.65, forkX + 8, forkY], "moss"],
-        [[baseX - 8, baseY, columns * 0.62, rows * 0.88, columns * 0.74, rows * 0.68, forkX + 2, forkY], "gold"],
-      ];
-      vineCurves.forEach(([vPoints, vTone]) => {
-        drawCurve(vPoints, vTone, compact ? 1.2 : 2.0, fade * 0.92, smoothstep(0.08, 0.54, growth));
-      });
+      dynamicWaypoints.push(
+        { y: Math.max(1000, documentHeight - 600), x: compact ? 0.50 : 0.50 },
+        { y: documentHeight, x: compact ? 0.50 : 0.50 },
+      );
 
-      // Bioluminescent Cyan Runes along Trunk
-      const runePositions = [
-        [columns * 0.68, rows * 0.88, 2.0],
-        [columns * 0.70, rows * 0.78, 1.8],
-        [columns * 0.72, rows * 0.68, 1.6],
-        [columns * 0.69, rows * 0.58, 2.2],
-        [columns * 0.71, rows * 0.48, 1.8],
-      ];
-      runePositions.forEach(([rx, ry, rrad]) => {
-        drawLantern(rx, ry, compact ? rrad * 0.8 : rrad, wind, fade, true, time);
-      });
-
-      // Grand Overarching Boughs (Framing the whole viewport)
-      const grandBoughs: Array<[CurvePoints, number, SceneTone, number]> = [
-        [[forkX, rows * 0.48, columns * 0.45, rows * 0.38, columns * 0.24, rows * 0.24, columns * 0.06, rows * 0.12], 8.5, "barkDeep", 0.90],
-        [[forkX - 4, rows * 0.46, columns * 0.42, rows * 0.30, columns * 0.22, rows * 0.18, columns * 0.08, rows * 0.26], 6.5, "bark", 0.86],
-        [[forkX - 6, rows * 0.44, columns * 0.52, rows * 0.28, columns * 0.38, rows * 0.14, columns * 0.26, rows * 0.04], 6.2, "barkDeep", 0.84],
-        [[forkX, rows * 0.42, columns * 0.68, rows * 0.24, columns * 0.64, rows * 0.12, columns * 0.60, rows * 0.02], 7.0, "barkDeep", 0.80],
-        [[forkX + 4, rows * 0.42, columns * 0.78, rows * 0.24, columns * 0.84, rows * 0.10, columns * 0.88, rows * 0.02], 6.5, "bark", 0.82],
-        [[forkX + 6, rows * 0.46, columns * 0.84, rows * 0.38, columns * 0.96, rows * 0.28, columns * 1.04, rows * 0.14], 8.8, "barkDeep", 0.90],
-        [[forkX + 8, rows * 0.50, columns * 0.88, rows * 0.46, columns * 0.98, rows * 0.44, columns * 1.06, rows * 0.32], 6.8, "moss", 0.84],
-        [[forkX + 6, rows * 0.54, columns * 0.82, rows * 0.56, columns * 0.92, rows * 0.58, columns * 1.02, rows * 0.50], 5.5, "bark", 0.80],
-      ];
-      grandBoughs.forEach(([points, bWidth, tone, threshold], index) => {
-        drawCurve(
-          points.map((val, pidx) => (pidx % 2 === 0 && pidx > 1 ? val + wind * (0.1 + index * 0.015) : val)) as CurvePoints,
-          tone,
-          compact ? bWidth * 0.65 : bWidth,
-          fade,
-          smoothstep(0.16, threshold, growth),
-        );
-      });
-
-      // Panoramic Canopy Ceiling Shelves
-      const cloudShelves: Array<[number, number, number, number, SceneTone, SceneTone, number]> = [
-        [0.08, 0.10, 32, 20, "leaf", "gold", 11],
-        [0.18, 0.14, 38, 22, "moss", "gold", 23],
-        [0.10, 0.24, 28, 18, "leaf", "coral", 37],
-        [0.26, 0.08, 42, 24, "leaf", "gold", 49],
-        [0.38, 0.06, 44, 26, "leaf", "coral", 61],
-        [0.52, 0.04, 46, 26, "moss", "gold", 73],
-        [0.64, 0.03, 48, 28, "leaf", "gold", 87],
-        [0.76, 0.05, 46, 26, "moss", "sky", 99],
-        [0.86, 0.04, 44, 24, "leaf", "gold", 113],
-        [0.96, 0.08, 42, 24, "leaf", "rose", 127],
-        [1.02, 0.18, 40, 22, "violet", "sky", 141],
-        [0.94, 0.28, 38, 22, "leaf", "gold", 155],
-        [0.98, 0.40, 34, 20, "coral", "leaf", 169],
-        [0.92, 0.50, 30, 18, "leaf", "gold", 183],
-        [0.46, 0.22, 34, 20, "moss", "leaf", 197],
-        [0.60, 0.24, 36, 22, "leaf", "coral", 211],
-        [0.78, 0.22, 38, 22, "coral", "leaf", 225],
-        [0.72, 0.34, 32, 18, "leaf", "gold", 239],
-      ];
-      cloudShelves.forEach(([cx, cy, rx, ry, prime, acc, seed]) => {
-        if (compact && cx < 0.28) return;
-        drawCloudCanopy(
-          columns * cx,
-          rows * cy,
-          compact ? rx * 0.65 : rx,
-          compact ? ry * 0.65 : ry,
-          prime,
-          acc,
-          seed,
-          wind,
-          fade * 0.94,
-          growth,
-        );
-      });
-
-      // Constellation of 42+ Glowing Lanterns
-      const lanterns: Array<[number, number, number]> = [
-        [0.06, 0.14, 2.8],
-        [0.12, 0.10, 3.2],
-        [0.16, 0.20, 2.6],
-        [0.10, 0.28, 2.4],
-        [0.22, 0.12, 3.4],
-        [0.26, 0.22, 2.8],
-        [0.32, 0.10, 3.6],
-        [0.38, 0.18, 2.6],
-        [0.44, 0.08, 3.2],
-        [0.48, 0.24, 2.4],
-        [0.54, 0.06, 4.0],
-        [0.58, 0.16, 3.0],
-        [0.62, 0.04, 3.8],
-        [0.66, 0.14, 3.4],
-        [0.70, 0.08, 4.2],
-        [0.74, 0.20, 3.2],
-        [0.78, 0.06, 3.6],
-        [0.82, 0.16, 3.0],
-        [0.86, 0.08, 3.8],
-        [0.90, 0.22, 3.2],
-        [0.94, 0.12, 3.6],
-        [0.98, 0.24, 3.0],
-        [0.92, 0.34, 3.4],
-        [0.98, 0.44, 2.8],
-        [0.88, 0.46, 2.6],
-        [0.94, 0.54, 2.4],
-        [0.56, 0.28, 2.8],
-        [0.64, 0.32, 3.0],
-        [0.72, 0.36, 2.8],
-        [0.80, 0.32, 3.2],
-        [0.52, 0.72, 2.6],
-        [0.82, 0.74, 2.8],
-        [0.46, 0.88, 3.0],
-        [0.90, 0.86, 2.8],
-      ];
-      lanterns.forEach(([lx, ly, lr]) => {
-        if (compact && lx < 0.32) return;
-        drawLantern(columns * lx, rows * ly, compact ? lr * 0.75 : lr, wind, fade, false, time);
-      });
-
-      // Grand Commit Fork Rune Node
-      drawLantern(forkX, rows * 0.44, compact ? 2.6 : 3.8, wind, fade, true, time);
-    };
-
-    // Draw the World-Scale Document Tree through sections to roots
-    const drawWorldTree = (time: number, scrollTop: number, documentHeight: number) => {
-      const compact = width <= 680;
-      const wind =
-        Math.sin(time * 0.00042 + scrollTop * 0.00018) * (compact ? 0.6 : 1.2) +
-        Math.sin(time * 0.00019 + 2.4) * 0.5 +
-        pointerX * (compact ? 0.3 : 0.7) +
-        pointerY * 0.12;
-
-      // Section waypoints that guide the trunk curve
-      const waypoints = [
-        { y: height * 0.8, x: compact ? 0.78 : 0.70 },
-        ...sectionAnchors.map((section) => ({
-          y: section.top + Math.min(84, section.height * 0.08),
-          x: compact ? 0.08 : section.side === "left" ? 0.80 : 0.20,
-        })),
-        { y: documentHeight - height * 0.35, x: compact ? 0.1 : 0.5 },
-      ].sort((a, b) => a.y - b.y);
+      const spineWaypoints = dynamicWaypoints.sort((a, b) => a.y - b.y);
 
       const trunkXAt = (worldY: number) => {
-        if (compact) {
-          const handoff = smoothstep(height * 0.75, height * 1.4, worldY);
-          const x = 0.78 + (0.08 - 0.78) * handoff;
-          return columns * (x + Math.sin(worldY * 0.0018) * 0.015 * handoff);
-        }
-        const first = waypoints[0];
-        const last = waypoints[waypoints.length - 1];
+        const first = spineWaypoints[0];
+        const last = spineWaypoints[spineWaypoints.length - 1];
         if (worldY <= first.y) return columns * first.x;
         if (worldY >= last.y) return columns * last.x;
-        for (let index = 0; index < waypoints.length - 1; index += 1) {
-          const current = waypoints[index];
-          const next = waypoints[index + 1];
+        for (let index = 0; index < spineWaypoints.length - 1; index += 1) {
+          const current = spineWaypoints[index];
+          const next = spineWaypoints[index + 1];
           if (worldY < current.y || worldY > next.y) continue;
           const progress = smoothstep(current.y, next.y, worldY);
-          const organicDrift = Math.sin(worldY * 0.003 + index * 1.8) * 0.014;
-          return columns * (current.x + (next.x - current.x) * progress + organicDrift);
+          const organicWiggle = Math.sin(worldY * 0.0022 + index * 2.3) * (compact ? 0.012 : 0.022);
+          return columns * (current.x + (next.x - current.x) * progress + organicWiggle);
         }
         return columns * last.x;
       };
 
-      const toScreenRow = (worldY: number) => (worldY - scrollTop) / cellHeight;
-      const segmentSize = Math.max(280, height * 0.34);
-      const firstSegment = Math.max(
-        height * 0.75,
-        Math.floor((scrollTop - height * 0.6) / segmentSize) * segmentSize,
-      );
-      const lastSegment = Math.min(
-        documentHeight + height * 0.25,
-        scrollTop + height * 1.6,
-      );
+      // Render the living trunk core along visible segments
+      const segmentSize = Math.max(200, height * 0.25);
+      const firstSegment = Math.max(0, Math.floor((scrollTop - height * 0.8) / segmentSize) * segmentSize);
+      const lastSegment = Math.min(documentHeight, scrollTop + height * 1.8);
 
-      // Render Continuous Braided Spine Trunk through the document
       for (let worldY = firstSegment; worldY < lastSegment; worldY += segmentSize) {
-        const nextWorldY = Math.min(worldY + segmentSize + 1, documentHeight + height * 0.25);
+        const nextWorldY = Math.min(worldY + segmentSize + 2, documentHeight);
         const y0 = toScreenRow(worldY);
         const y1 = toScreenRow(nextWorldY);
         const x0 = trunkXAt(worldY);
         const x1 = trunkXAt(nextWorldY);
         const segmentIndex = Math.floor(worldY / segmentSize);
-        const bend = (seeded(segmentIndex * 13 + 7) - 0.5) * (compact ? 3.0 : 7.5);
+        const naturalBend = (seeded(segmentIndex * 17 + 3) - 0.5) * (compact ? 5.0 : 11.0);
 
-        // 6 Intertwined Braided Pillars
-        const sectionPillars: Array<{ offset: number; tone: SceneTone; width: number }> = [
-          { offset: -12, tone: "moss", width: 5.0 },
-          { offset: -6, tone: "barkDeep", width: 5.8 },
-          { offset: 0, tone: "barkCrevice", width: 5.2 },
-          { offset: 6, tone: "barkLight", width: 6.0 },
-          { offset: 12, tone: "bark", width: 5.6 },
-          { offset: 18, tone: "moss", width: 4.8 },
+        // Trunk width tapers naturally from 16px at root base to 8px at canopy top
+        const depthProgress = clamp(worldY / Math.max(1, documentHeight));
+        const trunkWidth = (compact ? 7.0 : 10.5) + depthProgress * (compact ? 6.0 : 9.5);
+
+        // Organic trunk multi-pass (3 distinct wood striations with natural grain)
+        const trunkCurve: CurvePoints = [
+          x0,
+          y0,
+          x0 + naturalBend + wind * 0.12,
+          y0 + (y1 - y0) * 0.35,
+          x1 - naturalBend + wind * 0.22,
+          y0 + (y1 - y0) * 0.65,
+          x1,
+          y1,
         ];
 
-        sectionPillars.forEach((sp, pidx) => {
-          const poff = compact ? sp.offset * 0.55 : sp.offset;
-          const ripple = Math.sin(segmentIndex * 2.2 + pidx) * (compact ? 0.6 : 1.4);
-          drawCurve(
-            [
-              x0 + poff,
-              y0,
-              x0 + bend + poff * 0.5 + ripple + wind * 0.15,
-              y0 + (y1 - y0) * 0.34,
-              x1 - bend + poff * 0.7 - ripple + wind * 0.24,
-              y0 + (y1 - y0) * 0.68,
-              x1 + poff,
-              y1,
-            ],
-            sp.tone,
-            compact ? sp.width * 0.7 : sp.width,
-            0.96,
-          );
-        });
+        drawOrganicBranch(trunkCurve, trunkWidth, trunkWidth * 0.95, wind, 0.98);
 
-        // Glowing Rune in Trunk Fissure
-        const knotWorldY = worldY + segmentSize * (0.42 + seeded(segmentIndex + 18) * 0.26);
-        const knotY = toScreenRow(knotWorldY);
-        const knotX = trunkXAt(knotWorldY);
-        if (seeded(segmentIndex + 7) > 0.35) {
-          drawLantern(knotX, knotY, compact ? 1.6 : 2.4, wind, 0.95, true, time);
+        // Spiraling emerald/golden climbing vine with foliage nodules
+        const vineOffset = Math.sin(segmentIndex * 1.5) * (trunkWidth * 0.72);
+        drawCurve(
+          [
+            x0 - vineOffset,
+            y0,
+            x0 + naturalBend * 0.4 + vineOffset,
+            y0 + (y1 - y0) * 0.5,
+            x1 - naturalBend * 0.4 - vineOffset,
+            y0 + (y1 - y0) * 0.8,
+            x1 + vineOffset,
+            y1,
+          ],
+          segmentIndex % 2 === 0 ? "gold" : "moss",
+          compact ? 1.6 : 2.5,
+          0.94,
+        );
+
+        // Climbing ivy leaves on the trunk
+        if (seeded(segmentIndex * 19 + 7) > 0.3) {
+          const leafX = x0 + (seeded(segmentIndex) - 0.5) * trunkWidth * 0.8;
+          const leafY = y0 + (y1 - y0) * 0.5;
+          drawCloudCanopy(leafX, leafY, compact ? 10 : 16, compact ? 6 : 10, "leaf", "gold", segmentIndex * 31, wind, 0.88);
+        }
+
+        // Glowing spirit rune in ancient bark knot
+        const runeWorldY = worldY + segmentSize * (0.35 + seeded(segmentIndex + 11) * 0.3);
+        const runeScreenY = toScreenRow(runeWorldY);
+        const runeX = trunkXAt(runeWorldY);
+        if (seeded(segmentIndex + 9) > 0.22) {
+          drawLantern(runeX, runeScreenY, compact ? 2.2 : 3.2, wind, 0.96, true, time);
         }
       }
 
-      // Render Section Anchor Limbs & Cloud Clearings
-      sectionAnchors.forEach((section) => {
-        const worldY = section.top + Math.min(84, section.height * 0.08);
-        const screenY = toScreenRow(worldY);
-        if (screenY < -48 || screenY > rows + 48) return;
+      // ─────────────────────────────────────────────────────────────────────────────
+      // 2. ASYMMETRICAL HERO CANOPY BRANCHES (worldY = 0 to 750)
+      // ─────────────────────────────────────────────────────────────────────────────
+      if (scrollTop < height * 1.5) {
+        const forkWorldY = 420;
+        const forkScreenY = toScreenRow(forkWorldY);
+        const forkX = trunkXAt(forkWorldY);
 
-        const sectionGrowth = 1 - smoothstep(rows * 0.78, rows * 1.06, screenY);
-        const trunkX = trunkXAt(worldY);
-        const endX = compact
-          ? columns * 0.18
-          : columns * (section.side === "left" ? 0.52 : 0.48);
-        const endY = screenY - (compact ? 3.5 : 8.0 + (section.index % 2) * 3.0);
-        const primeTone = CANOPY_TONES[section.index % CANOPY_TONES.length];
-        const accentTone = CANOPY_TONES[(section.index + 2) % CANOPY_TONES.length];
-
-        // Heavy bough connecting trunk to section
-        drawCurve(
-          [
-            trunkX,
-            screenY,
-            trunkX + (endX - trunkX) * 0.28,
-            screenY - 1.5,
-            trunkX + (endX - trunkX) * 0.7,
-            endY + 2.0,
-            endX,
-            endY,
-          ],
-          section.index % 2 === 0 ? "bark" : "barkDeep",
-          compact ? 3.2 : 5.0,
-          0.98,
-          sectionGrowth,
-        );
-
-        if (sectionGrowth > 0.05) {
-          // Cloud-Canopy Shelf at section clearing
-          drawCloudCanopy(
-            endX,
-            endY - 2.0,
-            compact ? 16.0 : 30.0,
-            compact ? 10.0 : 18.0,
-            primeTone,
-            accentTone,
-            section.index * 37 + 13,
-            wind,
-            sectionGrowth * 0.94,
-            1,
-          );
-          // Hanging Lantern at section bough
-          drawLantern(endX, endY + 4.0, compact ? 2.0 : 3.0, wind, sectionGrowth, false, time);
-        }
-
-        // Section Commit Rune Node
-        drawLantern(trunkX, screenY, compact ? 1.8 : 2.8, wind, sectionGrowth, true, time);
-      });
-
-      // Sprawling Footer Buttress Roots & Waterfall Spray
-      const rootStart = documentHeight - height * 0.95;
-      if (scrollTop + height > rootStart - height * 0.3) {
-        const rootX = trunkXAt(rootStart);
-        const rootY = toScreenRow(rootStart);
-        const rootEndY = toScreenRow(documentHeight + height * 0.15);
-        const rootEnds = compact
-          ? [0.02, 0.22, 0.45, 0.72, 0.98]
-          : [0.01, 0.08, 0.20, 0.36, 0.52, 0.68, 0.84, 0.98];
-
-        rootEnds.forEach((endFraction, index) => {
-          const endX = columns * endFraction;
-          const direction = endX < rootX ? -1 : 1;
-          drawCurve(
-            [
-              rootX,
-              rootY,
-              rootX + direction * 22 * (0.85 + index * 0.12),
-              rootY + (rootEndY - rootY) * 0.26,
-              endX - direction * columns * 0.06,
-              rootY + (rootEndY - rootY) * 0.68,
-              endX,
-              rootEndY,
+        // Primary Asymmetric Limbs branching off the fork
+        const heroBranches: Array<{
+          curve: CurvePoints;
+          widthBase: number;
+          widthTip: number;
+          foliage: { x: number; y: number; rx: number; ry: number; prime: SceneTone; acc: SceneTone; seed: number };
+          lanterns: Array<{ x: number; y: number; radius: number }>;
+        }> = [
+          // 1. The Great High Western Bough (Sweeping high up and across over the headline)
+          {
+            curve: [forkX, forkScreenY, columns * 0.44, toScreenRow(220), columns * 0.22, toScreenRow(120), columns * 0.08, toScreenRow(60)],
+            widthBase: 13.0,
+            widthTip: 5.0,
+            foliage: { x: columns * 0.08, y: toScreenRow(55), rx: 42, ry: 26, prime: "leaf", acc: "gold", seed: 101 },
+            lanterns: [
+              { x: columns * 0.08, y: toScreenRow(78), radius: 4.4 },
+              { x: columns * 0.16, y: toScreenRow(128), radius: 3.6 },
             ],
-            index % 2 === 0 ? "barkDeep" : "bark",
-            compact ? 3.0 : 5.2,
+          },
+          // 1b. High Western Sub-branch
+          {
+            curve: [columns * 0.32, toScreenRow(160), columns * 0.24, toScreenRow(100), columns * 0.18, toScreenRow(70), columns * 0.16, toScreenRow(35)],
+            widthBase: 7.0,
+            widthTip: 3.0,
+            foliage: { x: columns * 0.16, y: toScreenRow(30), rx: 36, ry: 22, prime: "moss", acc: "gold", seed: 107 },
+            lanterns: [{ x: columns * 0.16, y: toScreenRow(52), radius: 3.8 }],
+          },
+          // 2. Central High Vaulting Limb (Crown of the Tree)
+          {
+            curve: [forkX + 2, forkScreenY - 4, columns * 0.62, toScreenRow(200), columns * 0.54, toScreenRow(90), columns * 0.48, toScreenRow(20)],
+            widthBase: 10.5,
+            widthTip: 4.0,
+            foliage: { x: columns * 0.48, y: toScreenRow(15), rx: 46, ry: 28, prime: "leaf", acc: "coral", seed: 123 },
+            lanterns: [{ x: columns * 0.48, y: toScreenRow(38), radius: 4.6 }],
+          },
+          // 3. Eastern Canopy Bough (Arching over and supporting the Telemetry HUD)
+          {
+            curve: [forkX + 6, forkScreenY, columns * 0.78, toScreenRow(280), columns * 0.90, toScreenRow(180), columns * 0.96, toScreenRow(90)],
+            widthBase: 12.0,
+            widthTip: 4.5,
+            foliage: { x: columns * 0.96, y: toScreenRow(85), rx: 40, ry: 24, prime: "leaf", acc: "gold", seed: 139 },
+            lanterns: [
+              { x: columns * 0.96, y: toScreenRow(108), radius: 4.2 },
+              { x: columns * 0.88, y: toScreenRow(188), radius: 3.4 },
+            ],
+          },
+          // 3b. Eastern Mid-Limb (Right Flank)
+          {
+            curve: [columns * 0.82, toScreenRow(240), columns * 0.92, toScreenRow(280), columns * 1.02, toScreenRow(260), columns * 1.06, toScreenRow(220)],
+            widthBase: 7.5,
+            widthTip: 3.2,
+            foliage: { x: columns * 1.04, y: toScreenRow(215), rx: 34, ry: 20, prime: "violet", acc: "sky", seed: 149 },
+            lanterns: [{ x: columns * 1.04, y: toScreenRow(238), radius: 3.6 }],
+          },
+          // 4. Lower Bower Limb (Curves down-left to cradle the hero text)
+          {
+            curve: [forkX - 4, forkScreenY + 10, columns * 0.45, toScreenRow(360), columns * 0.30, toScreenRow(340), columns * 0.18, toScreenRow(300)],
+            widthBase: 9.0,
+            widthTip: 3.5,
+            foliage: { x: columns * 0.18, y: toScreenRow(295), rx: 32, ry: 20, prime: "moss", acc: "gold", seed: 157 },
+            lanterns: [{ x: columns * 0.18, y: toScreenRow(318), radius: 3.8 }],
+          },
+        ];
+
+        heroBranches.forEach((hb) => {
+          if (compact && hb.foliage.x < columns * 0.2) return;
+          drawOrganicBranch(hb.curve, compact ? hb.widthBase * 0.7 : hb.widthBase, compact ? hb.widthTip * 0.7 : hb.widthTip, wind, 0.98);
+          drawCloudCanopy(
+            hb.foliage.x,
+            hb.foliage.y,
+            compact ? hb.foliage.rx * 0.7 : hb.foliage.rx,
+            compact ? hb.foliage.ry * 0.7 : hb.foliage.ry,
+            hb.foliage.prime,
+            hb.foliage.acc,
+            hb.foliage.seed,
+            wind,
             0.96,
           );
-          drawCloudCanopy(endX, rootEndY - 4, 20, 11, "moss", "gold", index * 19, wind, 0.88, 1);
+          hb.lanterns.forEach((l) => {
+            drawLantern(l.x, l.y, compact ? l.radius * 0.8 : l.radius, wind, 0.98, false, time);
+          });
+        });
+      }
+
+      // ─────────────────────────────────────────────────────────────────────────────
+      // 3. CONTINUOUS FULL-HEIGHT SECTION CANOPY & GUTTER ARBORETUM
+      // ─────────────────────────────────────────────────────────────────────────────
+      // For EVERY section across the document, frame both the left and right gutters
+      // with lush multi-tiered branching, cascading moss, and glowing lanterns!
+      sectionAnchors.forEach((section) => {
+        const topWorldY = section.top;
+        const midWorldY = section.top + section.height * 0.5;
+        const bottomWorldY = section.top + section.height * 0.95;
+
+        const screenY = toScreenRow(topWorldY + Math.min(90, section.height * 0.1));
+        const midScreenY = toScreenRow(midWorldY);
+        const bottomScreenY = toScreenRow(bottomWorldY);
+
+        if (bottomScreenY < -120 || screenY > rows + 120) return;
+
+        const trunkX = trunkXAt(topWorldY + 60);
+        const midTrunkX = trunkXAt(midWorldY);
+        const isLeft = section.side === "left";
+
+        const primeTone = CANOPY_TONES[section.index % CANOPY_TONES.length];
+        const accentTone = CANOPY_TONES[(section.index + 2) % CANOPY_TONES.length];
+        const tertiaryTone = CANOPY_TONES[(section.index + 4) % CANOPY_TONES.length];
+
+        // ── A. PRIMARY GUTTER BOUGH (Sweeps deep into the primary outer margin: 0.05-0.22 on left or 0.78-0.95 on right) ──
+        const primaryGutterX = isLeft
+          ? columns * (compact ? 0.12 : 0.14)
+          : columns * (compact ? 0.88 : 0.86);
+        const primaryGutterY = screenY - (compact ? 6.0 : 12.0 + (section.index % 3) * 4.0);
+        const primaryDipY = screenY + (section.index % 2 === 0 ? -6.0 : 6.0);
+
+        const primaryBranch: CurvePoints = [
+          trunkX,
+          screenY,
+          trunkX + (primaryGutterX - trunkX) * 0.35,
+          primaryDipY,
+          trunkX + (primaryGutterX - trunkX) * 0.72,
+          primaryGutterY + 4.0,
+          primaryGutterX,
+          primaryGutterY,
+        ];
+
+        drawOrganicBranch(primaryBranch, compact ? 7.0 : 11.0, compact ? 3.0 : 4.5, wind, 0.98);
+
+        // Sub-fork 1 on Primary Gutter Bough
+        const subTwig1End: [number, number] = [
+          primaryGutterX + (isLeft ? -columns * 0.08 : columns * 0.08),
+          primaryGutterY - 14,
+        ];
+        drawOrganicBranch(
+          [
+            trunkX + (primaryGutterX - trunkX) * 0.6,
+            primaryDipY * 0.5 + primaryGutterY * 0.5,
+            trunkX + (primaryGutterX - trunkX) * 0.8,
+            primaryGutterY - 4,
+            subTwig1End[0],
+            subTwig1End[1] + 4,
+            subTwig1End[0],
+            subTwig1End[1],
+          ],
+          compact ? 4.0 : 6.0,
+          compact ? 1.8 : 2.8,
+          wind,
+          0.96,
+        );
+
+        // Sub-fork 2 (Drooping lower twig)
+        const subTwig2End: [number, number] = [
+          primaryGutterX + (isLeft ? columns * 0.04 : -columns * 0.04),
+          primaryGutterY + 22,
+        ];
+        drawOrganicBranch(
+          [
+            primaryGutterX,
+            primaryGutterY,
+            primaryGutterX + (isLeft ? -4 : 4),
+            primaryGutterY + 10,
+            subTwig2End[0] + (isLeft ? 4 : -4),
+            subTwig2End[1] - 8,
+            subTwig2End[0],
+            subTwig2End[1],
+          ],
+          compact ? 3.0 : 4.5,
+          compact ? 1.4 : 2.0,
+          wind,
+          0.92,
+        );
+
+        // Lush Cloud Canopies in Primary Gutter
+        drawCloudCanopy(
+          primaryGutterX,
+          primaryGutterY - 3.0,
+          compact ? 28.0 : 48.0,
+          compact ? 16.0 : 28.0,
+          primeTone,
+          accentTone,
+          section.index * 41 + 17,
+          wind,
+          0.96,
+        );
+
+        drawCloudCanopy(
+          subTwig1End[0],
+          subTwig1End[1] - 2.0,
+          compact ? 22.0 : 36.0,
+          compact ? 12.0 : 20.0,
+          accentTone,
+          tertiaryTone,
+          section.index * 47 + 23,
+          wind,
+          0.94,
+        );
+
+        drawCloudCanopy(
+          subTwig2End[0],
+          subTwig2End[1] - 2.0,
+          compact ? 16.0 : 26.0,
+          compact ? 10.0 : 16.0,
+          "moss",
+          primeTone,
+          section.index * 53 + 29,
+          wind,
+          0.90,
+        );
+
+        // Hanging Amber Lanterns in Primary Gutter
+        drawLantern(primaryGutterX, primaryGutterY + 10.0, compact ? 3.2 : 4.2, wind, 0.98, false, time);
+        drawLantern(subTwig1End[0], subTwig1End[1] + 8.0, compact ? 2.6 : 3.6, wind, 0.96, false, time);
+        drawLantern(subTwig2End[0], subTwig2End[1] + 8.0, compact ? 2.2 : 3.0, wind, 0.94, false, time);
+
+        // ── B. COUNTER-BALANCING OPPOSITE GUTTER BOUGH (Ensures BOTH sides of the screen are framed with foliage!) ──
+        const oppositeGutterX = isLeft
+          ? columns * (compact ? 0.88 : 0.86)
+          : columns * (compact ? 0.12 : 0.14);
+        const oppositeGutterY = midScreenY - (compact ? 4.0 : 10.0 + (section.index % 2) * 6.0);
+
+        const counterBranch: CurvePoints = [
+          midTrunkX,
+          midScreenY - 8,
+          midTrunkX + (oppositeGutterX - midTrunkX) * 0.4,
+          midScreenY + (section.index % 2 === 0 ? 8.0 : -8.0),
+          midTrunkX + (oppositeGutterX - midTrunkX) * 0.75,
+          oppositeGutterY + 3.0,
+          oppositeGutterX,
+          oppositeGutterY,
+        ];
+
+        drawOrganicBranch(counterBranch, compact ? 6.0 : 9.5, compact ? 2.5 : 3.8, wind, 0.96);
+
+        // Counter Sub-twig
+        const counterSubTwigEnd: [number, number] = [
+          oppositeGutterX + (isLeft ? columns * 0.06 : -columns * 0.06),
+          oppositeGutterY - 12,
+        ];
+        drawOrganicBranch(
+          [
+            midTrunkX + (oppositeGutterX - midTrunkX) * 0.7,
+            oppositeGutterY + 2,
+            oppositeGutterX,
+            oppositeGutterY - 4,
+            counterSubTwigEnd[0],
+            counterSubTwigEnd[1] + 3,
+            counterSubTwigEnd[0],
+            counterSubTwigEnd[1],
+          ],
+          compact ? 3.5 : 5.0,
+          compact ? 1.6 : 2.4,
+          wind,
+          0.92,
+        );
+
+        // Foliage in Counter Gutter
+        drawCloudCanopy(
+          oppositeGutterX,
+          oppositeGutterY - 2.0,
+          compact ? 24.0 : 40.0,
+          compact ? 14.0 : 24.0,
+          accentTone,
+          primeTone,
+          section.index * 59 + 31,
+          wind,
+          0.94,
+        );
+
+        drawCloudCanopy(
+          counterSubTwigEnd[0],
+          counterSubTwigEnd[1] - 2.0,
+          compact ? 18.0 : 30.0,
+          compact ? 10.0 : 18.0,
+          primeTone,
+          tertiaryTone,
+          section.index * 61 + 37,
+          wind,
+          0.90,
+        );
+
+        // Hanging Lantern in Counter Gutter
+        drawLantern(oppositeGutterX, oppositeGutterY + 8.0, compact ? 2.8 : 3.8, wind, 0.96, false, time);
+        drawLantern(counterSubTwigEnd[0], counterSubTwigEnd[1] + 8.0, compact ? 2.2 : 3.0, wind, 0.94, false, time);
+
+        // ── C. SECTION TRUNK NODE RUNE (Glowing Spirit Core at Section Junction) ──
+        drawLantern(trunkX, screenY, compact ? 2.6 : 3.6, wind, 0.98, true, time);
+        drawLantern(midTrunkX, midScreenY, compact ? 2.2 : 3.0, wind, 0.94, true, time);
+      });
+
+      // ─────────────────────────────────────────────────────────────────────────────
+      // 4. ASYMMETRICAL BUTTRESS ROOTS & WATERFALL ABYSS (Footer / Contact)
+      // ─────────────────────────────────────────────────────────────────────────────
+      const rootStartWorldY = documentHeight - 950;
+      if (scrollTop + height > rootStartWorldY - 250) {
+        const rootX = trunkXAt(rootStartWorldY);
+        const rootY = toScreenRow(rootStartWorldY);
+        const rootEndY = toScreenRow(documentHeight + 120);
+
+        // Asymmetrical Natural Root Anchors Sprawling Outward across the entire base
+        const rootAnchors: Array<{ endFrac: number; width: number; tone: SceneTone }> = [
+          { endFrac: 0.02, width: 9.5, tone: "barkDeep" },
+          { endFrac: 0.14, width: 8.2, tone: "bark" },
+          { endFrac: 0.26, width: 10.5, tone: "barkDeep" },
+          { endFrac: 0.38, width: 8.0, tone: "moss" },
+          { endFrac: 0.50, width: 9.0, tone: "bark" },
+          { endFrac: 0.62, width: 10.8, tone: "barkDeep" },
+          { endFrac: 0.74, width: 8.8, tone: "bark" },
+          { endFrac: 0.86, width: 9.2, tone: "barkDeep" },
+          { endFrac: 0.98, width: 7.5, tone: "barkDeep" },
+        ];
+
+        rootAnchors.forEach((ra, rIndex) => {
+          const endX = columns * ra.endFrac;
+          const direction = endX < rootX ? -1 : 1;
+          const rootPoints: CurvePoints = [
+            rootX,
+            rootY,
+            rootX + direction * 32 * (0.8 + rIndex * 0.12),
+            rootY + (rootEndY - rootY) * 0.26,
+            endX - direction * columns * 0.06,
+            rootY + (rootEndY - rootY) * 0.66,
+            endX,
+            rootEndY,
+          ];
+          drawOrganicBranch(rootPoints, compact ? ra.width * 0.75 : ra.width, compact ? ra.width * 0.45 : ra.width * 0.55, wind, 0.98);
+          drawCloudCanopy(endX, rootEndY - 8, compact ? 22 : 34, compact ? 12 : 20, "moss", "gold", rIndex * 23, wind, 0.94);
+          drawLantern(endX, rootEndY + 8.0, compact ? 2.6 : 3.8, wind, 0.96, false, time);
+        });
+
+        // Subterranean Waterfall Spray & River Mist
+        const waterfalls = [
+          [0.18, rootStartWorldY + 100, 36],
+          [0.38, rootStartWorldY + 160, 42],
+          [0.50, rootStartWorldY + 200, 48],
+          [0.68, rootStartWorldY + 150, 40],
+          [0.84, rootStartWorldY + 110, 38],
+        ];
+        sceneContext.fillStyle = SCENE_TONES.waterfall.css;
+        waterfalls.forEach(([wfxScale, wfyWorld, spread]) => {
+          const wfx = columns * wfxScale;
+          const wfy = toScreenRow(wfyWorld);
+          for (let w = 0; w < 20; w += 1) {
+            const wx = wfx + (seeded(w * 17 + spread) - 0.5) * spread;
+            const wy = wfy + seeded(w * 23 + spread) * rows * 0.25;
+            const wr = 1.4 + seeded(w * 31 + spread) * 4.2;
+            sceneContext.globalAlpha = (0.10 + seeded(w * 43) * 0.22) * (isDark ? 1.0 : 0.85);
+            sceneContext.beginPath();
+            sceneContext.ellipse(wx, wy, wr * 2.0, wr * 0.9, 0, 0, Math.PI * 2);
+            sceneContext.fill();
+          }
         });
       }
     };
@@ -931,7 +1059,6 @@ const AsciiTreeCanvas: React.FC = () => {
           } else if (tone === "runeGlow") {
             character = alpha > 0.45 ? "*" : "~";
           } else if (tone === "leaf" || tone === "moss" || tone === "leafDeep") {
-            // Specimen-Specific leaf characters
             if (currentSpecimen === "sakura") {
               character = alpha > 0.72 ? "✿" : alpha > 0.45 ? "*" : alpha > 0.22 ? "+" : "~";
             } else if (currentSpecimen === "bio-cypress") {
@@ -970,7 +1097,6 @@ const AsciiTreeCanvas: React.FC = () => {
           } else if (tone === "ambient") {
             character = "·";
           } else {
-            // Bark, Crevice & structural wood texturing
             const horizontalGradient = alphaAt(x + 1, y) - alphaAt(x - 1, y);
             const verticalGradient = alphaAt(x, y + 1) - alphaAt(x, y - 1);
             if (tone === "barkCrevice") {
@@ -1017,13 +1143,8 @@ const AsciiTreeCanvas: React.FC = () => {
       const documentHeight = document.documentElement.scrollHeight;
       const motionTime = reducedMotion.matches ? 0 : time;
 
-      drawWorldTree(motionTime, scrollTop, documentHeight);
-      if (scrollTop < height * 1.4) {
-        sceneContext.save();
-        sceneContext.translate(0, -scrollTop / cellHeight);
-        drawHeroSpiritTree(motionTime, scrollTop);
-        sceneContext.restore();
-      }
+      // Draw the Organic Procedural Tree with Asymmetric Natural Branching
+      drawUnifiedWorldTree(motionTime, scrollTop, documentHeight);
 
       renderAscii();
 
