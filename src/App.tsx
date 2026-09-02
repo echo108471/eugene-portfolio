@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "@/components/header";
 import HeroSection from "@/components/hero-section";
-import AsciiTreeCanvas from "@/components/ascii-tree-canvas";
+import TreeEnvironment from "@/components/tree-environment";
 import MetricsSection from "@/components/metrics-section";
 import ExperienceSection from "@/components/experience-section";
 import Projects from "@/components/project-section";
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   return (
     <div className="site-shell ascii-site relative">
       <Header />
-      <AsciiTreeCanvas />
+      <TreeEnvironment />
 
       <main className="ascii-main relative z-10 pb-14">
         <section id="home" className="site-container scroll-mt-24">

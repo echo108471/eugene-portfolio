@@ -5,7 +5,7 @@ const HeroSection: React.FC = () => {
   return (
     <div className="ascii-hero">
       <div className="ascii-hero__copy">
-        {/* Top ASCII Mount Frame */}
+        {/* Top repository mount frame */}
         <div className="ascii-hero__badge-row">
           <div className="ascii-mount-bracket bg-[var(--paper-glass)] px-3 py-1.5 rounded-md border border-[var(--line-strong)] backdrop-blur-md shadow-sm">
             <span className="bracket font-mono text-[12px] text-[var(--growth)]" aria-hidden="true">┌──[</span>
@@ -79,7 +79,7 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      <div className="ascii-hero__shader-window" aria-hidden="true">
+      <div className="ascii-hero__topology-window" aria-hidden="true">
         <div className="ascii-hero__telemetry-hud ascii-box-frame">
           <div className="ascii-hero__telemetry-header">
             <span className="font-mono text-[var(--growth)]">╭─[ arboretum://topology ]</span>
@@ -87,7 +87,7 @@ const HeroSection: React.FC = () => {
           </div>
           <div className="ascii-hero__telemetry-row">
             <span className="key font-mono">│ render.mode</span>
-            <span className="val font-mono">high-density-matrix │</span>
+            <span className="val font-mono">pixel-shadow-css │</span>
           </div>
           <div className="ascii-hero__telemetry-row">
             <span className="key font-mono">│ tree.specimen</span>
@@ -95,11 +95,11 @@ const HeroSection: React.FC = () => {
           </div>
           <div className="ascii-hero__telemetry-row">
             <span className="key font-mono">│ atmosphere</span>
-            <span className="val font-mono">multi-plane-depth │</span>
+            <span className="val font-mono">living-twilight │</span>
           </div>
           <div className="ascii-hero__telemetry-row">
             <span className="key font-mono">│ branch.waypoints</span>
-            <span className="val font-mono">8 active clearings │</span>
+            <span className="val font-mono">9 content clearings │</span>
           </div>
           <div className="ascii-hero__telemetry-row pt-1 border-t border-[var(--line-faint)] text-[var(--growth-muted)]">
             <span className="font-mono text-[10px]">╰────────────────────────────</span>

@@ -49,7 +49,7 @@
   --amber-bloom: #d97706;
   --amber-wash: rgba(217, 119, 6, 0.1);
 
-  /* Tree Renderer Autumn/Sunlit Palette */
+  /* CSS Tree Scene Autumn/Sunlit Palette */
   --tree-moss: #2b7548;
   --tree-gold: #c98816;
   --tree-coral: #cf533c;
@@ -114,7 +114,7 @@
   --amber-bloom: #fbbf24;
   --amber-wash: rgba(251, 191, 36, 0.14);
 
-  /* Tree Renderer Moonlit Celestial Palette */
+  /* CSS Tree Scene Moonlit Celestial Palette */
   --tree-moss: #3dd68c;
   --tree-gold: #f5b74f;
   --tree-coral: #f07f69;
@@ -286,7 +286,7 @@ html.dark .theme-logo {
 }
 
 /* ==========================================================================
-   ASCII ARBORETUM — DESIGN SYSTEM & LAYOUT
+   CSS ARBORETUM — DESIGN SYSTEM & LAYOUT
    ========================================================================== */
 @layer components {
   .site-shell {
@@ -298,23 +298,441 @@ html.dark .theme-logo {
   .ascii-site {
     position: relative;
     isolation: isolate;
-    background:
-      radial-gradient(ellipse 70% 40% at 85% 8%, var(--tree-sky-glow), transparent 36rem),
-      radial-gradient(ellipse 60% 45% at 68% 20%, var(--tree-canopy-haze), transparent 42rem),
-      linear-gradient(90deg, color-mix(in srgb, var(--bark-wash) 40%, transparent) 1px, transparent 1px) 0 0 / 48px 48px,
-      linear-gradient(color-mix(in srgb, var(--growth-wash) 26%, transparent) 1px, transparent 1px) 0 0 / 48px 48px,
-      var(--paper);
+    background: var(--paper);
   }
 
-  .ascii-shader-canvas {
+  .tree-environment {
+    --tree-scroll-x: 20px;
+    --tree-scroll-y: 12px;
+    --far-scroll-x: 0px;
+    --near-scroll-x: 0px;
+    --motes-scroll-y: 0px;
+    --foreground-scroll-x: 0px;
+    --atmosphere-scroll-y: 0px;
     position: fixed;
     inset: 0;
     z-index: 0;
-    width: 100vw;
-    height: 100vh;
     pointer-events: none;
-    opacity: 0.98;
+    overflow: hidden;
+    background: var(--paper);
+  }
+
+  .tree-environment__sky,
+  .tree-environment__ground,
+  .tree-environment__horizon,
+  .tree-environment__glow,
+  .tree-environment__fog,
+  .tree-environment__motes,
+  .tree-environment__foreground,
+  .tree-environment__atmosphere {
+    position: absolute;
+  }
+
+  .tree-environment__sky {
+    inset: 0;
+    background:
+      radial-gradient(ellipse 56% 42% at 78% 16%, var(--tree-sky-glow), transparent 72%),
+      radial-gradient(ellipse 42% 54% at 66% 42%, var(--tree-canopy-haze), transparent 76%),
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--paper) 84%, var(--tree-sky) 16%) 0%,
+        var(--paper) 58%,
+        color-mix(in srgb, var(--paper) 90%, var(--growth) 10%) 100%
+      );
+  }
+
+  .tree-environment__horizon {
+    right: -4%;
+    bottom: 0;
+    left: 25%;
+    transform-origin: bottom;
+  }
+
+  .tree-environment__horizon--far {
+    height: 44%;
+    background: color-mix(in srgb, var(--growth-muted) 18%, var(--paper));
+    clip-path: polygon(0 74%, 8% 55%, 15% 66%, 24% 38%, 31% 62%, 42% 29%, 50% 58%, 60% 42%, 68% 67%, 78% 36%, 88% 56%, 100% 25%, 100% 100%, 0 100%);
+    filter: blur(1px);
+    opacity: 0.42;
+    transform: translate3d(var(--far-scroll-x), 0, 0);
+    will-change: transform;
+  }
+
+  .tree-environment__horizon--near {
+    height: 27%;
+    background: color-mix(in srgb, var(--bark-deep) 22%, var(--paper));
+    clip-path: polygon(0 72%, 7% 38%, 13% 65%, 20% 28%, 27% 61%, 35% 42%, 43% 69%, 53% 32%, 61% 58%, 70% 21%, 77% 62%, 85% 36%, 92% 66%, 100% 29%, 100% 100%, 0 100%);
+    opacity: 0.4;
+    transform: translate3d(var(--near-scroll-x), 0, 0);
+    will-change: transform;
+  }
+
+  .tree-environment__ground {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 30%;
+    background:
+      radial-gradient(ellipse 42% 54% at 72% 100%, var(--growth-wash), transparent 70%),
+      linear-gradient(180deg, transparent, color-mix(in srgb, var(--paper) 82%, var(--bark-deep) 18%));
+  }
+
+  .pixel-tree-stage {
+    position: absolute;
+    right: 2vw;
+    bottom: -1vh;
+    z-index: 4;
+    width: 132px;
+    height: 152px;
+    transform-origin: right bottom;
+    transform: translate3d(var(--tree-scroll-x), var(--tree-scroll-y), 0);
+    will-change: transform;
+  }
+
+  .pixel-tree {
+    position: absolute;
+    inset: 0;
+    width: 132px;
+    height: 152px;
+    transform: scale(6);
+    transform-origin: right bottom;
+    filter:
+      drop-shadow(-3px 4px 3px color-mix(in srgb, var(--tree-crevice) 42%, transparent))
+      drop-shadow(1px 0 1px color-mix(in srgb, var(--growth) 18%, transparent));
+    image-rendering: crisp-edges;
     image-rendering: pixelated;
+    opacity: 0.9;
+  }
+
+  .pixel-tree__part,
+  .pixel-tree__layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .pixel-tree__part {
+    width: 132px;
+    height: 152px;
+  }
+
+  .pixel-tree__layer {
+    width: 1px;
+    height: 1px;
+    background: transparent;
+  }
+
+  .pixel-tree__part--branches {
+    z-index: 1;
+    transform-origin: 65px 67px;
+    animation: pixel-branch-sway 8.5s steps(6, end) infinite;
+  }
+  .pixel-tree__part--canopy {
+    z-index: 2;
+    transform-origin: 62px 50px;
+    animation: pixel-canopy-breathe 6.8s steps(5, end) infinite;
+  }
+  .pixel-tree__part--trunk { z-index: 3; }
+  .pixel-tree__part--roots { z-index: 4; }
+  .pixel-tree__part--details { z-index: 5; }
+  .pixel-tree__part--lights {
+    z-index: 6;
+    filter: drop-shadow(0 0 1px var(--tree-lantern));
+    animation: pixel-light-pulse 3.4s steps(5, end) infinite;
+  }
+  .pixel-tree__part--vines {
+    z-index: 7;
+    transform-origin: 65px 18px;
+    animation: pixel-vine-sway 5.2s steps(7, end) infinite;
+  }
+
+  .pixel-tree__part--canopy .pixel-tree__layer--leafLight {
+    animation: pixel-leaf-shimmer 2.8s steps(4, end) -0.7s infinite;
+  }
+
+  .pixel-tree__part--canopy .pixel-tree__layer--gold,
+  .pixel-tree__part--canopy .pixel-tree__layer--coral {
+    animation: pixel-blossom-flicker 4.2s steps(5, end) -1.9s infinite;
+  }
+
+  html.dark .pixel-tree {
+    opacity: 1;
+    filter:
+      drop-shadow(-3px 5px 4px color-mix(in srgb, var(--tree-crevice) 76%, transparent))
+      drop-shadow(1px 0 2px color-mix(in srgb, var(--growth-bright) 25%, transparent));
+  }
+
+  .tree-environment__glow {
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    animation: scene-glow 7s ease-in-out infinite alternate;
+  }
+
+  .tree-environment__glow--crown {
+    top: -10%;
+    right: -4%;
+    width: min(72vw, 920px);
+    height: 62vh;
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--tree-sky) 22%, transparent), transparent 70%);
+  }
+
+  .tree-environment__glow--roots {
+    right: 3%;
+    bottom: -15%;
+    width: min(66vw, 760px);
+    height: 46vh;
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--tree-lantern) 16%, transparent), transparent 68%);
+    animation-delay: -3.5s;
+  }
+
+  .tree-environment__fog {
+    right: -18%;
+    width: 86%;
+    height: 20%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--paper) 58%, transparent), transparent 72%);
+    filter: blur(22px);
+    opacity: 0.5;
+    animation: fog-drift 18s ease-in-out infinite alternate;
+  }
+
+  .tree-environment__fog--one { top: 38%; }
+  .tree-environment__fog--two { top: 67%; animation-delay: -9s; animation-direction: alternate-reverse; }
+
+  .tree-environment__motes {
+    inset: 0;
+    z-index: 7;
+    transform: translate3d(0, var(--motes-scroll-y), 0);
+    will-change: transform;
+  }
+
+  .tree-environment__motes span {
+    position: absolute;
+    top: var(--mote-y);
+    left: var(--mote-x);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--tree-lantern-core);
+    box-shadow: 0 0 6px 2px var(--tree-lantern), 0 0 18px var(--tree-lantern);
+    opacity: 0.72;
+    animation: mote-float var(--mote-duration) steps(12, end) var(--mote-delay) infinite;
+  }
+
+  .tree-environment__foreground {
+    right: -2%;
+    bottom: -1%;
+    left: 42%;
+    z-index: 7;
+    height: 22%;
+    transform: translate3d(var(--foreground-scroll-x), 0, 0);
+    will-change: transform;
+  }
+
+  .tree-environment__stone {
+    position: absolute;
+    bottom: 0;
+    border-radius: 58% 42% 10% 8%;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--bark-light) 50%, var(--paper)), color-mix(in srgb, var(--bark-deep) 72%, var(--paper)) 72%);
+    box-shadow: inset -12px -8px 18px color-mix(in srgb, var(--bark-deep) 42%, transparent);
+  }
+
+  .tree-environment__stone::before {
+    position: absolute;
+    inset: 14% 22% auto 12%;
+    height: 3px;
+    transform: rotate(-12deg);
+    background: color-mix(in srgb, var(--growth) 46%, transparent);
+    box-shadow: 8px 9px 0 color-mix(in srgb, var(--growth-muted) 38%, transparent);
+    content: "";
+  }
+
+  .tree-environment__stone--one { right: 8%; width: 170px; height: 76px; transform: rotate(4deg); }
+  .tree-environment__stone--two { right: 31%; width: 108px; height: 48px; transform: rotate(-6deg); }
+  .tree-environment__stone--three { right: 51%; width: 74px; height: 34px; transform: rotate(8deg); }
+
+  .tree-environment__grass {
+    position: absolute;
+    bottom: 0;
+    width: 3px;
+    height: 72px;
+    transform-origin: bottom;
+    border-radius: 100% 0 0;
+    background: linear-gradient(180deg, var(--growth-bright), var(--growth-muted));
+    box-shadow:
+      11px 8px 0 -0.5px var(--growth),
+      24px -3px 0 -0.5px var(--growth-muted),
+      38px 14px 0 -0.5px var(--growth),
+      51px 1px 0 -0.5px var(--growth-muted),
+      66px 19px 0 -0.5px var(--growth);
+  }
+
+  .tree-environment__grass--one { right: 18%; transform: rotate(-9deg); }
+  .tree-environment__grass--two { right: 46%; height: 54px; transform: rotate(7deg); }
+  .tree-environment__grass--three { right: 67%; height: 44px; transform: rotate(-4deg); }
+
+  .tree-environment__atmosphere {
+    inset: -2%;
+    z-index: 8;
+    transform: translate3d(0, var(--atmosphere-scroll-y), 0);
+    will-change: transform;
+    background:
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--paper) 96%, transparent) 0%,
+        color-mix(in srgb, var(--paper) 82%, transparent) 29%,
+        color-mix(in srgb, var(--paper) 24%, transparent) 61%,
+        color-mix(in srgb, var(--paper) 8%, transparent) 100%
+      ),
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--paper) 18%, transparent) 0%,
+        transparent 42%,
+        color-mix(in srgb, var(--paper) 54%, transparent) 100%
+      );
+  }
+
+  html.dark .tree-environment__atmosphere {
+    background:
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--paper) 78%, transparent) 0%,
+        color-mix(in srgb, var(--paper) 52%, transparent) 30%,
+        color-mix(in srgb, var(--paper) 10%, transparent) 66%,
+        transparent 100%
+      ),
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--paper) 8%, transparent) 0%,
+        transparent 48%,
+        color-mix(in srgb, var(--paper) 42%, transparent) 100%
+      );
+  }
+
+  @media (max-width: 1100px) {
+    .pixel-tree {
+      transform: scale(5);
+    }
+  }
+
+  @media (max-width: 680px) {
+    .tree-environment__atmosphere {
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--paper) 36%, transparent), color-mix(in srgb, var(--paper) 72%, transparent)),
+        color-mix(in srgb, var(--paper) 18%, transparent);
+    }
+
+    .pixel-tree-stage {
+      right: -31vw;
+      bottom: -2vh;
+    }
+
+    .pixel-tree {
+      transform: scale(4);
+      opacity: 0.64;
+    }
+
+    html.dark .pixel-tree {
+      opacity: 0.84;
+    }
+
+    html.dark .tree-environment__atmosphere {
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--paper) 22%, transparent), color-mix(in srgb, var(--paper) 58%, transparent)),
+        color-mix(in srgb, var(--paper) 8%, transparent);
+    }
+
+    .tree-environment__horizon {
+      left: 0;
+    }
+
+    .tree-environment__motes span:nth-child(n + 6) {
+      display: none;
+    }
+
+    .tree-environment__foreground {
+      left: 18%;
+      opacity: 0.58;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tree-environment__glow,
+    .tree-environment__fog,
+    .tree-environment__motes span,
+    .tree-environment__horizon,
+    .tree-environment__motes,
+    .tree-environment__foreground,
+    .tree-environment__atmosphere {
+      animation: none !important;
+      transform: none;
+    }
+
+    .pixel-tree-stage,
+    .pixel-tree__part,
+    .pixel-tree__layer {
+      animation: none !important;
+    }
+  }
+
+  @keyframes pixel-canopy-breathe {
+    0%, 38%, 100% { transform: translate3d(0, 0, 0); }
+    52% { transform: translate3d(1px, -1px, 0); }
+    66% { transform: translate3d(2px, 0, 0); }
+    82% { transform: translate3d(1px, 1px, 0); }
+  }
+
+  @keyframes pixel-branch-sway {
+    0%, 44%, 100% { transform: translate3d(0, 0, 0); }
+    58% { transform: translate3d(1px, 0, 0); }
+    72% { transform: translate3d(2px, 1px, 0); }
+    86% { transform: translate3d(1px, 0, 0); }
+  }
+
+  @keyframes pixel-vine-sway {
+    0%, 100% { transform: translate3d(-2px, 0, 0); }
+    24% { transform: translate3d(0, 1px, 0); }
+    52% { transform: translate3d(2px, 0, 0); }
+    76% { transform: translate3d(1px, -1px, 0); }
+  }
+
+  @keyframes pixel-light-pulse {
+    0%, 100% { opacity: 0.42; filter: brightness(0.82); }
+    26% { opacity: 0.78; filter: brightness(1); }
+    48% { opacity: 1; filter: brightness(1.35); }
+    69% { opacity: 0.6; filter: brightness(0.94); }
+    84% { opacity: 0.92; filter: brightness(1.18); }
+  }
+
+  @keyframes pixel-leaf-shimmer {
+    0%, 100% { opacity: 0.48; transform: translateY(0); }
+    33% { opacity: 0.92; transform: translateY(-1px); }
+    68% { opacity: 0.66; transform: translateY(0); }
+  }
+
+  @keyframes pixel-blossom-flicker {
+    0%, 100% { opacity: 0.56; }
+    37% { opacity: 1; }
+    62% { opacity: 0.7; }
+    81% { opacity: 0.9; }
+  }
+
+  @keyframes scene-glow {
+    from { opacity: 0.42; transform: scale(0.96); }
+    to { opacity: 0.86; transform: scale(1.05); }
+  }
+
+  @keyframes fog-drift {
+    from { transform: translate3d(-4%, 0, 0) scaleX(0.96); }
+    to { transform: translate3d(5%, -8px, 0) scaleX(1.05); }
+  }
+
+  @keyframes mote-float {
+    0%, 100% { transform: translate3d(0, 12px, 0) scale(0.55); opacity: 0.12; }
+    24% { transform: translate3d(14px, -8px, 0) scale(1); opacity: 0.92; }
+    52% { transform: translate3d(-9px, -31px, 0) scale(0.72); opacity: 0.48; }
+    76% { transform: translate3d(18px, -48px, 0) scale(0.9); opacity: 0.76; }
   }
 
   .site-container {
@@ -460,7 +878,7 @@ html.dark .theme-logo {
     color: var(--bark-light);
   }
 
-  .ascii-hero__shader-window {
+  .ascii-hero__topology-window {
     position: relative;
     min-height: 520px;
     pointer-events: none;
@@ -1403,7 +1821,7 @@ html.dark .theme-logo {
     gap: 28px;
   }
 
-  .ascii-hero__shader-window {
+  .ascii-hero__topology-window {
     min-height: 440px;
   }
 }
@@ -1416,7 +1834,7 @@ html.dark .theme-logo {
     padding-block: 36px 28px;
   }
 
-  .ascii-hero__shader-window {
+  .ascii-hero__topology-window {
     min-height: 280px;
   }
 
