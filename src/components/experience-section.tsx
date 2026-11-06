@@ -200,7 +200,7 @@ const ExperienceSection = () => {
   return (
     <section className="page-section">
       <div>
-        <div className="section-head">
+        <div className="section-head" data-build-group data-build="head">
           <span className="section-num">02</span>
           <h2 className="section-title">Where I&apos;ve worked</h2>
           <span className="section-note">worktree · active history</span>
@@ -216,7 +216,7 @@ const ExperienceSection = () => {
                 <span className="tilde">~</span>
               </div>
               <div className="diff-body">
-                <div className="group/item surface-card interactive-surface p-5">
+                <div className="group/item surface-card interactive-surface p-5" data-build="block">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                     <ExperienceLogo experience={experience} />
 
@@ -247,14 +247,14 @@ const ExperienceSection = () => {
 
                       <ul className="mt-4 space-y-2.5 text-sm leading-6 text-[var(--ink-soft)]">
                         {experience.description.map((item) => (
-                          <li key={item} className="flex gap-3">
+                          <li key={item} className="flex gap-3" data-build="row">
                             <span className="mt-0.5 flex-none font-mono text-[var(--add)]">+</span>
                             <span>{item}</span>
                           </li>
                         ))}
                       </ul>
 
-                      <div className="mt-5 flex flex-wrap gap-2">
+                      <div className="mt-5 flex flex-wrap gap-2" data-build="chips">
                         {experience.techStack.map((tech) => (
                           <span
                             key={tech}
@@ -278,11 +278,12 @@ const ExperienceSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="block rounded-[14px] outline-none"
+              data-build-group
             >
               {content}
             </a>
           ) : (
-            <div key={experience.company}>
+            <div key={experience.company} data-build-group>
               {content}
             </div>
           );

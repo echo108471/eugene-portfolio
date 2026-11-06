@@ -58,7 +58,7 @@ const SkillsSection: React.FC = () => {
   return (
     <section className="page-section">
       <div>
-        <div className="section-head">
+        <div className="section-head" data-build-group data-build="head">
           <span className="section-num">05</span>
           <h2 className="section-title">Tools and systems</h2>
           <span className="section-note">skills.lock</span>
@@ -71,19 +71,19 @@ const SkillsSection: React.FC = () => {
           <span className="plus">+</span>
         </div>
         <div className="diff-body">
-          <div className="surface-card overflow-hidden">
+          <div className="surface-card overflow-hidden" data-build-group data-build="block">
             {skillGroups.map((group) => (
               <div
                 key={group.label}
                 className="grid gap-3 border-t border-[var(--line)] px-5 py-4 first:border-t-0 sm:grid-cols-[180px_minmax(0,1fr)]"
               >
-                <div>
+                <div data-build="row">
                   <p className="meta-text mb-1">package</p>
                   <h3 className="font-display text-base font-medium text-[var(--ink)]">
                     {group.label}
                   </h3>
                 </div>
-                <div className="flex min-w-0 flex-wrap gap-2">
+                <div className="flex min-w-0 flex-wrap gap-2" data-build="chips">
                   {group.skills.map((skill) => (
                     <span
                       key={skill}

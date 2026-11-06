@@ -33,6 +33,33 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   className = "",
 }) => {
   const cardClasses = `group stage-card flex flex-col ${className}`;
+  // Each card assembles on its own; the featured one is then staged by the swarm.
+  const buildProps = {
+    "data-build-group": "",
+    "data-build": "block",
+    "data-stage": featured ? "" : undefined,
+  };
+
+  const specimenRows = specimen?.rows.map((row) => (
+    <div
+      key={row.text}
+      className={`diff-row ${row.sign === "+" ? "add" : row.sign === "-" ? "rem" : ""}`}
+      data-build="row"
+    >
+      <span className="sign">{row.sign}</span>
+      <span className="content">{row.text}</span>
+    </div>
+  ));
+
+  const tags = (
+    <>
+      {techStack.map((tech) => (
+        <span key={tech} className="tag-pill">
+          {tech}
+        </span>
+      ))}
+    </>
+  );
 
   const content = (
     <>
@@ -54,16 +81,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         {featured ? (
           <div className="mt-4 grid gap-5 md:grid-cols-[minmax(0,0.9fr)_minmax(320px,1.1fr)] md:items-start">
             <div className="flex h-full flex-col">
-              <p className="body-copy text-sm">
+              <p className="body-copy text-sm" data-build="row">
                 {description}
               </p>
 
-              <div className="mt-5 flex flex-wrap gap-2 border-t border-[var(--line)] pt-5 md:mt-auto">
-                {techStack.map((tech) => (
-                  <span key={tech} className="tag-pill">
-                    {tech}
-                  </span>
-                ))}
+              <div
+                className="mt-5 flex flex-wrap gap-2 border-t border-[var(--line)] pt-5 md:mt-auto"
+                data-build="chips"
+              >
+                {tags}
               </div>
             </div>
 
@@ -73,15 +99,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   <span>@@ {specimen.file} @@</span>
                   {specimen.range && <span className="spec-range">{specimen.range}</span>}
                 </div>
-                {specimen.rows.map((row) => (
-                  <div
-                    key={row.text}
-                    className={`diff-row ${row.sign === "+" ? "add" : row.sign === "-" ? "rem" : ""}`}
-                  >
-                    <span className="sign">{row.sign}</span>
-                    <span className="content">{row.text}</span>
-                  </div>
-                ))}
+                {specimenRows}
               </div>
             )}
           </div>
@@ -93,28 +111,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   <span>@@ {specimen.file} @@</span>
                   {specimen.range && <span className="spec-range">{specimen.range}</span>}
                 </div>
-                {specimen.rows.map((row) => (
-                  <div
-                    key={row.text}
-                    className={`diff-row ${row.sign === "+" ? "add" : row.sign === "-" ? "rem" : ""}`}
-                  >
-                    <span className="sign">{row.sign}</span>
-                    <span className="content">{row.text}</span>
-                  </div>
-                ))}
+                {specimenRows}
               </div>
             )}
 
-            <p className="body-copy mt-3 text-sm">
+            <p className="body-copy mt-3 text-sm" data-build="row">
               {description}
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-2 border-t border-[var(--line)] pt-5">
-              {techStack.map((tech) => (
-                <span key={tech} className="tag-pill">
-                  {tech}
-                </span>
-              ))}
+            <div className="mt-5 flex flex-wrap gap-2 border-t border-[var(--line)] pt-5" data-build="chips">
+              {tags}
             </div>
           </>
         )}
@@ -123,7 +129,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   );
 
   if (!link) {
-    return <div className={cardClasses}>{content}</div>;
+    return (
+      <div className={cardClasses} {...buildProps}>
+        {content}
+      </div>
+    );
   }
 
   return (
@@ -133,6 +143,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       rel="noopener noreferrer"
       className={cardClasses}
       aria-label={`Open ${name}`}
+      {...buildProps}
     >
       {content}
     </a>

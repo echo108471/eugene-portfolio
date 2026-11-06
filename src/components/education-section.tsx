@@ -69,7 +69,7 @@ const EducationSection = () => {
   return (
     <section className="page-section">
       <div>
-        <div className="section-head">
+        <div className="section-head" data-build-group data-build="head">
           <span className="section-num">06</span>
           <h2 className="section-title">Education & background</h2>
           <span className="section-note">history.md</span>
@@ -87,6 +87,8 @@ const EducationSection = () => {
                 <div
                   key={edu.institution}
                   className="surface-card group p-5"
+                  data-build-group
+                  data-build="block"
                 >
                   <div className="flex gap-4">
                     <EducationLogo edu={edu} />
@@ -99,7 +101,7 @@ const EducationSection = () => {
                         {edu.degree}
                       </p>
 
-                      <div className="mt-3 flex flex-wrap gap-2">
+                      <div className="mt-3 flex flex-wrap gap-2" data-build="chips">
                         <span className="tag-pill">@ {edu.location}</span>
                         <span className="tag-pill">{edu.date}</span>
                       </div>
@@ -111,6 +113,7 @@ const EducationSection = () => {
                       <p
                         key={item}
                         className="body-copy flex gap-3 text-sm"
+                        data-build="row"
                       >
                         <span className="flex-none font-mono text-[var(--add)]">+</span>
                         <span>{item}</span>

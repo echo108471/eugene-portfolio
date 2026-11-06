@@ -55,7 +55,7 @@ const ContactMe: React.FC = () => {
   return (
     <section className="page-section pb-16">
       <div>
-        <div className="section-head">
+        <div className="section-head" data-build-group data-build="head">
           <span className="section-num">08</span>
           <h2 className="section-title">Contact</h2>
           <span className="section-note">git log --oneline</span>
@@ -69,19 +69,19 @@ const ContactMe: React.FC = () => {
           </div>
           <div className="diff-body">
             <div className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(320px,0.75fr)]">
-              <div>
-                <p className="eyebrow">
+              <div data-build-group>
+                <p className="eyebrow" data-build="row">
                   // open channels
                 </p>
-                <h3 className="mt-3 font-display text-2xl font-medium text-[var(--ink)] sm:text-3xl">
+                <h3 className="mt-3 font-display text-2xl font-medium text-[var(--ink)] sm:text-3xl" data-build="row">
                   Get in touch.
                 </h3>
-                <p className="body-copy mt-4 max-w-2xl text-sm">
+                <p className="body-copy mt-4 max-w-2xl text-sm" data-build="row">
                   Email is the best way to reach me. My GitHub, LinkedIn, and resume are here too.
                 </p>
               </div>
 
-              <div className="grid gap-3">
+              <div className="grid gap-3" data-build-group>
                 {(() => {
                   const Icon = primaryMethod.icon;
 
@@ -89,6 +89,7 @@ const ContactMe: React.FC = () => {
                     <a
                       href={primaryMethod.href}
                       {...externalProps(primaryMethod.href)}
+                      data-build="block"
                       className="group flex items-center justify-between gap-3 rounded-lg border border-[var(--line)] bg-[var(--paper-raised)] p-4 text-sm text-[var(--ink-soft)] transition-colors duration-200 hover:border-[var(--accent-edge)] hover:bg-[var(--accent-wash)] hover:text-[var(--ink)]"
                     >
                       <span className="flex min-w-0 items-center gap-3">
@@ -105,7 +106,7 @@ const ContactMe: React.FC = () => {
                   );
                 })()}
 
-                <div className="grid gap-3 sm:grid-cols-2">
+                <div className="grid gap-3 sm:grid-cols-2" data-build="chips">
                   {contactMethods.map((method) => {
                     const Icon = method.icon;
 
@@ -134,7 +135,7 @@ const ContactMe: React.FC = () => {
             </div>
 
             {recentCommits.length > 0 && (
-              <div className="commit-log mt-6">
+              <div className="commit-log mt-6" data-build-group data-build="row">
                 {recentCommits.map((commit) => (
                   <React.Fragment key={commit.hash}>
                     {commit.url ? (

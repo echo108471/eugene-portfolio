@@ -120,7 +120,20 @@ select {
 
   .branch-graph__packet,
   .hero-swarm,
+  .page-swarm,
   .hero-replay {
+    display: none !important;
+  }
+}
+
+@media print {
+  .swarm-build [data-build] {
+    opacity: 1 !important;
+    clip-path: none !important;
+  }
+
+  .hero-swarm,
+  .page-swarm {
     display: none !important;
   }
 }
@@ -138,6 +151,7 @@ html.dark .theme-logo {
 
 @layer components {
   .site-shell {
+    position: relative;
     min-height: 100vh;
     color: var(--ink);
     background: var(--paper);
@@ -585,12 +599,22 @@ html.dark .theme-logo {
     transition-delay: 0.08s;
   }
 
-  /* swarm — decorative cursors that assemble the hero (hero-swarm.tsx) */
-  .hero-swarm {
+  /* swarm — decorative cursors that assemble the page (hero-swarm.tsx, swarm-engine.ts) */
+  .hero-swarm,
+  .page-swarm {
     position: absolute;
     inset: 0;
-    z-index: 5;
     pointer-events: none;
+  }
+
+  .hero-swarm {
+    z-index: 5;
+  }
+
+  /* Sits under the sticky header (z-50) and clips cursors to the page. */
+  .page-swarm {
+    z-index: 40;
+    overflow: hidden;
   }
 
   .swarm-cursor,
@@ -622,6 +646,14 @@ html.dark .theme-logo {
     color: var(--tone);
     transform-origin: 0 0;
     will-change: transform, translate, opacity;
+  }
+
+  .page-swarm .swarm-cursor {
+    transition: opacity 0.2s ease;
+  }
+
+  .page-swarm .swarm-cursor.is-visible {
+    opacity: 1;
   }
 
   .swarm-cursor svg {
@@ -691,6 +723,30 @@ html.dark .theme-logo {
     width: 1px;
     transform-origin: top;
     background: repeating-linear-gradient(to bottom, var(--tone-edge) 0 4px, transparent 4px 8px);
+  }
+
+  /* page assembly: content waits for the swarm, then each reveal animates in */
+  .swarm-build [data-build]:not([data-built]) {
+    opacity: 0;
+  }
+
+  .swarm-build [data-strike],
+  .swarm-build [data-strike] .sign,
+  .swarm-build [data-strike] .content {
+    transition: background-color 0.3s ease, color 0.3s ease, text-decoration-color 0.3s ease 0.1s;
+  }
+
+  .swarm-build [data-strike]:not([data-struck]) {
+    background-color: transparent;
+  }
+
+  .swarm-build [data-strike]:not([data-struck]) .sign {
+    color: var(--ink-faint);
+  }
+
+  .swarm-build [data-strike]:not([data-struck]) .content {
+    color: var(--ink-soft);
+    text-decoration-color: transparent;
   }
 
   .hero-replay {
@@ -764,13 +820,15 @@ html.dark .theme-logo {
     transition: background 0.22s ease;
   }
 
-  .stage-card:hover {
+  .stage-card:hover,
+  .stage-card.is-staged {
     border-color: var(--add-edge);
     background: linear-gradient(var(--add-wash), var(--add-wash)), var(--paper-raised);
     box-shadow: var(--shadow);
   }
 
-  .stage-card:hover::before {
+  .stage-card:hover::before,
+  .stage-card.is-staged::before {
     background: var(--add);
   }
 
@@ -801,7 +859,8 @@ html.dark .theme-logo {
     content: "staged";
   }
 
-  .stage-card:hover .stage-mark {
+  .stage-card:hover .stage-mark,
+  .stage-card.is-staged .stage-mark {
     opacity: 1;
   }
 
@@ -1067,7 +1126,8 @@ html.dark .theme-logo {
     transition: border-color 0.22s ease;
   }
 
-  .stage-card:hover .spec-panel {
+  .stage-card:hover .spec-panel,
+  .stage-card.is-staged .spec-panel {
     border-color: var(--add-edge);
   }
 

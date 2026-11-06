@@ -13,6 +13,7 @@ const AwardCard: React.FC<AwardCardProps> = ({ name, organization, date, link })
       href={link}
       target="_blank"
       rel="noopener noreferrer"
+      data-build="row"
       className="group grid gap-3 border-t border-[var(--line)] px-4 py-4 transition-colors duration-200 first:border-t-0 hover:bg-[var(--accent-wash)] sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
     >
       <div className="flex min-w-0 items-start gap-3">
@@ -61,7 +62,7 @@ const Awards: React.FC = () => {
   return (
     <section className="page-section">
       <div>
-        <div className="section-head">
+        <div className="section-head" data-build-group data-build="head">
           <span className="section-num">07</span>
           <h2 className="section-title">Awards & honors</h2>
           <span className="section-note">recognition</span>
@@ -74,7 +75,7 @@ const Awards: React.FC = () => {
           <span className="tilde">~</span>
         </div>
         <div className="diff-body">
-          <div className="surface-card overflow-hidden">
+          <div className="surface-card overflow-hidden" data-build-group data-build="block">
             {awards.map((award) => (
               <AwardCard
                 key={award.name}

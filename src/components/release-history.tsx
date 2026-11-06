@@ -60,7 +60,7 @@ const ReleaseHistory: React.FC = () => {
   return (
     <section className="page-section">
       <div>
-        <div className="section-head">
+        <div className="section-head" data-build-group data-build="head">
           <span className="section-num">03</span>
           <h2 className="section-title">Release history</h2>
           <span className="section-note">git log --me</span>
@@ -72,17 +72,24 @@ const ReleaseHistory: React.FC = () => {
           <span className="tilde">~</span>
         </div>
         <div className="diff-body">
-          <p className="meta-text mb-6">every version of me, diffed against the last</p>
+          <p className="meta-text mb-6" data-build-group data-build="row">
+            every version of me, diffed against the last
+          </p>
           <div className="changelog">
             {releases.map((release) => (
-              <div key={release.version} className="release">
-                <div className="release-head">
+              <div key={release.version} className="release" data-build-group>
+                <div className="release-head" data-build="row">
                   <span className="ver">{release.version}</span>
                   <span className="when">{release.when}</span>
                   <span className="rule" />
                 </div>
                 {release.changes.map((change) => (
-                  <div key={change.text} className={`change ${change.type}`}>
+                  <div
+                    key={change.text}
+                    className={`change ${change.type}`}
+                    data-build="row"
+                    data-strike={change.type === "rem" ? "" : undefined}
+                  >
                     <span className="sign">{change.type === "add" ? "+" : "-"}</span>
                     <span className="content">{change.text}</span>
                   </div>

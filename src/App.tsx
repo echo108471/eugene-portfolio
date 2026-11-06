@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "@/components/header";
 import HeroSection from "@/components/hero-section";
 import ExperienceSection from "@/components/experience-section";
@@ -9,12 +9,17 @@ import EducationSection from "@/components/education-section";
 import AwardsSection from "@/components/award-section";
 import SkillsSection from "@/components/skills-section";
 import ReleaseHistory from "@/components/release-history";
+import PageSwarm from "@/components/page-swarm";
+import { introEnabled } from "@/hero-intro";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const App: React.FC = () => {
+  // Decided once: first visit of the session assembles the page; later ones land finished.
+  const [assemble] = useState(introEnabled);
+
   return (
-    <div className="site-shell">
+    <div className={assemble ? "site-shell swarm-build" : "site-shell"}>
       <Header />
 
       <main className="site-container pb-14">
@@ -55,6 +60,7 @@ const App: React.FC = () => {
         </section>
       </main>
 
+      {assemble && <PageSwarm />}
       <Analytics />
       <SpeedInsights />
     </div>

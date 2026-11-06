@@ -79,7 +79,7 @@ const Projects: React.FC = () => {
   return (
     <section className="page-section">
       <div>
-        <div className="section-head">
+        <div className="section-head" data-build-group data-build="head">
           <span className="section-num">04</span>
           <h2 className="section-title">Selected projects</h2>
           <span className="section-note">hover to stage</span>
