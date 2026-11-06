@@ -79,6 +79,7 @@ const BranchGraph: React.FC = () => {
           branch.id === activeBranch.id ? "is-active" : ""
         }`}
         style={{ "--branch-position": branchPositions[branch.id][layout] } as React.CSSProperties}
+        data-branch={branch.id}
         aria-pressed={branch.id === activeBranch.id}
         aria-describedby="branch-graph-detail"
         onClick={() => selectBranch(index)}
