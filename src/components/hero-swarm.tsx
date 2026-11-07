@@ -263,7 +263,7 @@ const HeroSwarm: React.FC<HeroSwarmProps> = ({ rootRef, onStage }) => {
       {SWARM_CURSORS.map((cursor) => (
         <SwarmCursor
           key={cursor.id}
-          id={cursor.id}
+          label={cursor.id}
           tone={cursor.tone}
           ref={(el) => {
             cursorEls.current[cursor.id] = el;

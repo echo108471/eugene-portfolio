@@ -3,12 +3,34 @@
 export type CursorId = "product" | "platform" | "ai";
 export type Tone = "del" | "add" | "accent";
 
-// Each cursor is one career.graph branch. Its colour is its identity across the page.
+// Each lead cursor is one career.graph branch. Its colour is its identity across the page.
 export const SWARM_CURSORS: { id: CursorId; tone: Tone }[] = [
   { id: "product", tone: "del" },
   { id: "platform", tone: "add" },
   { id: "ai", tone: "accent" },
 ];
+
+export interface CrewCursor {
+  label: string;
+  branch: CursorId;
+}
+
+// The page swarm forks each lead into a small crew of sub-branches, so sections
+// assemble in parallel. A cursor's branch decides its job and its colour:
+// platform (green) writes lines, ai (blue) arranges blocks, chips, and tags,
+// product (red) strikes removals and stages the featured card.
+export const PAGE_CURSORS: CrewCursor[] = [
+  { label: "platform", branch: "platform" },
+  { label: "platform/api", branch: "platform" },
+  { label: "platform/infra", branch: "platform" },
+  { label: "ai", branch: "ai" },
+  { label: "ai/agents", branch: "ai" },
+  { label: "ai/llm", branch: "ai" },
+  { label: "product", branch: "product" },
+  { label: "product/review", branch: "product" },
+];
+
+export const BRANCH_TONE: Record<CursorId, Tone> = { platform: "add", ai: "accent", product: "del" };
 
 // Cursors only appear with a real pointer and room for them; everything else
 // assembles on the same beats without cursors.

@@ -22,8 +22,9 @@ const AboutMe: React.FC = () => {
             <div className="diff-gutter">
               <span className="tilde">~</span>
             </div>
-            <div className="diff-body">
-              <div className="diffbox" data-build-group data-build="block">
+            {/* One group, so the link waits for the bio rows above it. */}
+            <div className="diff-body" data-build-group>
+              <div className="diffbox" data-build="block">
                 <div className="diff-head">
                   <span>bio.md</span>
                   <span>@@ -1,1 +1,3 @@</span>
@@ -49,7 +50,6 @@ const AboutMe: React.FC = () => {
               <a
                 href="mailto:eugene.a.cho@gmail.com"
                 className="link-arrow mt-6"
-                data-build-group
                 data-build="row"
               >
                 eugene.a.cho@gmail.com

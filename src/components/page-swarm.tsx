@@ -2,15 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import SwarmCursor from "@/components/swarm-cursor";
 import { onHeroDone } from "@/hero-intro";
 import { SwarmEngine } from "@/swarm-engine";
-import { CURSOR_QUERY, SWARM_CURSORS, type CursorId } from "@/swarm-motion";
+import { BRANCH_TONE, CURSOR_QUERY, PAGE_CURSORS } from "@/swarm-motion";
 
 // Safety net: if the hero never reports in, the page still assembles.
 const HERO_FALLBACK_MS = 6000;
 
-/** Page-wide overlay whose cursors assemble each section as it scrolls into view. */
+/** Page-wide overlay whose cursor crews assemble each section as it scrolls into view. */
 const PageSwarm: React.FC = () => {
   const overlayRef = useRef<HTMLDivElement>(null);
-  const cursorEls = useRef<Partial<Record<CursorId, HTMLDivElement | null>>>({});
+  const cursorEls = useRef<(HTMLDivElement | null)[]>([]);
   const [showCursors] = useState(() => window.matchMedia(CURSOR_QUERY).matches);
 
   useEffect(() => {
@@ -18,7 +18,13 @@ const PageSwarm: React.FC = () => {
     const shell = overlay?.parentElement;
     if (!overlay || !shell) return;
 
-    const engine = new SwarmEngine(shell, overlay, showCursors ? cursorEls.current : null);
+    const crew = showCursors
+      ? PAGE_CURSORS.flatMap((cursor, index) => {
+          const el = cursorEls.current[index];
+          return el ? [{ ...cursor, el }] : [];
+        })
+      : [];
+    const engine = new SwarmEngine(shell, overlay, crew);
     const offHeroDone = onHeroDone(() => engine.start());
     const fallback = window.setTimeout(() => engine.start(), HERO_FALLBACK_MS);
 
@@ -32,13 +38,13 @@ const PageSwarm: React.FC = () => {
   return (
     <div ref={overlayRef} className="page-swarm" aria-hidden="true">
       {showCursors &&
-        SWARM_CURSORS.map((cursor) => (
+        PAGE_CURSORS.map((cursor, index) => (
           <SwarmCursor
-            key={cursor.id}
-            id={cursor.id}
-            tone={cursor.tone}
+            key={cursor.label}
+            label={cursor.label}
+            tone={BRANCH_TONE[cursor.branch]}
             ref={(el) => {
-              cursorEls.current[cursor.id] = el;
+              cursorEls.current[index] = el;
             }}
           />
         ))}

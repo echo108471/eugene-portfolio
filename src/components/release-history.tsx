@@ -78,7 +78,7 @@ const ReleaseHistory: React.FC = () => {
           <div className="changelog">
             {releases.map((release) => (
               <div key={release.version} className="release" data-build-group>
-                <div className="release-head" data-build="row">
+                <div className="release-head" data-build="tag">
                   <span className="ver">{release.version}</span>
                   <span className="when">{release.when}</span>
                   <span className="rule" />

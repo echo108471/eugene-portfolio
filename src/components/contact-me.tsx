@@ -106,7 +106,7 @@ const ContactMe: React.FC = () => {
                   );
                 })()}
 
-                <div className="grid gap-3 sm:grid-cols-2" data-build="chips">
+                <div className="grid gap-3 sm:grid-cols-2">
                   {contactMethods.map((method) => {
                     const Icon = method.icon;
 
@@ -115,6 +115,7 @@ const ContactMe: React.FC = () => {
                         key={method.label}
                         href={method.href}
                         {...externalProps(method.href)}
+                        data-build="block"
                         className="group flex items-center justify-between gap-3 rounded-lg border border-[var(--line)] bg-[var(--paper-raised)] p-4 text-sm text-[var(--ink-soft)] transition-colors duration-200 hover:border-[var(--accent-edge)] hover:bg-[var(--accent-wash)] hover:text-[var(--ink)]"
                       >
                         <span className="flex min-w-0 items-center gap-3">
@@ -135,9 +136,9 @@ const ContactMe: React.FC = () => {
             </div>
 
             {recentCommits.length > 0 && (
-              <div className="commit-log mt-6" data-build-group data-build="row">
+              <div className="commit-log mt-6" data-build-group>
                 {recentCommits.map((commit) => (
-                  <React.Fragment key={commit.hash}>
+                  <span key={commit.hash} className="block" data-build="row">
                     {commit.url ? (
                       <a
                         href={commit.url}
@@ -151,8 +152,7 @@ const ContactMe: React.FC = () => {
                       <span className="hash">{commit.hash}</span>
                     )}{" "}
                     <b>{commit.author.split(" ")[0]}</b> - {commit.subject}
-                    <br />
-                  </React.Fragment>
+                  </span>
                 ))}
               </div>
             )}
